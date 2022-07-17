@@ -1,0 +1,46 @@
+.LT-para-holder {
+  min-width: 400px;
+  max-width: 700px;
+  text-align: justify;
+  @media screen and (max-width: 789px) {
+    min-width: unset;
+    font-size: 16px;
+    font-family: "Cairo-Regular";
+  }
+}
+.LT-about-title {
+  font-size: 48px;
+  font-family: "Cairo-Bold";
+  @media screen and (max-width: 370px) {
+    font-size: 48px;
+  }
+}
+
+.LT-amenties-text {
+  font-size: 16px;
+  font-family: "Cairo-Bold";
+  @media screen and (max-width: 541px) {
+    font-size: 16px;
+  }
+}
+.LT-amenties-icon-size {
+  width: 24px;
+  height: 24px;
+  @media screen and (max-width: 541px) {
+    width: 20px;
+    height: 20px;
+  }
+}
+.LT-card-grid-holder-slider{
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  grid-template-columns: repeat(4,auto);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.LT-image-holder {
+  @media screen and (min-width: 768px) {
+    border-radius: 0px 0px 120px 0px;
+  }
+}

@@ -1,0 +1,60 @@
+.LT-navbar-sm-holder {
+  @media screen and (max-width: "400px") {
+    display: grid !important;
+    justify-content: center;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 16px;
+    .LT-logo-sm {
+      @media screen and (max-width: "400px") {
+        grid-column: 1/3 !important;
+        grid-row: 1/2 !important;
+        margin: 0 auto !important;
+      }
+    }
+    .LT-nav-indicator {
+      @media screen and (max-width: "400px") {
+        grid-column: 1/2 !important;
+        grid-row: 2/3 !important;
+      }
+    }
+    .LT-nav-login-button {
+      @media screen and (max-width: "400px") {
+        grid-column: 2/3 !important;
+        grid-row: 2/3 !important;
+      }
+    }
+  }
+}
+.LT-nav-container {
+  @media screen and (min-width: "992px") {
+    padding: 16px 0px 0px 0px !important;
+  }
+  @media screen and (max-width: "991px") {
+    padding: 16px !important;
+  }
+}
+
+.LT-avatar-wire-frame {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.01) 0%,
+    rgba(0, 0, 0, 0.11) 20%,
+    rgba(0, 0, 0, 0.01) 40%,
+    rgba(0, 0, 0, 0.01) 100%
+  );
+  background-size: 800px 204px;
+  animation: loading 1s linear infinite forwards;
+  @keyframes loading {
+    0% {
+      background-position: -468px 0;
+    }
+
+    100% {
+      background-position: 468px 0;
+    }
+  }
+}

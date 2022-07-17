@@ -1,0 +1,45 @@
+// Custom Radio Input Show And Hide Logic [Input]
+#fLancerRegister {
+  height: 0px;
+  opacity: 0;
+  transition: opacity 2s;
+  transition: all 0.5s ease-in-out;
+}
+#fLancerRegister.show {
+  height: 200px;
+  opacity: 1;
+}
+#fLancerRegister.companyShow {
+  height: 320px;
+  opacity: 1;
+}
+
+#acceptTerms:checked ~ .termsText {
+  color: #1eaaad;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.LT-register-button{
+  width: 50%;
+  @media screen and (max-width: 768px) {
+    width: 75%;
+  }
+  @media screen and (max-width: 430px) {
+    width: 100%;
+  }
+}
+.LT-agree-condition{
+  font-size: 18px;
+  font-family: Cairo-Regular;
+  @media screen and (max-width: 355px) {
+    font-size: 16px;
+  }
+  @media screen and (max-width: 330px) {
+    font-size: 12px;
+  }
+}

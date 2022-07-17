@@ -1,0 +1,52 @@
+.LT-description-time-grid {
+  @media screen and (min-width: 448px) and (max-width: 1200px) {
+    font-size: 18px;
+  }
+  @media screen and (max-width: 447px) {
+    font-size: 14px;
+  }
+}
+.LT-time-save-grid-holder {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  .LT-video-grid {
+    grid-column: 1/2;
+    align-items: center;
+  }
+  .LT-time {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .LT-time-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px;
+      .LT-time-line {
+        width: 2px;
+        height: 133px;
+      }
+      @media screen and (max-width: 463px) {
+        display: flex;
+        flex-direction: column;
+        .LT-time-line {
+          width: 133px;
+          height: 2px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 991px) {
+    grid-template-columns: 1fr;
+    .LT-video-grid {
+      grid-column: 1/2;
+    }
+    .LT-time {
+      grid-column: 1/2;
+    }
+  }
+}

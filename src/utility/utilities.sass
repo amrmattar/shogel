@@ -1,0 +1,243 @@
+@import './vars'
+@import './colors'
+.uLT-click
+    cursor: pointer
+.uLT-brightness
+    &:hover
+        filter: brightness(0.9)
+// Background Size===START
+.uLT-img-contain
+    background-size: contain
+    background-repeat: no-repeat
+    background-position: center
+
+.uLT-img-position-contain
+    background-size: contain
+    background-repeat: no-repeat
+    background-position: right
+
+.uLT-img-cover
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center
+
+.uLT-img-parallax
+    background-attachment: fixed
+.uLT-img-inherit
+    background-color: inherit
+// Background Size === END
+
+// RADIUS === START [A => 5px]
+.uLT-f-radius
+    border-radius: $radiusSizeA
+.uLT-t-radius-sA
+    border-radius: $radiusSizeA $radiusSizeA 0 0
+.uLT-r-radius-sA
+    border-radius: 0 $radiusSizeA $radiusSizeA 0
+.uLT-l-radius-sA
+    border-radius: $radiusSizeA 0 0 $radiusSizeA
+.uLT-b-radius-sA
+    border-radius: 0 0 $radiusSizeA $radiusSizeA
+
+// RADIUS === START [B => 10px]
+.uLT-f-radius-sB
+    border-radius: $radiusSizeB !important
+.uLT-t-radius-sB
+    border-radius: $radiusSizeB $radiusSizeB 0 0
+.uLT-r-radius-sB
+    border-radius: 0 $radiusSizeB $radiusSizeB 0
+.uLT-l-radius-sB
+    border-radius: $radiusSizeB 0 0 $radiusSizeB !important
+.uLT-b-radius-sB
+    border-radius: 0 0 $radiusSizeB $radiusSizeB
+// RADIUS === END
+
+.uLT-bd-f-danger-sA // FUll Border ==> Danger
+    border: 1px solid $danger
+// Border Size === START
+// [A = 1px  ==> platinum]
+.uLT-bd-f-platinum-sA // FUll Border ==> platinum
+    border: 1px solid $platinum
+.uLT-bd-t-platinum-sA // Right Border ==> platinum
+    border-top: 1px solid $platinum
+.uLT-bd-r-platinum-sA // Right Border ==> platinum
+    border-right: 1px solid $platinum
+.uLT-bd-b-platinum-sA // Bottom Border ==> platinum
+    border-bottom: 1px solid $platinum
+.uLT-bd-l-platinum-sA // Left Border ==> platinum
+    border-left: 1px solid $platinum
+
+// [A = 1px  ==> Secondary]
+.uLT-bd-f-secondary-sA // FUll Border ==> secondary
+    border: 1px solid $secondary
+.uLT-bd-r-secondary-sA // Right Border ==> secondary
+    border-right: 1px solid $secondary
+.uLT-bd-b-secondary-sA // Bottom Border ==> secondary
+    border-bottom: 1px solid $secondary
+.uLT-bd-l-secondary-sA // Left Border ==> secondary
+    border-left: 1px solid $secondary
+
+// [A = 1px  ==> Gary]
+.uLT-bd-f-gray-sA // FUll Border ==> gray
+    border: 1px solid $gray
+.uLT-bd-r-gray-sA // Right Border ==> gray
+    border-right: 1px solid $gray
+.uLT-bd-b-gray-sA // Bottom Border ==> gray
+    border-bottom: 1px solid $gray
+.uLT-bd-l-gray-sA // Left Border ==> gray
+    border-left: 1px solid $gray
+// [B = 2px]
+
+.uLT-bd-f-platinum-sB // FUll Border ==> platinum
+    border: 2px solid $platinum
+.uLT-bd-t-platinum-sB // Bottom Border ==> platinum
+    border-top: 2px solid $platinum
+.uLT-bd-r-platinum-sB // Right Border ==> platinum
+    border-right: 2px solid $platinum
+.uLT-bd-b-platinum-sB // Bottom Border ==> platinum
+    border-bottom: 2px solid $platinum
+.uLT-bd-l-platinum-sB // Left Border ==> platinum
+    border-left: 2px solid $platinum
+
+.uLT-bd-f-danger-sA // FUll Border ==> danger
+    border: 1px solid $danger
+
+// Border Size === END
+
+// UL Style === START
+.uLT-list-style
+    list-style: none
+    padding: 0
+    margin: 0
+    text-decoration: none
+    &:hover
+        color: #1EAAAD !important
+.uLT-outline-0
+    outline: none
+.uLT-border-0
+    border: 0px
+
+.uLT-card-grid-holder
+    width: 100%
+    display: grid
+    justify-content: center
+    grid-template-columns: repeat(auto-fill, minmax(230px, 300px))
+    flex-wrap: wrap
+    grid-gap: 24px
+
+.uLT-card-grid-holder-slider
+    width: 100%
+    display: grid
+    justify-content: center
+    grid-template-columns: repeat(auto-fill, minmax(230px, 350px))
+    flex-wrap: wrap
+    gap: 16px
+
+// scrollbar [Block] ==> Start
+::-webkit-scrollbar
+    width: 5px
+    height: 5px
+
+::-webkit-scrollbar-track
+    background: #9e9e9e8f
+    border-radius: 10px
+
+::-webkit-scrollbar-thumb
+    background: linear-gradient(to left,$secondary , $support1)
+    border-radius: 10px
+// scrollbar [Block] ==> End
+
+// Selected Input [Block] ==> Start
+.css-12jo7m5
+    order: 1 !important
+    font-family: Cairo-Regular !important
+    font-size: 16px !important
+    padding: 8px 0px 8px 16px !important
+.css-4vit6s-multiValue
+    background-color: unset !important
+    border-radius: 10px !important
+    border: 1px solid #37383B
+.css-o833bd
+    width: 24px !important
+    margin: 8px !important
+.css-tj5bde-Svg
+    width: 100%
+    background-color: #FFFF
+.css-120xq0j-ValueContainer
+    gap: 16px !important
+.css-19oqr5x-MenuList
+    max-height: 120px !important
+    min-height: auto !important
+    color: #02385A !important
+    font-family: Cairo-Regular !important
+    font-size: 16px !important
+
+.css-clm9hd-placeholder
+    color: #02385A !important
+.css-61pzuj-Input
+    color: #02385A !important
+    font-family: Cairo-Regular !important
+    font-size: 16px !important
+// Selected Input [Block] ==> End
+
+// [ Hover]
+.uLT-bd-f-danger-sA // FUll Border ==> Danger
+    &:hover
+        border: 1px solid $danger
+.uLT-status-online
+    width: 15px
+    height: 15px
+    border-radius: 50%
+    background-color: #7ec439
+    position: absolute
+    right: 32px
+    top: 32px
+    @media screen and (max-width: 370px)
+        width: 10px
+        height: 10px
+        right: 35px
+        top: 35px
+.uLT-status-offline
+    width: 15px
+    height: 15px
+    border-radius: 50%
+    background-color: #E6E5E5
+    position: absolute
+    right: 32px
+    top: 32px
+    @media screen and (max-width: 370px)
+        width: 10px
+        height: 10px
+        right: 35px
+        top: 35px
+
+.text-ellipsis
+    text-overflow: ellipsis
+    display: -webkit-box
+    -webkit-line-clamp: 4
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+.text-ellipsis2
+    -webkit-line-clamp: 3
+    text-overflow: ellipsis
+    overflow: hidden
+    width: 100%
+    display: -webkit-box
+    -webkit-box-orient: vertical
+
+.text-ellipsis3
+    -webkit-line-clamp: 2
+    text-overflow: ellipsis
+    overflow: hidden
+    width: 100%
+    display: -webkit-box
+    -webkit-box-orient: vertical
+
+// Buton Hover Animation
+.uLT-advs-contact
+    transition: transform .3s ease-out
+    display: inline-block
+    &:hover
+        transition: 0.2s
+        transform: perspective(200px) translateZ(50px)

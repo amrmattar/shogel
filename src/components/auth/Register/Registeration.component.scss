@@ -1,0 +1,130 @@
+// // Edit Dialog Library Style [Holder
+// .css-ypiqx9-MuiDialogContent-root {
+//   overflow: unset !important;
+// }
+
+// // Edit Form Library Style
+// .form-control {
+//   padding: 16px !important;
+// }
+// .react-tel-input > .form-control {
+//   width: 100% !important;
+//   height: 58px !important;
+//   border: 1px solid #e9e9e9 !important;
+//   padding-left: 48px !important;
+//   outline: 0;
+// }
+// .flag-dropdown {
+//   border: 1px solid #e9e9e9 !important;
+//   border-bottom-left-radius: 10px !important;
+//   border-top-left-radius: 10px !important;
+// }
+// // Edit Select Library Style [Input]
+// .css-1pahdxg-control {
+//   border: 0px !important;
+//   border-radius: 15px !important;
+//   box-shadow: none !important;
+//   &:hover {
+//     border-color: unset !important;
+//   }
+// }
+// .css-1s2u09g-control {
+//   border: 0px !important;
+//   border-radius: 15px !important;
+// }
+// .css-319lph-ValueContainer {
+//   padding: 12px 8px !important;
+// }
+// .css-qc6sy-singleValue {
+//   color: #02385a !important;
+// }
+// .css-yigdky-control {
+//   box-shadow: none !important;
+//   &:hover {
+//     border-color: #e9e9e9 !important;
+//   }
+// }
+// .css-24r4p6-control {
+//   &:hover {
+//     border-color: #e9e9e9 !important;
+//   }
+// }
+
+// .css-1hf6h66 {
+//   &:hover {
+//     color: blue !important;
+//     background-color: aqua;
+//   }
+// }
+// // Custom Radio Input Show And Hide Logic [Input]
+
+// .css-1d8n9bt {
+//   padding: 13px 8px !important;
+// }
+
+// .LT-user-Type-holder {
+//   display: grid;
+//   width: 75%;
+//   grid-template-columns: repeat(3, auto);
+//   border: 1px solid #e9e9e9;
+//   text-align: center;
+//   .LT-company {
+//     grid-column: 1/2;
+//     border-left: 1px solid #e9e9e9;
+//   }
+//   .LT-freelancer {
+//     grid-column: 2/3;
+//     border-left: 1px solid #e9e9e9;
+//   }
+//   .LT-client {
+//     grid-column: 3/4;
+//   }
+//   @media screen and (max-width: 768px) {
+//     display: grid;
+//     width: 100%;
+//     grid-template-columns: repeat(2, auto);
+//     grid-template-rows: repeat(2, auto);
+//     border: 1px solid #e9e9e9;
+//     text-align: center;
+//     .LT-company {
+//       grid-column: 1/2;
+//       grid-row: 2/3;
+//       border-left: 1px solid #e9e9e9;
+//     }
+//     .LT-freelancer {
+//       grid-column: 2/3;
+//       grid-row: 2/3;
+//       border: 0px solid #e9e9e9;
+//     }
+//     .LT-client {
+//       grid-column: 1/3;
+//       grid-row: 1/2;
+//       border-bottom: 1px solid #e9e9e9;
+//     }
+//   }
+//   @media screen and (max-width: 460px) {
+//     display: grid;
+//     width: 100%;
+//     grid-template-columns: 1fr;
+//     grid-template-rows: repeat(3, auto);
+//     border: 1px solid #e9e9e9;
+//     text-align: start;
+//     .LT-company {
+//       grid-column: 1/2;
+//       grid-row: 3/4;
+//       border-left: 0px solid #e9e9e9;
+//     }
+//     .LT-freelancer {
+//       grid-column: 1/2;
+//       grid-row: 2/3;
+//       border-bottom: 1px solid #e9e9e9;
+//     }
+//     .LT-client {
+//       grid-column: 1/2;
+//       grid-row: 1/2;
+//       border-bottom: 1px solid #e9e9e9;
+//     }
+//   }
+// }
+
+// // 768

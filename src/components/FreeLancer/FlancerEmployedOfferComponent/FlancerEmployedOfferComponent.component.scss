@@ -1,0 +1,150 @@
+.LT-one-comment {
+  overflow: auto;
+}
+.LT-comments {
+  overflow: auto;
+  height: 280px;
+}
+.LT-employed-offer-listCard-grid {
+  display: grid;
+  padding: 24px 16px;
+  margin-bottom: 16px;
+  gap: 16px;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  .LT-employed-offer-icon {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+  .LT-name-flag {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .LT-employed-offer-price {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    & {
+      display: grid;
+      grid-template-columns: auto auto;
+      padding: 16px;
+      border: 1px solid #e9e9e9;
+      border-radius: 15px;
+      justify-content: space-between;
+      @media screen and (max-width: 802px) {
+        & {
+          display: block;
+          width: 100%;
+          .LT-price-time {
+            display: block;
+            margin-bottom: 16px;
+            justify-content: center;
+          }
+          @media screen and (max-width: 530px) {
+            grid-column: 1/3;
+            .LT-Button-style {
+              display: flex;
+              flex-direction: column;
+              gap: 16px;
+              .LT-agree-button {
+                order: 1;
+              }
+              .LT-edit-button {
+                order: 2;
+              }
+              .LT-delete-button {
+                order: 3;
+              }
+            }
+            .LT-price {
+              flex-direction: column;
+              & > p {
+                width: max-content;
+              }
+            }
+            .LT-time {
+              flex-direction: column;
+              & > p {
+                width: max-content;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .LT-employed-offer-description {
+    grid-column: 2/3;
+    grid-row: 3/4;
+  }
+  .LT-employed-offer-divied {
+    grid-column: 2/3;
+    grid-row: 4/5;
+  }
+  .LT-employed-offer-amenties {
+    grid-column: 2/3;
+    grid-row: 5/6;
+  }
+  @media screen and (min-width: 992px) and (max-width: 1200px) {
+    .LT-employed-offer-price {
+      display: block;
+      width: 100%;
+      grid-column: 1/3;
+      grid-row: 2/3;
+      .LT-price-time {
+        margin-bottom: 16px;
+        justify-content: center;
+      }
+    }
+    .LT-employed-offer-description {
+      width: 75%;
+      grid-column: 1/3;
+      grid-row: 3/4;
+    }
+    @media screen and (max-width: 500px) {
+      .LT-employed-offer-description {
+        width: 100%;
+      }
+    }
+    .LT-employed-offer-divied {
+      grid-column: 1/3;
+      grid-row: 4/5;
+    }
+    .LT-employed-offer-amenties {
+      grid-column: 1/3;
+      grid-row: 5/6;
+    }
+  }
+  @media screen and (max-width: 370px) {
+    padding: 24px 8px;
+    column-gap: 8px;
+    row-gap: 16px;
+  }
+}
+
+.LT-rate-font-size {
+  font-size: 16px;
+  font-family: "Cairo-Regular";
+  .LT-rate-icon-size {
+    width: 18px;
+    height: 18px;
+  }
+  @media screen and (max-width: 370px) {
+    font-size: 14px;
+    .LT-rate-icon-size {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+.LT-performance-rate-holder {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  @media screen and (max-width: 370px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center;
+    gap: 12px;
+  }
+}

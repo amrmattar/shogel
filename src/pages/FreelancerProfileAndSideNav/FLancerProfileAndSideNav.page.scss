@@ -1,0 +1,6 @@
+.LT-sidenav-media-screen {
+  width: 530px;
+  @media screen and (max-width: 991px) {
+    width: 100%;
+  }
+}

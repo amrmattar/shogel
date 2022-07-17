@@ -1,0 +1,46 @@
+.progress {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0px;
+  height: 100% !important;
+  &__icon {
+    display: flex;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-basis: 100%;
+    height: 100%;
+    padding: 10px 0 0 16px;
+
+    &__1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 14px;
+      
+    }
+
+    &__2 {
+      height: 2px;
+      margin-bottom: 4px;
+      position: relative;
+      width: 100%;
+      height: 2px;
+      background: rgba($color: #ed665f, $alpha: 0.5);
+
+      &__bar {
+        z-index: 1;
+        position: absolute;
+        height: 2px;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+}

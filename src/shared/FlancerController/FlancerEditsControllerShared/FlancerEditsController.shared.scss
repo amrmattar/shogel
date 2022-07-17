@@ -1,0 +1,32 @@
+.LT-deleteButton-order {
+  order: 1;
+  @media screen and (max-width: 697px) {
+    order: 2;
+  }
+  @media screen and (max-width: 466px) {
+    width: 100%;
+    order: 2;
+  }
+}
+.LT-editButton-order {
+  order: 2;
+  @media screen and (max-width: 697px) {
+    order: 2;
+  }
+  @media screen and (max-width: 466px) {
+    flex-wrap: wrap;
+    order: 1;
+    width: 100%;
+  }
+}
+.LT-updateButton-order {
+  order: 2;
+  @media screen and (max-width: 697px) {
+    order: 2;
+  }
+  @media screen and (max-width: 466px) {
+    flex-wrap: wrap;
+    width: 100%;
+    order: 1;
+  }
+}

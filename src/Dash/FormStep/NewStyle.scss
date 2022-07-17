@@ -1,0 +1,33 @@
+
+h5,
+h4 {
+  color: rgb(80, 150, 255);
+}
+h6 {
+  position: absolute;
+  color: rgb(80, 150, 255);
+  left: 80px;
+}
+.form {
+  min-height: 180px;
+}
+.child {
+  position: relative;
+  margin-top: 40px;
+}
+.LT-stepper-style  {
+  font-family: 'Cairo-Regular' ;
+  a{
+    font-family: 'Cairo-Regular' ;
+  }
+}
+.input-error{
+  border-color: #B90303;
+}
+.input-sucess{
+  border-color: #a0f4b0;
+}
+.error{
+font-size: 14px;
+color: #B90303;
+}

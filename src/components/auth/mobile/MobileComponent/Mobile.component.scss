@@ -1,0 +1,27 @@
+.LT-mobile-holder {
+  width: 100%;
+  padding: 16px 16px 0rem 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100%;
+  gap: 16px;
+  grid-template-rows: 1fr auto auto;
+  .one {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    height: 100px;
+  }
+  .two {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    padding: 0px;
+    .react-tel-input > .form-control {
+      height: 70px !important;
+    }
+  }
+  .three {
+    width: 100%;
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+}

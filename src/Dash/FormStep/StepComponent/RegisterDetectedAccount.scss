@@ -1,0 +1,102 @@
+
+.LT-account-holder{
+    align-items: center;
+    background-color: #FFFF;
+    box-shadow: 0 0 4px #00000014, 0 2px 4px #0000001f;
+    max-width: 400px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 115px 115px;
+    padding: 24px;
+    gap: 24px;
+    .LT-account-logo{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        gap: 16px;
+    }
+    .LT-account-type{
+        grid-column: 1/2;
+        grid-row: 2/3;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        gap: 16px;
+        grid-template-columns: 1fr 1fr auto;
+        grid-template-rows: 1fr;
+        box-shadow: 0 0 4px #00000014, 0 2px 4px #0000001f;
+        place-items: center;
+        align-items: center;
+        padding: 16px;
+        .LT-account-icon{
+            position: relative;
+            padding: 0px 8px;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            grid-column: 1/2;
+            grid-row: 1/2;
+            .LT-placeholder{
+                position: absolute;
+                top: 78%;
+                left: 45%;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background: white;
+            }
+            .LT-logo-on-icon{
+                position: absolute;
+                width: 23px;
+                top: 70%;
+                left: 37%;
+                height: 30px;
+            }
+        }
+        .LT-account-title{
+            grid-column: 2/3;
+            grid-row: 1/2;
+        }
+        .LT-account-arrow-icon{
+            grid-column: 3/4;
+            grid-row: 1/2;
+        }
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0 0 10px #1eaaad, 0 4px 15px #1eaaad;
+        }
+    }
+    .LT-freelancer-type{
+        grid-column: 1/2;
+        grid-row: 3/4;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        gap: 16px;
+        grid-template-columns: 1fr 1fr auto;
+        grid-template-rows: 1fr;
+        box-shadow: 0 0 4px #00000014, 0 2px 4px #0000001f;
+        place-items: center;
+        align-items: center;
+        padding: 16px;
+        .LT-freelancer-icon{
+            padding: 0px 8px;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            grid-column: 1/2;
+            grid-row: 1/2;
+        }
+        .LT-freelancer-title{
+            grid-column: 2/3;
+            grid-row: 1/2;
+        }
+        .LT-freelancer-arrow-icon{
+            grid-column: 3/4;
+            grid-row: 1/2;
+        }
+        &:hover{
+            cursor: pointer;
+            box-shadow: 0 0 10px #1eaaad, 0 4px 15px #1eaaad;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.LT-offerDetails-textarea{
+    min-height: unset !important;
+    resize: none;
+    &::placeholder{
+        color: #02385A;
+        opacity: 0.5;
+    }
+
+}
+.LT-document-grid-holder{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
+    align-items: center;
+}
+.LT-document-ellipsis {
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    -webkit-box-orient: vertical;
+}

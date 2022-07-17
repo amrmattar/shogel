@@ -1,0 +1,17 @@
+.closed {
+  overflow: hidden;
+  transform: scaleY(0);
+  height: 0px;
+  transition: height 0.3s ease-in-out;
+}
+.show {
+  overflow: hidden;
+  transition: transform 0.3s ease-out;
+  transform: scaleY(1);
+  transform-origin: top;
+  height: auto;
+}
+.arrow-transition {
+  transform: rotate(180deg);
+  transition: all 0.3s ease-in-out;
+}

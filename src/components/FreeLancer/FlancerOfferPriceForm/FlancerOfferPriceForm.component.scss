@@ -1,0 +1,32 @@
+.LT-flancer-offer-grid {
+  background-color: #fff;
+  width: 100%;
+  justify-content: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+  .LT-flancer-address {
+    grid-column: 1/2;
+    gap: 8px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .LT-flancer-details {
+    grid-column: 1/2;
+    gap: 8px;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .LT-flancer-upload {
+    grid-column: 1/2;
+    align-items: center;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+}

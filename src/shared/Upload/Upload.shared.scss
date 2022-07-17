@@ -1,0 +1,150 @@
+// #files-area
+//     width: 100%
+//     margin: 0 auto
+//     flex-wrap: wrap
+
+// .file-block
+//     border-radius: 10px
+//     background-color: #1EAAAD
+//     margin: 5px
+//     align-items: center
+//     color: #fff
+//     display: grid
+//     grid-template-columns: repeat(4, 1fr)
+//     & > span.name
+//         width: max-content
+//         text-align: center
+//         padding: 12px 0px 12px 12px
+
+// .file-delete{
+//   display: flex;
+//   width: 24px;
+//   color: initial;
+//   background-color: #6eb4ff00;
+//   font-size: large;
+//   justify-content: center;
+//   margin-right: 3px;
+//   cursor: pointer;
+// }
+
+$file-types: (
+  pdf: (
+    base: #ed665f,
+    shadow: #f9e3da,
+  ),
+  doc: (
+    base: #4585c7,
+    shadow: #e8f0f8,
+  ),
+  xls: (
+    base: #6cc08a,
+    shadow: #e0f1e6,
+  ),
+  psd: (
+    base: #4585c7,
+    shadow: #e8f0f8,
+  ),
+  ai: (
+    base: #ed9b5f,
+    shadow: #f3e9d8,
+  ),
+  png: (
+    base: #edca5f,
+    shadow: #fbf3db,
+  ),
+  jpg: (
+    base: #b276c8,
+    shadow: #f1e4f6,
+  ),
+  unknown: (
+    base: #afb4bc,
+    shadow: #e6e8ef,
+  ),
+);
+
+@each $type, $file in $file-types {
+  .file-icon--#{$type} {
+    .file-icon__shadow {
+      fill: map-get($file, shadow);
+    }
+
+    .file-icon__outline,
+    .file-icon__type {
+      fill: map-get($file, base);
+    }
+  }
+}
+.file-drop {
+  cursor: pointer;
+}
+.LT-progressContainer {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+.LT-receiveProgress {
+  display: grid;
+  gap: 16px;
+  height: 100%;
+  grid-template-columns: repeat(2, auto);
+  .LT-receiveFileText {
+    width: 212px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    padding: 0px 8px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    //  display: -webkit-box
+    @media screen and (max-width: 991px) {
+      width: 127px;
+    }
+    @media screen and (max-width: 500px) {
+      width: 80px;
+    }
+    @media screen and (max-width: 400px) {
+      width: 140px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(2, auto);
+  }
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
+}
+.LT-grid-file {
+  display: flex;
+  gap: 16px;
+  height: max-content;
+  max-height: 280px;
+  overflow: auto;
+  flex-wrap: wrap;
+  & > #staticDataUpload {
+    width: 100%;
+    height: max-content;
+  }
+  .LT-receiveFileText {
+    width: 212px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    padding: 0px 8px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    //  display: -webkit-box
+    @media screen and (max-width: 991px) {
+      width: 127px;
+    }
+    @media screen and (max-width: 500px) {
+      width: 80px;
+    }
+    @media screen and (max-width: 400px) {
+      width: 140px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    grid-template-columns: repeat(2, auto);
+  }
+  @media screen and (max-width: 400px) {
+    grid-template-columns: 1fr;
+  }
+}

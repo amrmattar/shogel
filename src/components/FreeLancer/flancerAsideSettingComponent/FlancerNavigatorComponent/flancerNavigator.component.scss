@@ -1,0 +1,10 @@
+.LT-navigator-holder {
+  width: 250px;
+  @media screen and (max-width: 991px) {
+    overflow: auto;
+    width: 100%;
+    padding: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+}

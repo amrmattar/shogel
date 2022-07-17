@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #f8fafc !important;
+}
+
+/* .css-1fzpoyk {
+  width: 60%;
+}
+.css-1qzevvg {
+  display: none !important;
+} */
+
+
+.LT-nav-container {
+  @media screen and (min-width: "992px") {
+    padding: 16px 0px 0px 0px !important;
+  }
+  @media screen and (max-width: "991px") {
+    padding: 16px !important;
+  }
+}
+

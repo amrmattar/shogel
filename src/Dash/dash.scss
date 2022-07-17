@@ -1,0 +1,115 @@
+// input::-webkit-calendar-picker-indicator {
+//   opacity: 0;
+// }
+
+// .arrow {
+//   position: absolute;
+//   right: 167px;
+//   top: 12px;
+//   height: 60%;
+//   width: 1px;
+//   border: 1px solid #E9E9E9;
+// }
+
+// input[list] {
+//   content: none;
+//   background: url("../assets/icons/down-chevron.svg") no-repeat ; // Adjust your needs
+//   background-position: 10px;
+// }
+
+.forTest {
+  background-color: azure;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(5, 1fr);
+  .one {
+    grid-column: 1/3;
+    background-color: bisque;
+  }
+  .two {
+    grid-column: 3/4;
+    background-color: fuchsia;
+  }
+  .three {
+    grid-column: 4/6;
+    background-color: darkcyan;
+    display: grid;
+    gap: 8px 16px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    .parent {
+      grid-column: 1/5;
+      background-color: brown;
+    }
+    .childOne {
+      grid-column: 1/3;
+      background-color: chartreuse;
+    }
+    .childTwo {
+      background-color: burlywood;
+      grid-column: 3/5;
+    }
+  }
+}
+
+img.item-img {
+  &.move-to-cart {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    z-index: 9999;
+
+    &.animate {
+      opacity: 1;
+      height: 75px;
+      width: 75px;
+      transition: all 0.5s ease-in-out;
+    }
+    &.hide-img {
+      opacity: 0.5;
+      width: 0;
+      height: 0;
+      margin-left: 75px;
+      transition: all 0.5s ease-in-out;
+    }
+  }
+}
+// .header {
+//   width: 100%;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   height: 60px;
+//   z-index: 500;
+//   background: rgba(255, 255, 255, 0.5);
+
+//   h1 {
+//     display: inline-block;
+//     background-color: #333;
+//     color: #fff;
+//     font-size: 20px;
+//     font-weight: normal;
+//     text-transform: uppercase;
+//     padding: 4px 20px;
+//     margin: 10px 0;
+//   }
+// }
+.shopping-cart-container {
+  margin-top: 10px;
+  .shopping-cart {
+    display: inline-block;
+    background: url("http://cdn1.iconfinder.com/data/icons/jigsoar-icons/24/_cart.png")
+      no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+    margin: 0 10px 0 0;
+  }
+}
+
+h2 {
+  font-size: 16px;
+  display: block;
+  border-bottom: 1px solid #ccc;
+  margin: 0 0 10px 0;
+  padding: 0 0 5px 0;
+}

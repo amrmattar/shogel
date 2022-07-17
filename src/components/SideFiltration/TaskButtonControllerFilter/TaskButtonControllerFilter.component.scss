@@ -1,0 +1,15 @@
+.LT-task-deleteButton {
+  .LT-task-deleteIcon {
+    background-image: url("../../../assets/icons/TrashBlack.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &:hover {
+    border: 1px solid #b90303;
+    color: #b90303;
+    .LT-task-deleteIcon {
+      background-image: url("../../../assets/icons/TrashDanger.svg");
+    }
+  }
+}

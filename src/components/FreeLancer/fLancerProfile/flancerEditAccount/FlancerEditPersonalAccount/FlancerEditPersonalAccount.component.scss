@@ -1,0 +1,57 @@
+/* basic layout */
+fieldset {
+  margin: 20px;
+  max-width: 400px;
+}
+label > input[type="radio"] + * {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+}
+.react-tel-input > .form-control {
+  width: 100% !important;
+  height: 58px !important;
+  border: 1px solid #e9e9e9 !important;
+  padding-left: 48px !important;
+  outline: 0;
+}
+.flag-dropdown {
+  border: 1px solid #e9e9e9 !important;
+}
+.form-control[readonly]{
+  background-color: #FFFF !important;
+  opacity: 0.7 !important;
+}
+.LT-edit-account-option {
+  padding: 7.5px 0px !important;
+}
+.LT-edit-account-option > option {
+  color: #02385a;
+}
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  z-index: 99999;
+}
+
+.arrow {
+  position: absolute;
+  left: 37px;
+  top: 8px;
+  height: 70%;
+  width: 1px;
+  background-color: hsl(0, 0%, 80%);
+}
+
+input[list] {
+  content: none;
+  background: url("../../../../../assets/icons/down-chevron.svg") no-repeat; // Adjust your needs
+  background-position: 10px;
+  opacity: 1;
+  z-index: 99999;
+}
+.css-1pndypt-Input {
+  color: #02385a !important;
+}
+
+.selected-flag{
+}

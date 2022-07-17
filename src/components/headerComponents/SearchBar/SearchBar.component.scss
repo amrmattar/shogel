@@ -1,0 +1,53 @@
+.minimal {
+  direction: rtl;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  padding: 8px 16px;
+  background-color: transparent;
+  z-index: 1;
+  border: 0px;
+  width: 100px;
+  outline: none;
+  transition: all 0.8s ease-in-out;
+  opacity: 1;
+}
+.mini {
+  direction: rtl;
+  padding-left: 8px;
+  border: 0px;
+  outline: none;
+  width: max-content;
+}
+/* To remove the arrow of select element in IE */
+.minimal::-ms-expand {
+  display: none;
+}
+
+.LT-drop-filter-true {
+  right: 33px;
+  z-index: 0;
+  transition: all 0.8s ease-in-out;
+}
+.LT-drop-filter-false {
+  right: 0px;
+  z-index: 0;
+  transition: all 0.8s ease-in-out;
+}
+
+.xsxs {
+  direction: rtl;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  padding: 8px 16px;
+  background-color: transparent;
+  z-index: 1;
+  border: 0px;
+  width: 60px;
+  outline: none;
+  transition: all 0.8s ease-in-out;
+  opacity: 0;
+}

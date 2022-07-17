@@ -1,0 +1,43 @@
+.LT-upload-img {
+  position: absolute;
+  top: 100px;
+}
+
+.LT-freelancer-profile {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  right: 92% !important;
+  top: 92% !important;
+  @media screen and (max-width: 400px) {
+    width: 10px;
+    height: 10px;
+    right: 92% !important;
+    top: 92% !important;
+  }
+}
+
+.LT-aside-avatar-wire-frame {
+  width: 128px;
+  height: 128px;
+  border-radius: 15px;
+  background-image: linear-gradient(to right,
+  #02385a94 0%,
+  #02385a94 25%,
+  #02385a94 50%,
+  #02385a94 75%,
+  #1eabada9 100% );
+
+  background-size: 800px 204px;
+  animation: loading 1s linear infinite forwards;
+  @keyframes loading {
+    0% {
+      background-position: -468px 0;
+    }
+
+    100% {
+      background-position: 468px 0;
+    }
+  }
+}

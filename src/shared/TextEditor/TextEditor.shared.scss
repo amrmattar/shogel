@@ -1,0 +1,28 @@
+.ql-editor {
+  height: 200px;
+  
+  text-align: right !important;
+  border-radius: 16px;
+}
+.ql-editor li:not(.ql-direction-rtl)::before {
+  margin: 0 !important;
+}
+
+.ql-toolbar.ql-snow {
+  // border-radius: 16px 16px 0 0;
+  border: 0px !important;
+  padding: 0px !important;
+}
+
+.ql-container {
+  font-size: 16px !important;
+  font-family: "Cairo-Regular" !important;
+  color: #02385a;
+
+  // border-radius: 0px 0px 16px 16px;
+}
+
+.ql-container.ql-snow {
+  border-radius: 16px;
+  border: 1px solid #ccc;
+}

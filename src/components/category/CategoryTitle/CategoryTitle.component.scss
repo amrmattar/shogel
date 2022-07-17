@@ -1,0 +1,7 @@
+.LT-category-title-size {
+  font-size: 54px;
+  font-family: "Cairo-Bold";
+  @media screen and (max-width: 430px) {
+    font-size: 32px;
+  }
+}

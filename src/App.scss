@@ -1,0 +1,90 @@
+@import "~react-phone-input-2/lib/style.css";
+*{
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+}
+.LT-timeSave-image {
+  width: 61px;
+  height: 61px;
+}
+.App-logo-animation {
+  opacity: 1;
+  animation: isLoading 1s linear infinite forwards;
+  @keyframes isLoading {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
+.App-logo-border-loading {
+  position: absolute;
+  width: 90px;
+  height: 90px;;
+  border: 2px solid #ffff;
+  border-radius: 50%;
+  border-top-color: #1eaaad;
+  animation: isborderLoading .8s linear infinite forwards;
+  @keyframes isborderLoading {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+}
+
+// Pagination Arrow previous Page And first Icon Controller 
+.MuiButtonBase-root[aria-label="Go to previous page"],
+.MuiButtonBase-root[aria-label="Go to first page"] {
+    transform: rotate(180deg);
+    &:hover {
+        background-color: #02385A;
+        .MuiSvgIcon-root {
+            fill: #FFFF;
+        }
+    }
+    .MuiSvgIcon-root {
+        fill: #02385A;
+    }
+}
+
+// Pagination Arrow next Page And last Icon Controller 
+.MuiButtonBase-root[aria-label="Go to next page"],
+.MuiButtonBase-root[aria-label="Go to last page"] {
+    transform: rotate(180deg);
+    &:hover {
+        background-color: #02385A;
+        .MuiSvgIcon-root {
+            fill: #FFFF;
+        }
+    }
+    .MuiSvgIcon-root {
+        fill: #02385A;
+    }
+}
+// Pagination Style After Selected  
+.css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color: #02385A !important;
+    color: #FFFF !important;
+}
+
+// Pagination Hover Style Before Choose Select Number  
+.css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root:hover {
+  background-color: #02385A !important;
+  color: #FFFF !important;
+}
+
+.LT-card-grid-holder{
+  display: grid;
+  width: 100%;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}

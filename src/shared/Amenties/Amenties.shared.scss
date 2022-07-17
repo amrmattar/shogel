@@ -1,0 +1,52 @@
+.LT-orderAmenties {
+  display: grid;
+  padding: 16px;
+  gap: 16px;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  @media screen and (max-width: 460px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    .LT-orderCount{
+      grid-column: 1/2;
+    }
+  }
+}
+.amentiesWithLocation {
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 711px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    row-gap: 16px;
+    width: 100%;
+  }
+  .LT-location-grid {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    @media screen and (min-width: 992px) and (max-width: 1200px) {
+      width: 23%;
+    }
+    @media screen and (max-width: 711px) {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+  .LT-amenties-grid {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-family: "Cairo-Regular";
+    font-size: 14px;
+    @media screen and (max-width: 711px) {
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+    @media screen and (max-width: 360px) {
+      font-size: 12px;
+    }
+  }
+}

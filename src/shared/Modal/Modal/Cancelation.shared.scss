@@ -1,0 +1,64 @@
+.modal-dialog {
+    max-width: 50% !important;
+    height: auto;
+}
+
+.modal-header {
+    height: unset !important;
+    width: 100%;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    direction: ltr;
+    align-items: center;
+    gap: 16px;
+}
+.modal-body{
+    padding: 16px !important;
+}
+.modal-title {
+     width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Cairo-Bold';
+}
+
+.btn-close {
+   padding: 0px;
+}
+
+.modal-header .btn-close {
+    padding: 0px;
+   margin: 0px
+}
+
+.modal-footer {
+    width: 100%;
+    justify-content: space-between !important;
+}
+
+.btn-secondary {
+    width: 40%;
+    border-color: #E9E9E9 !important;
+    &:hover{
+    background-color: lighten($color: #B90303, $amount: 5) !important;
+
+    }
+    
+}
+
+.btn-primary {
+   width: 40%;
+   border-color: #E9E9E9 !important;
+   &:hover{
+    background-color: lighten($color: #1EAAAD, $amount: 5) !important;
+    }
+&:active{
+    background-color: #1EAAAD !important;
+}
+&:focus{
+    background-color: #1EAAAD !important;
+}
+&:disabled{
+    background-color: #1EAAAD !important;
+}
+}
