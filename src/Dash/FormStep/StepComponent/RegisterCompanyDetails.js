@@ -181,165 +181,440 @@ const RegisterCompanyDetails = () => {
   const validation = categorySkills?.length !== 0 && jobName?.id !== undefined && formInput.commercialRegister !== ""
   return (
     <Fragment>
-      <Form onSubmit={(e) => getNext(e)} className='container px-0 my-4 d-flex flex-column gap-4' dir="rtl">
+      <Form
+        onSubmit={(e) => getNext(e)}
+        className="container px-0 my-4 d-flex flex-column gap-4"
+        dir="rtl"
+      >
         {/* First Row [Name & Email] */}
         <Row className="my-3 gap-3 flex-column m-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             {/* Email Address */}
-            <Form.Group as={Col} sm={12} md={6} controlId="formGridEmail" className='px-0  '>
-              <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'>البريد الإلكتروني <span className='cLT-danger-text'>*</span></Form.Label>
-              <Form.Control value={formInput.email} name="email"  onChange={(e) => handleChange(e)} className={`${formMessages?.email ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB`} type="email" placeholder="البريد الإلكتروني" />
-              {formMessages?.email && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.email}</p>}
+            <Form.Group
+              as={Col}
+              sm={12}
+              md={6}
+              controlId="formGridEmail"
+              className="px-0  "
+            >
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+                البريد الإلكتروني <span className="cLT-danger-text">*</span>
+              </Form.Label>
+              <Form.Control
+                value={formInput.email}
+                name="email"
+                onChange={(e) => handleChange(e)}
+                className={`${
+                  formMessages?.email
+                    ? "uLT-bd-f-danger-sA"
+                    : "uLT-bd-f-platinum-sA"
+                } uLT-f-radius-sB cLT-main-text fLT-Regular-sB`}
+                type="email"
+                placeholder="البريد الإلكتروني"
+              />
+              {formMessages?.email && (
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                  {formMessages?.email}
+                </p>
+              )}
             </Form.Group>
-            <Form.Group as={Col} md={6} controlId="formGridPassword" className='px-0 position-relative' >
+            <Form.Group
+              as={Col}
+              md={6}
+              controlId="formGridPassword"
+              className="px-0 position-relative"
+            >
               {/* Password Title [Label] */}
-              <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'>كلمة المرور <span className='cLT-danger-text'>*</span></Form.Label>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+                كلمة المرور <span className="cLT-danger-text">*</span>
+              </Form.Label>
               {/* Password Title [Input] */}
               <>
-                <Form.Control value={formInput.password} name="password" onChange={(e) => handleChange(e)}
-                  className={`${formMessages?.password ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB`} type={showPassword ? "text" : "password"} placeholder="كلمة المرور" />
-                {hideIcon &&
-                  <IconButton style={{ position: 'absolute', top: '49px', left: '8px' }} onClick={() => setShowPassword(!showPassword)}>{showPassword ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />} </IconButton>
-                }
+                <Form.Control
+                  value={formInput.password}
+                  name="password"
+                  onChange={(e) => handleChange(e)}
+                  className={`${
+                    formMessages?.password
+                      ? "uLT-bd-f-danger-sA"
+                      : "uLT-bd-f-platinum-sA"
+                  } uLT-f-radius-sB`}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="كلمة المرور"
+                />
+                {hideIcon && (
+                  <IconButton
+                    style={{ position: "absolute", top: "49px", left: "8px" }}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <VisibilityOffOutlinedIcon />
+                    ) : (
+                      <VisibilityOutlinedIcon />
+                    )}{" "}
+                  </IconButton>
+                )}
               </>
-              {formInput?.password?.length < 8 && formMessages?.password && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.password}</p>}
+              {formInput?.password?.length < 8 && formMessages?.password && (
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                  {formMessages?.password}
+                </p>
+              )}
             </Form.Group>
           </div>
 
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             {/* User Name */}
-            <Form.Group as={Col} sm={12} md={6} controlId="formGridUserName" className='px-0'>
-              <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'> اسم المستخدم <span className='cLT-danger-text'>*</span> </Form.Label>
-              <Form.Control value={formInput.username.replace(/[^A-Za-z0-9]/ig, "")} name="username" onChange={(e) => handleChange(e)}
-                className={`${formMessages?.username ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'}  uLT-f-radius-sB cLT-main-text fLT-Regular-sB`} type='text' placeholder="اسم المستخدم"
+            <Form.Group
+              as={Col}
+              sm={12}
+              md={6}
+              controlId="formGridUserName"
+              className="px-0"
+            >
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+                {" "}
+                اسم المستخدم <span className="cLT-danger-text">*</span>{" "}
+              </Form.Label>
+              <Form.Control
+                value={formInput.username.replace(/[^A-Za-z0-9]/gi, "")}
+                name="username"
+                onChange={(e) => handleChange(e)}
+                className={`${
+                  formMessages?.username
+                    ? "uLT-bd-f-danger-sA"
+                    : "uLT-bd-f-platinum-sA"
+                }  uLT-f-radius-sB cLT-main-text fLT-Regular-sB`}
+                type="text"
+                placeholder="اسم المستخدم"
                 maxLength={15}
               />
-              {formMessages?.username && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.username}</p>}
+              {formMessages?.username && (
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                  {formMessages?.username}
+                </p>
+              )}
             </Form.Group>
             {/* Full Name */}
-            <Form.Group as={Col} sm={12} md={6} controlId="formGridFullName" className='px-0'>
-              <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'>اسم المؤسسة / الشركة <span className='cLT-danger-text'>*</span></Form.Label>
-              <Form.Control value={formInput.fullname} name="fullname" onChange={(e) => handleChange(e)}
-                className={`${formMessages?.fullname ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB`} type='text' placeholder="اسم المؤسسة / الشركة " />
-              {formMessages?.fullname && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.fullname}</p>}
+            <Form.Group
+              as={Col}
+              sm={12}
+              md={6}
+              controlId="formGridFullName"
+              className="px-0"
+            >
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+                اسم المؤسسة / الشركة <span className="cLT-danger-text">*</span>
+              </Form.Label>
+              <Form.Control
+                value={formInput.fullname}
+                name="fullname"
+                onChange={(e) => handleChange(e)}
+                className={`${
+                  formMessages?.fullname
+                    ? "uLT-bd-f-danger-sA"
+                    : "uLT-bd-f-platinum-sA"
+                } uLT-f-radius-sB cLT-main-text fLT-Regular-sB`}
+                type="text"
+                placeholder="اسم المؤسسة / الشركة "
+              />
+              {formMessages?.fullname && (
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                  {formMessages?.fullname}
+                </p>
+              )}
             </Form.Group>
-
           </div>
         </Row>
         {/* Third Row [Job Title & Gender & Nationality] */}
         <Row className=" d-flex align-items-center mb-3">
           {/* Job Title & Nationality [Holder] */}
-          <Form.Group as={Col} md={4} controlId="formGridCommercialNumber" className='position-relative' >
-            <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3 '>رقم السجل التجارى <span className='cLT-danger-text'>*</span></Form.Label>
-            <Form.Control name="commercialRegister"
-              className='uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB  '
+          <Form.Group
+            as={Col}
+            md={4}
+            controlId="formGridCommercialNumber"
+            className="position-relative"
+          >
+            <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+              رقم السجل التجارى <span className="cLT-danger-text">*</span>
+            </Form.Label>
+            <Form.Control
+              name="commercialRegister"
+              className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB  "
               onChange={(e) => handleChange(e)}
               required
-              value={formInput?.commercialRegister?.replace(/[^0-9]/ig, "")} type='number' onWheel={(e) => e.target.blur()} placeholder="رقم السجل التجارى" />
-            {messages?.commercial_number && <p className='position-absolute text-nowrap mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{messages?.commercial_number}</p>}
+              value={formInput?.commercialRegister?.replace(/[^0-9]/gi, "")}
+              type="number"
+              onWheel={(e) => e.target.blur()}
+              placeholder="رقم السجل التجارى"
+            />
+            {messages?.commercial_number && (
+              <p className="position-absolute text-nowrap mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {messages?.commercial_number}
+              </p>
+            )}
           </Form.Group>
           {/* Gender */}
-          <Form.Group as={Col} md={4} controlId="formGridGender" className='my-3' >
+          <Form.Group
+            as={Col}
+            md={4}
+            controlId="formGridGender"
+            className="my-3"
+          >
             {/* Gender [Label] */}
-            <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3 position-relative'>الجنس <span className='cLT-danger-text'>*</span></Form.Label>
+            <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 position-relative">
+              الجنس <span className="cLT-danger-text">*</span>
+            </Form.Label>
             {/* Gender [Option]  */}
-            <div className={`${formMessages?.gender_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB`}>
-              <Select placeholder="الجنس" options={getFormData?.gender}
+            <div
+              className={`${
+                formMessages?.gender_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB`}
+            >
+              <Select
+                placeholder="الجنس"
+                options={getFormData?.gender}
                 onChange={fetchGender}
-                getOptionLabel={gender => gender?.name} getOptionValue={gender => gender?.id} />
+                getOptionLabel={(gender) => gender?.name}
+                getOptionValue={(gender) => gender?.id}
+              />
             </div>
-            {!gender && formMessages?.gender_id && <p className='position-absolute text-nowrap mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages.gender_id}</p>}
+            {!gender && formMessages?.gender_id && (
+              <p className="position-absolute text-nowrap mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages.gender_id}
+              </p>
+            )}
           </Form.Group>
           {/* Nationality */}
-          <Form.Group as={Col} md={4} controlId="formGridNationality" className='my-3' >
+          <Form.Group
+            as={Col}
+            md={4}
+            controlId="formGridNationality"
+            className="my-3"
+          >
             {/* Nationality [Label] */}
-            <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'>الجنسية <span className='cLT-danger-text'>*</span></Form.Label>
+            <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+              الجنسية <span className="cLT-danger-text">*</span>
+            </Form.Label>
             {/* Nationality [Option]  */}
-            <div className={`${formMessages?.nationality_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}>
-              <Select placeholder="الجنسية" options={getFormData?.nationality}
+            <div
+              className={`${
+                formMessages?.nationality_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
+            >
+              <Select
+                placeholder="الجنسية"
+                options={getFormData?.nationality}
                 onChange={fetchNationality}
-                getOptionLabel={nationality => nationality?.name} getOptionValue={nationality => nationality?.id} />
+                getOptionLabel={(nationality) => nationality?.name}
+                getOptionValue={(nationality) => nationality?.id}
+              />
             </div>
-            {!nationality && formMessages?.nationality_id && <p className='position-absolute text-nowrap mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages.nationality_id}</p>}
+            {!nationality && formMessages?.nationality_id && (
+              <p className="position-absolute text-nowrap mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages.nationality_id}
+              </p>
+            )}
           </Form.Group>
         </Row>
         {/* fourth  Row [Location] */}
-        <Row className='d-flex align-items-center'>
+        <Row className="d-flex align-items-center">
           {/* Country [Section] */}
-          <label className='fLT-Regular-sB cLT-support2-text mb-3'>موقعك <span className='cLT-danger-text'>*</span></label>
-          <Form.Group as={Col} md={6} className="'mb-3  " >
+          <label className="fLT-Regular-sB cLT-support2-text mb-3">
+            موقعك <span className="cLT-danger-text">*</span>
+          </label>
+          <Form.Group as={Col} md={6} className="'mb-3  ">
             {/* Country [Option]  */}
-            <div className={`${formMessages?.country_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input mb-3 mb-md-0`} >
-              <CountrySelect isProps={{ value: getAllCountryFromResponse?.country[0]?.name, location: getAllCountryFromResponse?.country }} ref={refe} />
+            <div
+              className={`${
+                formMessages?.country_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input mb-3 mb-md-0`}
+            >
+              <CountrySelect
+                isProps={{
+                  value: getAllCountryFromResponse?.country[0]?.name,
+                  location: getAllCountryFromResponse?.country,
+                }}
+                ref={refe}
+              />
             </div>
-            {!location?.countriesID && formMessages?.country_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.country_id}</p>}
+            {!location?.countriesID && formMessages?.country_id && (
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages?.country_id}
+              </p>
+            )}
           </Form.Group>
           {/* State [Section] */}
           <Form.Group as={Col} md={6} className="'mb-3 mb-md-0">
             {/* State [Option]  */}
-            <div className={`${formMessages?.city_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}>
-              <CitySelect isProps={{ value: getAllCountryFromResponse?.city[0]?.name, location: getAllCountryFromResponse?.city }} ref={refe} />
+            <div
+              className={`${
+                formMessages?.city_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
+            >
+              <CitySelect
+                isProps={{
+                  value: getAllCountryFromResponse?.city[0]?.name,
+                  location: getAllCountryFromResponse?.city,
+                }}
+                ref={refe}
+              />
             </div>
-            {!location?.citiesID && formMessages?.city_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.city_id}</p>}
+            {!location?.citiesID && formMessages?.city_id && (
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages?.city_id}
+              </p>
+            )}
           </Form.Group>
         </Row>
         <Row>
           {/* State [Section] */}
           <Form.Group as={Col} md={6} className="">
-          <div className={`${formMessages?.state_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB mb-3 mb-md-0 `}>
-              <StateSelect isProps={{ value: getAllCountryFromResponse?.sate, location: getAllCountryFromResponse?.state }} ref={refe} />
+            <div
+              className={`${
+                formMessages?.state_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB mb-3 mb-md-0 `}
+            >
+              <StateSelect
+                isProps={{
+                  value: getAllCountryFromResponse?.sate,
+                  location: getAllCountryFromResponse?.state,
+                }}
+                ref={refe}
+              />
             </div>
             {/* State [Option]  */}
-            {!location?.stateID && formMessages?.state_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.state_id}</p>}
+            {!location?.stateID && formMessages?.state_id && (
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages?.state_id}
+              </p>
+            )}
           </Form.Group>
           <Form.Group as={Col} md={6} className="">
             {/* Area [Option]  */}
-            <div className={`${formMessages?.area_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}>
-              <Select placeholder="الحى" options={selectedAreaName}
-                onChange={fetchArea} getOptionLabel={area => area?.name} getOptionValue={area => area?.id}
+            <div
+              className={`${
+                formMessages?.area_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
+            >
+              <Select
+                placeholder="الحى"
+                options={selectedAreaName}
+                onChange={fetchArea}
+                getOptionLabel={(area) => area?.name}
+                getOptionValue={(area) => area?.id}
               />
             </div>
-            {!location?.stateID && formMessages?.area_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.state_id}</p>}
+            {!location?.stateID && formMessages?.area_id && (
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages?.state_id}
+              </p>
+            )}
           </Form.Group>
         </Row>
         <Row>
-          <div className='pt-4'>
+          <div className="pt-4">
             <div className="mb-4">
-              <label className='fLT-Regular-sB cLT-support2-text mb-2'>مجالات الاختصاص <span className='cLT-danger-text'>*</span></label>
-              <FlancerEditTagsComponent tags={getAllCountryFromResponse?.category} type={'Register'} />
+              <label className="fLT-Regular-sB cLT-support2-text mb-2">
+                مجالات الاختصاص <span className="cLT-danger-text">*</span>
+              </label>
+              <FlancerEditTagsComponent
+                tags={getAllCountryFromResponse?.category}
+                type={"Register"}
+              />
             </div>
           </div>
           {/* Job Name Title */}
-          <Form.Group as={Col} md={12} controlId="formGridGender" className='mt-3' >
+          <Form.Group
+            as={Col}
+            md={12}
+            controlId="formGridGender"
+            className="mt-3"
+          >
             {/* Job Name [Label] */}
-            <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'>المسمي الوظيفي <span className='cLT-danger-text'>*</span></Form.Label>
+            <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+              الوصف المختصر <span className="cLT-danger-text">*</span>
+            </Form.Label>
             {/* Job Name [Option]  */}
-            <div className={`${formMessages?.job_name_id ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}>
-              <Select placeholder="المسمي الوظيفي" options={getFormData?.jobName}
+            <div
+              className={`${
+                formMessages?.job_name_id
+                  ? "uLT-bd-f-danger-sA"
+                  : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
+            >
+              <Select
+                placeholder=" الوصف المختصر"
+                options={getFormData?.jobName}
                 onChange={fetchJobName}
-                getOptionLabel={jobName => jobName?.name} getOptionValue={jobName => jobName?.id} />
+                getOptionLabel={(jobName) => jobName?.name}
+                getOptionValue={(jobName) => jobName?.id}
+              />
             </div>
-            {!jobName && formMessages?.job_name_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{formMessages?.job_name_id}</p>}
+            {!jobName && formMessages?.job_name_id && (
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {formMessages?.job_name_id}
+              </p>
+            )}
           </Form.Group>
         </Row>
         <div className="d-flex flex-column  align-items-center justify-content-between gap-4">
           {/* Agree Terms [Section] */}
-          <label className='d-flex justify-content-center align-items-center gap-2 gap-sm-3 ' >
-            <input id="acceptTerms" checked={check} disabled={!validation} type="checkbox" className='uLT-click' name="radio-button" onChange={() => setCheck(!check)} style={{ width: '24px', height: '24px' }} />
-            <p className='mb-0  LT-agree-condition cLT-support2-text termsText'> اوافق علي الشروط والاحكام </p>
+          <label className="d-flex justify-content-center align-items-center gap-2 gap-sm-3 ">
+            <input
+              id="acceptTerms"
+              checked={check}
+              disabled={!validation}
+              type="checkbox"
+              className="uLT-click"
+              name="radio-button"
+              onChange={() => setCheck(!check)}
+              style={{ width: "24px", height: "24px" }}
+            />
+            <p className="mb-0  LT-agree-condition cLT-support2-text termsText">
+              {" "}
+              اوافق علي الشروط والاحكام{" "}
+            </p>
           </label>
-          <button disabled={!validation || !check} name='freelancer' className='btn w-50 cLT-secondary-bg p-1'>
+          <button
+            disabled={!validation || !check}
+            name="freelancer"
+            className="btn w-50 cLT-secondary-bg p-1"
+          >
             <div className="d-flex align-items-center gap-2 justify-content-center gap-3">
               {formLoading && <div className="spinner"></div>}
-              <p className='m-0  py-1 px-4 cLT-white-text fLT-Regular-sB'>إنشـــاء حســـاب</p>
+              <p className="m-0  py-1 px-4 cLT-white-text fLT-Regular-sB">
+                إنشـــاء حســـاب
+              </p>
             </div>
           </button>
-          <button onClick={value.handleChange('user')} name='freelancer' className='btn w-50 cLT-secondary-bg p-1'>
-            <p name='freelancer' className='m-0  py-1 px-4 cLT-white-text fLT-Regular-sB'>رجــــوع</p>
+          <button
+            onClick={value.handleChange("user")}
+            name="freelancer"
+            className="btn w-50 cLT-secondary-bg p-1"
+          >
+            <p
+              name="freelancer"
+              className="m-0  py-1 px-4 cLT-white-text fLT-Regular-sB"
+            >
+              رجــــوع
+            </p>
           </button>
         </div>
       </Form>
     </Fragment>
-  )
+  );
 }
 export default RegisterCompanyDetails

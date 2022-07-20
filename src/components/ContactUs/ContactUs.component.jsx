@@ -133,7 +133,7 @@ const ContactUs = ({ data }) => {
         >
           <img
             type="image/webp"
-            srcSet={sectionFiveData?.image ? sectionFiveData?.image : imgWebp}
+            src={sectionFiveData?.image ? sectionFiveData?.image : imgWebp}
             alt=""
             className="w-100 h-100"
             style={{ aspectRatio: "1/1", borderRadius: "16px" }}

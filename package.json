@@ -37,6 +37,7 @@
     "react-star-ratings": "^2.3.0",
     "react-step-builder": "^3.0.6",
     "react-stepper-horizontal": "^1.0.11",
+    "react-toastify": "^9.0.7",
     "sweetalert2": "^11.4.17",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"

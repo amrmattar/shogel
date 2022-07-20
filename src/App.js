@@ -7,6 +7,8 @@ import { RegisterServices } from "./core/services/AuthServices/Method_RegisterDa
 import { getCoreDataReducer } from "./core/redux/reducers/CoreDataReducer/CoreDataReducer";
 // import { getMessaging, onMessage } from '@firebase/messaging'
 // import { newMessaging } from "./core/firebase/firebase";
+  import "react-toastify/dist/ReactToastify.css";
+  import { ToastContainer } from "react-toastify";
 
 function App() {
   const [locationID] = useSelector((state) => [state.locationID])
@@ -62,8 +64,9 @@ function App() {
 
   return (
     <Router>
-      <div className="" style={{ height: '100vh' }}>
+      <div className="" style={{ height: "100vh" }}>
         <ViewLayout />
+        <ToastContainer theme="colored" />
       </div>
     </Router>
   );
