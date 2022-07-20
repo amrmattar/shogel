@@ -142,7 +142,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
   function JobSelect(isProps = {}, ref) {
     return (
       <Select
-        placeholder="المسمي الوظيفي"
+        placeholder=" الوصف المختصر"
         ref={refe}
         options={isProps.isProps.selecName}
         defaultInputValue={
@@ -309,7 +309,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
               <Form.Group as={Col} sm={12} md={6} controlId="formGridJobName">
                 {/* Job Title [Label] */}
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
-                  المسمي الوظيفي
+                  الوصف المختصر 
                 </Form.Label>
                 {/* Job Title [Option]  */}
                 <div

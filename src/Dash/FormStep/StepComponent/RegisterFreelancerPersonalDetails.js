@@ -646,7 +646,7 @@ const RegisterFreelancerPersonalDetails = () => {
           >
             {/* Job Name [Label] */}
             <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
-              المسمي الوظيفي <span className="cLT-danger-text">*</span>
+              الوصف المختصر <span className="cLT-danger-text">*</span>
             </Form.Label>
             {/* Job Name [Option]  */}
             <div
@@ -657,7 +657,7 @@ const RegisterFreelancerPersonalDetails = () => {
               } uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
             >
               <Select
-                placeholder="المسمي الوظيفي"
+                placeholder=" الوصف المختصر"
                 options={getFormData?.jobName}
                 onChange={fetchJobName}
                 getOptionLabel={(jobName) => jobName?.name}

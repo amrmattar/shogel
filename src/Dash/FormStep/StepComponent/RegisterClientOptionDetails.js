@@ -13,6 +13,8 @@ import { Form } from "react-bootstrap";
 import Select from "react-select";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 import {
   getAreaID,
   getcitiesID,
@@ -22,6 +24,10 @@ import {
 import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
 import { useNavigate } from "react-router-dom";
+import { LoginServices } from "../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core";
+import { getAuthentication } from "../../../core/redux/reducers/Authentication/AuthenticationReducer.core";
+import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
+import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 
 const RegisterClientOptionDetails = () => {
   const dispatch = useDispatch();
@@ -170,15 +176,15 @@ const RegisterClientOptionDetails = () => {
 
   //TODO Get Form Input Value
   const [formInput, setFormInput] = useState({ fullname: "" });
-   const fullNameHandler = useCallback(
-     (e) => {
-       const { name, value } = e.target;
-       return value.length < 36
-         ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
-         : null;
-     },
-     [setFormInput]
-   );
+  const fullNameHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      return value.length < 36
+        ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
+        : null;
+    },
+    [setFormInput]
+  );
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -225,11 +231,55 @@ const RegisterClientOptionDetails = () => {
           })
         );
         setLoading(false);
+        const dataWithToken = {
+          email: value.labelInfo.clientView.email,
+          password: value.labelInfo.clientView.password,
+          device_token: localStorage.getItem("FCM"),
+        };
+        LoginServices._POST_LoginData(dataWithToken).then((res) => {
+          if (res?.data?.status === 1) {
+            dispatch(
+              getMessages({
+                messages: res?.data?.message,
+                messageType: "success",
+                messageClick: true,
+              })
+            );
+            localStorage.setItem("UI", res?.data?.data?.id);
+            const data = {
+              avatar: res?.data?.data?.avatar,
+              id: res?.data?.data?.id,
+              username: res?.data?.data?.username,
+              profileValidation: res?.data?.data?.profile_validation,
+              userRole: res?.data?.data?.role,
+            };
+            dispatch(getUserLoginData(data));
+            const userToken = res?.data?.data.token;
+            localStorage.setItem("userTK", JSON.stringify(userToken));
+            dispatch(getAuthentication(true));
+            localStorage.setItem("usID", res?.data?.data?.id);
+            localStorage.setItem("userRL", res?.data?.data?.role?.id);
+            localStorage.setItem("valid", res?.data?.data?.profile_validation);
+            dispatch(getRoleUser(true));
+            if (
+              res?.data?.data?.role.id == 3 ||
+              res?.data?.data?.role?.id == 4
+            ) {
+              const routTimeOut = setTimeout(() => {
+                navigate(`/account_management/my-edit-account/${data?.id}`);
+  
+              }, 800);
+
+              return () => clearTimeout(routTimeOut);
+            } 
+          } 
+        });
         navigate("/");
       })
       .catch((err) => {
         setMessages(err.response.data.message);
         setLoading(false);
+        toast.error("حدث خطأ ما");
         dispatch(
           getMessages([
             {
