@@ -49,7 +49,7 @@ const RegisterClientView = (props) => {
         <Form.Label className='fLT-Regular-sB cLT-support2-text mb-3'> اسم المستخدم <span className='cLT-danger-text'>*</span> </Form.Label>
         <Form.Control value={getClientData.username.replace(/[^A-Za-z0-9]/ig, "")} name="username" onChange={value.setDataDetails('username')}
           className='uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB p-3' type='text' placeholder="اسم المستخدم"
-          required={true}
+      
           maxLength={15}
           minLength={3}
         />

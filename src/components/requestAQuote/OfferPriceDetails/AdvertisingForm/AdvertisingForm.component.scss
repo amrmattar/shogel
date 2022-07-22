@@ -30,3 +30,17 @@
     grid-template-rows: 1fr auto;
   }
 }
+.halfWidth {
+  width: 50% !important;
+}
+.fullWidth {
+  width: 100% !important;
+}
+.locationArea {
+  background-color: rgb(248,250,252);
+  padding: 10px;
+  border-radius: 5px;
+  span{
+    margin-right: 10px;
+  }
+}

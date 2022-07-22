@@ -18,7 +18,7 @@ import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.c
 import { getCategoryValue } from "../../../../core/redux/reducers/CategoryReducer.core";
 import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/MethodDeleteGlobal.core";
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
-  import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const AdvertisingUpdateFormComponent = ({ advsId }) => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
@@ -208,7 +208,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
         return () => clearTimeout(resTimeOut);
       })
       .catch((err) => {
-       toast.error("حدث خطأ ما");
+        toast.error("حدث خطأ ما");
 
         dispatch(
           getMessages([
@@ -429,14 +429,14 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
         <div className="d-flex align-items-center justify-content-between">
           {/* [Back Button */}
           <div className="d-flex justify-content-end  align-items-left">
-            <div className="shadow uLT-f-radius-sB" ref={backButton}>
+            {/* <div className="shadow uLT-f-radius-sB" ref={backButton}>
               <ButtonShare
                 onClick={(e) => handleGoBack(e)}
                 btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
                 textClasses="px-4 cLT-white-text fLT-Regular-sC"
                 innerText=" رجــوع"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* [Request Button */}

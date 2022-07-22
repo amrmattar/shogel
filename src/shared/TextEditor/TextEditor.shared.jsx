@@ -21,7 +21,7 @@ const TextEditorShared = ({
   const handleChange = (value) => {
     setState({ value });
     setMaxLength(desInput?.current?.unprivilegedEditor?.getLength() - 1);
-    setDescription(state);
+    setDescription(value);
   };
   const getLength = useCallback(() => {
     setMaxLength(desInput?.current?.unprivilegedEditor.getText()?.length - 1);
@@ -56,7 +56,7 @@ const TextEditorShared = ({
       <div id="toolbar"></div>
       <div className="w-100 " dir="rtl">
         <ReactQuill
-          className="h-100 w-100  "
+          className="h-100 w-100 inpBG "
           onKeyDown={checkCharacterCount}
           theme="snow"
           placeholder="التفــاصيل :"

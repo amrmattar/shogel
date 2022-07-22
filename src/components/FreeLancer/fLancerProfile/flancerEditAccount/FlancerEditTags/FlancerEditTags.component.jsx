@@ -69,7 +69,7 @@ const FlancerEditTagsComponent = ({ tagDescription, tags, userProfileTags, categ
     return (
         <div>
             {/* Tags [Holder] */}
-            <div className={`d-grid  ${categoryClass} `}>
+            <div className={`d-grid   ${categoryClass} `}>
                 {/* [Description] */}
                 <p className="m-0 mb-3 w-75 fLT-Regular-sB cLT-smoke-text"> {tagDescription} </p>
                 {/* [Tags Choose] */}
@@ -88,7 +88,7 @@ const FlancerEditTagsComponent = ({ tagDescription, tags, userProfileTags, categ
                     getOptionLabel={tags => tags?.name} getOptionValue={tags => tags?.id}
                     noOptionsMessage={() => <p className='mb-0 d-flex align-items-center justify-content-center fLT-Regular-sC  w-100' style={{ height: '90px', overflow: 'hidden' }}>'لا يوجد مصنفات'</p>}
                 />
-                <div className="d-flex gap-3">
+                <div className="d-flex gap-3 ">
                     {userProfileTags?.map((tag, ix) => {
                         return <div key={tag?.id} id={tag?.id} className="css-4vit6s-multiValue d-flex" style={{ width: 'max-content' }}>
                             <div className="css-12jo7m5">

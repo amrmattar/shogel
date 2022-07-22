@@ -3,7 +3,9 @@
   width: 100%;
   justify-content: center;
   display: grid;
-  gap: 24px;
+  gap: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   grid-template-columns: 1fr;
   .LT-address-request {
     grid-column: 1/2;
@@ -29,4 +31,14 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
   }
+}
+.inpBG{
+  background-color: rgb(248,250,252) !important;
+}
+.css-319lph-ValueContainer{
+  background-color: rgb(248,250,252) !important;
+  padding: 0 2vw !important;
+}
+.pointer{
+  cursor: pointer;
 }

@@ -19,6 +19,8 @@ import CategoryListComponent from "../../components/category/CategoryList/Catego
 import { advertisingLists } from "../../core/services/AdvertisingOfferServices/AdvertisingOfferServices.core";
 import { homePages } from "../../core/services/HomeServices/Home.core";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ChangeFotterState } from "../../core/redux/reducers/FotterReducer.core";
 const Home = () => {
   const categoryList = [
     {
@@ -39,9 +41,17 @@ const Home = () => {
     },
   ];
   const [sectionNum, setSectionNum] = useState();
-  useEffect(() => {
-    let cancel = false;
-    if (cancel) return;
+  const dispatch = useDispatch(
+    
+  )
+    const fotterStateHandler = () => {
+      dispatch(ChangeFotterState(true));
+    };
+   
+    useEffect(() => {
+      let cancel = false;
+      if (cancel) return;
+      fotterStateHandler();
     homePages._GET_HomePagesSections(1).then((res) => {
       setSectionNum(res.data?.data);
     });

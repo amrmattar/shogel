@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FlancerEditTagsComponent from "../../../FreeLancer/fLancerProfile/flancerEditAccount/FlancerEditTags/FlancerEditTags.component";
 import { Form } from "react-bootstrap";
+import Select from "react-select";
 import { Col, Row } from "react-bootstrap";
 import { userProfile } from "../../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.shared";
@@ -13,7 +14,8 @@ import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.c
 import { useNavigate } from "react-router-dom";
 import { advertisingLists } from "../../../../core/services/AdvertisingOfferServices/AdvertisingOfferServices.core";
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
-  import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { RegisterServices } from "../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 
 const AdvertisingFormComponent = () => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
@@ -42,6 +44,7 @@ const AdvertisingFormComponent = () => {
 
   const media = new FormData();
 
+  const [disabled, setDisable] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -127,7 +130,7 @@ const AdvertisingFormComponent = () => {
       })
       .catch((err) => {
         setAdvsCheck(false);
-       toast.error("حدث خطأ ما")
+        toast.error("حدث خطأ ما");
         dispatch(
           getMessages([
             {
@@ -149,14 +152,49 @@ const AdvertisingFormComponent = () => {
     setFiles({ images: newfileImage, videos: newfileVideo });
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
-
+  const [locationState, setLocayionState] = useState(false);
+  const showLocation = () => {
+    setLocayionState(true);
+  };
   const backButton = useRef();
   const handleGoBack = (e) => {
     e.preventDefault();
     navigate(-1);
   };
+  ////////////////// Location /////////////////
+  const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
+  const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedState, setSelectedState] = useState();
+  const fetchCountry = (country) => {
+    setSelectedCountry(country.id);
+  };
+  const fetchCities = (city) => {
+    setSelectedState(city.id);
+  };
+
+  const getCoreData = useMemo(() => {
+    let modal = ["country", "city", "state"];
+    return RegisterServices.GET_RegisterData(
+      modal,
+      selectedCountry,
+      selectedState
+    ).then((res) => {
+      setGetAllCountryFromResponse(res.data.data);
+    });
+  }, [selectedCountry, selectedState]);
+  useEffect(() => {
+    return getCoreData;
+  }, [getCoreData]);
+
   const advsMaxCharacters = 5000;
 
+  useEffect(() => {
+    if (formData.name.length > 6 && content.length > 20 && getAllUserUpdate.category[0]) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [formData, content, getAllUserUpdate]);
   return (
     <>
       <UserFeedBackShared
@@ -167,27 +205,27 @@ const AdvertisingFormComponent = () => {
       {/* LT-request-form [Holder] */}
       <Form
         onSubmit={(e) => handleCLick(e)}
-        className="LT-advs-form-grid py-4 mt-4 px-4"
+        className="uLT-f-radius-sB LT-advs-form-grid py-4 mt-4 px-4"
       >
         {/* Address Request [Section] */}
-        <Row className="mb-3 gap-3 flex-column m-0">
-          <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
+        <Row className=" flex-column m-0">
+          <div className="d-flex ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             <Form.Group
               as={Col}
               sm={12}
-              md={6}
+              md={12}
               controlId="formGridPassword"
-              className="position-relative px-0 d-grid gap-2"
+              className="position-relative px-0 "
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
                 {" "}
-                عنوان الاعلان
+                عنوان الاعلان<span className="cLT-danger-text">*</span>{" "}
               </Form.Label>
               <Form.Control
                 value={formData?.name}
                 name="name"
                 onChange={handleChange}
-                className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
+                className="inpBG uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
               />
@@ -195,33 +233,6 @@ const AdvertisingFormComponent = () => {
                 {errMessage?.name && (
                   <p className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                     {errMessage?.name}
-                  </p>
-                )}
-              </div>
-            </Form.Group>
-            <Form.Group
-              as={Col}
-              sm={12}
-              md={6}
-              controlId="formGridPassword"
-              className="position-relative px-0 d-grid gap-2"
-            >
-              <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
-                {" "}
-                السعر
-              </Form.Label>
-              <Form.Control
-                value={formData?.price}
-                name="price"
-                onChange={handleChange}
-                className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
-                type="number"
-                placeholder="0 ريال"
-              />
-              <div>
-                {errMessage?.price && (
-                  <p className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
-                    {errMessage?.price}
                   </p>
                 )}
               </div>
@@ -248,7 +259,7 @@ const AdvertisingFormComponent = () => {
         <div className="LT-details-request position-relative">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
-            اكتب تفاصيل الطلب
+            اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
           </Form.Label>
           <TextEditorShared
             setDescription={setContent}
@@ -267,6 +278,33 @@ const AdvertisingFormComponent = () => {
             </p>
           )}
         </div>
+        <Form.Group
+          as={Col}
+          sm={6}
+          md={6}
+          controlId="formGridPassword"
+          className="position-relative px-0"
+        >
+          <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
+            {" "}
+            السعر
+          </Form.Label>
+          <Form.Control
+            value={formData?.price}
+            name="price"
+            onChange={handleChange}
+            className="inpBG uLT-bd-f-platinum-sA uLT-f-radius-sB"
+            type="number"
+            placeholder="0 ريال"
+          />
+          <div>
+            {errMessage?.price && (
+              <p className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
+                {errMessage?.price}
+              </p>
+            )}
+          </div>
+        </Form.Group>
         {/* Upload Files [Holder] */}
         <div className="LT-upload-advs">
           <Upload
@@ -282,13 +320,17 @@ const AdvertisingFormComponent = () => {
         <div className="d-grid  position-relative">
           {/* [Title] */}
           <p className="m-0 fLT-Bold-sA cLT-main-text">
-            اختر <span className="cLT-support1-text"> المجالات</span> المناسبة
-            لاعلانك
+            اختر <span className="cLT-support1-text"> المهارات</span> المناسبة
+            لاعلانك<span className="cLT-danger-text">*</span>{" "}
           </p>
           <FlancerEditTagsComponent
             categoryClass={"pb-0"}
             tags={userCategory}
           />
+          <p className="">
+            لاضافة مهارة جديدة تناسب اعلانك توجه للملف الشخصي{" "}
+            <span className="pointer cLT-support1-text"> من هنا</span>
+          </p>
           <div>
             {errMessage?.category && (
               <p className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
@@ -297,23 +339,98 @@ const AdvertisingFormComponent = () => {
             )}
           </div>
         </div>
+        <div className="d-grid  position-relative">
+          {/* [Title] */}
+          <p className="m-0 fLT-Bold-sA cLT-main-text">
+            <span className="cLT-support1-text"> الموقع</span>
+          </p>
+          <p className="locationArea">
+            حي العلياء , منطقة الرياض , المملكة العربية السعودية{" "}
+            <span onClick={showLocation} className="pointer cLT-support1-text">
+              {" "}
+              تغيير الموقع
+            </span>
+          </p>
+          <div>
+            {errMessage?.category && (
+              <p className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
+                {errMessage?.category}
+              </p>
+            )}
+          </div>
+        </div>
+        {locationState && (
+          <Row className="d-flex align-items-center">
+            {/* Country [Section] */}
+            <label className="fLT-Regular-sB cLT-support2-text mb-2">
+              موقعك
+            </label>
+            <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  placeholder="البلد"
+                  className="uLT-f-radius-sB "
+                  options={getAllCountryFromResponse?.country}
+                  onChange={fetchCountry}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
+                />
+              </div>
+              {errMessage?.country_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.country_id}
+                </p>
+              )}
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group as={Col} md={6} className="mb-3 position-relative">
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  placeholder="المدينة"
+                  options={getAllCountryFromResponse?.city}
+                  onChange={fetchCities}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {errMessage?.city_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.city_id}
+                </p>
+              )}
+            </Form.Group>
+          </Row>
+        )}
         <div className="d-flex align-items-center justify-content-between">
           {/* [Back Button */}
           <div className="d-flex justify-content-end  align-items-left">
-            <div className="shadow uLT-f-radius-sB" ref={backButton}>
+            {/* <div className="shadow uLT-f-radius-sB" ref={backButton}>
               <ButtonShare
                 onClick={(e) => handleGoBack(e)}
                 btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
                 textClasses="px-4 cLT-white-text fLT-Regular-sC"
                 innerText=" رجــوع"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* [Request Button */}
           <div className="d-flex justify-content-end  align-items-left">
             <div className="shadow uLT-f-radius-sB">
               <ButtonShare
+                type={disabled}
                 loading={advsCheck}
                 btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
                 textClasses="px-4 cLT-white-text fLT-Regular-sC"
