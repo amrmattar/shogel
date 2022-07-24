@@ -1,0 +1,33 @@
+.LT {
+  top: -75px;
+  left: 0;
+}
+.main {
+  height:auto;
+  .Titlecontainer {
+    background-color: rgb(2, 56, 90);
+    height: 40vh;
+  }
+  .formContainer {
+    width: 60%;
+    margin:0vh 20vw;
+position: absolute;
+    top: 30vh;
+    padding-bottom: 50px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .main{
+    .Titlecontainer {
+      height: 30vh;
+    }
+    .formContainer {
+      width: 90%;
+      margin: 0 5vw;
+      top: 23vh;
+    
+     
+    }
+  }
+}

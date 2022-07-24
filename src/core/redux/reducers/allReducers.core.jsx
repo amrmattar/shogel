@@ -6,6 +6,7 @@ import SocialMediaReducer from "./SocialMediaReducer.core";
 import RegisterReducerCore from "./RegisterReducer/RegisterReducer.core";
 import RegisterLocationIDReducer from "./RegisterReducer/RegisterLocationID.core";
 import CategoryReducerCore from "./CategoryReducer.core";
+import FotterReducer from "./FotterReducer.core";
 import LoginReducerCore from "./LoginReducer/LoginReducer.core";
 import AuthenticationReducerCore from "./Authentication/AuthenticationReducer.core";
 import MessagesReducerCore from './Messages/Messages.core'
@@ -34,5 +35,6 @@ export const allReducers = combineReducers({
     coreData: CoreDataReducer,
     userFullData: UserDataReducerCore,
     registerCategory: RegisterCategoryReducer,
+    Fotter: FotterReducer,
     search: searchReducer
 })

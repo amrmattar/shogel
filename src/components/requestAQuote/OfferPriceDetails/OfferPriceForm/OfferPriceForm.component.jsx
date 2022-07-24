@@ -183,6 +183,18 @@ const OfferPriceForm = () => {
     e.preventDefault();
     navigate(-1);
   };
+  const [disable, setDisable] = useState(false);
+  useEffect(() => {
+    if (
+      formData.name.length > 6 &&
+      content.length > 20 &&
+      getAllUserUpdate.category[0]
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [formData, content, getAllUserUpdate]);
   return (
     <>
       <UserFeedBackShared
@@ -193,10 +205,10 @@ const OfferPriceForm = () => {
       {/* LT-request-form [Holder] */}
       <Form
         onSubmit={(e) => handleCLick(e)}
-        className="LT-request-form-grid py-4 mt-4 px-4 uLT-f-radius-sB"
+        className="LT-request-form-grid py-4 mt-4 px-4 uLT-f-radius-sB "
       >
         {/* Address Request [Section] */}
-        <Row className="mb-3 flex-column m-0">
+        <Row className="mb-1 flex-column m-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             <Form.Group
               as={Col}
@@ -207,13 +219,14 @@ const OfferPriceForm = () => {
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
                 {" "}
-                عنوان الطلب
+                عنوان الطلب<span className="cLT-danger-text">*</span>{" "}
               </Form.Label>
               <Form.Control
+                required
                 value={formData?.name}
                 name="name"
                 onChange={handleChange}
-                className="uLT-bd-f-platinum-sA uLT-f-radius-sB fLT-Regular-sB"
+                className="inpBG uLT-bd-f-platinum-sA uLT-f-radius-sB fLT-Regular-sB"
                 type="text"
                 placeholder="مثال : احتاج معقب .. برمجة تطبيق .. ترميم ملحق .. حفار قبو"
               />
@@ -232,7 +245,7 @@ const OfferPriceForm = () => {
         <div className="LT-details-request position-relative">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
-            اكتب تفاصيل الطلب
+            اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
           </Form.Label>
           <TextEditorShared
             data={recivedData?.description}
@@ -245,7 +258,7 @@ const OfferPriceForm = () => {
           </div>
           {errMessage?.description && (
             <p
-              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+              className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
               style={{ bottom: "0px" }}
             >
               {errMessage?.description}
@@ -253,7 +266,7 @@ const OfferPriceForm = () => {
           )}
         </div>
         {/* Time And Type Of Work [Section] */}
-        <Row className="mb-3 flex-column m-0 pt-3">
+        <Row className="mb-1 flex-column m-0 pt-1">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row p-0">
             <Form.Group
               as={Col}
@@ -270,7 +283,7 @@ const OfferPriceForm = () => {
                 value={formData?.time}
                 name="time"
                 onChange={handleChange}
-                className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
+                className="uLT-bd-f-platinum-sA uLT-f-radius-sB inpBG"
                 type="text"
                 placeholder="30 يوم"
               />
@@ -295,10 +308,10 @@ const OfferPriceForm = () => {
                 نوع الشغل
               </Form.Label>
               <div
-                className="d-flex justify-content-around align-items-center uLT-bd-f-platinum-sA fLT-Regular-sB uLT-f-radius-sB cLT-main-text"
+                className="inpBG d-flex justify-content-around align-items-center uLT-bd-f-platinum-sA fLT-Regular-sB uLT-f-radius-sB cLT-main-text"
                 onChange={handleChange}
               >
-                <div className="fLT-Regular-sC  cLT-main-text text-center ">
+                <div className=" fLT-Regular-sC  cLT-main-text text-center ">
                   <label id="showCompo" className="uLT-click">
                     <input
                       type="radio"
@@ -353,7 +366,7 @@ const OfferPriceForm = () => {
             >
               <Select
                 placeholder="البلد"
-                className="uLT-f-radius-sB"
+                className="uLT-f-radius-sB "
                 options={getAllCountryFromResponse?.country}
                 onChange={fetchCountry}
                 getOptionLabel={(country) => country?.name}
@@ -447,12 +460,12 @@ const OfferPriceForm = () => {
           {/* [Title] */}
           <p className="m-0 fLT-Bold-sA cLT-main-text">
             ما هي المهارات <span className="cLT-support1-text">و المجالات</span>{" "}
-            المطلوبة؟
+            المطلوبة؟<span className="cLT-danger-text">*</span>{" "}
           </p>
           <FlancerEditTagsComponent
             tags={offerCategory}
-            tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
-                        `}
+            // tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
+            //             `}
           />
           {errMessage?.category && (
             <p
@@ -462,24 +475,34 @@ const OfferPriceForm = () => {
               {errMessage?.category}
             </p>
           )}
+
+          <p>
+            اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
+            <span className="fLT-Bold-sA cLT-support1-text pointer">
+              {" "}
+              اي شغل{" "}
+            </span>{" "}
+            لدينا نخبة من المشتغلين الجاهزون لمساعدتك في اي اختصاص
+          </p>
         </div>
         <div className="d-flex align-items-center justify-content-between">
           {/* [Back Button */}
           <div className="d-flex justify-content-end  align-items-left">
-            <div className="shadow uLT-f-radius-sB" ref={backButton}>
+            {/* <div className="shadow uLT-f-radius-sB" ref={backButton}>
               <ButtonShare
                 onClick={(e) => handleGoBack(e)}
                 btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
                 textClasses="px-4 cLT-white-text fLT-Regular-sC"
                 innerText=" رجــوع"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* [Request Button */}
           <div className="d-flex justify-content-end  align-items-left">
             <div className="shadow uLT-f-radius-sB">
               <ButtonShare
+                type={disable}
                 loading={advsCheck}
                 btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
                 textClasses="px-4 cLT-white-text fLT-Regular-sC"

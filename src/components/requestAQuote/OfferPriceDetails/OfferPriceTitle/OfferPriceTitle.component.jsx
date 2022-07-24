@@ -1,12 +1,12 @@
-import React from 'react'
-
+import React from "react";
+import cls from "./OfferPriceTitle.module.scss";
 const OfferPriceTitle = ({ title, description }) => {
-    return (
-        <div className="container pt-5 px-4">
-            <p className="m-0 pb-4 fLT-Bold-sE cLT-white-text">{title}</p>
-            <p className="pb-4 fLT-Regular-sE cLT-white-text">{description}</p>
-        </div>
-    )
-}
+  return (
+    <div className={cls.container}>
+      <p className={cls.title}>{title}</p>
+      <p className={cls.description}>{description}</p>
+    </div>
+  );
+};
 
-export default OfferPriceTitle
+export default OfferPriceTitle;

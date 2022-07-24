@@ -1,0 +1,29 @@
+.container {
+ margin:0vh 21vw 0vh 0vh;
+ padding: 10vh 0vw;
+  width: 60%;
+
+  .title {
+    color: rgb(39,180,187);
+    font-size: 30px;
+    font-weight: 800;
+   
+  }
+  .description {
+    color: rgb(232,236,238);
+    font-size: 20px;
+    font-weight: 800;
+  }
+}
+@media only screen and (max-width: 450px) {
+ .container {
+
+  .title {
+    font-size: 20px;
+   
+  }
+  .description {
+    font-size: 10px;
+  }
+}
+}
