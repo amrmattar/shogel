@@ -189,7 +189,11 @@ const AdvertisingFormComponent = () => {
   const advsMaxCharacters = 5000;
 
   useEffect(() => {
-    if (formData.name.length > 6 && content.length > 20 && getAllUserUpdate.category[0]) {
+    if (
+      formData.name.length > 6 &&
+      content.length > 20 &&
+      getAllUserUpdate.category[0]
+    ) {
       setDisable(false);
     } else {
       setDisable(true);
