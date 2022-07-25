@@ -1,0 +1,48 @@
+.LT-readMore-holder-button {
+  &:hover {
+    .LT-read-more-arrow {
+      animation: moveDown 1s ease infinite;
+      @keyframes moveDown {
+        0% {
+          transform: translateY(2px);
+        }
+        50% {
+          transform: translateY(0px);
+        }
+        100% {
+          transform: translateY(2px);
+        }
+      }
+    }
+  }
+}
+.xx {
+  transition: 3s ease-in-out;
+}
+.desc {
+  width: 50vw;
+  word-break: break-all;
+}
+.main {
+  .offer {
+    position: absolute;
+    top: 10%;
+    left: 3%;
+    display: flex;
+  }
+  .title {
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .description {
+    color: rgb(183, 183, 183);
+    font-size: .8rem;
+    font-weight: 600;
+    width: 80%;
+    line-height: 1.5rem;
+    height: 3rem;
+    overflow: hidden;
+  }
+}
