@@ -76,6 +76,7 @@ $file-types: (
 }
 .file-drop {
   cursor: pointer;
+  height: 8vh;
 }
 .LT-progressContainer {
   display: grid;
@@ -147,4 +148,7 @@ $file-types: (
   @media screen and (max-width: 400px) {
     grid-template-columns: 1fr;
   }
+}
+.inpH2 {
+  height: 7vh;
 }

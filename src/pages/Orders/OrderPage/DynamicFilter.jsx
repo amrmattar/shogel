@@ -1,22 +1,21 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import PriceSlider from "../../../components/PriceFilter/price";
 import CategoryHandler from "./CategoryHandler";
+import CategoryMain from "./CategoryMain";
 import cls from "./DynamicFilter.module.scss";
+import { BiCurrentLocation } from "react-icons/bi";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 
-const DynamicFilter = ({ mostUse, categories }) => {
+
+const DynamicFilter = ({ mostUse, categories, isEmployee }) => {
   const [priceRange, setPriceRange] = useState({
     minprice: null,
     maxprice: null,
   });
   const [categ, setCateg] = useState(categories);
-  const [inpValue, setInpValue] = useState("");
-  // useEffect(() => {
-  //   if (categories[0]) {
-  //  let arr=   categories.filter((ele) => ele.title.contains(inpValue));
-  //   }
-  // }, [inpValue]);
- 
+  const [rate, setRate] = useState(0);
+
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>
@@ -24,7 +23,7 @@ const DynamicFilter = ({ mostUse, categories }) => {
         onChange={(e) =>
           setCateg(
             categories.filter((ele) => {
-           return   ele.title.includes(e.target.value);
+              return ele.title.includes(e.target.value);
             })
           )
         }
@@ -36,17 +35,58 @@ const DynamicFilter = ({ mostUse, categories }) => {
         <div>
           <p className={cls.search}>الاشغال و المجالات</p>
           {categ.map((ele) => (
-            <CategoryHandler ele={ele} />
+            <CategoryMain ele={ele} />
           ))}
         </div>
       )}
       <div className={cls.location}>
         <p className={cls.search}>الموقع</p>
+        <div className={cls.relative}>
+          <div className={cls.locatIcon}>
+            <BiCurrentLocation />
+          </div>
 
-        <input className={cls.inp} placeholder="ابحث هنا" type="text" />
+          <input className={cls.inp} placeholder="ابحث هنا" type="text" />
+        </div>
       </div>
-      <div>
-        <PriceSlider changePrice={setPriceRange} />
+      {isEmployee && (
+        <div className={cls.rate}>
+          <p className={cls.search}>التقييم</p>
+
+          <Rating
+            dir="ltr"
+            size="large"
+            name="simple-controlled"
+            value={rate}
+            onChange={(event, newValue) => {
+              setRate(newValue);
+            }}
+            emptyIcon={
+              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+            }
+          />
+
+          <p className={cls.search}>متصل</p>
+          <div className={cls.swich}>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+            <p>مشتغلين متصلين بالانترنت فقط</p>
+          </div>
+        </div>
+      )}
+      <div className={cls.priceHold}>
+        <PriceSlider
+          quote="ريال"
+          title="نحديد السعر"
+          changePrice={setPriceRange}
+        />
+        {isEmployee && <PriceSlider
+          quote="مراجعة"
+          title="مراجعة"
+          changePrice={setPriceRange}
+        />}
       </div>
       {mostUse[0] && (
         <div>

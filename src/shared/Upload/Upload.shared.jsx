@@ -20,10 +20,10 @@ const Upload = ({
   };
   return (
     <>
-      <p className="m-0 fLT-Bold-sA cLT-main-text mb-3">الصور والملفات</p>
+      <p className="m-0 fLT-Bold-sA mb-0">الصور والملفات</p>
       <FileDrop onTargetClick={(f) => targetClick(f)} onDrop={(f) => isDrop(f)}>
         {changeStylrToAnotherComponnet !== "taskComponent" ? (
-          <div className="inpBG d-flex flex-column flex-sm-row py-4 py-sm-0 justify-content-between px-3 align-items-center uLT-f-radius-sB uLT-bd-f-platinum-sA">
+          <div className="inpBG inpH2 d-flex flex-column flex-sm-row py-4 py-sm-0 justify-content-between px-3 align-items-center uLT-f-radius-sB uLT-bd-f-platinum-sA">
             <p className="m-0 py-4 px-0 uLT-r-radius-sA fLT-Regular-sB cLT-main-text border-0">
               {uploadDescription}
             </p>

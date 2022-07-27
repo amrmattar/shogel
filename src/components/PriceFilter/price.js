@@ -9,7 +9,7 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-const PriceSlider = ({ changePrice }) => {
+const PriceSlider = ({ changePrice,title,quote }) => {
   const [value, setValue] = useState([0, 300]);
   const [clear, setclear] = useState(false);
   const handleChange = (event, newValue) => {
@@ -27,7 +27,7 @@ const PriceSlider = ({ changePrice }) => {
 
   return (
     <div className={classes.mainholder}>
-      <p className={classes.p}>تحديد السعر</p>
+      <p className={classes.p}>{ title}</p>
 
       <Box className={classes.slider} sx={{ width: 110 }}>
         <Slider
@@ -40,7 +40,7 @@ const PriceSlider = ({ changePrice }) => {
         />
       </Box>
       <p className={classes.desc}>
-        من {value[0]} ريال الي {value[1]} ريال
+        من {value[0]} {quote} الي {value[1]} {quote}
       </p>
     </div>
   );
