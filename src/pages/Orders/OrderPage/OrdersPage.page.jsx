@@ -9,14 +9,32 @@ import { useSelector } from "react-redux";
 import cls from "./OrderPage.module.scss";
 import DynamicFilter from "./DynamicFilter";
 const categories = [
-  { id: 1, title: "برمجة" },
+  {
+    id: 1,
+    title: "برمجة",
+    subs: [
+      { id: 1, title: "برمجة ويب" },
+      { id: 1, title: "برمجة ويب" },
+      { id: 1, title: "برمجة ويب" },
+      { id: 1, title: "برمجة ويب" },
+    ],
+  },
   { id: 2, title: "جوال" },
   { id: 3, title: "جرافيك" },
   { id: 4, title: "عروض" },
   { id: 5, title: "فيديو" },
   { id: 6, title: "مايكرو" },
   { id: 7, title: "رسم" },
-  { id: 8, title: "ترجمة" },
+  {
+    id: 8,
+    title: "ترجمة",
+    subs: [
+      { id: 1, title: "برمجة ويب" },
+      { id: 1, title: "برمجة ويب" },
+      { id: 1, title: "برمجة ويب" },
+      { id: 1, title: "برمجة ويب" },
+    ],
+  },
   { id: 9, title: "شغل" },
   { id: 10, title: "قيادة" },
   { id: 11, title: "تسويق" },

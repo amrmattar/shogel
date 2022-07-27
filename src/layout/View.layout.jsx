@@ -15,7 +15,7 @@ const ViewLayout = () => {
       {location.pathname !== "/offer-price" &&
       location.pathname !== "/freelancer-offer" &&
       location.pathname !== "/advertising-price" ? (
-        <header className="">
+        <header className="w-100 bg-white">
           {/* Nav Gradian-Linear [Line] */}
           <div className="cLT-Gradian-Linear-Main LT-nav-line "></div>
           {/* Navbar  & Searchbar  [Holder] */}

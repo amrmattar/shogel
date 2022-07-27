@@ -3,16 +3,16 @@
   left: 0;
 }
 .main {
-  height:auto;
   .Titlecontainer {
-    background-color: rgb(2, 56, 90);
-    height: 40vh;
+      background-image: linear-gradient(to left, rgb(2, 56, 90) , rgb(109,200,202));
+
+    height: 15vh;
   }
   .formContainer {
-    width: 60%;
-    margin:0vh 20vw;
+    width: 70%;
+    margin:0vh 15vw;
 position: absolute;
-    top: 30vh;
+    top: 10vh;
     padding-bottom: 50px;
   }
 }

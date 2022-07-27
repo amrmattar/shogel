@@ -3,8 +3,8 @@
   width: 100%;
   justify-content: center;
   display: grid;
-  gap: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  gap: 0px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
   grid-template-columns: 1fr;
   .LT-address-request {
@@ -32,13 +32,29 @@
     grid-template-rows: 1fr auto;
   }
 }
-.inpBG{
-  background-color: rgb(248,250,252) !important;
+.inpBG {
+  background-color: rgb(248, 250, 252) !important;
 }
-.css-319lph-ValueContainer{
-  background-color: rgb(248,250,252) !important;
+.css-319lph-ValueContainer {
+  background-color: rgb(248, 250, 252) !important;
   padding: 0 2vw !important;
 }
-.pointer{
+.pointer {
   cursor: pointer;
+}
+.h100 {
+  height: 100vh !important;
+  overflow: hidden;
+}
+.finalH {
+  display: flex;
+  position: relative;
+  .bottn {
+    position: absolute;
+    bottom: 20%;
+    left: 0%;
+  }
+  .w60 {
+    width: 80%;
+  }
 }

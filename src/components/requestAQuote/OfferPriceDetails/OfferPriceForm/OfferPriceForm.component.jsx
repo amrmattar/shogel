@@ -167,7 +167,16 @@ const OfferPriceForm = () => {
       })
       .catch((err) => {
         setAdvsCheck(false);
-        toast.error("حدث خطأ ما");
+        let obj = err.response?.data.message;
+        if (obj && typeof obj == Object) {
+          for (const key in obj) {
+            let ele = obj[key];
+            toast.error(ele);
+          }
+        } else {
+          toast.error(obj);
+          toast.error("حدث خطأ ما");
+        }
         dispatch(
           getMessages([
             {
@@ -205,10 +214,10 @@ const OfferPriceForm = () => {
       {/* LT-request-form [Holder] */}
       <Form
         onSubmit={(e) => handleCLick(e)}
-        className="LT-request-form-grid py-4 mt-4 px-4 uLT-f-radius-sB "
+        className="LT-request-form-grid h100 pt-3 mt-4 px-4 uLT-f-radius-sB "
       >
         {/* Address Request [Section] */}
-        <Row className="mb-1 flex-column m-0">
+        <Row className="m-0 flex-column m-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             <Form.Group
               as={Col}
@@ -230,19 +239,19 @@ const OfferPriceForm = () => {
                 type="text"
                 placeholder="مثال : احتاج معقب .. برمجة تطبيق .. ترميم ملحق .. حفار قبو"
               />
-              {errMessage?.name && (
+              {/* {errMessage?.name && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2"
                   style={{ top: "90px" }}
                 >
                   {errMessage?.name}
                 </p>
-              )}
+              )} */}
             </Form.Group>
           </div>
         </Row>
         {/* Details Request [Section] */}
-        <div className="LT-details-request position-relative">
+        <div className=" position-relative mt-2 ">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
             اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
@@ -256,17 +265,17 @@ const OfferPriceForm = () => {
           <div className="text-start w-100 cLT-smoke-text">
             {getDescriptionLength} / {maxCharacters}
           </div>
-          {errMessage?.description && (
+          {/* {errMessage?.description && (
             <p
               className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
               style={{ bottom: "0px" }}
             >
               {errMessage?.description}
             </p>
-          )}
+          )} */}
         </div>
         {/* Time And Type Of Work [Section] */}
-        <Row className="mb-1 flex-column m-0 pt-1">
+        <Row className="mb-1 flex-column m-0 pt-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row p-0">
             <Form.Group
               as={Col}
@@ -287,14 +296,14 @@ const OfferPriceForm = () => {
                 type="text"
                 placeholder="30 يوم"
               />
-              {errMessage?.time && (
+              {/* {errMessage?.time && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.time}
                 </p>
-              )}
+              )} */}
             </Form.Group>
             <Form.Group
               as={Col}
@@ -344,14 +353,14 @@ const OfferPriceForm = () => {
                   </label>
                 </div>
               </div>
-              {errMessage?.type_work && (
+              {/* {errMessage?.type_work && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.type_work}
                 </p>
-              )}
+              )} */}
             </Form.Group>
           </div>
         </Row>
@@ -373,14 +382,14 @@ const OfferPriceForm = () => {
                 getOptionValue={(country) => country?.id}
               />
             </div>
-            {errMessage?.country_id && (
+            {/* {errMessage?.country_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
               >
                 {errMessage?.country_id}
               </p>
-            )}
+            )} */}
           </Form.Group>
           {/* State [Section] */}
           <Form.Group as={Col} md={6} className="mb-3 position-relative">
@@ -396,14 +405,14 @@ const OfferPriceForm = () => {
                 getOptionValue={(city) => city?.id}
               />
             </div>
-            {errMessage?.city_id && (
+            {/* {errMessage?.city_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
               >
                 {errMessage?.city_id}
               </p>
-            )}
+            )} */}
           </Form.Group>
         </Row>
         {/* State Of Location Show Only Type Of Work === Offline */}
@@ -454,41 +463,42 @@ const OfferPriceForm = () => {
             uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
           />
         </div>
-
-        {/* Skills-Grid [Holder] */}
-        <div className="LT-skills-request~ d-grid gap-3 pb-4 h-100 position-relative">
-          {/* [Title] */}
-          <p className="m-0 fLT-Bold-sA cLT-main-text">
-            ما هي المهارات <span className="cLT-support1-text">و المجالات</span>{" "}
-            المطلوبة؟<span className="cLT-danger-text">*</span>{" "}
-          </p>
-          <FlancerEditTagsComponent
-            tags={offerCategory}
-            // tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
-            //             `}
-          />
-          {errMessage?.category && (
+        <div className="finalH">
+          {/* Skills-Grid [Holder] */}
+          <div className="LT-skills-request~ d-grid gap-3 pb-4 w60 position-relative">
+            {/* [Title] */}
+            <p className="m-0 fLT-Bold-sA cLT-main-text">
+              ما هي المهارات{" "}
+              <span className="cLT-support1-text">و المجالات</span> المطلوبة؟
+              <span className="cLT-danger-text">*</span>{" "}
+            </p>
+            <FlancerEditTagsComponent
+              tags={offerCategory}
+              // tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
+              //             `}
+            />
+            {/* {errMessage?.category && (
             <p
               className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
               style={{ bottom: "10px" }}
             >
               {errMessage?.category}
             </p>
-          )}
+          )} */}
 
-          <p>
-            اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
-            <span className="fLT-Bold-sA cLT-support1-text pointer">
-              {" "}
-              اي شغل{" "}
-            </span>{" "}
-            لدينا نخبة من المشتغلين الجاهزون لمساعدتك في اي اختصاص
-          </p>
-        </div>
-        <div className="d-flex align-items-center justify-content-between">
+            <p>
+              اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
+              <span className="fLT-Bold-sA cLT-support1-text pointer">
+                {" "}
+                اي شغل{" "}
+              </span>{" "}
+              لدينا نخبة من المشتغلين الجاهزون لمساعدتك في اي اختصاص
+            </p>
+          </div>
+          {/* <div className="d-flex align-items-center justify-content-between"> */}
           {/* [Back Button */}
-          <div className="d-flex justify-content-end  align-items-left">
-            {/* <div className="shadow uLT-f-radius-sB" ref={backButton}>
+          {/* <div className="d-flex justify-content-end  align-items-left"> */}
+          {/* <div className="shadow uLT-f-radius-sB" ref={backButton}>
               <ButtonShare
                 onClick={(e) => handleGoBack(e)}
                 btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
@@ -496,20 +506,19 @@ const OfferPriceForm = () => {
                 innerText=" رجــوع"
               />
             </div> */}
-          </div>
+          {/* </div> */}
 
           {/* [Request Button */}
-          <div className="d-flex justify-content-end  align-items-left">
-            <div className="shadow uLT-f-radius-sB">
-              <ButtonShare
-                type={disable}
-                loading={advsCheck}
-                btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-                textClasses="px-4 cLT-white-text fLT-Regular-sC"
-                innerText=" إرسال"
-              />
-            </div>
+
+          <div className="bottn">
+            <ButtonShare
+              loading={advsCheck}
+              btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+              textClasses="px-4 cLT-white-text fLT-Regular-sC"
+              innerText=" إرسال"
+            />
           </div>
+          {/* </div> */}
         </div>
       </Form>
     </>
