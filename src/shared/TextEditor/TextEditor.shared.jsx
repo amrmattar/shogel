@@ -16,7 +16,7 @@ const TextEditorShared = ({
   characterLength,
 }) => {
   const desInput = useRef();
-  const [state, setState] = useState({ value: "التفــاصيل :" });
+  const [state, setState] = useState({ value: "" });
   const recivedData = JSON.parse(localStorage.getItem("TD"));
   const handleChange = (value) => {
     setState({ value });

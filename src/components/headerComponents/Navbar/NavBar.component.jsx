@@ -185,7 +185,14 @@ const Navbar = () => {
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             {pages.map((page, ix) => (
               <NavLink
                 key={ix}

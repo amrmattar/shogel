@@ -280,7 +280,7 @@ const AdvertisingFormComponent = () => {
         <Form.Group
           as={Col}
           sm={6}
-          md={6}
+          md={3}
           controlId="formGridPassword"
           className=" position-relative px-0"
         >
@@ -347,7 +347,7 @@ const AdvertisingFormComponent = () => {
             <p className="locationArea">
               حي العلياء , منطقة الرياض , المملكة العربية السعودية{" "}
               <span
-                // onClick={showLocation}
+                onClick={showLocation}
                 className="pointer cLT-support1-text"
               >
                 {" "}

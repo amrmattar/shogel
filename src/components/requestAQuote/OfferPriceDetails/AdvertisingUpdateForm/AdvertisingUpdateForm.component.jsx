@@ -303,8 +303,8 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             </Form.Group>
             <Form.Group
               as={Col}
-              sm={12}
-              md={6}
+              sm={6}
+              md={3}
               controlId="formGridPassword"
               className="px-0 d-grid gap-2"
             >

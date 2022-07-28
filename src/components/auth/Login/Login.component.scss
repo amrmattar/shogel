@@ -6,7 +6,7 @@
   grid-template-columns: 1fr;
   gap: 0px;
   grid-template-rows: 1fr auto auto;
-  .img{
+  .img {
     margin: 6% 0 10% 0;
   }
   .one {
@@ -20,7 +20,8 @@
     padding: 0px;
   }
   .three {
-    width: 100%;
+    width: 86%;
+    margin: 0 auto;
     grid-column: 1/2;
     grid-row: 3/4;
   }
@@ -33,14 +34,14 @@
     width: 90%;
   }
   .btn {
-    width: 90% !important;
-    margin: 0 5% !important;
+    // width: 86% !important;
+    // margin: 0 7% !important;
     border-radius: 10px;
   }
 }
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper{
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
   width: 40vw !important;
 }
-.css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop{
-background-color: rgb(182,184,185) !important;
+.css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop {
+  background-color: rgb(182, 184, 185) !important;
 }

@@ -4,21 +4,25 @@
 }
 .main {
   .Titlecontainer {
-      background-image: linear-gradient(to left, rgb(2, 56, 90) , rgb(109,200,202));
+    background-image: linear-gradient(
+      to top right,
+      rgb(109, 200, 202),
+      rgb(2, 56, 90)
+    );
 
     height: 15vh;
   }
   .formContainer {
     width: 70%;
-    margin:0vh 15vw;
-position: absolute;
+    margin: 0vh 15vw;
+    position: absolute;
     top: 10vh;
     padding-bottom: 50px;
   }
 }
 
 @media only screen and (max-width: 450px) {
-  .main{
+  .main {
     .Titlecontainer {
       height: 30vh;
     }
@@ -26,8 +30,6 @@ position: absolute;
       width: 90%;
       margin: 0 5vw;
       top: 23vh;
-    
-     
     }
   }
 }
