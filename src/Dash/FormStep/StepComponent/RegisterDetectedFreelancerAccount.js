@@ -30,7 +30,7 @@ const RegisterDetectedFreelancerAccount = () => {
             <div className="LT-placeholder" name='worker'></div>
             <div className="imLT-main-logo uLT-img-contain LT-logo-on-icon" name='worker'> </div>
             </i>
-            <p className="m-0 fLT-Bold-sA cLT-main-text LT-account-title" name='worker'> حســاب فردي</p>
+            <p className="m-0 fLT-Bold-sA cLT-main-text LT-account-title" name='worker'> حســاب فرد</p>
             <i name='worker' className={`LT-account-arrow-icon iLT-long-right-arrow uLT-img-contain iLT-sC mt-1`}></i>
         </button>
         <button className="btn LT-freelancer-type"  onClick={value.handleChange('user')}  name='company'>

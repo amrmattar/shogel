@@ -13,14 +13,14 @@
         position: absolute;
         height: 100%;
         width: 4rem;
-        font-size: 3rem;
+        font-size: 2.5rem;
         top: 0;
         left: 0;
         border-radius: 15px 0 0 15px;
         svg {
           margin: 0 !important;
           vertical-align: top;
-          margin: 5px 5px 0 0 !important ;
+          margin: 10% 15% 0 0 !important ;
         }
       }
     }
@@ -31,18 +31,16 @@
   }
   .swich {
     display: flex;
-    p{
+    p {
       font-size: 1rem;
       font-weight: 600;
-      color: rgb(144,146,150);
-margin: 3px 1rem 0 0;
+      color: rgb(144, 146, 150);
+      margin: 3px 1rem 0 0;
     }
   }
-  .priceHold{
-     border: 1px solid black;
-  border-left: none;
-  border-right: none;
-  padding: 5% 0;
+  .priceHold {
+    border-top: 1px solid gray;
+    padding: 5% 0;
   }
   .search {
     font-size: 1.5rem;
@@ -50,9 +48,17 @@ margin: 3px 1rem 0 0;
     color: black;
     margin: 0 0 0.4rem 0;
   }
+  .lastC {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: black;
+    margin: 0 0 0.4rem 0;
+       border-top: 1px solid gray;
+       padding-top: 1rem;
+  }
   .inp {
     width: 100%;
-    height: 3.5rem;
+    height: 3rem;
     border-radius: 10px;
     border: 0.1px solid gray;
     padding: 0 10px 0 40px;
@@ -92,5 +98,14 @@ margin: 3px 1rem 0 0;
   }
   .check {
     color: black;
+  }
+}
+.route {
+  font-size: 1.2rem;
+  color: #888b8f;
+  display: flex;
+  p{
+
+    margin: 5px 5px 5px 5px;
   }
 }

@@ -45,6 +45,7 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
               الجوال أو البريد الإلكتروني{" "}
             </Form.Label>
             <Form.Control
+              autoComplete="off"
               onChange={handleChange}
               name="email"
               className="uLT-bd-f-platinum-sA inpBG inp"
@@ -58,6 +59,7 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
               كلمة المرور
             </Form.Label>
             <Form.Control
+              autoComplete="off"
               minLength={8}
               onChange={handleChange}
               name="password"

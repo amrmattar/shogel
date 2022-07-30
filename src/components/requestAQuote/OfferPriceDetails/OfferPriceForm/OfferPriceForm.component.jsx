@@ -251,7 +251,7 @@ const OfferPriceForm = () => {
           </div>
         </Row>
         {/* Details Request [Section] */}
-        <div className=" position-relative mt-2 ">
+        <div className=" position-relative mt-2 mb-2">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
             اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
@@ -262,9 +262,9 @@ const OfferPriceForm = () => {
             setMaxLength={setGetDescriptionLength}
             characterLength={maxCharacters}
           />
-          <div className="text-start w-100 cLT-smoke-text">
+          {/* <div className="text-start w-100 cLT-smoke-text">
             {getDescriptionLength} / {maxCharacters}
-          </div>
+          </div> */}
           {/* {errMessage?.description && (
             <p
               className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"

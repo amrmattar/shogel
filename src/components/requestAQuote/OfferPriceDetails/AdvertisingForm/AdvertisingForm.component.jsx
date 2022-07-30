@@ -165,7 +165,7 @@ const AdvertisingFormComponent = () => {
   };
   const [locationState, setLocayionState] = useState(false);
   const showLocation = () => {
-    setLocayionState(true);
+    setLocayionState(!locationState);
   };
   const backButton = useRef();
   const handleGoBack = (e) => {
@@ -401,11 +401,63 @@ const AdvertisingFormComponent = () => {
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
-                  placeholder="المدينة"
+                  placeholder="المنطقة"
                   options={getAllCountryFromResponse?.city}
                   onChange={fetchCities}
                   getOptionLabel={(city) => city?.name}
                   getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {/* {errMessage?.city_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.city_id}
+                </p>
+              )} */}
+            </Form.Group>
+          </Row>
+        )}
+        {locationState && (
+          <Row className="d-flex align-items-center">
+            {/* Country [Section] */}
+          
+            <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  placeholder="المدينة"
+                  className="uLT-f-radius-sB "
+                  // options={getAllCountryFromResponse?.country}
+                  // onChange={fetchCountry}
+                  // getOptionLabel={(country) => country?.name}
+                  // getOptionValue={(country) => country?.id}
+                />
+              </div>
+              {/* {errMessage?.country_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.country_id}
+                </p>
+              )} */}
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group as={Col} md={6} className="mb-3 position-relative">
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  placeholder="الحي"
+                  // options={getAllCountryFromResponse?.city}
+                  // onChange={fetchCities}
+                  // getOptionLabel={(city) => city?.name}
+                  // getOptionValue={(city) => city?.id}
                 />
               </div>
               {/* {errMessage?.city_id && (

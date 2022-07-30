@@ -7,8 +7,7 @@ import { BiCurrentLocation } from "react-icons/bi";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
-
-const DynamicFilter = ({ mostUse, categories, isEmployee }) => {
+const DynamicFilter = ({ mostUse, categories, isEmployee, isAdvert }) => {
   const [priceRange, setPriceRange] = useState({
     minprice: null,
     maxprice: null,
@@ -49,7 +48,7 @@ const DynamicFilter = ({ mostUse, categories, isEmployee }) => {
           <input className={cls.inp} placeholder="ابحث هنا" type="text" />
         </div>
       </div>
-      {isEmployee && (
+      {(isAdvert || isEmployee) && (
         <div className={cls.rate}>
           <p className={cls.search}>التقييم</p>
 
@@ -76,21 +75,27 @@ const DynamicFilter = ({ mostUse, categories, isEmployee }) => {
           </div>
         </div>
       )}
-      <div className={cls.priceHold}>
-        <PriceSlider
-          quote="ريال"
-          title="نحديد السعر"
-          changePrice={setPriceRange}
-        />
-        {isEmployee && <PriceSlider
-          quote="مراجعة"
-          title="مراجعة"
-          changePrice={setPriceRange}
-        />}
-      </div>
+      {(!isEmployee || isAdvert) && (
+        <div className={cls.priceHold}>
+          {!isEmployee && (
+            <PriceSlider
+              quote="ريال"
+              title="نحديد السعر"
+              changePrice={setPriceRange}
+            />
+          )}
+          {isAdvert && (
+            <PriceSlider
+              quote="مراجعة"
+              title="مراجعة"
+              changePrice={setPriceRange}
+            />
+          )}
+        </div>
+      )}
       {mostUse[0] && (
         <div>
-          <p className={cls.search}>الاكثر استخداما</p>
+          <p className={cls.lastC}>الاكثر استخداما</p>
           {mostUse.map((ele) => (
             <CategoryHandler ele={ele} />
           ))}

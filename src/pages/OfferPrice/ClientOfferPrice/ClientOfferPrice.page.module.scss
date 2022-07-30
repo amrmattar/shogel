@@ -5,15 +5,18 @@
 .main {
   height:auto;
   .Titlecontainer {
-    background-color: rgb(2, 56, 90);
-    height: 20vh;
+     background-image: linear-gradient(
+      to top right,
+      rgb(109, 200, 202),
+      rgb(2, 56, 90)
+    );
+    height: 15vh;
   }
-  .formContainer {
+   .formContainer {
     width: 70%;
-    margin:0vh 15vw;
-position: absolute;
-    top: 12vh;
-    padding-bottom: 50px;
+    margin: 0vh 15vw;
+    position: absolute;
+    top: 10vh;
   }
 }
 

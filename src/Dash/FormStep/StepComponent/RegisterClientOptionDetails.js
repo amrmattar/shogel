@@ -220,7 +220,6 @@ const RegisterClientOptionDetails = () => {
       gender_id: gender?.id ? gender?.id : 0,
       nationality_id: nationality?.id ? nationality?.id : 0,
     };
-    console.warn(data);
     RegisterServices.POST_RegisterData(data)
       .then((res) => {
         dispatch(
@@ -261,20 +260,14 @@ const RegisterClientOptionDetails = () => {
             localStorage.setItem("userRL", res?.data?.data?.role?.id);
             localStorage.setItem("valid", res?.data?.data?.profile_validation);
             dispatch(getRoleUser(true));
-            if (
-              res?.data?.data?.role.id == 3 ||
-              res?.data?.data?.role?.id == 4
-            ) {
-              const routTimeOut = setTimeout(() => {
-                navigate(`/account_management/my-edit-account/${data?.id}`);
-  
-              }, 800);
 
-              return () => clearTimeout(routTimeOut);
-            } 
-          } 
+            const routTimeOut = setTimeout(() => {
+              navigate(`/`);
+            }, 1000);
+
+            return () => clearTimeout(routTimeOut);
+          }
         });
-        navigate("/");
       })
       .catch((err) => {
         setMessages(err.response.data.message);

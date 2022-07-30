@@ -26,6 +26,10 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { LoginServices } from "../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core";
+import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
+import { getAuthentication } from "../../../core/redux/reducers/Authentication/AuthenticationReducer.core";
+import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 
 const RegisterFreelancerPersonalDetails = () => {
   const [location, messages, categorySkills, getMobileNumber, getFormData] =
@@ -159,15 +163,15 @@ const RegisterFreelancerPersonalDetails = () => {
     },
     [setFormInput]
   );
-   const fullNameHandler = useCallback(
-     (e) => {
-       const { name, value } = e.target;
-       return value.length < 36
-         ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
-         : null;
-     },
-     [setFormInput]
-   );
+  const fullNameHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      return value.length < 36
+        ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
+        : null;
+    },
+    [setFormInput]
+  );
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -250,10 +254,46 @@ const RegisterFreelancerPersonalDetails = () => {
           })
         );
         setLoading(false);
-        const handleTimeOut = setTimeout(() => {
-          navigate("/");
-        }, 1000);
+        const dataWithToken = {
+          email: formInput?.email,
+          password: formInput?.password,
+          device_token: localStorage.getItem("FCM"),
+        };
+        LoginServices._POST_LoginData(dataWithToken).then((res) => {
+          if (res?.data?.status === 1) {
+            dispatch(
+              getMessages({
+                messages: res?.data?.message,
+                messageType: "success",
+                messageClick: true,
+              })
+            );
+            localStorage.setItem("UI", res?.data?.data?.id);
+            const data = {
+              avatar: res?.data?.data?.avatar,
+              id: res?.data?.data?.id,
+              username: res?.data?.data?.username,
+              profileValidation: res?.data?.data?.profile_validation,
+              userRole: res?.data?.data?.role,
+            };
+            dispatch(getUserLoginData(data));
+            const userToken = res?.data?.data.token;
+            localStorage.setItem("userTK", JSON.stringify(userToken));
+            dispatch(getAuthentication(true));
+            localStorage.setItem("usID", res?.data?.data?.id);
+            localStorage.setItem("userRL", res?.data?.data?.role?.id);
+            localStorage.setItem("valid", res?.data?.data?.profile_validation);
+            dispatch(getRoleUser(true));
+
+            const routTimeOut = setTimeout(() => {
+              navigate(`/`);
+            }, 1000);
+
+            return () => clearTimeout(routTimeOut);
+          }
+        });
       })
+
       .catch((err) => {
         setLoading(false);
         setMessages(err.response.data.message);

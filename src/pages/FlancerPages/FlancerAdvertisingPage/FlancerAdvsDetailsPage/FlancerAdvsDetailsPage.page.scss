@@ -119,8 +119,26 @@
   width: 284px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  & > p{
+  & > p {
     margin: 0px;
   }
 }
 
+.hova {
+  p {
+    display: none;
+  }
+}
+.hova:hover {
+  p {
+    display: block;
+    position: absolute;
+    bottom: -6vh;
+    white-space: nowrap;
+    color: red;
+  }
+}
+.marginC{
+
+  margin-right: 35%;
+}

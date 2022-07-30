@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
 import cls from './Employee.module.scss'
 import DynamicFilter from "../Orders/OrderPage/DynamicFilter";
+import RouteHandler from "../Orders/OrderPage/RoteHandler";
 const categories = [
   {
     id: 1,
@@ -98,6 +99,7 @@ const Employed = () => {
 
   // ? ------------------[[[START Block]]]-----------------
   //*TODO GET From API Response ==> Advertising Pagination
+  const [route, setRoutes] = useState(["المشتغلين", "برمجة", "حاسب"]);
 
   const [pagination, setPagination] = useState();
   const handleAdvsPagination = useMemo(() => {
@@ -142,6 +144,9 @@ const Employed = () => {
     <>
       {flancersList?.data.length !== 0 ? (
         <div className={cls.container}>
+          <div className="d-flex">
+            <RouteHandler data={route} />
+          </div>
           <div className={cls.holder}>
             <DynamicFilter
               isEmployee={true}

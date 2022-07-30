@@ -47,7 +47,7 @@ const RegisterMobileStep = () => {
 
   // TODO Check Mobile Validation Before Post
   const activeMobileSend = useCallback(
-    () => { mobileForm.mobile.split(" ").join("").length <= 12 ? setMobileType(true) : setMobileType(false) },
+    () => { mobileForm.mobile.split(" ").join("").length <= 11 ? setMobileType(true) : setMobileType(false) },
     [mobileForm, setMobileType],
   )
   useEffect(() => {

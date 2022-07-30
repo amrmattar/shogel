@@ -30,7 +30,7 @@ const RegisterDetectedAccount = (props) => {
               <div className="LT-placeholder" name='client'></div>
               <div className="imLT-main-logo uLT-img-contain LT-logo-on-icon" name='client'> </div>
               </i>
-              <p className="m-0 fLT-Bold-sA cLT-main-text LT-account-title" name='client'> حســاب عمــيل</p>
+              <p className="m-0 fLT-Bold-sA cLT-main-text LT-account-title" name='client'> حســاب مستخدم</p>
               <i name='client' className={`LT-account-arrow-icon iLT-long-right-arrow uLT-img-contain iLT-sC mt-1`}></i>
           </button>
           <button className="btn LT-freelancer-type" onClick={() => handleChangeScreen()}  onFocus={value.handleChange('user')} id={3} name='freelancer'>
