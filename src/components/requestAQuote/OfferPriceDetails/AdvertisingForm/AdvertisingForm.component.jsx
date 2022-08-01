@@ -16,6 +16,7 @@ import { advertisingLists } from "../../../../core/services/AdvertisingOfferServ
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 import { RegisterServices } from "../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+import { API } from "../../../../enviroment/enviroment/enviroment";
 
 const AdvertisingFormComponent = () => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
@@ -26,12 +27,23 @@ const AdvertisingFormComponent = () => {
   const navigate = useNavigate();
   const errMessage = messages[0]?.messages;
   const [userCategory, setUserCategory] = useState();
-  const userLoginData = useMemo(() => {
-    return userProfile
-      ._GET_ProfileByToken(localStorage.getItem("userTK"))
-      .then((res) => {
-        setUserCategory(res.data.data?.category);
-      });
+  const [user, setUser] = useState({});
+  const userLoginData = useMemo(async () => {
+    try {
+      const res = await userProfile._GET_ProfileByToken(
+        localStorage.getItem("userTK")
+      );
+
+      setUserCategory(res.data.data?.category);
+
+      const res2 = await userProfile._GET_ProfileData(res.data.data?.id);
+      setUser(res2.data.data);
+      fetchCountry(res2.data.data?.country);
+      fetchCities(res2.data.data?.city);
+      fetchArea(res2.data.data?.state);
+    } catch (e) {
+      console.log(e);
+    }
   }, [localStorage]);
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -174,21 +186,24 @@ const AdvertisingFormComponent = () => {
   };
   ////////////////// Location /////////////////
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
-  const [selectedCountry, setSelectedCountry] = useState();
-  const [selectedState, setSelectedState] = useState();
+  const [selectedCountry, setSelectedCountry] = useState({});
+  const [selectedState, setSelectedState] = useState({});
+  const [selectedArea, setSelectedArea] = useState({});
   const fetchCountry = (country) => {
-    setSelectedCountry(country.id);
+    setSelectedCountry(country);
   };
   const fetchCities = (city) => {
-    setSelectedState(city.id);
+    setSelectedState(city);
   };
-
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+  };
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state"];
     return RegisterServices.GET_RegisterData(
       modal,
-      selectedCountry,
-      selectedState
+      selectedCountry?.id,
+      selectedState?.id
     ).then((res) => {
       setGetAllCountryFromResponse(res.data.data);
     });
@@ -210,6 +225,19 @@ const AdvertisingFormComponent = () => {
       setDisable(true);
     }
   }, [formData, content, getAllUserUpdate]);
+  const [showSkills, setShowSkills] = useState(false);
+  const [allSkills, setAllSkills] = useState(false);
+  const fetchAllSkills = async () => {
+    try {
+      const res = await API.get("coredata/tag/search");
+      setAllSkills(res.data?.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchAllSkills();
+  }, []);
   return (
     <>
       <UserFeedBackShared
@@ -327,9 +355,22 @@ const AdvertisingFormComponent = () => {
             tags={userCategory}
           />
           <p className="mbb">
-            لاضافة مهارة جديدة تناسب اعلانك توجه للملف الشخصي{" "}
-            <span className="pointer  cLT-support1-text"> من هنا</span>
+            لاضافة مهارة جديدة تناسب اعلانك{" "}
+            <span
+              onClick={() => setShowSkills(!showSkills)}
+              className="pointer  cLT-support1-text"
+            >
+              {" "}
+              من هنا
+            </span>
           </p>
+          {showSkills && (
+            <FlancerEditTagsComponent
+              placeholder={"اضف مهارة جديدة"}
+              categoryClass={"pb-0 mt-3"}
+              tags={allSkills}
+            />
+          )}
           {/* <div>
             {errMessage?.category && (
               <p className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
@@ -377,6 +418,7 @@ const AdvertisingFormComponent = () => {
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
+                  value={selectedCountry}
                   placeholder="البلد"
                   className="uLT-f-radius-sB "
                   options={getAllCountryFromResponse?.country}
@@ -401,7 +443,8 @@ const AdvertisingFormComponent = () => {
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
-                  placeholder="المنطقة"
+                  value={selectedState}
+                  placeholder="المدينة"
                   options={getAllCountryFromResponse?.city}
                   onChange={fetchCities}
                   getOptionLabel={(city) => city?.name}
@@ -422,19 +465,20 @@ const AdvertisingFormComponent = () => {
         {locationState && (
           <Row className="d-flex align-items-center">
             {/* Country [Section] */}
-          
+
             <Form.Group as={Col} md={6} className="mb-3 position-relative ">
               {/* Country [Option]  */}
               <div
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
-                  placeholder="المدينة"
+                  value={selectedArea}
+                  placeholder="المنطقة"
                   className="uLT-f-radius-sB "
-                  // options={getAllCountryFromResponse?.country}
-                  // onChange={fetchCountry}
-                  // getOptionLabel={(country) => country?.name}
-                  // getOptionValue={(country) => country?.id}
+                  options={getAllCountryFromResponse?.state}
+                  onChange={fetchArea}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
                 />
               </div>
               {/* {errMessage?.country_id && (

@@ -113,7 +113,6 @@ const OfferPriceForm = () => {
   };
 
   const [advsCheck, setAdvsCheck] = useState(false);
-
   const handleCLick = async (e) => {
     e.preventDefault();
     dispatch(
@@ -143,7 +142,7 @@ const OfferPriceForm = () => {
       offerPrice.set("address", formData.address);
       offerPrice.set("state_id", selectedCity);
     }
-    getAllUserUpdate.category.forEach((cate, idx) => {
+    getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
     });
     userOfferPrice
@@ -204,6 +203,7 @@ const OfferPriceForm = () => {
       setDisable(true);
     }
   }, [formData, content, getAllUserUpdate]);
+  const [anyJob, setAnyJob] = useState(false);
   return (
     <>
       <UserFeedBackShared
@@ -474,6 +474,7 @@ const OfferPriceForm = () => {
             </p>
             <FlancerEditTagsComponent
               tags={offerCategory}
+              anyJob={anyJob}
               // tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
               //             `}
             />
@@ -488,7 +489,10 @@ const OfferPriceForm = () => {
 
             <p>
               اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
-              <span className="fLT-Bold-sA cLT-support1-text pointer">
+              <span
+                onClick={() => setAnyJob(true)}
+                className="fLT-Bold-sA cLT-support1-text pointer"
+              >
                 {" "}
                 اي شغل{" "}
               </span>{" "}

@@ -13,6 +13,8 @@ const FlancerEditTagsComponent = ({
   categoryClass,
   handleClicks,
   type,
+  placeholder,
+  anyJob,
 }) => {
   const dispatch = useDispatch();
   const theme = (theme) => ({
@@ -42,9 +44,17 @@ const FlancerEditTagsComponent = ({
   };
 
   const [selectedValue, setSelectedValue] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const handleChange = (e) => {
     setSelectedValue(e.map((x) => x.id));
+    setSelectedTags(e.map((x) => x));
   };
+  useEffect(() => {
+    if (anyJob) {
+      setSelectedTags([...selectedTags, { id: 0, name: "اي شغل" }]);
+      setSelectedValue([0]);
+    }
+  }, [anyJob]);
   const postCategory = useCallback(() => {
     if (type === "Register") {
       dispatch(getRegisterCategoryValue(selectedValue));
@@ -103,6 +113,7 @@ const FlancerEditTagsComponent = ({
         </p>
         {/* [Tags Choose] */}
         <Select
+          value={selectedTags}
           components={{
             DropdownIndicator: () => null,
             IndicatorSeparator: () => null,
@@ -110,7 +121,7 @@ const FlancerEditTagsComponent = ({
           form="requird"
           isClearable
           theme={theme}
-          placeholder="ادخل المهارات هنا"
+          placeholder={placeholder ? placeholder : "ادخل المهارات هنا"}
           isOptionSelected={true}
           styles={customStyles}
           isMulti
