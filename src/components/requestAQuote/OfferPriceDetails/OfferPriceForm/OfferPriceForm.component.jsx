@@ -14,6 +14,7 @@ import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.c
 import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.shared";
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
+import { userProfile } from "../../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 
 const OfferPriceForm = () => {
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
@@ -21,6 +22,27 @@ const OfferPriceForm = () => {
     state.profileUpdate,
     state.messages,
   ]);
+   const userLoginData = useMemo(async () => {
+     try {
+       const res = await userProfile._GET_ProfileByToken(
+         localStorage.getItem("userTK")
+       );
+
+     
+
+       const res2 = await userProfile._GET_ProfileData(res.data.data?.id);
+       presetLocation(res2.data.data);
+     } catch (e) {
+       console.log(e);
+     }
+   }, [localStorage]);
+   useEffect(() => {
+    
+         return userLoginData;
+       
+  
+    
+   }, []);
   const errMessage = messages[0]?.messages;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,26 +55,43 @@ const OfferPriceForm = () => {
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
   const [selectedCountry, setSelectedCountry] = useState();
   const [selectedState, setSelectedState] = useState();
+  const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
-  const fetchCountry = (country) => {
-    setSelectedCountry(country.id);
-  };
-  const fetchCities = (city) => {
-    setSelectedState(city.id);
-  };
-  const fetchState = (state) => {
-    setSelectedCity(state.id);
-  };
+ const fetchCountry = (country) => {
+   setSelectedCountry(country);
+   setSelectedCity({});
+   setSelectedState({});
+   setSelectedArea({});
+ };
+ const fetchCities = (city) => {
+   setSelectedCity(city);
+   setSelectedState({});
+   setSelectedArea({});
+ };
+ const fetchState = (state) => {
+   setSelectedState(state);
+   setSelectedArea({});
+ };
+ const fetchArea = (area) => {
+   setSelectedArea(area);
+ };
+ const presetLocation = (data) => {
+   setSelectedCountry(data?.country);
+   setSelectedCity(data?.city);
+   setSelectedState(data?.state);
+   setSelectedArea(data?.area);
+ };
   const getCoreData = useMemo(() => {
-    let modal = ["country", "city", "state"];
+    let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
       modal,
-      selectedCountry,
-      selectedState
+      selectedCountry?.id,
+      selectedCity?.id,
+      selectedState?.id
     ).then((res) => {
       setGetAllCountryFromResponse(res.data.data);
     });
-  }, [selectedCountry, selectedState]);
+  }, [selectedCountry, selectedState, selectedCity]);
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);
@@ -134,14 +173,15 @@ const OfferPriceForm = () => {
       "description",
       content?.value ? content?.value : recivedData?.description
     );
-    offerPrice.set("time", formData.time);
-    offerPrice.set("type_work", formData.type_work);
-    offerPrice.set("country_id", selectedCountry);
-    offerPrice.set("city_id", selectedState);
-    if (formData.type_work === "offline") {
-      offerPrice.set("address", formData.address);
-      offerPrice.set("state_id", selectedCity);
-    }
+    // offerPrice.set("time", formData.time);
+    // offerPrice.set("type_work", formData.type_work);
+    offerPrice.set("country_id", selectedCountry?.id);
+    offerPrice.set("city_id", selectedCity?.id);
+    // if (formData.type_work === "offline") {
+    // offerPrice.set("address", formData.address);
+    offerPrice.set("state_id", selectedState?.id);
+    offerPrice.set("area_id", selectedArea?.id);
+    // }
     getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
     });
@@ -192,17 +232,23 @@ const OfferPriceForm = () => {
     navigate(-1);
   };
   const [disable, setDisable] = useState(false);
-  useEffect(() => {
-    if (
-      formData.name.length > 6 &&
-      content.length > 20 &&
-      getAllUserUpdate.category[0]
-    ) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  }, [formData, content, getAllUserUpdate]);
+   useEffect(() => {
+     if (
+       formData.name.length > 10 &&
+       content.length > 20 &&
+       getAllUserUpdate.category[0] &&
+     
+       selectedArea?.id &&
+       selectedCity?.id &&
+       selectedCountry?.id &&
+       selectedState?.id
+     ) {
+       setDisable(false);
+     } else {
+       setDisable(true);
+     }
+   }, [formData, content, getAllUserUpdate]);
+  
   const [anyJob, setAnyJob] = useState(false);
   return (
     <>
@@ -275,7 +321,7 @@ const OfferPriceForm = () => {
           )} */}
         </div>
         {/* Time And Type Of Work [Section] */}
-        <Row className="mb-1 flex-column m-0 pt-0">
+        {/* <Row className="mb-1 flex-column m-0 pt-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row p-0">
             <Form.Group
               as={Col}
@@ -296,14 +342,14 @@ const OfferPriceForm = () => {
                 type="text"
                 placeholder="30 يوم"
               />
-              {/* {errMessage?.time && (
+              {errMessage?.time && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.time}
                 </p>
-              )} */}
+              )}
             </Form.Group>
             <Form.Group
               as={Col}
@@ -353,17 +399,17 @@ const OfferPriceForm = () => {
                   </label>
                 </div>
               </div>
-              {/* {errMessage?.type_work && (
+              {errMessage?.type_work && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.type_work}
                 </p>
-              )} */}
+              )}
             </Form.Group>
           </div>
-        </Row>
+        </Row> */}
         {/* Location [Section] */}
         <Row className="d-flex align-items-center">
           {/* Country [Section] */}
@@ -374,6 +420,7 @@ const OfferPriceForm = () => {
               className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
             >
               <Select
+                value={selectedCountry}
                 placeholder="البلد"
                 className="uLT-f-radius-sB "
                 options={getAllCountryFromResponse?.country}
@@ -398,6 +445,7 @@ const OfferPriceForm = () => {
               className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
             >
               <Select
+                value={selectedCity}
                 placeholder="المدينة"
                 options={getAllCountryFromResponse?.city}
                 onChange={fetchCities}
@@ -415,12 +463,64 @@ const OfferPriceForm = () => {
             )} */}
           </Form.Group>
         </Row>
+        <Row className="d-flex align-items-center">
+          {/* Country [Section] */}
+
+          <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+            {/* Country [Option]  */}
+            <div
+              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+            >
+              <Select
+                value={selectedState}
+                placeholder="المنطقة"
+                className="uLT-f-radius-sB "
+                options={getAllCountryFromResponse?.state}
+                onChange={fetchState}
+                getOptionLabel={(country) => country?.name}
+                getOptionValue={(country) => country?.id}
+              />
+            </div>
+            {/* {errMessage?.country_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.country_id}
+                </p>
+              )} */}
+          </Form.Group>
+          {/* State [Section] */}
+          <Form.Group as={Col} md={6} className="mb-3 position-relative">
+            {/* State [Option]  */}
+            <div
+              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+            >
+              <Select
+                value={selectedArea}
+                placeholder="الحي"
+                options={getAllCountryFromResponse?.area}
+                onChange={fetchArea}
+                getOptionLabel={(city) => city?.name}
+                getOptionValue={(city) => city?.id}
+              />
+            </div>
+            {/* {errMessage?.city_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.city_id}
+                </p>
+              )} */}
+          </Form.Group>
+        </Row>
         {/* State Of Location Show Only Type Of Work === Offline */}
-        {formData.type_work === "offline" && (
-          <Row>
-            {/* City [Section] */}
+
+        {/* <Row>
+        
             <Form.Group as={Col} md={6} className="mb-3">
-              {/* City [Option]  */}
+        
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
                 {" "}
                 المنطقة{" "}
@@ -451,7 +551,7 @@ const OfferPriceForm = () => {
               />
             </Form.Group>
           </Row>
-        )}
+   */}
         {/* Upload Files [Holder] */}
         <div className="LT-upload-request">
           <Upload
@@ -516,6 +616,7 @@ const OfferPriceForm = () => {
 
           <div className="bottn">
             <ButtonShare
+              type={disable}
               loading={advsCheck}
               btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
               textClasses="px-4 cLT-white-text fLT-Regular-sC"

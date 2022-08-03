@@ -10,15 +10,15 @@ const CategoryHandler = ({ ele, changeState, isSub }) => {
       <Checkbox
         onClick={() => {
           setChecked(!checked);
-          changeState();
+          changeState(ele.id);
         }}
         checked={checked}
         defaultChecked
         color="default"
       />
-      <p className={checked ? cls.check : ""}>{ele.title}</p>
+      <p className={checked ? cls.check : ""}>{ele.name}</p>
       <div className={cls.icon}>
-        {ele.subs && (checked ? <IoMdArrowDropup /> : <IoMdArrowDropdown />)}
+        {ele.parent && (checked ? <IoMdArrowDropup /> : <IoMdArrowDropdown />)}
       </div>
     </div>
   );

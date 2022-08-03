@@ -1,16 +1,20 @@
 import { useState } from "react";
 import CategoryHandler from "./CategoryHandler";
-const CategoryMain = ({ ele }) => {
+const CategoryMain = ({ ele, setCategory }) => {
   const [checked, setChecked] = useState(false);
+  const stateHandler = (id) => {
+    setChecked(!checked);
+    setCategory(id, !checked);
+  };
   return (
     <div>
       <div>
-        <CategoryHandler changeState={() => setChecked(!checked)} ele={ele} />
+        <CategoryHandler changeState={stateHandler} ele={ele} />
       </div>
 
-      {ele.subs &&
+      {ele.parent &&
         checked &&
-        ele.subs.map((el) => <CategoryHandler isSub={true} ele={el} />)}
+        ele.children.map((el) => <CategoryHandler isSub={true} ele={el} />)}
     </div>
   );
 };

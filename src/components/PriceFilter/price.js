@@ -9,25 +9,21 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-const PriceSlider = ({ changePrice,title,quote }) => {
+const PriceSlider = ({ changePrice, title, quote }) => {
   const [value, setValue] = useState([0, 300]);
-  const [clear, setclear] = useState(false);
   const handleChange = (event, newValue) => {
-    setclear(false);
     setValue(newValue);
   };
 
   useEffect(() => {
-    if (clear) {
-      changePrice({ minprice: null, maxprice: null });
-    } else if (value[1] !== 0) {
-      changePrice({ minprice: value[0], maxprice: value[1] });
+     if (value[1] !== 0) {
+      changePrice([value[0], value[1]]);
     }
-  }, [clear, value]);
+  }, [ value]);
 
   return (
     <div className={classes.mainholder}>
-      <p className={classes.p}>{ title}</p>
+      <p className={classes.p}>{title}</p>
 
       <Box className={classes.slider} sx={{ width: 110 }}>
         <Slider

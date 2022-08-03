@@ -38,9 +38,7 @@ const AdvertisingFormComponent = () => {
 
       const res2 = await userProfile._GET_ProfileData(res.data.data?.id);
       setUser(res2.data.data);
-      fetchCountry(res2.data.data?.country);
-      fetchCities(res2.data.data?.city);
-      fetchArea(res2.data.data?.state);
+      presetLocation(res2.data.data);
     } catch (e) {
       console.log(e);
     }
@@ -99,7 +97,6 @@ const AdvertisingFormComponent = () => {
   const [advsCheck, setAdvsCheck] = useState(false);
   const [content, setContent] = useState("");
   const [getDescriptionLength, setGetDescriptionLength] = useState(0);
-
   const handleCLick = (e) => {
     e.preventDefault();
     dispatch(
@@ -122,6 +119,11 @@ const AdvertisingFormComponent = () => {
     getAllUserUpdate.category.forEach((cate, idx) => {
       media.append(`category[${idx}]`, cate);
     });
+    media.set("country_id", selectedCountry?.id);
+    media.set("city_id", selectedCity?.id);
+    media.set("state_id", selectedState?.id);
+    media.set("area_id", selectedArea?.id);
+
     advertisingLists
       ._POST_AdvertisingOffer(media)
       .then((res) => {
@@ -187,27 +189,45 @@ const AdvertisingFormComponent = () => {
   ////////////////// Location /////////////////
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
   const [selectedCountry, setSelectedCountry] = useState({});
+  const [selectedCity, setSelectedCity] = useState({});
   const [selectedState, setSelectedState] = useState({});
   const [selectedArea, setSelectedArea] = useState({});
   const fetchCountry = (country) => {
     setSelectedCountry(country);
+    setSelectedCity({});
+    setSelectedState({});
+    setSelectedArea({});
   };
   const fetchCities = (city) => {
-    setSelectedState(city);
+    setSelectedCity(city);
+    setSelectedState({});
+    setSelectedArea({});
+  };
+  const fetchState = (state) => {
+    setSelectedState(state);
+    setSelectedArea({});
   };
   const fetchArea = (area) => {
     setSelectedArea(area);
   };
+  const presetLocation = (data) => {
+    setSelectedCountry(data?.country);
+    setSelectedCity(data?.city);
+    setSelectedState(data?.state);
+    setSelectedArea(data?.area);
+  };
   const getCoreData = useMemo(() => {
-    let modal = ["country", "city", "state"];
+    let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
       modal,
       selectedCountry?.id,
+      selectedCity?.id,
       selectedState?.id
     ).then((res) => {
+      console.log(res);
       setGetAllCountryFromResponse(res.data.data);
     });
-  }, [selectedCountry, selectedState]);
+  }, [selectedCountry, selectedCity, selectedState]);
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);
@@ -216,9 +236,14 @@ const AdvertisingFormComponent = () => {
 
   useEffect(() => {
     if (
-      formData.name.length > 6 &&
+      formData.name.length > 10 &&
       content.length > 20 &&
-      getAllUserUpdate.category[0]
+      getAllUserUpdate.category[0] &&
+      formData?.price > 0 &&
+      selectedArea?.id &&
+      selectedCity?.id &&
+      selectedCountry?.id &&
+      selectedState?.id
     ) {
       setDisable(false);
     } else {
@@ -229,7 +254,7 @@ const AdvertisingFormComponent = () => {
   const [allSkills, setAllSkills] = useState(false);
   const fetchAllSkills = async () => {
     try {
-      const res = await API.get("coredata/tag/search");
+      const res = await API.get("coredata/category/list");
       setAllSkills(res.data?.data);
     } catch (e) {
       console.log(e);
@@ -322,7 +347,7 @@ const AdvertisingFormComponent = () => {
             onChange={handleChange}
             className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
             type="number"
-            placeholder="0 ريال"
+            placeholder="4 ريال"
           />
           {/* <div>
             {errMessage?.price && (
@@ -350,20 +375,25 @@ const AdvertisingFormComponent = () => {
             اختر <span className="cLT-support1-text"> المهارات</span> المناسبة
             لاعلانك<span className="cLT-danger-text">*</span>{" "}
           </p>
-          <FlancerEditTagsComponent
-            categoryClass={"pb-0 "}
-            tags={userCategory}
-          />
-          <p className="mbb">
-            لاضافة مهارة جديدة تناسب اعلانك{" "}
-            <span
-              onClick={() => setShowSkills(!showSkills)}
-              className="pointer  cLT-support1-text"
-            >
-              {" "}
-              من هنا
-            </span>
-          </p>
+          {!showSkills && (
+            <FlancerEditTagsComponent
+              categoryClass={"pb-0 "}
+              tags={userCategory}
+            />
+          )}
+          {!showSkills && (
+            <p className="mbb">
+              لاضافة مهارة جديدة تناسب اعلانك{" "}
+              <span
+                onClick={() => setShowSkills(!showSkills)}
+                className="pointer  cLT-support1-text"
+              >
+                {" "}
+                من هنا
+              </span>
+            </p>
+          )}
+
           {showSkills && (
             <FlancerEditTagsComponent
               placeholder={"اضف مهارة جديدة"}
@@ -443,7 +473,7 @@ const AdvertisingFormComponent = () => {
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
-                  value={selectedState}
+                  value={selectedCity}
                   placeholder="المدينة"
                   options={getAllCountryFromResponse?.city}
                   onChange={fetchCities}
@@ -472,11 +502,11 @@ const AdvertisingFormComponent = () => {
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
-                  value={selectedArea}
+                  value={selectedState}
                   placeholder="المنطقة"
                   className="uLT-f-radius-sB "
                   options={getAllCountryFromResponse?.state}
-                  onChange={fetchArea}
+                  onChange={fetchState}
                   getOptionLabel={(country) => country?.name}
                   getOptionValue={(country) => country?.id}
                 />
@@ -497,11 +527,12 @@ const AdvertisingFormComponent = () => {
                 className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
+                  value={selectedArea}
                   placeholder="الحي"
-                  // options={getAllCountryFromResponse?.city}
-                  // onChange={fetchCities}
-                  // getOptionLabel={(city) => city?.name}
-                  // getOptionValue={(city) => city?.id}
+                  options={getAllCountryFromResponse?.area}
+                  onChange={fetchArea}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
                 />
               </div>
               {/* {errMessage?.city_id && (

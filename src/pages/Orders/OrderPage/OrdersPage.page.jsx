@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import OrderListCardComponent from "../../../components/OrdersComponent/OrderListCard/OrderListCard.component";
 import { userOfferPrice } from "../../../core/services/OfferPriceService/OfferPriceService.core";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import cls from "./OrderPage.module.scss";
 import DynamicFilter from "./DynamicFilter";
 import RouteHandler from "./RoteHandler";
+import { API } from "../../../enviroment/enviroment/enviroment";
 const categories = [
   {
     id: 1,
@@ -44,15 +45,14 @@ const categories = [
   { id: 14, title: "شبكات" },
 ];
 const mostUse = [
-  { id: 1, title: "افراد" },
-  { id: 2, title: "شركات" },
-  { id: 3, title: "بالقرب مني" },
-  { id: 4, title: "الاكثر رد علي الطلبات" },
+  { id: 1, name: "افراد" },
+  { id: 2, name: "شركات" },
+  { id: 3, name: "بالقرب مني" },
+  { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
 const OrdersPage = () => {
   const param = useParams();
   const navigate = useNavigate();
-
   // Todo Block Of Get All Advertising Form
   const [vistorUser, getSearchKey] = useSelector((state) => [
     state.authentication.loggedIn,
@@ -61,24 +61,43 @@ const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(null);
   const [userOfferDetatils, setUserOfferDetatils] = useState();
   const [route, setRoutes] = useState(["الطلبات", "برمجة", "حاسب"]);
- 
+
   //  Use MEMO Function To Store Whte API Return Advertising List Data
+  const [price, setPrice] = useState([]);
+  const [categ, setCateg] = useState([]);
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+  const categHandler = (id, state) => {
+    state
+      ? setCateg([...categ, id])
+      : setCateg(categ.filter((ele) => ele != id));
+  };
+  const timeRef = useRef(0);
   const listOfUsersOrder = useMemo(() => {
-    return userOfferPrice
-      ._GET_AllOrderList(
-        10,
-        true,
-        param.num,
-        getSearchKey.searchStatus,
-        getSearchKey?.searchKey
-      )
-      .then((res) => {
-        setUserOfferDetatils(res.data.data);
-      })
-      .catch((err) => {
-        return err.response;
-      });
-  }, [param.num, getSearchKey?.searchKey]);
+    clearTimeout(timeRef.current);
+    timeRef.current = setTimeout(() => {
+      console.log("a7a");
+      const body = new FormData();
+      body.set("perPage", 20);
+      body.set("pagination", true);
+      body.set("search", true);
+      body.set("name", search);
+      
+      body.set("category", categ);
+      body.set("price", price);
+      body.set("location", location);
+
+      return userOfferPrice
+        ._POST_AllOrderListV2(body)
+        .then((res) => {
+          setUserOfferDetatils(res.data.data);
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    }, 1000);
+    return () => clearTimeout(timeRef.current);
+  }, [price, location, categ, search]);
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -87,6 +106,16 @@ const OrdersPage = () => {
     return () => clearTimeout(timeout);
   }, [userOfferDetatils, listOfUsersOrder]);
 
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const res = await API.get("coredata/category/list");
+      setCategories(res.data?.data);
+    } catch (e) {}
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
   // ? ------------------[[[START Block]]]-----------------
   //*TODO GET From API Response ==> Advertising Pagination
   const [pagination, setPagination] = useState();
@@ -127,6 +156,7 @@ const OrdersPage = () => {
         ></div>
       </div>
     );
+
   return (
     <>
       {userOfferDetatils.length !== 0 ? (
@@ -136,7 +166,10 @@ const OrdersPage = () => {
           </div>
           <div className={cls.holder}>
             <DynamicFilter
-           
+              setSearch={setSearch}
+              setCategory={categHandler}
+              setPrice={setPrice}
+              setLocation={setLocation}
               mostUse={mostUse}
               categories={categories}
             />

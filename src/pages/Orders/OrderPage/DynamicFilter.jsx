@@ -7,34 +7,32 @@ import { BiCurrentLocation } from "react-icons/bi";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 
-const DynamicFilter = ({ mostUse, categories, isEmployee, isAdvert }) => {
-  const [priceRange, setPriceRange] = useState({
-    minprice: null,
-    maxprice: null,
-  });
-  const [categ, setCateg] = useState(categories);
+const DynamicFilter = ({
+  mostUse,
+  categories,
+  isEmployee,
+  isAdvert,
+  setCategory,
+  setPrice,
+  setSearch,
+  setLocation,
+}) => {
   const [rate, setRate] = useState(0);
 
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>
       <input
-        onChange={(e) =>
-          setCateg(
-            categories.filter((ele) => {
-              return ele.title.includes(e.target.value);
-            })
-          )
-        }
+        onChange={(e) => setSearch(e.target.value)}
         className={cls.inp}
         placeholder="ابحث هنا"
         type="text"
       />
-      {categ[0] && (
+      {categories[0] && (
         <div>
           <p className={cls.search}>الاشغال و المجالات</p>
-          {categ.map((ele) => (
-            <CategoryMain ele={ele} />
+          {categories.map((ele) => (
+            <CategoryMain setCategory={setCategory} ele={ele} />
           ))}
         </div>
       )}
@@ -45,7 +43,12 @@ const DynamicFilter = ({ mostUse, categories, isEmployee, isAdvert }) => {
             <BiCurrentLocation />
           </div>
 
-          <input className={cls.inp} placeholder="ابحث هنا" type="text" />
+          <input
+            onChange={(e) => setLocation(e.target.value)}
+            className={cls.inp}
+            placeholder="ابحث هنا"
+            type="text"
+          />
         </div>
       </div>
       {(isAdvert || isEmployee) && (
@@ -59,6 +62,7 @@ const DynamicFilter = ({ mostUse, categories, isEmployee, isAdvert }) => {
             value={rate}
             onChange={(event, newValue) => {
               setRate(newValue);
+              
             }}
             emptyIcon={
               <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
@@ -81,14 +85,14 @@ const DynamicFilter = ({ mostUse, categories, isEmployee, isAdvert }) => {
             <PriceSlider
               quote="ريال"
               title="نحديد السعر"
-              changePrice={setPriceRange}
+              changePrice={setPrice}
             />
           )}
           {isAdvert && (
             <PriceSlider
               quote="مراجعة"
               title="مراجعة"
-              changePrice={setPriceRange}
+              changePrice={setPrice}
             />
           )}
         </div>

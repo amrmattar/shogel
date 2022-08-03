@@ -7,8 +7,10 @@ export const RegisterServices = {
 }
 
 // _GET_RegisterData
-function GET_RegisterData(model, countries_id, cities_id) {
-    return API.get(`coredata?model=${model}&country_id=${countries_id}&city_id=${cities_id}&lang=`)
+function GET_RegisterData(model, countries_id, cities_id, state_id) {
+  return API.get(
+    `coredata?model=${model}&country_id=${countries_id}&city_id=${cities_id}&state_id=${state_id}&lang=`
+  );
 }
 
 // _POST_RegisterData
