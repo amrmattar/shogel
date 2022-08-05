@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Navigate,
   NavLink,
@@ -16,6 +22,7 @@ import { pageTitle } from "../../../../core/services/PageTitleServices/PageTitle
 import { useSelector } from "react-redux";
 import DynamicFilter from "../../../Orders/OrderPage/DynamicFilter";
 import RouteHandler from "../../../Orders/OrderPage/RoteHandler";
+import { API } from "../../../../enviroment/enviroment/enviroment";
 const categories = [
   {
     id: 1,
@@ -70,31 +77,8 @@ const FlancerAdvsListPage = () => {
   const [currentPage, setCurrentPage] = useState(null);
   const [userAdvsDetatils, setUserAdvsDetatils] = useState();
   //  Use MEMO Function To Store Whte API Return Advertising List Data
-  const listOfUsersAdvs = useMemo(() => {
-    return advertisingLists
-      ._GET_AllAdvsOffer(
-        10,
-        true,
-        param.num,
-        getSearchKey.searchStatus,
-        getSearchKey?.searchKey
-      )
-      .then((res) => {
-        setUserAdvsDetatils(res.data);
-      })
-      .catch((err) => {
-        return err.response;
-      });
-  }, [param.num, getSearchKey?.searchKey]);
+
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!userAdvsDetatils?.data) {
-        return listOfUsersAdvs;
-      }
-    }, 1200);
-    return () => clearTimeout(timeout);
-  }, [userAdvsDetatils?.data, listOfUsersAdvs]);
 
   // ? ------------------[[[START Block]]]-----------------
   //*TODO GET From API Response ==> Advertising Pagination
@@ -103,7 +87,55 @@ const FlancerAdvsListPage = () => {
   const handleAdvsPagination = useMemo(() => {
     setPagination(userAdvsDetatils?.pagination?.total_pages);
   }, [userAdvsDetatils?.pagination]);
+  ///////////////////////////
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const res = await API.get("coredata/category/list");
+      setCategories(res.data?.data);
+    } catch (e) {}
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+  const [active, setActive] = useState(false);
+  const [rate, setRate] = useState(0);
+  const [price, setPrice] = useState([]);
+  const [categ, setCateg] = useState([]);
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+  const categHandler = (id, state) => {
+    state
+      ? setCateg([...categ, id])
+      : setCateg(categ.filter((ele) => ele != id));
+  };
+  const timeRef = useRef(0);
+  const listOfUsersAdvs = useMemo(() => {
+    clearTimeout(timeRef.current);
+    timeRef.current = setTimeout(() => {
+      const body = new FormData();
+      body.set("perPage", 20);
+      body.set("pagination", true);
+      body.set("search", true);
+      body.set("name", search);
 
+      body.set("category", categ);
+      body.set("price", price);
+      body.set("rate", rate);
+      // body.set("available", active);
+      body.set("location", location);
+      return advertisingLists
+        ._POST_AllAdvsOfferV2(body)
+        .then((res) => {
+          console.log(res);
+          setUserAdvsDetatils(res.data);
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    }, 1000);
+    return () => clearTimeout(timeRef.current);
+  }, [price, location, categ, search, rate, active]);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userAdvsDetatils?.pagination) {
@@ -123,7 +155,14 @@ const FlancerAdvsListPage = () => {
       behavior: "smooth",
     });
   };
-
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!userAdvsDetatils?.data) {
+        return listOfUsersAdvs;
+      }
+    }, 1200);
+    return () => clearTimeout(timeout);
+  }, [userAdvsDetatils?.data, listOfUsersAdvs]);
   // Condition For Show Loading Style Untill Data Return From API
   if (!userAdvsDetatils?.data)
     return (
@@ -149,6 +188,12 @@ const FlancerAdvsListPage = () => {
           <div className={cls.holder}>
             <DynamicFilter
               isAdvert={true}
+              setSearch={setSearch}
+              setCategory={categHandler}
+              setPrice={setPrice}
+              setActive={setActive}
+              setRate={setRate}
+              setLocation={setLocation}
               mostUse={mostUse}
               categories={categories}
             />

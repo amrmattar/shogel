@@ -16,9 +16,9 @@ const DynamicFilter = ({
   setPrice,
   setSearch,
   setLocation,
+  setRate,
+  setActive,
 }) => {
-  const [rate, setRate] = useState(0);
-
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>
@@ -59,10 +59,8 @@ const DynamicFilter = ({
             dir="ltr"
             size="large"
             name="simple-controlled"
-            value={rate}
             onChange={(event, newValue) => {
               setRate(newValue);
-              
             }}
             emptyIcon={
               <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
@@ -72,7 +70,10 @@ const DynamicFilter = ({
           <p className={cls.search}>متصل</p>
           <div className={cls.swich}>
             <label class="switch">
-              <input type="checkbox" />
+              <input
+                onChange={(e) => setActive(e.target.checked)}
+                type="checkbox"
+              />
               <span class="slider round"></span>
             </label>
             <p>مشتغلين متصلين بالانترنت فقط</p>
@@ -89,11 +90,7 @@ const DynamicFilter = ({
             />
           )}
           {isAdvert && (
-            <PriceSlider
-              quote="مراجعة"
-              title="مراجعة"
-              changePrice={setPrice}
-            />
+            <PriceSlider quote="مراجعة" title="مراجعة" changePrice={setPrice} />
           )}
         </div>
       )}

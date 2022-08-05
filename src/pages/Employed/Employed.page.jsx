@@ -1,13 +1,14 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import FlancerEmployedListCard from "../../components/FreeLancer/FlancerEmployedComponent/FlancerEmployedListCard.component";
 import { freelancersListProfile } from "../../core/services/userProfile/FreelancersListProfile/FreelancersListProfile.core";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
-import cls from './Employee.module.scss'
+import cls from "./Employee.module.scss";
 import DynamicFilter from "../Orders/OrderPage/DynamicFilter";
 import RouteHandler from "../Orders/OrderPage/RoteHandler";
+import { API } from "../../enviroment/enviroment/enviroment";
 const categories = [
   {
     id: 1,
@@ -64,30 +65,6 @@ const Employed = () => {
   // }, [param.num, getSearchKey?.searchKey])
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
 
-  useEffect(() => {
-    let cancel = false;
-    freelancersListProfile
-      ._GET_FreelancersListProfile(
-        10,
-        true,
-        param.num,
-        getSearchKey.searchStatus,
-        getSearchKey?.searchKey
-      )
-      .then((res) => {
-        if (cancel) return;
-        getSearchKey?.searchKey && setFlancersList(res.data);
-        setFlancersList(res.data);
-      })
-      .catch((err) => {
-        return err.response;
-      });
-
-    return () => {
-      cancel = true;
-    };
-  }, [getSearchKey?.searchKey]);
-
   // useEffect(() => {
   //     const timeout = setTimeout(() => {
   //         if (!flancersList) {
@@ -125,7 +102,54 @@ const Employed = () => {
       behavior: "smooth",
     });
   };
+  ///////////////////
+  const categHandler = (id, state) => {
+    state
+      ? setCateg([...categ, id])
+      : setCateg(categ.filter((ele) => ele != id));
+  };
+  const [active, setActive] = useState(false);
+  const [rate, setRate] = useState(0);
+  const [categ, setCateg] = useState([]);
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+  const [categories, setCategories] = useState([]);
+  const fetchCategories = async () => {
+    try {
+      const res = await API.get("coredata/category/list");
+      setCategories(res.data?.data);
+    } catch (e) {}
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+  ////////////////////////////////////////
+  const timeRef = useRef(0);
+  useEffect(() => {
+    clearTimeout(timeRef.current);
+    timeRef.current = setTimeout(() => {
+      const body = new FormData();
+      body.set("perPage", 20);
+      body.set("pagination", true);
+      body.set("search", true);
+      body.set("name", search);
 
+      body.set("category", categ);
+      body.set("rate", rate);
+      body.set("available", active);
+      body.set("location", location);
+      freelancersListProfile
+        ._POST_FreelancersListProfileV2(body)
+        .then((res) => {
+          getSearchKey?.searchKey && setFlancersList(res.data);
+          setFlancersList(res.data);
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    }, 1000);
+    return () => clearTimeout(timeRef.current);
+  }, [rate,active, location, categ, search]);
   // Condition For Show Loading Style Untill Data Return From API
   if (!flancersList?.data)
     return (
@@ -150,6 +174,11 @@ const Employed = () => {
           <div className={cls.holder}>
             <DynamicFilter
               isEmployee={true}
+              setSearch={setSearch}
+              setCategory={categHandler}
+              setActive={setActive}
+              setRate={setRate}
+              setLocation={setLocation}
               mostUse={mostUse}
               categories={categories}
             />

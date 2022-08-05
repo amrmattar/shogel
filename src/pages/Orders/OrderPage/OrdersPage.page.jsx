@@ -76,7 +76,6 @@ const OrdersPage = () => {
   const listOfUsersOrder = useMemo(() => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
-      console.log("a7a");
       const body = new FormData();
       body.set("perPage", 20);
       body.set("pagination", true);
