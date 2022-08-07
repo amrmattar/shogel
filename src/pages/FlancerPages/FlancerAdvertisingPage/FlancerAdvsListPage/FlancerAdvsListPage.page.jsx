@@ -122,7 +122,7 @@ const FlancerAdvsListPage = () => {
       body.set("category", categ);
       body.set("price", price);
       body.set("rate", rate);
-      // body.set("available", active);
+      active && body.set("available", active);
       body.set("location", location);
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)

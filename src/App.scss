@@ -1,9 +1,9 @@
 @import "~react-phone-input-2/lib/style.css";
-*{
+* {
   input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
 }
 .LT-timeSave-image {
   width: 61px;
@@ -25,11 +25,11 @@ input::-webkit-inner-spin-button {
 .App-logo-border-loading {
   position: absolute;
   width: 90px;
-  height: 90px;;
+  height: 90px;
   border: 2px solid #ffff;
   border-radius: 50%;
   border-top-color: #1eaaad;
-  animation: isborderLoading .8s linear infinite forwards;
+  animation: isborderLoading 0.8s linear infinite forwards;
   @keyframes isborderLoading {
     0% {
       -webkit-transform: rotate(0deg);
@@ -41,50 +41,72 @@ input::-webkit-inner-spin-button {
   }
 }
 
-// Pagination Arrow previous Page And first Icon Controller 
+// Pagination Arrow previous Page And first Icon Controller
 .MuiButtonBase-root[aria-label="Go to previous page"],
 .MuiButtonBase-root[aria-label="Go to first page"] {
-    transform: rotate(180deg);
-    &:hover {
-        background-color: #02385A;
-        .MuiSvgIcon-root {
-            fill: #FFFF;
-        }
-    }
+  transform: rotate(180deg);
+  &:hover {
+    background-color: #02385a;
     .MuiSvgIcon-root {
-        fill: #02385A;
+      fill: #ffff;
     }
+  }
+  .MuiSvgIcon-root {
+    fill: #02385a;
+  }
 }
 
-// Pagination Arrow next Page And last Icon Controller 
+// Pagination Arrow next Page And last Icon Controller
 .MuiButtonBase-root[aria-label="Go to next page"],
 .MuiButtonBase-root[aria-label="Go to last page"] {
-    transform: rotate(180deg);
-    &:hover {
-        background-color: #02385A;
-        .MuiSvgIcon-root {
-            fill: #FFFF;
-        }
-    }
+  transform: rotate(180deg);
+  &:hover {
+    background-color: #02385a;
     .MuiSvgIcon-root {
-        fill: #02385A;
+      fill: #ffff;
     }
+  }
+  .MuiSvgIcon-root {
+    fill: #02385a;
+  }
 }
-// Pagination Style After Selected  
+// Pagination Style After Selected
 .css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
-    background-color: #02385A !important;
-    color: #FFFF !important;
+  background-color: #02385a !important;
+  color: #ffff !important;
 }
 
-// Pagination Hover Style Before Choose Select Number  
+// Pagination Hover Style Before Choose Select Number
 .css-rppfq7-MuiButtonBase-root-MuiPaginationItem-root:hover {
-  background-color: #02385A !important;
-  color: #FFFF !important;
+  background-color: #02385a !important;
+  color: #ffff !important;
 }
 
-.LT-card-grid-holder{
+.LT-card-grid-holder {
   display: grid;
   width: 100%;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.green-check {
+  accent-color: #6dc8ca;
+}
+.bT {
+  border-top: 1px gray solid;
+}
+.regiTitle {
+  align-self: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.LT-RegisterOTP-holder .LT-otp-input > div > div > input{
+  background-color: #F8FAFC;
+  border: 1px solid #D1DBE1;
+}
+.br14{
+  border-radius: 14px !important;
+}
+.react-tel-input .selected-flag{
+  background-color: white !important;
 }
