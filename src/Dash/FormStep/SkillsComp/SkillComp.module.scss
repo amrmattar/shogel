@@ -1,0 +1,31 @@
+.main {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  margin: 8px 0px;
+  border-radius: 1rem;
+  cursor: pointer;
+  .nameH {
+    display: flex;
+    p {
+      margin: 0 1rem;
+    }
+  }
+}
+.chosedH {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  margin: 5px 5px;
+  border-radius: 1rem;
+  width: 8rem;
+  height: 3rem;
+  border: 1px #707070 solid;
+  color: #37383B;
+  svg {
+    cursor: pointer;
+   
+  }
+}

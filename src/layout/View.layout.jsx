@@ -14,6 +14,8 @@ const ViewLayout = () => {
     <div className="d-flex flex-column align-items-between gap-3 p-0 justify-content-between h-100">
       {location.pathname !== "/offer-price" &&
       location.pathname !== "/freelancer-offer" &&
+      !location.pathname.includes("register") &&
+      !location.pathname.includes("dev") &&
       location.pathname !== "/advertising-price" ? (
         <header className="w-100 bg-white">
           {/* Nav Gradian-Linear [Line] */}
@@ -41,7 +43,7 @@ const ViewLayout = () => {
         <MasterContainer />
       </main>
       {/* Footer  [Holder] */}
-      {show && (
+      {show && !location.pathname.includes("register") && !location.pathname.includes("dev")&& (
         <footer className="imLT-footer-shape uLT-img-cover cLT-main-bg">
           {/* Footer Gradian-Linear [Line] */}
           <div className="cLT-Gradian-Linear-Main LT-footer-line "></div>

@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 
 import "../NewStyle.scss";
@@ -38,22 +39,35 @@ const RegisterDetectedAccount = (props) => {
       open={open ? open : false}
       onClose={handleClose}
     >
-      <div className="LT-account-holder">
-        <div className=" my-5 LT-account-logo d-flex flex-column p-3">
+      <div>
+        <div className="LT-login-holder">
           <div
-            className="imLT-main-logo uLT-img-contain w-100"
-            style={{ padding: "2rem 2rem", margin: "3rem 0" }}
-          >
-            {" "}
-          </div>
-          <p className="m-0 fLT-Regular-sB cLT-main-text">
+            style={{
+              width: "6rem",
+              alignSelf: "center",
+              margin: "0rem auto 0rem auto",
+            }}
+            className="imLT-main-logo uLT-img-contain one img"
+          />
+        </div>
+        <div className=" LT-account-logo d-flex flex-column p-3">
+          <p className="regiTitle"> نوع الحساب</p>
+          <p className="mt-3 fLT-Regular-sB cLT-main-text">
             {" "}
             حدد نوع الحساب لا تقلق ، يمكن تغيير هذا لاحقًا{" "}
           </p>
         </div>
-        <div style={{ marginTop: "7rem" }} className="d-flex">
+        <div
+          style={{ margin: "1rem 0 2rem 0", justifyContent: "space-between" }}
+          className="d-flex"
+        >
           <button
-            className="btn LT-account-type"
+            style={{
+              backgroundColor: "#F8FAFC",
+              height: "8rem",
+              width: "9rem",
+              border: "0",
+            }}
             onClick={() => handleChangeScreen()}
             onFocus={value.handleChange("user")}
             id={2}
@@ -76,15 +90,20 @@ const RegisterDetectedAccount = (props) => {
               name="client"
             >
               {" "}
-              حســاب مستخدم
+              حســاب مشتغل
             </p>
           </button>
           <button
-            className="btn LT-freelancer-type"
-            // onClick={() => handleChangeScreen()}
-            // onFocus={value.handleChange("user")}
+            onClick={() => handleChangeScreen()}
+            onFocus={value.handleChange("user")}
             id={3}
             name="freelancer"
+            style={{
+              backgroundColor: "#F8FAFC",
+              height: "8rem",
+              width: "9rem",
+              border: "0",
+            }}
           >
             <i
               className={` LT-freelancer-icon iLT-freelancer-icon uLT-img-contain `}
@@ -95,9 +114,19 @@ const RegisterDetectedAccount = (props) => {
               name="freelancer"
             >
               {" "}
-              حســاب مشتغل
+              حساب مستخدم
             </p>
           </button>
+        </div>
+        <div style={{ width: "30%" }}>
+          <ButtonShare
+            // type={!validation}
+            // loading={nextLoading}
+            onClick={value.prevPage}
+            innerText={"رجوع"}
+            btnClasses={"three cLT-secondary-bg"}
+            textClasses={"py-1 px-4 cLT-white-text fLT-Regular-sB"}
+          />
         </div>
       </div>
     </Dialog>

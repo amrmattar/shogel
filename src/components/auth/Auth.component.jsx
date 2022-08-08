@@ -33,12 +33,20 @@ const AuthComponent = ({ clickMe, clickStatus }) => {
     anys();
   }, [anys]);
   useEffect(() => {
-
     location.pathname == "/login" && setLoginOpen(true);
   }, [location]);
 
   return (
     <div className="">
+      {/* <button
+        ref={elementRef}
+        onClick={() => handleLogin()}
+        type="button"
+        style={{color:"red" }}
+        className="cLT-main-bg py-2 px-0 px-lg-4 uLT-f-radius-sB"
+      >
+        <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">انضم لنا </p>
+      </button> */}
       <button
         ref={elementRef}
         onClick={() => handleLogin()}

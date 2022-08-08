@@ -29,32 +29,33 @@ const RegisterClientView = (props) => {
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
-    const data = {
-      username: value.labelInfo.clientView.username,
-      email: value.labelInfo.clientView.email,
-    };
-    RegisterServices.POST_RegisterData(data)
-      .then((res) => {
-        setNextLoadiing(false);
-      })
-      .catch((err) => {
-        dispatch(
-          getMessages({
-            messages: err.response.data.message,
-            messageType: "error",
-            messageClick: true,
-          })
-        );
-        if (
-          err.response.data.message.email ||
-          err.response.data.message.username
-        ) {
-          setNextLoadiing(false);
-        } else {
-          setNextLoadiing(false);
-          value.jumpPage(4);
-        }
-      });
+    // const data = {
+    //   username: value.labelInfo.clientView.username,
+    //   email: value.labelInfo.clientView.email,
+    // };
+    // RegisterServices.POST_RegisterData(data)
+    //   .then((res) => {
+    //     setNextLoadiing(false);
+    //   })
+    //   .catch((err) => {
+    //     dispatch(
+    //       getMessages({
+    //         messages: err.response.data.message,
+    //         messageType: "error",
+    //         messageClick: true,
+    //       })
+    //     );
+    //     if (
+    //       err.response.data.message.email ||
+    //       err.response.data.message.username
+    //     ) {
+    //       setNextLoadiing(false);
+    //     } else {
+    //       setNextLoadiing(false);
+    //       value.jumpPage(4);
+    //     }
+    //   });
+    value.jumpPage(5);
   };
   const getBack = () => {
     value.prevPage();

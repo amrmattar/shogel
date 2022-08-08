@@ -37,7 +37,7 @@ export const LabelProvider = (props) => {
     setlabelInfo({ ...labelInfo, [prop]: event?.target?.attributes?.name?.value });
     switch (event?.target?.attributes?.name?.value) {
       case 'worker':
-          return  jumpPage(4)
+          return  jumpPage(3)
       case 'freelancer':
           return  jumpPage(3)
       case 'company':

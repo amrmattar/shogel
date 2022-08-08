@@ -7,6 +7,8 @@ import RegistrationMobileComponent from '../components/auth/forgetPassword/Check
 import RegistrationCycelComponent from '../components/auth/Register/RegistrationCycel.component';
 import RegistrationStepsProviderPage from '../pages/authPage/RegistrationPage/RegistrationStepsPrivider/RegistrationStepsProvider.page';
 import PoliciesPage from '../pages/Policies/Policies.page';
+import NewSkillPage from '../Dash/FormStep/SkillsComp/NewSkillsPage'
+import DescriptionPage from '../Dash/FormStep/NewModules/DefscriptionPage'
 import CommonQuestionsPage from '../pages/CommonQuestions/CommonQuestions.page';
 const HomeLoadable = loadable(() => import('../pages/Home/Home.page'), { fallback: <div>Loading</div> });
 const SideNavPage = loadable(() => import('../pages/sideNavPage/SideNavPage.page/SideNavPage.page'), { fallback: <div>Loading</div> });
@@ -95,6 +97,7 @@ const appRoutes = {
       path: "policies",
       key: <PoliciesPage />,
     },
+  
     {
       path: "questions",
       key: <CommonQuestionsPage />,

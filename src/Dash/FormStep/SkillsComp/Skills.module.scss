@@ -1,0 +1,78 @@
+.main {
+  margin: 10vh 1vw 5vh 1vw;
+  direction: rtl;
+   
+
+  .title {
+    font-size: 1.7rem;
+    font-weight: bold;
+  }
+  .head {
+    display: flex;
+    margin: 0 0 3vh 0;
+    input {
+      width: 70%;
+      border: 1px solid #bec0c2;
+      border-radius: 10px;
+      margin-left: 1rem;
+      padding: 1rem;
+    }
+    p {
+      font-weight: 600;
+      color: #bec0c2;
+      font-size: 1rem;
+      span {
+        color: black;
+        font-weight: 800;
+        font-size: 1.7rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+  .contain {
+    display: grid;
+    grid-template-columns: 30% 30% 40%;
+    gap: 1rem;
+
+    .grid {
+      height: fit-content;
+      max-height: 80vh;
+      overflow-y: auto;
+      .messageH {
+        .h {
+          color: black;
+          font-size: 1.7rem;
+          font-weight: bolder;
+          margin: 0 2rem 2rem 0;
+          padding-bottom: 2rem;
+          border-bottom: 1px #707070 solid;
+        }
+        .p {
+          color: gray;
+          font-size: 1rem;
+          font-weight: bold;
+          margin: 0 0rem 2rem 0;
+          width: 60%;
+        }
+      }
+    }
+    .gridF {
+      padding: 1rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      height: fit-content;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+  }
+}
+.next {
+  background-color: #1eaaad;
+  padding: 1rem 2rem;
+  border: none;
+  color: #fafafa;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 1vh;
+  left: 3vw;
+}
