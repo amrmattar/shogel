@@ -107,7 +107,7 @@ const RegisterOTPStep = (props) => {
     <Dialog
       aria-labelledby="simple-dialog-title1"
       open={open ? open : false}
-      onClose={handleClose}
+      // onClose={handleClose}
     >
       <div
         className="LT-login-holder"

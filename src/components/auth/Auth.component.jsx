@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import LoginPage from "../../pages/authPage/LoginPage/LoginPage.pages";
 import MobilePage from "../../pages/authPage/mobilePage/Mobile/Mobile.page";
@@ -9,6 +9,7 @@ import SwearingShared from "../../shared/Swearing/Swearing.shared";
 
 const AuthComponent = ({ clickMe, clickStatus }) => {
   const elementRef = useRef();
+  const navigate = useNavigate();
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,15 +39,21 @@ const AuthComponent = ({ clickMe, clickStatus }) => {
 
   return (
     <div className="">
-      {/* <button
+      <button
         ref={elementRef}
-        onClick={() => handleLogin()}
+        onClick={()=>navigate("/register")}
         type="button"
-        style={{color:"red" }}
-        className="cLT-main-bg py-2 px-0 px-lg-4 uLT-f-radius-sB"
+        style={{
+          border: "0",
+          height: "45px",
+          width: "161px",
+          borderRadius: "9px",
+          margin: "0 0 0 1rem",
+          backgroundColor: "#1EAAAD",
+        }}
       >
         <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">انضم لنا </p>
-      </button> */}
+      </button>
       <button
         ref={elementRef}
         onClick={() => handleLogin()}

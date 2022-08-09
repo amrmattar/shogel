@@ -113,6 +113,7 @@ const MasterRegistrationComponent = () => {
       {value.page === 6 && <DescriptionPage />}
       {value.page === 7 && <IdPage />} 
       {value.page === 8 && <LocationPage />}
+   
     </div>
   );
 };

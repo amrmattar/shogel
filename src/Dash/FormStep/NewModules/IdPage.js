@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, ButtonGroup, Dialog } from "@mui/material";
+import Select from "react-select";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import { Col, Form, Row } from "react-bootstrap";
 import "../NewStyle.scss";
@@ -16,19 +17,45 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Upload from "../../../shared/Upload/Upload.shared";
+import { useRef } from "react";
+import { API } from "../../../enviroment/enviroment/enviroment";
 const IdPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
   const hideIcon = getClientData.password.length > 0;
-  const validation = getClientData.username.length > 3;
+  const validation = getClientData.nation?.id;
   const dispatch = useDispatch();
   //TODO Data from Reducers
   const navigate = useNavigate();
-
+  const inputRef = useRef();
+  const media = new FormData();
   const messages = useSelector((state) => state.messages);
   const [showPassword, setShowPassword] = useState(false);
   const [nextLoading, setNextLoadiing] = useState(false);
+  const [nations, setNations] = useState([]);
+  const [gender, setGender] = useState([]);
+  const getNations = () => {
+    API.get("coredata/nationality/list")
+      .then((res) => {
+        console.log(res.data.data);
+        setNations(res.data?.data);
+      })
+      .catch((e) => {});
+  };
+  const getGenders = () => {
+    API.get("/coredata/gender/list")
+      .then((res) => {
+        console.log(res);
+        setGender(res.data?.data);
+      })
+      .catch((e) => {});
+  };
+  useEffect(() => {
+    getGenders();
+    getNations();
+  }, []);
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
@@ -67,12 +94,52 @@ const IdPage = () => {
     setOpen(false);
     navigate("/");
   };
+  const [file, setFiles] = useState({ images: [], videos: [] });
+  const [filenames, setNames] = useState([]);
+  const fileHandler = (files) => {
+    const extention = files;
+    for (let allFile of extention) {
+      if (allFile.type.match("video/")) {
+        file.videos.push(allFile);
+      } else if (allFile.type.match("image/")) {
+        file.images.push(allFile);
+      }
+    }
+    const extension = files[0].name.split(".")[1]?.toLowerCase();
+    if (extension !== undefined) {
+      const fNames = Object.keys(files).map((name) => {
+        return {
+          name: files[name].name,
+          icon: files[name].name.split(".")[1]?.toUpperCase().trim(),
+        };
+      });
+      setNames((prev) => [...prev, fNames].flat());
+    } else {
+      alert("file type not supported");
+    }
+  };
+  const filePicker = (e) => {
+    inputRef.current.click();
+    media.append("images", e.target?.files);
+  };
+  // TODO Function Execute To Remove Upload Files
+  const handleDelete = (e, fileNewName, i) => {
+    const newfileImage = file.images.filter(
+      (element) => element.name !== fileNewName
+    );
+    const newfileVideo = file.videos.filter(
+      (element) => element.name !== fileNewName
+    );
+    setFiles({ images: newfileImage, videos: newfileVideo });
+    setNames((prev) => filenames.filter((each, idx) => idx !== i));
+  };
+
   return (
     <div>
       <Dialog
         aria-labelledby="simple-dialog-title1"
         open={open ? open : false}
-        onClose={handleClose}
+        // onClose={handleClose}
       >
         <form
           // onSubmit={(e) => getNext(e)}
@@ -93,20 +160,27 @@ const IdPage = () => {
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
                   الجنسية<span className="cLT-danger-text">*</span>
                 </Form.Label>
-                <Form.Control
-                  autoComplete="off"
-                  maxLength={15}
-                  minLength={3}
-                  className="uLT-bd-f-platinum-sA inpBG inp"
-                  type="text"
-                  onChange={value.setDataDetails("username")}
-                  placeholder=" سعودي"
-                />
-                {/* {messages?.messages?.username && (
-                  <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                    {messages?.messages?.username}
-                  </p>
-                )} */}
+                {/* State [Option]  */}
+                <div
+                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                >
+                  <Select
+                    value={getClientData.nation?.id ? getClientData.nation : ""}
+                    placeholder="سعودي"
+                    options={nations}
+                    onChange={value.setDataDetails("nation")}
+                    getOptionLabel={(city) => city?.name}
+                    getOptionValue={(city) => city?.id}
+                  />
+                </div>
+                {/* {errMessage?.city_id && (
+              <p
+                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                style={{ bottom: "-27px" }}
+              >
+                {errMessage?.city_id}
+              </p>
+            )} */}
               </Form.Group>
               <Form.Group>
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
@@ -118,9 +192,8 @@ const IdPage = () => {
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="number"
                   placeholder="ادخل رقم الهوية "
-                  //   onChange={value.setDataDetails("email")}
-
-                  //   value={getClientData.email}
+                  onChange={value.setDataDetails("id")}
+                  value={getClientData.id}
                 />
                 {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
@@ -129,19 +202,24 @@ const IdPage = () => {
                 )} */}
               </Form.Group>
               <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  صور الاعمال والشهادات
-                </Form.Label>
-                <Form.Control
+                <Upload
+                  inputRef={inputRef}
+                  isDrop={fileHandler}
+                  targetClick={filePicker}
+                  fileArr={filenames}
+                  handleDelete={handleDelete}
+                  title="    صور الاعمال والشهادات"
+                />
+                {/* <Form.Control
                   name="description"
                   required
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
                   placeholder="  "
-                  //   onChange={value.setDataDetails("email")}
+                  // onChange={value.setDataDetails("email")}
 
                   //   value={getClientData.email}
-                />
+                /> */}
                 {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
                     {messages?.messages?.username}
@@ -161,22 +239,19 @@ const IdPage = () => {
                 النوع
               </FormLabel>
               <RadioGroup
-                defaultValue="ذكر"
                 style={{ gap: "5rem" }}
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
+                onChange={value.setDataDetails("gender")}
               >
-                <FormControlLabel
-                  value="ذكر"
-                  control={<Radio style={{ color: "#1EAAAD" }} />}
-                  label="ذكر"
-                />
-                <FormControlLabel
-                  value="انثي"
-                  control={<Radio style={{ color: "#1EAAAD" }} />}
-                  label="انثي"
-                />
+                {gender.map((ele) => (
+                  <FormControlLabel
+                    value={ele.id}
+                    control={<Radio style={{ color: "#1EAAAD" }} />}
+                    label={ele.name}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           </div>

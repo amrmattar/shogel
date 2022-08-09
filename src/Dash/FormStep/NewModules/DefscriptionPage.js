@@ -17,12 +17,10 @@ const DersciptionPage = () => {
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
   const hideIcon = getClientData.password.length > 0;
-  const validation =
-    getClientData.username.length > 3
+  const validation = getClientData.username.length > 3;
   const dispatch = useDispatch();
   //TODO Data from Reducers
   const navigate = useNavigate();
-
   const messages = useSelector((state) => state.messages);
   const [showPassword, setShowPassword] = useState(false);
   const [nextLoading, setNextLoadiing] = useState(false);
@@ -69,7 +67,7 @@ const DersciptionPage = () => {
       <Dialog
         aria-labelledby="simple-dialog-title1"
         open={open ? open : false}
-        onClose={handleClose}
+        // onClose={handleClose}
       >
         <form
           // onSubmit={(e) => getNext(e)}
@@ -100,7 +98,9 @@ const DersciptionPage = () => {
                   minLength={3}
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
-                  onChange={value.setDataDetails("username")}
+                  
+                  // value={getClientData.fullName}
+                  onChange={value.setDataDetails("fullName")}
                   placeholder="الاسم الاول والاخير"
                 />
                 {/* {messages?.messages?.username && (
@@ -119,9 +119,10 @@ const DersciptionPage = () => {
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
                   placeholder="وصف مختصر"
-                  //   onChange={value.setDataDetails("email")}
-
-                  //   value={getClientData.email}
+                    onChange={value.setDataDetails("shortDesc")}
+                    
+                    // value={getClientData.shortDesc}
+           
                 />
                 {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
@@ -139,9 +140,9 @@ const DersciptionPage = () => {
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
                   placeholder=" اكتب نبذة"
-                  //   onChange={value.setDataDetails("email")}
+                    onChange={value.setDataDetails("brief")}
 
-                  //   value={getClientData.email}
+                    // value={getClientData.brief}
                 />
                 {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">

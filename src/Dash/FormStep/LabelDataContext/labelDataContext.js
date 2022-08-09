@@ -10,17 +10,24 @@ export const LabelProvider = (props) => {
       email: "",
       password: "",
       username: "",
-
+      fullName: "",
+      shortDesc: "",
+      brief: "",
+      nation: {},
+      id: "",
+      area: {},
+      gender: "",
     },
     freelancerView: {
       username: "",
       email: "",
       city: "",
       state: "",
-      zipCode: ""
+      zipCode: "",
     },
+    skills: [],
     weight: "",
-    user: ""
+    user: "",
   });
 
   const nextPage = () => {
@@ -34,42 +41,63 @@ export const LabelProvider = (props) => {
     setPage(page - 1);
   };
   const handleChange = (prop) => (event) => {
-    setlabelInfo({ ...labelInfo, [prop]: event?.target?.attributes?.name?.value });
+    setlabelInfo({
+      ...labelInfo,
+      [prop]: event?.target?.attributes?.name?.value,
+    });
     switch (event?.target?.attributes?.name?.value) {
-      case 'worker':
-          return  jumpPage(3)
-      case 'freelancer':
-          return  jumpPage(3)
-      case 'company':
-          return  jumpPage(4)
-      case 'backCompany':
-          return  jumpPage(3)
+      case "worker":
+        return jumpPage(3);
+      case "freelancer":
+        return jumpPage(3);
+      case "company":
+        return jumpPage(4);
+      case "backCompany":
+        return jumpPage(3);
       default:
-        return  jumpPage(page)
+        return jumpPage(page);
     }
-
   };
 
   const setDataDetails = (prop) => (event) => {
+    prop == "id"
+      ? event.target.value.length < 11 &&
+        setlabelInfo({
+          ...labelInfo,
+          clientView: { ...labelInfo.clientView, [prop]: event.target.value },
+        })
+      : prop == "nation"
+      ? setlabelInfo({
+          ...labelInfo,
+          clientView: { ...labelInfo.clientView, [prop]: event },
+        })
+      : setlabelInfo({
+          ...labelInfo,
+          clientView: { ...labelInfo.clientView, [prop]: event.target.value },
+        });
+  };
+  const setSkills = (skills) => {
     setlabelInfo({
       ...labelInfo,
-      clientView: { ...labelInfo.clientView, [prop]: event.target.value }
+      skills: skills,
     });
   };
   const setFrelacerDetails = (prop) => (event) => {
     setlabelInfo({
       ...labelInfo,
-      freelancerView: { ...labelInfo.freelancerView, [prop]: event.target.value }
+      freelancerView: {
+        ...labelInfo.freelancerView,
+        [prop]: event.target.value,
+      },
     });
   };
   const setRecevierInfo = (prop) => (event) => {
     setlabelInfo(prop);
   };
 
-
   const accountType = {
     userKind: labelInfo.user,
-  }
+  };
 
   return (
     <LabelContext.Provider
@@ -82,7 +110,8 @@ export const LabelProvider = (props) => {
         labelInfo,
         handleChange,
         setDataDetails,
-        setRecevierInfo
+        setRecevierInfo,
+        setSkills,
       }}
     >
       {props.children}

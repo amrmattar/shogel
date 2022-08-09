@@ -37,7 +37,7 @@ const RegisterDetectedAccount = (props) => {
     <Dialog
       aria-labelledby="simple-dialog-title1"
       open={open ? open : false}
-      onClose={handleClose}
+      // onClose={handleClose}
     >
       <div>
         <div className="LT-login-holder">

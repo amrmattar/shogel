@@ -7,50 +7,121 @@ import ButtonShare from "../../../shared/Button/Button.shared";
 import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
-
+// import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+// import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
 import Select from "react-select";
 import { useEffect, useContext, useMemo, useRef, useState } from "react";
 import { userOfferPrice } from "../../../core/services/OfferPriceService/OfferPriceService.core";
 import { toast } from "react-toastify";
 import { userProfile } from "../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
+import { LoginServices } from "../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core";
+import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
+import { getAuthentication } from "../../../core/redux/reducers/Authentication/AuthenticationReducer.core";
+import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 const IdPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
-    // const data = {
-    //   username: value.labelInfo.clientView.username,
-    //   email: value.labelInfo.clientView.email,
-    // };
-    // RegisterServices.POST_RegisterData(data)
-    //   .then((res) => {
-    //     setNextLoadiing(false);
-    //   })
-    //   .catch((err) => {
-    //     dispatch(
-    //       getMessages({
-    //         messages: err.response.data.message,
-    //         messageType: "error",
-    //         messageClick: true,
-    //       })
-    //     );
-    //     if (
-    //       err.response.data.message.email ||
-    //       err.response.data.message.username
-    //     ) {
-    //       setNextLoadiing(false);
-    //     } else {
-    //       setNextLoadiing(false);
-    //       value.jumpPage(4);
-    //     }
-    //   });
-    value.jumpPage(7);
+
+    const data = {
+      fullname: getClientData.fullName,
+      username: getClientData.username,
+      email: getClientData.email,
+      password: getClientData.password,
+      role_id: 3,
+      country_id: getClientData.area?.country?.id,
+      city_id: getClientData.area?.city?.id,
+      state_id: getClientData.area?.state?.id,
+      area_id: getClientData.area?.id,
+      mobile: getMobileNumber?.mobile.split("+").join(""),
+      gender_id: getClientData.gender.id,
+      nationality_id: getClientData.nation.id,
+      // category: value.labelInfo.skills,
+      category: [],
+    };
+    RegisterServices.POST_RegisterData(data)
+      .then((res) => {
+        dispatch(
+          getMessages({
+            messages: res.data.message,
+            messageType: "success",
+            messageClick: true,
+          })
+        );
+        setNextLoadiing(false);
+        const dataWithToken = {
+          email: getClientData.email,
+          password: getClientData.password,
+          device_token: localStorage.getItem("FCM"),
+        };
+        LoginServices._POST_LoginData(dataWithToken).then((res) => {
+          if (res?.data?.status === 1) {
+            dispatch(
+              getMessages({
+                messages: res?.data?.message,
+                messageType: "success",
+                messageClick: true,
+              })
+            );
+            localStorage.setItem("UI", res?.data?.data?.id);
+            const data = {
+              avatar: res?.data?.data?.avatar,
+              id: res?.data?.data?.id,
+              username: res?.data?.data?.username,
+              profileValidation: res?.data?.data?.profile_validation,
+              userRole: res?.data?.data?.role,
+            };
+            dispatch(getUserLoginData(data));
+            const userToken = res?.data?.data.token;
+            localStorage.setItem("userTK", JSON.stringify(userToken));
+            dispatch(getAuthentication(true));
+            localStorage.setItem("usID", res?.data?.data?.id);
+            localStorage.setItem("userRL", res?.data?.data?.role?.id);
+            localStorage.setItem("valid", res?.data?.data?.profile_validation);
+            dispatch(getRoleUser(true));
+
+            const routTimeOut = setTimeout(() => {
+              navigate(`/`);
+            }, 1000);
+
+            return () => clearTimeout(routTimeOut);
+          }
+        });
+      })
+      .catch((err) => {
+        setNextLoadiing(false);
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error("حدث خطأ ما");
+        }
+        dispatch(
+          getMessages([
+            {
+              messages: ob,
+              messageType: "error",
+              messageClick: true,
+            },
+          ])
+        );
+        window.scrollTo({
+          top: 250,
+          behavior: "smooth",
+        });
+      });
   };
   const getBack = () => {
     value.prevPage();
@@ -69,21 +140,23 @@ const IdPage = () => {
   const validation = selectedArea?.id;
   const fetchCountry = (country) => {
     setSelectedCountry(country);
-    setSelectedCity('');
-    setSelectedState('');
-    setSelectedArea('');
+    setSelectedCity("");
+    setSelectedState("");
+    setSelectedArea("");
   };
   const fetchCities = (city) => {
     setSelectedCity(city);
-    setSelectedState('');
-    setSelectedArea('');
+    setSelectedState("");
+    setSelectedArea("");
   };
   const fetchState = (state) => {
     setSelectedState(state);
-    setSelectedArea('');
+    setSelectedArea("");
   };
   const fetchArea = (area) => {
     setSelectedArea(area);
+    console.log(area);
+    value.setDataDetails(area);
   };
   const presetLocation = (data) => {
     setSelectedCountry(data?.country);
@@ -111,10 +184,10 @@ const IdPage = () => {
       <Dialog
         aria-labelledby="simple-dialog-title1"
         open={open ? open : false}
-        onClose={handleClose}
+        // onClose={handleClose}
       >
         <form
-          // onSubmit={(e) => getNext(e)}
+          onSubmit={(e) => getNext(e)}
           className="container px-0 my-4 d-flex flex-column gap-4"
           dir="rtl"
           style={{ width: "30rem" }}
@@ -229,10 +302,9 @@ const IdPage = () => {
           <div className="d-flex align-items-center justify-content-around gap-4">
             <div className="">
               <ButtonShare
-                onClick={() => navigate("/")}
                 type={!validation}
                 loading={nextLoading}
-                innerText={"التـــالى"}
+                innerText={"تسجيل"}
                 btnClasses={"cLT-secondary-bg br14"}
                 textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
               />
