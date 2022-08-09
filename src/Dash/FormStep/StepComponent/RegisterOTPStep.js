@@ -136,6 +136,7 @@ const RegisterOTPStep = (props) => {
               numInputs={4}
               value={code}
               onChange={handleChange}
+              placeholder={"____"}
             />
           </div>
           <div className="LT-reSend-code d-flex align-items-center justify-content-start gap-3 three">
