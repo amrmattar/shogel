@@ -140,13 +140,13 @@ const RegisterMobileStep = () => {
             style={{
               width: "8rem",
               alignSelf: "center",
-              margin: "1rem auto 3rem auto",
+              margin: "1rem auto 2rem auto",
             }}
             className="imLT-main-logo uLT-img-contain one img"
           />
         </div>
         <p className="regiTitle">إنشاء حساب</p>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center pop-width">
           <div className="LT-check-mobile-holder">
             <Row className="gap-3 two">
               {/* Mobile Number */}

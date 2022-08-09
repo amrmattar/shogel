@@ -111,15 +111,17 @@ const RegisterOTPStep = (props) => {
     >
       <div
         className="LT-login-holder"
-        style={{
-          width: "30rem",
-        }}
+        style={
+          {
+            // width: "30rem",
+          }
+        }
       >
         <div
           style={{
             width: "8rem",
             alignSelf: "center",
-            margin: "1rem auto 3rem auto",
+            margin: "1rem auto 2rem auto",
           }}
           className="imLT-main-logo uLT-img-contain one img"
         />

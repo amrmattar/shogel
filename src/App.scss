@@ -96,17 +96,35 @@
 }
 .regiTitle {
   align-self: center;
-  font-size: 1.5rem;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 0;
 }
-.LT-RegisterOTP-holder .LT-otp-input > div > div > input{
-  background-color: #F8FAFC;
-  border: 1px solid #D1DBE1;
+.LT-RegisterOTP-holder .LT-otp-input > div > div > input {
+  background-color: #f8fafc;
+  border: 1px solid #d1dbe1;
 }
-.br14{
+.br14 {
   border-radius: 14px !important;
 }
-.react-tel-input .selected-flag{
-  background-color: white !important;
+.react-tel-input .selected-flag {
+  background-color: #f8fafc !important;
+}
+
+.react-tel-input .form-control {
+  border: 1px solid #d1dbe1;
+  border-radius: 15px;
+}
+
+.react-tel-input .selected-flag {
+  border-radius: 10px 0 0 10px;
+}
+.react-tel-input .flag-dropdown {
+  background-color: transparent !important;
+  border: 1px solid #d1dbe1;
+  border-radius: 15px 0 0 15px;
+}
+
+.pop-width {
+  width: 430px;
 }
