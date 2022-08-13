@@ -128,3 +128,34 @@
 .pop-width {
   width: 430px;
 }
+
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn {
+  background-color: #1eaaad !important;
+  border-color: transparent !important;
+}
+.btn:hover {
+  .cLT-main-text {
+    color: white !important;
+  }
+  background-color: #177a7c !important;
+  border-color: transparent !important;
+}
+.btn:focus {
+  .cLT-main-text {
+    color: white !important;
+  }
+  background-color: #177a7c !important;
+  border-color: transparent !important;
+}
+.btn:active {
+  .cLT-main-text {
+    color: white !important;
+  }
+  background-color: #177a7c !important;
+  border-color: transparent !important;
+}
+.nav-link {
+  margin: 0 10px;
+}
