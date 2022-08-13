@@ -86,6 +86,7 @@ const MasterRegistrationComponent = () => {
           titleFontSize={16}
         />
       )}
+
       {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
       {value.page === 2 || value?.accountType?.userKind === "undo" ? (
@@ -111,9 +112,8 @@ const MasterRegistrationComponent = () => {
       )}
       {value.page === 5 && <SkillsStep />}
       {value.page === 6 && <DescriptionPage />}
-      {value.page === 7 && <IdPage />} 
+      {value.page === 7 && <IdPage />}
       {value.page === 8 && <LocationPage />}
-   
     </div>
   );
 };

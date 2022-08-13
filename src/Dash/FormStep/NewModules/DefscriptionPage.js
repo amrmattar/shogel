@@ -11,13 +11,14 @@ import ButtonShare from "../../../shared/Button/Button.shared";
 import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
+import UploadProfileImg from "../common/UploadProfileImage";
 
 const DersciptionPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
   const hideIcon = getClientData.password.length > 0;
-  const validation = getClientData.username.length > 3;
+  const validation = getClientData.fullName.length > 3;
   const dispatch = useDispatch();
   //TODO Data from Reducers
   const navigate = useNavigate();
@@ -62,6 +63,10 @@ const DersciptionPage = () => {
     setOpen(false);
     navigate("/");
   };
+  const [openImage, setOpenImage] = useState(true);
+  const imgHandler = (e) => {
+    value.setImg({ prop: "img", e: e });
+  };
   return (
     <div>
       <Dialog
@@ -75,10 +80,20 @@ const DersciptionPage = () => {
           dir="rtl"
           style={{ width: "30rem" }}
         >
-          <div className="LT-login-holder">
+          <div>
+            <UploadProfileImg
+              open={openImage}
+              // reset={reset}
+              // def={defimg}
+              onClose={() => setOpenImage(false)}
+              // upload={setimage}
+              upload={imgHandler}
+            />
+          </div>
+          <div style={{ paddingTop: "0" }} className="LT-login-holder">
             <div
               style={{ textAlign: "center" }}
-              className=" LT-account-logo d-flex flex-column p-3"
+              className=" LT-account-logo d-flex flex-column "
             >
               <p className="regiTitle">الاسم بالكامل </p>
               <p className="mt-3 fLT-Regular-sB cLT-main-text">
@@ -98,7 +113,6 @@ const DersciptionPage = () => {
                   minLength={3}
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
-                  
                   // value={getClientData.fullName}
                   onChange={value.setDataDetails("fullName")}
                   placeholder="الاسم الاول والاخير"
@@ -119,10 +133,9 @@ const DersciptionPage = () => {
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
                   placeholder="وصف مختصر"
-                    onChange={value.setDataDetails("shortDesc")}
-                    
-                    // value={getClientData.shortDesc}
-           
+                  onChange={value.setDataDetails("description")}
+
+                  // value={getClientData.shortDesc}
                 />
                 {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
@@ -140,9 +153,9 @@ const DersciptionPage = () => {
                   className="uLT-bd-f-platinum-sA inpBG inp"
                   type="text"
                   placeholder=" اكتب نبذة"
-                    onChange={value.setDataDetails("brief")}
+                  onChange={value.setDataDetails("info")}
 
-                    // value={getClientData.brief}
+                  // value={getClientData.brief}
                 />
                 {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">

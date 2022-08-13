@@ -11,12 +11,14 @@ export const LabelProvider = (props) => {
       password: "",
       username: "",
       fullName: "",
-      shortDesc: "",
-      brief: "",
+      description: "",
+      info: "",
       nation: {},
       id: "",
       area: {},
       gender: "",
+      img: {},
+      files: [],
     },
     freelancerView: {
       username: "",
@@ -58,7 +60,18 @@ export const LabelProvider = (props) => {
         return jumpPage(page);
     }
   };
-
+  const setImg = ({ prop, e }) => {
+    setlabelInfo({
+      ...labelInfo,
+      clientView: { ...labelInfo.clientView, [prop]: e },
+    });
+  };
+  const setFiles = (files) => {
+    setlabelInfo({
+      ...labelInfo,
+      clientView: { ...labelInfo.clientView, files: files },
+    });
+  };
   const setDataDetails = (prop) => (event) => {
     prop == "id"
       ? event.target.value.length < 11 &&
@@ -107,6 +120,8 @@ export const LabelProvider = (props) => {
         nextPage,
         jumpPage,
         prevPage,
+        setImg,
+        setFiles,
         labelInfo,
         handleChange,
         setDataDetails,

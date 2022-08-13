@@ -27,27 +27,31 @@ const IdPage = () => {
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
+  console.log(getClientData);
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
+    let skillsIds = value.labelInfo.skills.map((ele) => ele.id);
+    const form = new FormData();
+    form.append("fullname", getClientData.fullName);
+    form.append("username", getClientData.username);
+    form.append("email", getClientData.email);
+    form.append("password", getClientData.password);
+    form.append("role_id", 3);
+    form.append("country_id", selectedCountry.id);
+    form.append("city_id", selectedCity.id);
+    form.append("state_id", selectedState.id);
+    form.append("area_id", selectedArea.id);
+    form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
+    form.append("gender_id", getClientData.gender);
+    form.append("nationality_id", getClientData.nation.id);
+    form.append("category", skillsIds);
+    form.append("info",getClientData.info);
+    form.append("description", getClientData.description);
+    form.append("media",getClientData.files);
+    form.append("avatar",getClientData.img);
 
-    const data = {
-      fullname: getClientData.fullName,
-      username: getClientData.username,
-      email: getClientData.email,
-      password: getClientData.password,
-      role_id: 3,
-      country_id: getClientData.area?.country?.id,
-      city_id: getClientData.area?.city?.id,
-      state_id: getClientData.area?.state?.id,
-      area_id: getClientData.area?.id,
-      mobile: getMobileNumber?.mobile.split("+").join(""),
-      gender_id: getClientData.gender.id,
-      nationality_id: getClientData.nation.id,
-      // category: value.labelInfo.skills,
-      category: [],
-    };
-    RegisterServices.POST_RegisterData(data)
+    RegisterServices.POST_RegisterData(form)
       .then((res) => {
         dispatch(
           getMessages({
@@ -155,15 +159,14 @@ const IdPage = () => {
   };
   const fetchArea = (area) => {
     setSelectedArea(area);
-    console.log(area);
     value.setDataDetails(area);
   };
-  const presetLocation = (data) => {
-    setSelectedCountry(data?.country);
-    setSelectedCity(data?.city);
-    setSelectedState(data?.state);
-    setSelectedArea(data?.area);
-  };
+  // const presetLocation = (data) => {
+  //   setSelectedCountry(data?.country);
+  //   setSelectedCity(data?.city);
+  //   setSelectedState(data?.state);
+  //   setSelectedArea(data?.area);
+  // };
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(

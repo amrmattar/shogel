@@ -94,16 +94,18 @@ const IdPage = () => {
     setOpen(false);
     navigate("/");
   };
-  const [file, setFiles] = useState({ images: [], videos: [] });
+  const [file, setFiles] = useState([]);
   const [filenames, setNames] = useState([]);
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
-      if (allFile.type.match("video/")) {
-        file.videos.push(allFile);
-      } else if (allFile.type.match("image/")) {
-        file.images.push(allFile);
-      }
+      // if (allFile.type.match("video/")) {
+      file.push(allFile);
+      value.setFiles(file);
+      // file.videos.push(allFile);
+      // } else if (allFile.type.match("image/")) {
+      // file.images.push(allFile);
+      // }
     }
     const extension = files[0].name.split(".")[1]?.toLowerCase();
     if (extension !== undefined) {
@@ -124,16 +126,11 @@ const IdPage = () => {
   };
   // TODO Function Execute To Remove Upload Files
   const handleDelete = (e, fileNewName, i) => {
-    const newfileImage = file.images.filter(
-      (element) => element.name !== fileNewName
-    );
-    const newfileVideo = file.videos.filter(
-      (element) => element.name !== fileNewName
-    );
-    setFiles({ images: newfileImage, videos: newfileVideo });
+    const newfileImage = file.filter((element) => element.name !== fileNewName);
+
+    setFiles(newfileImage);
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
-
   return (
     <div>
       <Dialog

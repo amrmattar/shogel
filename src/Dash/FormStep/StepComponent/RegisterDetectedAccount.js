@@ -90,7 +90,7 @@ const RegisterDetectedAccount = (props) => {
               name="client"
             >
               {" "}
-              حســاب مشتغل
+              حســاب مستخدم
             </p>
           </button>
           <button
@@ -114,7 +114,7 @@ const RegisterDetectedAccount = (props) => {
               name="freelancer"
             >
               {" "}
-              حساب مستخدم
+              حســاب مشتغل
             </p>
           </button>
         </div>

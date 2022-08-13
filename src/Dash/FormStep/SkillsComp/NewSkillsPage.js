@@ -1,87 +1,28 @@
 import { SettingsInputSvideo } from "@mui/icons-material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { API } from "../../../enviroment/enviroment/enviroment";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import ChosedSkill from "./ChosedSkill";
 import SkillComp from "./SkillComp";
 import cls from "./Skills.module.scss";
-const skillss = [
-  {
-    id: 1,
-    name: "aa",
-    subs: [
-      { id: 1, name: "bb" },
-      { id: 2, name: "ss" },
-      { id: 3, name: "ss" },
-      { id: 4, name: "ss" },
-      { id: 5, name: "ss" },
-      { id: 6, name: "ss" },
-      { id: 7, name: "ss" },
-      { id: 8, name: "ss" },
-      { id: 9, name: "ss" },
-      { id: 11, name: "ss" },
-      { id: 12, name: "ss" },
-      { id: 13, name: "ss" },
-      { id: 14, name: "ss" },
-      { id: 15, name: "ss" },
-      { id: 16, name: "ss" },
-      { id: 17, name: "ss" },
-      { id: 51, name: "ss" },
-      { id: 511, name: "ss" },
-      { id: 5111, name: "ss" },
-      { id: 51111, name: "ss" },
-      { id: 5111111, name: "ss" },
-      { id: 51111111111, name: "ss" },
-      { id: 511111111111111, name: "ss" },
-    ],
-  },
-  {
-    id: 2,
-    name: "aa",
-    subs: [
-      { id: 1, name: "ss" },
-      { id: 2, name: "ss" },
-      { id: 3, name: "ss" },
-      { id: 4, name: "ss" },
-      { id: 5, name: "ss" },
-    ],
-  },
-  {
-    id: 3,
-    name: "aa",
-    subs: [
-      { id: 1, name: "ss" },
-      { id: 2, name: "ss" },
-      { id: 3, name: "ss" },
-      { id: 4, name: "ss" },
-      { id: 5, name: "ss" },
-    ],
-  },
-  {
-    id: 4,
-    name: "qq",
-    subs: [
-      { id: 1, name: "ss" },
-      { id: 2, name: "ss" },
-      { id: 3, name: "ss" },
-      { id: 4, name: "ss" },
-      { id: 5, name: "ss" },
-    ],
-  },
-];
-
 const SkillsStep = () => {
   const value = useContext(LabelContext);
-
   const [inpV, setInpV] = useState("");
-  const [skills, setSkills] = useState(skillss);
+  const [skills, setSkills] = useState([]);
   const [subs, setSubs] = useState([]);
   const [chosenSubs, setChosenSubs] = useState([]);
   const findSub = (id) => {
     let arr = skills.filter((ele) => ele.id == id);
-
-    setSubs(arr[0].subs);
-    setChosenSubs([]);
-    value.setSkills([]);
+    if (arr[0].children?.[0]) {
+      setSubs(arr[0].children);
+      setChosenSubs([]);
+      value.setSkills([]);
+    } else {
+      let arr2 = skills.filter((ele) => ele.id != id);
+      setSkills(arr2);
+      setChosenSubs([...chosenSubs, arr[0]]);
+      value.setSkills([...chosenSubs, arr[0]]);
+    }
   };
   const handleChosedSub = (id) => {
     let arr = subs.filter((ele) => ele.id == id);
@@ -94,11 +35,27 @@ const SkillsStep = () => {
   const handleCancel = (id) => {
     let arr = chosenSubs.filter((ele) => ele.id == id);
     let arr2 = chosenSubs.filter((ele) => ele.id != id);
-
-    setSubs([...subs, arr[0]]);
-    setChosenSubs(arr2);
-    value.setSkills(arr2);
+    if (arr[0]?.parent == true) {
+      setSkills([...skills, arr[0]]);
+      setChosenSubs(arr2);
+      value.setSkills(arr2);
+    } else {
+      setSubs([...subs, arr[0]]);
+      setChosenSubs(arr2);
+      value.setSkills(arr2);
+    }
   };
+  useEffect(() => {
+    API.get("coredata/category/list")
+      .then((res) => {
+        let arr = res.data.data?.map((ele) => {
+          ele.parent = true;
+          return ele;
+        });
+        setSkills(arr);
+      })
+      .catch((e) => {});
+  }, []);
   return (
     <div className={cls.main}>
       <p className={cls.title}>اخبرنا عن مهاراتك</p>
