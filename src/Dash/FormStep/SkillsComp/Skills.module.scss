@@ -1,7 +1,6 @@
 .main {
   margin: 10vh 1vw 5vh 1vw;
   direction: rtl;
-   
 
   .title {
     font-size: 1.7rem;
@@ -38,6 +37,29 @@
       height: fit-content;
       max-height: 80vh;
       overflow-y: auto;
+      .messageH {
+        .h {
+          color: black;
+          font-size: 1.7rem;
+          font-weight: bolder;
+          margin: 0 2rem 2rem 0;
+          padding-bottom: 2rem;
+          border-bottom: 1px #707070 solid;
+        }
+        .p {
+          color: gray;
+          font-size: 1rem;
+          font-weight: bold;
+          margin: 0 0rem 2rem 0;
+          width: 60%;
+        }
+      }
+    }
+    .gride {
+      height: fit-content;
+      max-height: 80vh;
+      overflow-y: auto;
+      background-color: white;
       .messageH {
         .h {
           color: black;

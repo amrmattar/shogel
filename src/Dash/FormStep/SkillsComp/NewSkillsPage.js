@@ -1,61 +1,127 @@
-import { SettingsInputSvideo } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import { API } from "../../../enviroment/enviroment/enviroment";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import ChosedSkill from "./ChosedSkill";
-import SkillComp from "./SkillComp";
 import cls from "./Skills.module.scss";
+import SkillTree from "./SkillTree";
+const skilo = [
+  { id: 1, chosed: false, children: [], name: "test1" },
+  {
+    id: 2,
+    chosed: false,
+    children: [
+      { id: 1, chosed: false, children: [], name: "subtest1" },
+      { id: 2, chosed: false, children: [], name: "subtest3" },
+      {
+        id: 4,
+        chosed: false,
+        children: [
+          { id: 1, chosed: false, children: [], name: "3rdSub" },
+          { id: 2, chosed: false, children: [], name: "3rdSub" },
+          { id: 3, chosed: false, children: [], name: "4rdSub" },
+        ],
+        name: "subtest2",
+      },
+      { id: 3, chosed: false, children: [], name: "subtest4" },
+    ],
+    name: "test2",
+  },
+  { id: 3, chosed: false, children: [], name: "test3" },
+];
 const SkillsStep = () => {
   const value = useContext(LabelContext);
   const [inpV, setInpV] = useState("");
-  const [skills, setSkills] = useState([]);
-  const [subs, setSubs] = useState([]);
+  const [skills, setSkills] = useState(skilo);
   const [chosenSubs, setChosenSubs] = useState([]);
-  const findSub = (id) => {
-    let arr = skills.filter((ele) => ele.id == id);
-    if (arr[0].children?.[0]) {
-      setSubs(arr[0].children);
-      setChosenSubs([]);
-      value.setSkills([]);
-    } else {
-      let arr2 = skills.filter((ele) => ele.id != id);
-      setSkills(arr2);
-      setChosenSubs([...chosenSubs, arr[0]]);
-      value.setSkills([...chosenSubs, arr[0]]);
-    }
-  };
-  const handleChosedSub = (id) => {
-    let arr = subs.filter((ele) => ele.id == id);
-    let arr2 = subs.filter((ele) => ele.id != id);
 
-    setSubs(arr2);
-    setChosenSubs([...chosenSubs, arr[0]]);
-    value.setSkills([...chosenSubs, arr[0]]);
-  };
   const handleCancel = (id) => {
-    let arr = chosenSubs.filter((ele) => ele.id == id);
     let arr2 = chosenSubs.filter((ele) => ele.id != id);
-    if (arr[0]?.parent == true) {
-      setSkills([...skills, arr[0]]);
-      setChosenSubs(arr2);
-      value.setSkills(arr2);
-    } else {
-      setSubs([...subs, arr[0]]);
-      setChosenSubs(arr2);
-      value.setSkills(arr2);
-    }
+
+    setChosenSubs(arr2);
+    value.setSkills(arr2);
+  };
+  // useEffect(() => {
+  //   API.get("coredata/category/list")
+  //     .then((res) => {
+  //       let arr = res.data.data?.map((ele) => {
+  //         ele.active = false;
+  //         return ele;
+  //       });
+  //       setSkills(arr);
+  //     })
+  //     .catch((e) => {});
+  // }, []);
+  const choosedSkills = () => {
+    let arr = [...skills];
+    let chosed = [];
+    arr.forEach((parent) => {
+      parent.active && chosed.push(parent);
+
+      parent.children.forEach((sub) => {
+        sub.active && chosed.push(sub);
+
+        sub.children.forEach((sub2) => {
+          sub2.active && chosed.push(sub2);
+        });
+      });
+    });
+    setChosenSubs(chosed);
+    value.setSkills(chosed);
+  };
+  const handleParent = (id) => {
+    let arr = [...skills];
+
+    arr.forEach((parent) => {
+      if (parent.id == id) {
+        parent.active = !parent.active;
+        parent.children.forEach((sub) => {
+          sub.active = parent.active;
+
+          sub.children.forEach((sub2) => {
+            sub2.active = parent.active;
+          });
+        });
+      }
+    });
+    setSkills(arr);
+  };
+  const handleSub = (id, subId) => {
+    let arr = [...skills];
+    arr.forEach((parent) => {
+      if (parent.id == id) {
+        parent.children.forEach((sub) => {
+          if (sub.id == subId) {
+            sub.active = !sub.active;
+
+            sub.children.forEach((sub2) => {
+              sub2.active = sub.active;
+            });
+          }
+        });
+      }
+    });
+    setSkills(arr);
+  };
+  const handle2Sub = (id, subId, sub2Id) => {
+    let arr = [...skills];
+    arr.forEach((parent) => {
+      if (parent.id == id) {
+        parent.children.forEach((sub) => {
+          if (sub.id == subId) {
+            sub.children.forEach((sub2) => {
+              if (sub2.id == sub2Id) {
+                sub2.active = !sub2.active;
+              }
+            });
+          }
+        });
+      }
+    });
+    setSkills(arr);
   };
   useEffect(() => {
-    API.get("coredata/category/list")
-      .then((res) => {
-        let arr = res.data.data?.map((ele) => {
-          ele.parent = true;
-          return ele;
-        });
-        setSkills(arr);
-      })
-      .catch((e) => {});
-  }, []);
+    choosedSkills();
+  }, [skills]);
   return (
     <div className={cls.main}>
       <p className={cls.title}>اخبرنا عن مهاراتك</p>
@@ -70,22 +136,19 @@ const SkillsStep = () => {
         </p>
       </div>
       <div className={cls.contain}>
-        <div className={cls.grid}>
+        <div className={cls.gride}>
           {skills
             .filter((ele) => ele.name.includes(inpV))
             .map((ele) => (
-              <SkillComp findSub={() => findSub(ele.id)} skill={ele} />
+              <SkillTree
+                parentHandler={handleParent}
+                subHandler={handleSub}
+                sub2Handler={handle2Sub}
+                skill={ele}
+              />
             ))}
         </div>
-        <div className={cls.grid}>
-          {subs.map((ele) => (
-            <SkillComp
-              chosenSub={() => handleChosedSub(ele.id)}
-              isSub={true}
-              skill={ele}
-            />
-          ))}
-        </div>
+
         <div className={cls.grid}>
           {chosenSubs[0] && (
             <div className={cls.messageH}>

@@ -124,104 +124,96 @@ const RegisterMobileStep = () => {
     navigate("/");
   };
   return (
-    <>
+    <div className={cls.mobileHolder}>
       <UserFeedBackShared
         message={messages.messages}
         type={messages?.messageType}
         clickMe={messages?.messageClick}
       />
-      <Dialog
-        aria-labelledby="simple-dialog-title1"
-        open={open ? open : false}
-        // onClose={handleClose}
-      >
-        <div className="LT-login-holder">
-          <div
-            style={{
-              width: "8rem",
-              alignSelf: "center",
-              margin: "1rem auto 2rem auto",
-            }}
-            className="imLT-main-logo uLT-img-contain one img"
-          />
-        </div>
-        <p className="regiTitle">إنشاء حساب</p>
-        <div className="d-flex justify-content-center pop-width">
-          <div className="LT-check-mobile-holder">
-            <Row className="gap-3 two">
-              {/* Mobile Number */}
-              <Form.Group md="12" controlId="formGridMobile" className=" ">
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
-                  رقم الجوال
-                </Form.Label>
-                <div dir="ltr" onChange={handleChange}>
-                  <ReactPhoneInput
-                    inputClass="fLT-Regular-sB"
-                    onEnterKeyPress={(e) => handleEnterKey(e)}
-                    inputProps={{ name: "mobile", id: "mobileNumber" }}
-                    countryCodeEditable={false}
-                    placeholder="0000"
-                    country={"sa"}
-                    onlyCountries={["sa"]}
-                    masks={{ sa: "........." }}
-                  />
-                </div>
-              </Form.Group>
-              <p className="mb-0 fLT-Regular-sA text-end cLT-support2-text">
-                {" "}
-                برجاء إدخال رقم الجوال لإرسال رمز التأكيد
-              </p>
-            </Row>
 
-            <label className={cls.label}>
-              <input
-                id="acceptTerms"
-                checked={check}
-                type="checkbox"
-                className="green-check"
-                name="radio-button"
-                onChange={() => setCheck(!check)}
-                style={{ width: "24px", height: "24px" }}
-              />
-              <p className="mb-0  LT-agree-condition cLT-support2-text termsText">
-                {" "}
-                اوافق علي الشروط والاحكام{" "}
-              </p>
-            </label>
+      <div className="LT-login-holder">
+        <div
+          style={{
+            width: "8rem",
+            alignSelf: "center",
+            margin: "1rem auto 2rem auto",
+          }}
+          className="imLT-main-logo uLT-img-contain one img"
+        />
+      </div>
+      <p className="regiTitle">إنشاء حساب</p>
+      <div className="d-flex justify-content-center pop-width">
+        <div className="LT-check-mobile-holder">
+          <Row className="gap-3 two">
+            {/* Mobile Number */}
+            <Form.Group md="12" controlId="formGridMobile" className=" ">
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+                رقم الجوال
+              </Form.Label>
+              <div dir="ltr" onChange={handleChange}>
+                <ReactPhoneInput
+                  inputClass="fLT-Regular-sB"
+                  onEnterKeyPress={(e) => handleEnterKey(e)}
+                  inputProps={{ name: "mobile", id: "mobileNumber" }}
+                  countryCodeEditable={false}
+                  placeholder="0000"
+                  country={"sa"}
+                  onlyCountries={["sa"]}
+                  masks={{ sa: "........." }}
+                />
+              </div>
+            </Form.Group>
+            <p className="mb-0 fLT-Regular-sA text-end cLT-support2-text">
+              {" "}
+              برجاء إدخال رقم الجوال لإرسال رمز التأكيد
+            </p>
+          </Row>
 
-            <div className="three" dir="">
-              <ButtonShare
-                onClick={handleMobileSubmit}
-                loading={isLoading}
-                innerText={"ارســــــال"}
-                btnClasses={"cLT-secondary-bg br14"}
-                textClasses={"py-2 cLT-white-text fLT-Regular-sB"}
-                type={!check || mobileType}
-              />
-            </div>
+          <label className={cls.label}>
+            <input
+              id="acceptTerms"
+              checked={check}
+              type="checkbox"
+              className="green-check"
+              name="radio-button"
+              onChange={() => setCheck(!check)}
+              style={{ width: "24px", height: "24px" }}
+            />
+            <p className="mb-0  LT-agree-condition cLT-support2-text termsText">
+              {" "}
+              اوافق علي الشروط والاحكام{" "}
+            </p>
+          </label>
+
+          <div className="three" dir="">
+            <ButtonShare
+              onClick={handleMobileSubmit}
+              loading={isLoading}
+              innerText={"ارســــــال"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-2 cLT-white-text fLT-Regular-sB"}
+              type={!check || mobileType}
+            />
           </div>
         </div>
-        <div
-          className="d-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
-          style={{ paddingBottom: "3rem", width: "90%", alignSelf: "center" }}
-        >
-          <p className="m-0 fLT-Bold-sm-sA cLT-main-text">
-            {" "}
-            لديك حساب بالفعل ؟
-          </p>
-          {/* <Button onClick={switchSignup} className='px-0'
+      </div>
+      <div
+        className="d-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
+        style={{ paddingBottom: "3rem", width: "90%", alignSelf: "center" }}
+      >
+        <p className="m-0 fLT-Bold-sm-sA cLT-main-text"> لديك حساب بالفعل ؟</p>
+        {/* <Button onClick={switchSignup} className='px-0'
                             <p className='uLT-list-style fLT-Bold-sm-sA cLT-secondary-text '>إنشاء حساب جديد</p>
                         </Button> */}
-          <NavLink
-            to={"/login"}
-            onClick={handleClose}
-            className="uLT-list-style fLT-Bold-sm-sA cLT-secondary-text"
-          >
-            تسجيل الدخول
-          </NavLink>
-        </div>
-      </Dialog>
-    </>
+        <NavLink
+          to={"/login"}
+          onClick={handleClose}
+          className="uLT-list-style fLT-Bold-sm-sA cLT-secondary-text"
+        >
+          تسجيل الدخول
+        </NavLink>
+      </div>
+    </div>
   );
 };
 export default RegisterMobileStep;

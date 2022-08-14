@@ -1,16 +1,34 @@
 import cls from "./SkillComp.module.scss";
-import { BsArrowLeftShort } from "react-icons/bs";
-import { BsInboxes } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import Checkbox from "@mui/material/Checkbox";
 
-const SkillComp = ({ skill, findSub, isSub, chosenSub, cancel }) => {
+const SkillComp = ({ skill, clicked }) => {
   return (
-    <div onClick={findSub || chosenSub || cancel} className={cls.main}>
+    <div onClick={clicked} className={cls.main}>
       <div className={cls.nameH}>
-        {!isSub && <BsInboxes />}
+        <div
+          style={{
+            width: "3rem",
+          }}
+        >
+          <Checkbox
+            checked={skill.active || false}
+            sx={{
+              color: "#1EAAAD",
+              "&.Mui-checked": {
+                color: "#1EAAAD",
+              },
+            }}
+          />
+        </div>
         <p>{skill.name}</p>
       </div>
-      {isSub ? <AiOutlinePlus /> : <BsArrowLeftShort />}
+      {skill.children?.[0] && (
+        <div>
+          {skill.active ? <MdKeyboardArrowDown /> : <MdKeyboardArrowLeft />}
+        </div>
+      )}
     </div>
   );
 };
