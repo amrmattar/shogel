@@ -4,63 +4,47 @@ import { LabelContext } from "../LabelDataContext/labelDataContext";
 import ChosedSkill from "./ChosedSkill";
 import cls from "./Skills.module.scss";
 import SkillTree from "./SkillTree";
-const skilo = [
-  { id: 1, chosed: false, children: [], name: "test1" },
-  {
-    id: 2,
-    chosed: false,
-    children: [
-      { id: 1, chosed: false, children: [], name: "subtest1" },
-      { id: 2, chosed: false, children: [], name: "subtest3" },
-      {
-        id: 4,
-        chosed: false,
-        children: [
-          { id: 1, chosed: false, children: [], name: "3rdSub" },
-          { id: 2, chosed: false, children: [], name: "3rdSub" },
-          { id: 3, chosed: false, children: [], name: "4rdSub" },
-        ],
-        name: "subtest2",
-      },
-      { id: 3, chosed: false, children: [], name: "subtest4" },
-    ],
-    name: "test2",
-  },
-  { id: 3, chosed: false, children: [], name: "test3" },
-];
+
 const SkillsStep = () => {
   const value = useContext(LabelContext);
   const [inpV, setInpV] = useState("");
-  const [skills, setSkills] = useState(skilo);
+  const [skills, setSkills] = useState([]);
   const [chosenSubs, setChosenSubs] = useState([]);
 
-  const handleCancel = (id) => {
+  const handleCancel = (id, parentId, subId) => {
     let arr2 = chosenSubs.filter((ele) => ele.id != id);
-
     setChosenSubs(arr2);
     value.setSkills(arr2);
+    if (parentId && subId) {
+      handle2Sub(parentId, subId, id);
+    } else {
+      parentId ? handleSub(parentId, id) : handleParent(id);
+    }
   };
-  // useEffect(() => {
-  //   API.get("coredata/category/list")
-  //     .then((res) => {
-  //       let arr = res.data.data?.map((ele) => {
-  //         ele.active = false;
-  //         return ele;
-  //       });
-  //       setSkills(arr);
-  //     })
-  //     .catch((e) => {});
-  // }, []);
+  useEffect(() => {
+    API.get("coredata/category/list?search=s")
+      .then((res) => {
+        let arr = res.data.data?.map((ele) => {
+          ele.active = false;
+          return ele;
+        });
+        setSkills(arr);
+      })
+      .catch((e) => {});
+  }, []);
   const choosedSkills = () => {
     let arr = [...skills];
     let chosed = [];
     arr.forEach((parent) => {
-      parent.active && chosed.push(parent);
+      parent.active && !parent.children[0] && chosed.push(parent);
 
       parent.children.forEach((sub) => {
-        sub.active && chosed.push(sub);
+        sub.parentId = parent.id;
+        sub.active && !sub.children[0] && chosed.push(sub);
 
         sub.children.forEach((sub2) => {
+          sub2.parentId = parent.id;
+          sub2.subId = sub.id;
           sub2.active && chosed.push(sub2);
         });
       });
@@ -89,9 +73,16 @@ const SkillsStep = () => {
     let arr = [...skills];
     arr.forEach((parent) => {
       if (parent.id == id) {
+        let activeChilds = [];
+
         parent.children.forEach((sub) => {
           if (sub.id == subId) {
             sub.active = !sub.active;
+            if (!sub.active) parent.active = false;
+
+            sub.active && activeChilds.push(sub);
+            if (activeChilds.length == parent.children.length)
+              parent.active = true;
 
             sub.children.forEach((sub2) => {
               sub2.active = sub.active;
@@ -106,12 +97,27 @@ const SkillsStep = () => {
     let arr = [...skills];
     arr.forEach((parent) => {
       if (parent.id == id) {
+        let activeChilds = [];
+
         parent.children.forEach((sub) => {
+          if (sub.id != subId) sub.active && activeChilds.push(sub);
           if (sub.id == subId) {
+            let activeSubChilds = [];
+
             sub.children.forEach((sub2) => {
               if (sub2.id == sub2Id) {
                 sub2.active = !sub2.active;
               }
+              if (!sub2.active) {
+                parent.active = false;
+                sub.active = false;
+              }
+              sub2.active && activeSubChilds.push(sub2);
+              sub.active && activeChilds.push(sub);
+              if (activeSubChilds.length == sub.children.length)
+                sub.active = true;
+              if (activeChilds.length == parent.children.length)
+                parent.active = true;
             });
           }
         });
@@ -139,8 +145,9 @@ const SkillsStep = () => {
         <div className={cls.gride}>
           {skills
             .filter((ele) => ele.name.includes(inpV))
-            .map((ele) => (
+            .map((ele, indx) => (
               <SkillTree
+                key={indx}
                 parentHandler={handleParent}
                 subHandler={handleSub}
                 sub2Handler={handle2Sub}
@@ -160,8 +167,12 @@ const SkillsStep = () => {
             </div>
           )}
           <div className={cls.gridF}>
-            {chosenSubs.map((ele) => (
-              <ChosedSkill close={() => handleCancel(ele.id)} skill={ele} />
+            {chosenSubs.map((ele, indx) => (
+              <ChosedSkill
+                close={() => handleCancel(ele.id, ele.parentId, ele.subId)}
+                skill={ele}
+                key={indx}
+              />
             ))}
           </div>
         </div>

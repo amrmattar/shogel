@@ -3,9 +3,9 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import Checkbox from "@mui/material/Checkbox";
 
-const SkillComp = ({ skill, clicked }) => {
+const SkillComp = ({ skill, clicked, dropClicked,open }) => {
   return (
-    <div onClick={clicked} className={cls.main}>
+    <div className={cls.main}>
       <div className={cls.nameH}>
         <div
           style={{
@@ -13,6 +13,7 @@ const SkillComp = ({ skill, clicked }) => {
           }}
         >
           <Checkbox
+            onClick={clicked}
             checked={skill.active || false}
             sx={{
               color: "#1EAAAD",
@@ -26,7 +27,11 @@ const SkillComp = ({ skill, clicked }) => {
       </div>
       {skill.children?.[0] && (
         <div>
-          {skill.active ? <MdKeyboardArrowDown /> : <MdKeyboardArrowLeft />}
+          {open ? (
+            <MdKeyboardArrowDown onClick={dropClicked} />
+          ) : (
+            <MdKeyboardArrowLeft onClick={dropClicked} />
+          )}
         </div>
       )}
     </div>

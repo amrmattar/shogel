@@ -6,7 +6,10 @@
   margin: 8px 0px;
   border-radius: 1rem;
   height: 4rem;
-  cursor: pointer;
+  svg,input{
+
+    cursor: pointer;
+  }
   .nameH {
     display: flex;
  
@@ -26,6 +29,10 @@
   svg {
     cursor: pointer;
    
+  }
+  p{
+    max-width: 4rem;
+    overflow: hidden;
   }
 }
 .firstSub{
