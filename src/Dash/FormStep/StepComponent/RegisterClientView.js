@@ -15,10 +15,14 @@ const RegisterClientView = (props) => {
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
   const hideIcon = getClientData.password.length > 0;
-  const validation =
+  let v1 =
     getClientData.username.length > 3 &&
     getClientData.email.length > 7 &&
     getClientData.password.length >= 8;
+  let v2 =
+    getClientData.username.length > 3 && getClientData.password.length >= 8;
+  const validation = value?.accountType?.userKind === "company" ? v2 : v1;
+
   const dispatch = useDispatch();
   //TODO Data from Reducers
   const navigate = useNavigate();
@@ -55,7 +59,7 @@ const RegisterClientView = (props) => {
     //       value.jumpPage(4);
     //     }
     //   });
-    value.jumpPage(5);
+    value.jumpPage(value?.accountType?.userKind === "client" ? 6 : 5);
   };
   const getBack = () => {
     value.prevPage();
@@ -104,11 +108,13 @@ const RegisterClientView = (props) => {
             </Form.Group>
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                البريد الالكتروني <span className="cLT-danger-text">*</span>
+                البريد الالكتروني{" "}
+                {value?.accountType?.userKind !== "company" && (
+                  <span className="cLT-danger-text">*</span>
+                )}
               </Form.Label>
               <Form.Control
                 name="email"
-                required
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="email"
                 placeholder="البريد الإلكتروني"

@@ -16,6 +16,7 @@ import SkillsStep from "./SkillsComp/NewSkillsPage";
 import DescriptionPage from "./NewModules/DefscriptionPage";
 import IdPage from "./NewModules/IdPage";
 import LocationPage from "./NewModules/LocationPage";
+import LocationClientPage from "./NewModules/LocationClientPage";
 const MasterRegistrationComponent = () => {
   const value = useContext(LabelContext);
 
@@ -86,7 +87,6 @@ const MasterRegistrationComponent = () => {
           titleFontSize={16}
         />
       )}
-
       {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
       {value.page === 2 || value?.accountType?.userKind === "undo" ? (
@@ -108,12 +108,19 @@ const MasterRegistrationComponent = () => {
         <RegisterFreelancerPersonalDetails />
       )}
       {value.page === 4 && value?.accountType?.userKind === "company" && (
-        <RegisterCompanyDetails />
+        <RegisterClientView />
       )}
       {value.page === 5 && <SkillsStep />}
       {value.page === 6 && <DescriptionPage />}
+
       {value.page === 7 && <IdPage />}
-      {value.page === 8 && <LocationPage />}
+      {value.page === 8 && value?.accountType?.userKind !== "client" && (
+        <LocationPage />
+      )}
+      {value.page === 8 && value?.accountType?.userKind === "client" && (
+        <LocationClientPage />
+      )}
+     
     </div>
   );
 };

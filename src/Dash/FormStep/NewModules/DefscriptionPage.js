@@ -1,63 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Button, ButtonGroup, Dialog } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { Dialog } from "@mui/material";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
-import { Col, Form, Row } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import "../NewStyle.scss";
-import { NavLink, useNavigate } from "react-router-dom";
-import IconButton from "@mui/material/IconButton";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
-import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
-import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
+import { useDispatch } from "react-redux";
 import UploadProfileImg from "../common/UploadProfileImage";
 
 const DersciptionPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
-  const hideIcon = getClientData.password.length > 0;
   const validation = getClientData.fullName.length > 3;
   const dispatch = useDispatch();
   //TODO Data from Reducers
   const navigate = useNavigate();
-  const messages = useSelector((state) => state.messages);
-  const [showPassword, setShowPassword] = useState(false);
   const [nextLoading, setNextLoadiing] = useState(false);
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
-    // const data = {
-    //   username: value.labelInfo.clientView.username,
-    //   email: value.labelInfo.clientView.email,
-    // };
-    // RegisterServices.POST_RegisterData(data)
-    //   .then((res) => {
-    //     setNextLoadiing(false);
-    //   })
-    //   .catch((err) => {
-    //     dispatch(
-    //       getMessages({
-    //         messages: err.response.data.message,
-    //         messageType: "error",
-    //         messageClick: true,
-    //       })
-    //     );
-    //     if (
-    //       err.response.data.message.email ||
-    //       err.response.data.message.username
-    //     ) {
-    //       setNextLoadiing(false);
-    //     } else {
-    //       setNextLoadiing(false);
-    //       value.jumpPage(4);
-    //     }
-    //   });
-    value.jumpPage(7);
+    value.jumpPage(value?.accountType?.userKind !== "client" ? 7 : 8);
   };
   const getBack = () => {
-    value.prevPage();
+    value.jumpPage(value?.accountType?.userKind !== "client" ? 5 : 3);
   };
   const handleClose = () => {
     setOpen(false);
