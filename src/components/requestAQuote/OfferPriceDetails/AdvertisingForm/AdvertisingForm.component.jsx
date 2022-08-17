@@ -224,7 +224,7 @@ const AdvertisingFormComponent = () => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      console.log(res);
+   
       setGetAllCountryFromResponse(res.data.data);
     });
   }, [selectedCountry, selectedCity, selectedState]);

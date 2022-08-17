@@ -1,12 +1,5 @@
 import { Dialog } from "@mui/material";
-import React, {
-  Fragment,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
@@ -34,12 +27,8 @@ const RegisterDetectedAccount = (props) => {
     navigate("/");
   };
   return (
-    <Dialog
-      aria-labelledby="simple-dialog-title1"
-      open={open ? open : false}
-      // onClose={handleClose}
-    >
-      <div>
+    <div className="DialogSim">
+      <div style={{ padding: "1rem" }}>
         <div className="LT-login-holder">
           <div
             style={{
@@ -129,7 +118,7 @@ const RegisterDetectedAccount = (props) => {
           />
         </div>
       </div>
-    </Dialog>
+    </div>
   );
 };
 export default RegisterDetectedAccount;

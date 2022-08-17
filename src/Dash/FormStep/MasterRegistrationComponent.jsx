@@ -17,56 +17,18 @@ import DescriptionPage from "./NewModules/DefscriptionPage";
 import IdPage from "./NewModules/IdPage";
 import LocationPage from "./NewModules/LocationPage";
 import LocationClientPage from "./NewModules/LocationClientPage";
+import StepperComp from "./StepComponent/StepperComp";
 const MasterRegistrationComponent = () => {
   const value = useContext(LabelContext);
 
-  const [first, setfirst] = useState([]);
+  const [first, setfirst] = useState(0);
   const handleRoute = useCallback(() => {
     switch (value?.accountType?.userKind) {
       case "client":
-        return setfirst([
-          { title: "رقم الجوال" },
-          { title: "رمز التحقق" },
-          { title: "نــوع الحســاب" },
-          { title: "البيانات الشخصية" },
-          { title: "إنشــاء حــساب" },
-        ]);
-      case "freelancer":
-        return setfirst([
-          { title: "رقم الجوال" },
-          { title: "رمز التحقق" },
-          { title: "نــوع الحســاب" },
-          { title: "نــوع المشتغل" },
-        ]);
-      case "worker":
-        return setfirst([
-          { title: "رقم الجوال" },
-          { title: "رمز التحقق" },
-          { title: "نــوع الحســاب" },
-          { title: "نــوع المشتغل" },
-          { title: "إنشــاء حــساب مشتغل" },
-        ]);
-      case "company":
-        return setfirst([
-          { title: "رقم الجوال" },
-          { title: "رمز التحقق" },
-          { title: "نــوع الحســاب" },
-          { title: "نــوع المشتغل" },
-          { title: "إنشــاء حــساب منشأه" },
-        ]);
+        return setfirst(2);
 
-      case "undo":
-        return setfirst([
-          { title: "رقم الجوال" },
-          { title: "رمز التحقق" },
-          { title: "نــوع الحســاب" },
-        ]);
       default:
-        return setfirst([
-          { title: "رقم الجوال" },
-          { title: "رمز التحقق" },
-          { title: "نــوع الحســاب" },
-        ]);
+        return setfirst(4);
     }
   }, [value?.accountType?.userKind]);
   useEffect(() => {
@@ -75,52 +37,40 @@ const MasterRegistrationComponent = () => {
 
   return (
     <div className="LT-stepper-style" dir="ltr">
-      {value.page !== 9 && (
-        <Stepper
-          steps={first}
-          activeStep={value?.page}
-          defaultColor={"#E9E9E9"}
-          activeTitleColor={"#1EAAAD"}
-          completeColor={"#02385A"}
-          activeColor={"#1EAAAD"}
-          defaultTitleColor={"#E9E9E9"}
-          titleFontSize={16}
-        />
-      )}
+   
+        <StepperComp steps={first} activeStep={value?.page} />
+  
+
+      {/* <StepperComp steps={first} activeStep={value?.page} /> */}
+
       {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
       {value.page === 2 || value?.accountType?.userKind === "undo" ? (
         <RegisterDetectedAccount />
       ) : null}
-      {value.page === 3 && value?.accountType?.userKind === "worker" && (
-        <RegisterClientView />
-      )}
-      {value.page === 3 && value?.accountType?.userKind === "client" && (
-        <RegisterClientView />
-      )}
       {value.page === 3 && value?.accountType?.userKind === "freelancer" && (
         <RegisterDetectedFreelancerAccount />
       )}
-      {value.page === 4 && value?.accountType?.userKind === "client" && (
-        <RegisterClientOptionDetails />
-      )}
-      {value.page === 4 && value?.accountType?.userKind === "worker" && (
-        <RegisterFreelancerPersonalDetails />
-      )}
-      {value.page === 4 && value?.accountType?.userKind === "company" && (
+      {value.page === 3 && value?.accountType?.userKind !== "freelancer" && (
         <RegisterClientView />
       )}
-      {value.page === 5 && <SkillsStep />}
-      {value.page === 6 && <DescriptionPage />}
-
-      {value.page === 7 && <IdPage />}
-      {value.page === 8 && value?.accountType?.userKind !== "client" && (
-        <LocationPage />
+      {value.page === 4 && value?.accountType?.userKind !== "client" && (
+        <SkillsStep />
       )}
-      {value.page === 8 && value?.accountType?.userKind === "client" && (
+      {value.page === 4 && value?.accountType?.userKind == "client" && (
+        <DescriptionPage />
+      )}
+      {value.page === 5 && value?.accountType?.userKind !== "client" && (
+        <DescriptionPage />
+      )}
+      {value.page === 5 && value?.accountType?.userKind === "client" && (
         <LocationClientPage />
       )}
-     
+
+      {value.page === 6 && <IdPage />}
+      {value.page === 7 && value?.accountType?.userKind !== "client" && (
+        <LocationPage />
+      )}
     </div>
   );
 };

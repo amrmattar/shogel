@@ -127,7 +127,7 @@ const FlancerAdvsListPage = () => {
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
-          console.log(res);
+      
           setUserAdvsDetatils(res.data);
         })
         .catch((err) => {

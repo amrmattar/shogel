@@ -32,6 +32,9 @@ const SkillsStep = () => {
       })
       .catch((e) => {});
   }, []);
+  const getBack = () => {
+    value.prevPage();
+  };
   const choosedSkills = () => {
     let arr = [...skills];
     let chosed = [];
@@ -178,12 +181,15 @@ const SkillsStep = () => {
         </div>
       </div>
       <button
-        onClick={() => value.jumpPage(6)}
+        onClick={() => value.jumpPage(5)}
         disabled={!chosenSubs[0]}
         className={cls.next}
       >
         {" "}
         التالي
+      </button>
+      <button onClick={getBack} className={cls.back}>
+        رجوع
       </button>
     </div>
   );

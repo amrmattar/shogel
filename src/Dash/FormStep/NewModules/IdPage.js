@@ -39,7 +39,7 @@ const IdPage = () => {
   const getNations = () => {
     API.get("coredata/nationality/list")
       .then((res) => {
-        console.log(res.data.data);
+     
         setNations(res.data?.data);
       })
       .catch((e) => {});
@@ -47,7 +47,7 @@ const IdPage = () => {
   const getGenders = () => {
     API.get("/coredata/gender/list")
       .then((res) => {
-        console.log(res);
+       
         setGender(res.data?.data);
       })
       .catch((e) => {});
@@ -85,7 +85,7 @@ const IdPage = () => {
     //       value.jumpPage(4);
     //     }
     //   });
-    value.jumpPage(8);
+    value.nextPage();
   };
   const getBack = () => {
     value.prevPage();
@@ -132,12 +132,8 @@ const IdPage = () => {
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
   return (
-    <div>
-      <Dialog
-        aria-labelledby="simple-dialog-title1"
-        open={open ? open : false}
-        // onClose={handleClose}
-      >
+    <div className="DialogSim2">
+     
         <form
           // onSubmit={(e) => getNext(e)}
           className="container px-0 my-4 d-flex flex-column gap-4"
@@ -273,7 +269,7 @@ const IdPage = () => {
             </div>
           </div>
         </form>
-      </Dialog>
+    
     </div>
   );
 };

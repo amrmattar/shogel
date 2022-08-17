@@ -1,37 +1,40 @@
 import { Dialog } from "@mui/material";
-import React, { Fragment, useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import "../NewStyle.scss";
 const RegisterDetectedFreelancerAccount = () => {
   const value = useContext(LabelContext);
-const navigate = useNavigate();
-  const handleFreelancerScreen =  (e) => {
-    e.preventDefault()
-    value.jumpPage(4)
-  }
-  const handleCompanyScreen =  (e) => {
-    e.preventDefault()
-    value.jumpPage(5)
-  }
-  
-  const getBack = () => {
-    value.prevPage()
-  }
-   const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
+  const handleFreelancerScreen = (e) => {
+    e.preventDefault();
+    value.jumpPage(4);
+  };
+  const handleCompanyScreen = (e) => {
+    e.preventDefault();
+    value.jumpPage(5);
+  };
 
-   const handleClose = () => {
-     setOpen(false);
-     navigate("/");
-   };
+  const getBack = () => {
+    value.prevPage();
+  };
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    navigate("/");
+  };
   return (
-    <Dialog
-      aria-labelledby="simple-dialog-title1"
-      open={open ? open : false}
-      // onClose={handleClose}
-    >
-      <div>
+    <div className="DialogSim">
+      <div style={{ padding: "1rem" }}>
         <div className="LT-login-holder">
           <div
             style={{
@@ -125,7 +128,7 @@ const navigate = useNavigate();
           />
         </div>
       </div>
-    </Dialog>
+    </div>
     //   <Fragment>
     //   <div className="container my-4 px-0 d-flex flex-column justify-content-center align-items-center" >
     //     <div className="LT-account-holder">

@@ -104,11 +104,7 @@ const RegisterOTPStep = (props) => {
   };
 
   return (
-    <Dialog
-      aria-labelledby="simple-dialog-title1"
-      open={open ? open : false}
-      // onClose={handleClose}
-    >
+    <div className="DialogSim">
       <div
         className="LT-login-holder"
         style={
@@ -161,7 +157,7 @@ const RegisterOTPStep = (props) => {
         <p className="m-0 fLT-Bold-sm-sA cLT-main-text"> لديك حساب بالفعل ؟</p>
         {/* <Button onClick={switchSignup} className='px-0'
                             <p className='uLT-list-style fLT-Bold-sm-sA cLT-secondary-text '>إنشاء حساب جديد</p>
-                        </Button> */}
+                          </Button> */}
         <NavLink
           to={"/login"}
           onClick={handleClose}
@@ -170,7 +166,7 @@ const RegisterOTPStep = (props) => {
           تسجيل الدخول
         </NavLink>
       </div>
-    </Dialog>
+    </div>
   );
 };
 export default RegisterOTPStep;

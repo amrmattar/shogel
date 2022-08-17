@@ -27,7 +27,7 @@ const IdPage = () => {
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
-  console.log(getClientData);
+
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
@@ -183,47 +183,42 @@ const IdPage = () => {
   }, [getCoreData]);
 
   return (
-    <div>
-      <Dialog
-        aria-labelledby="simple-dialog-title1"
-        open={open ? open : false}
-        // onClose={handleClose}
+    <div className="DialogSim2">
+      <form
+        onSubmit={(e) => getNext(e)}
+        className="container px-0 my-4 d-flex flex-column gap-4"
+        dir="rtl"
+        style={{ width: "30rem" }}
       >
-        <form
-          onSubmit={(e) => getNext(e)}
-          className="container px-0 my-4 d-flex flex-column gap-4"
-          dir="rtl"
-          style={{ width: "30rem" }}
-        >
-          <div className="LT-login-holder">
-            <div
-              style={{ textAlign: "center" }}
-              className=" LT-account-logo d-flex flex-column p-3"
-            >
-              <p className="regiTitle"> معلومات الموقع </p>
-            </div>
-            <Row className="mb-4 gap-3 two row">
-              {/* Country [Section] */}
+        <div className="LT-login-holder">
+          <div
+            style={{ textAlign: "center" }}
+            className=" LT-account-logo d-flex flex-column p-3"
+          >
+            <p className="regiTitle"> معلومات الموقع </p>
+          </div>
+          <Row className="mb-4 gap-3 two row">
+            {/* Country [Section] */}
 
-              <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  البلد<span className="cLT-danger-text">*</span>
-                </Form.Label>
-                {/* Country [Option]  */}
-                <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-                >
-                  <Select
-                    value={selectedCountry}
-                    placeholder="البلد"
-                    className="uLT-f-radius-sB "
-                    options={getAllCountryFromResponse?.country}
-                    onChange={fetchCountry}
-                    getOptionLabel={(country) => country?.name}
-                    getOptionValue={(country) => country?.id}
-                  />
-                </div>
-                {/* {errMessage?.country_id && (
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                البلد<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={selectedCountry}
+                  placeholder="البلد"
+                  className="uLT-f-radius-sB "
+                  options={getAllCountryFromResponse?.country}
+                  onChange={fetchCountry}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
+                />
+              </div>
+              {/* {errMessage?.country_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
@@ -231,26 +226,26 @@ const IdPage = () => {
                 {errMessage?.country_id}
               </p>
             )} */}
-              </Form.Group>
-              {/* State [Section] */}
-              <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  المدينة<span className="cLT-danger-text">*</span>
-                </Form.Label>
-                {/* State [Option]  */}
-                <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-                >
-                  <Select
-                    value={selectedCity}
-                    placeholder="المدينة"
-                    options={getAllCountryFromResponse?.city}
-                    onChange={fetchCities}
-                    getOptionLabel={(city) => city?.name}
-                    getOptionValue={(city) => city?.id}
-                  />
-                </div>
-                {/* {errMessage?.city_id && (
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                المدينة<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={selectedCity}
+                  placeholder="المدينة"
+                  options={getAllCountryFromResponse?.city}
+                  onChange={fetchCities}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {/* {errMessage?.city_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
@@ -258,71 +253,70 @@ const IdPage = () => {
                 {errMessage?.city_id}
               </p>
             )} */}
-              </Form.Group>
+            </Form.Group>
 
-              {/* Country [Section] */}
+            {/* Country [Section] */}
 
-              <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  المنطقة<span className="cLT-danger-text">*</span>
-                </Form.Label>
-                {/* Country [Option]  */}
-                <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-                >
-                  <Select
-                    value={selectedState}
-                    placeholder="المنطقة"
-                    className="uLT-f-radius-sB "
-                    options={getAllCountryFromResponse?.state}
-                    onChange={fetchState}
-                    getOptionLabel={(country) => country?.name}
-                    getOptionValue={(country) => country?.id}
-                  />
-                </div>
-              </Form.Group>
-              {/* State [Section] */}
-              <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  الحي<span className="cLT-danger-text">*</span>
-                </Form.Label>
-                {/* State [Option]  */}
-                <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-                >
-                  <Select
-                    value={selectedArea}
-                    placeholder="الحي"
-                    options={getAllCountryFromResponse?.area}
-                    onChange={fetchArea}
-                    getOptionLabel={(city) => city?.name}
-                    getOptionValue={(city) => city?.id}
-                  />
-                </div>
-              </Form.Group>
-            </Row>
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                المنطقة<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={selectedState}
+                  placeholder="المنطقة"
+                  className="uLT-f-radius-sB "
+                  options={getAllCountryFromResponse?.state}
+                  onChange={fetchState}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
+                />
+              </div>
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                الحي<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={selectedArea}
+                  placeholder="الحي"
+                  options={getAllCountryFromResponse?.area}
+                  onChange={fetchArea}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+            </Form.Group>
+          </Row>
+        </div>
+        <div className="d-flex align-items-center justify-content-around gap-4">
+          <div className="">
+            <ButtonShare
+              type={!validation}
+              loading={nextLoading}
+              innerText={"تسجيل"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+            />
           </div>
-          <div className="d-flex align-items-center justify-content-around gap-4">
-            <div className="">
-              <ButtonShare
-                type={!validation}
-                loading={nextLoading}
-                innerText={"تسجيل"}
-                btnClasses={"cLT-secondary-bg br14"}
-                textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
-              />
-            </div>
-            <div className="">
-              <ButtonShare
-                onClick={() => getBack()}
-                innerText={"رجــــوع"}
-                btnClasses={"cLT-secondary-bg br14"}
-                textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
-              />
-            </div>
+          <div className="">
+            <ButtonShare
+              onClick={() => getBack()}
+              innerText={"رجــــوع"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+            />
           </div>
-        </form>
-      </Dialog>
+        </div>
+      </form>
     </div>
   );
 };

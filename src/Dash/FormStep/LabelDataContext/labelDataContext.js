@@ -47,18 +47,7 @@ export const LabelProvider = (props) => {
       ...labelInfo,
       [prop]: event?.target?.attributes?.name?.value,
     });
-    switch (event?.target?.attributes?.name?.value) {
-      case "worker":
-        return jumpPage(3);
-      case "freelancer":
-        return jumpPage(3);
-      case "company":
-        return jumpPage(4);
-      case "backCompany":
-        return jumpPage(3);
-      default:
-        return jumpPage(page);
-    }
+    jumpPage(3);
   };
   const setImg = ({ prop, e }) => {
     setlabelInfo({
