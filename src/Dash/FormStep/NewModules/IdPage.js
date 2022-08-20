@@ -39,7 +39,6 @@ const IdPage = () => {
   const getNations = () => {
     API.get("coredata/nationality/list")
       .then((res) => {
-     
         setNations(res.data?.data);
       })
       .catch((e) => {});
@@ -47,7 +46,6 @@ const IdPage = () => {
   const getGenders = () => {
     API.get("/coredata/gender/list")
       .then((res) => {
-       
         setGender(res.data?.data);
       })
       .catch((e) => {});
@@ -133,40 +131,39 @@ const IdPage = () => {
   };
   return (
     <div className="DialogSim2">
-     
-        <form
-          // onSubmit={(e) => getNext(e)}
-          className="container px-0 my-4 d-flex flex-column gap-4"
-          dir="rtl"
-          style={{ width: "30rem" }}
-        >
-          <div className="LT-login-holder">
-            <div
-              style={{ textAlign: "center" }}
-              className=" LT-account-logo d-flex flex-column p-3"
-            >
-              <p className="regiTitle"> معلومات الفرد </p>
-            </div>
+      <form
+        // onSubmit={(e) => getNext(e)}
+        className="container px-0 my-4 d-flex flex-column"
+        dir="rtl"
+        style={{ width: "30rem" }}
+      >
+        <div className="LT-login-holder">
+          <div
+            style={{ textAlign: "center" }}
+            className=" LT-account-logo d-flex flex-column p-3"
+          >
+            <p className="regiTitle"> معلومات الفرد </p>
+          </div>
 
-            <Row className="mb-4 gap-3 two row">
-              <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  الجنسية<span className="cLT-danger-text">*</span>
-                </Form.Label>
-                {/* State [Option]  */}
-                <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-                >
-                  <Select
-                    value={getClientData.nation?.id ? getClientData.nation : ""}
-                    placeholder="سعودي"
-                    options={nations}
-                    onChange={value.setDataDetails("nation")}
-                    getOptionLabel={(city) => city?.name}
-                    getOptionValue={(city) => city?.id}
-                  />
-                </div>
-                {/* {errMessage?.city_id && (
+          <Row className="mb-4 gap-3 two row">
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                الجنسية<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={getClientData.nation?.id ? getClientData.nation : ""}
+                  placeholder="سعودي"
+                  options={nations}
+                  onChange={value.setDataDetails("nation")}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {/* {errMessage?.city_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
@@ -174,36 +171,36 @@ const IdPage = () => {
                 {errMessage?.city_id}
               </p>
             )} */}
-              </Form.Group>
-              <Form.Group>
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  رقم الهوية
-                </Form.Label>
-                <Form.Control
-                  name="id"
-                  required
-                  className="uLT-bd-f-platinum-sA inpBG inp"
-                  type="number"
-                  placeholder="ادخل رقم الهوية "
-                  onChange={value.setDataDetails("id")}
-                  value={getClientData.id}
-                />
-                {/* {messages?.messages?.username && (
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                رقم الهوية
+              </Form.Label>
+              <Form.Control
+                name="id"
+                required
+                className="uLT-bd-f-platinum-sA inpBG inp"
+                type="number"
+                placeholder="ادخل رقم الهوية "
+                onChange={value.setDataDetails("id")}
+                value={getClientData.id}
+              />
+              {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
                     {messages?.messages?.username}
                   </p>
                 )} */}
-              </Form.Group>
-              <Form.Group>
-                <Upload
-                  inputRef={inputRef}
-                  isDrop={fileHandler}
-                  targetClick={filePicker}
-                  fileArr={filenames}
-                  handleDelete={handleDelete}
-                  title="    صور الاعمال والشهادات"
-                />
-                {/* <Form.Control
+            </Form.Group>
+            <Form.Group>
+              <Upload
+                inputRef={inputRef}
+                isDrop={fileHandler}
+                targetClick={filePicker}
+                fileArr={filenames}
+                handleDelete={handleDelete}
+                title="    صور الاعمال والشهادات"
+              />
+              {/* <Form.Control
                   name="description"
                   required
                   className="uLT-bd-f-platinum-sA inpBG inp"
@@ -213,63 +210,62 @@ const IdPage = () => {
 
                   //   value={getClientData.email}
                 /> */}
-                {/* {messages?.messages?.username && (
+              {/* {messages?.messages?.username && (
                   <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
                     {messages?.messages?.username}
                   </p>
                 )} */}
-              </Form.Group>
-            </Row>
-            <FormControl>
-              <FormLabel
-                style={{
-                  color: "black",
-                  fontSize: "1.4rem",
-                  margin: "0 1rem 0 0",
-                }}
-                id="demo-row-radio-buttons-group-label"
-              >
-                النوع
-              </FormLabel>
-              <RadioGroup
-                style={{ gap: "5rem" }}
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-                onChange={value.setDataDetails("gender")}
-              >
-                {gender.map((ele) => (
-                  <FormControlLabel
-                    value={ele.id}
-                    control={<Radio style={{ color: "#1EAAAD" }} />}
-                    label={ele.name}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
+            </Form.Group>
+          </Row>
+          <FormControl>
+            <FormLabel
+              style={{
+                color: "black",
+                fontSize: "1.4rem",
+                margin: "0 1rem 0 0",
+              }}
+              id="demo-row-radio-buttons-group-label"
+            >
+              النوع
+            </FormLabel>
+            <RadioGroup
+              style={{ gap: "5rem" }}
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+              onChange={value.setDataDetails("gender")}
+            >
+              {gender.map((ele) => (
+                <FormControlLabel
+                  value={ele.id}
+                  control={<Radio style={{ color: "#1EAAAD" }} />}
+                  label={ele.name}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </div>
+        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
+          <div className="">
+            <ButtonShare
+              onClick={getNext}
+              type={!validation}
+              loading={nextLoading}
+              innerText={"التـــالى"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
+            />
           </div>
-          <div className="d-flex align-items-center justify-content-around gap-4">
-            <div className="">
-              <ButtonShare
-                onClick={getNext}
-                type={!validation}
-                loading={nextLoading}
-                innerText={"التـــالى"}
-                btnClasses={"cLT-secondary-bg br14"}
-                textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
-              />
-            </div>
-            <div className="">
-              <ButtonShare
-                onClick={() => getBack()}
-                innerText={"رجــــوع"}
-                btnClasses={"cLT-secondary-bg br14"}
-                textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
-              />
-            </div>
+          <div className="">
+            <ButtonShare
+              onClick={() => getBack()}
+              innerText={"رجــــوع"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
+            />
           </div>
-        </form>
-    
+        </div>
+      </form>
     </div>
   );
 };

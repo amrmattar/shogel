@@ -1,9 +1,9 @@
 .main {
-  margin: 10vh 1vw 5vh 1vw;
+  margin: 40px 1vw 5vh 1vw;
   direction: rtl;
 
   .title {
-    font-size: 1.7rem;
+    font-size: 20px;
     font-weight: bold;
   }
   .head {
@@ -14,16 +14,18 @@
       border: 1px solid #bec0c2;
       border-radius: 10px;
       margin-left: 1rem;
-      padding: 1rem;
+      height: 50px;
+      padding-right: 15px;
     }
     p {
       font-weight: 600;
       color: #bec0c2;
       font-size: 1rem;
+      margin-top: 10px;
       span {
         color: black;
         font-weight: 800;
-        font-size: 1.7rem;
+        font-size: 18px;
         margin-right: 1rem;
       }
     }

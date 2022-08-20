@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import {  Dialog } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import { Col, Form, Row } from "react-bootstrap";
 import "../NewStyle.scss";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const RegisterClientView = () => {
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
@@ -24,7 +24,7 @@ const RegisterClientView = () => {
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
-    value.jumpPage( 4);
+    value.jumpPage(4);
   };
   const getBack = () => {
     value.prevPage();
@@ -39,7 +39,7 @@ const RegisterClientView = () => {
     <div className="DialogSim2">
       <form
         onSubmit={(e) => getNext(e)}
-        className="container px-0 my-4 d-flex flex-column gap-4"
+        className="container px-0 my-4 d-flex flex-column"
         dir="rtl"
         style={{ width: "30rem" }}
       >
@@ -111,14 +111,14 @@ const RegisterClientView = () => {
             </Form.Group>
           </Row>
         </div>
-        <div className="d-flex align-items-center justify-content-around gap-4">
+        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
           <div className="">
             <ButtonShare
               type={!validation}
               loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
@@ -126,7 +126,7 @@ const RegisterClientView = () => {
               onClick={() => getBack()}
               innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
         </div>

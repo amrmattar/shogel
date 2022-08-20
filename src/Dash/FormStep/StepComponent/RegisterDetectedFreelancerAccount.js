@@ -34,11 +34,11 @@ const RegisterDetectedFreelancerAccount = () => {
   };
   return (
     <div className="DialogSim">
-      <div style={{ padding: "1rem" }}>
+      <div style={{ padding: "2rem" }}>
         <div className="LT-login-holder">
           <div
             style={{
-              width: "6rem",
+              width: "9rem",
               alignSelf: "center",
               margin: "0rem auto 0rem auto",
             }}

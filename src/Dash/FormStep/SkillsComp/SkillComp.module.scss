@@ -1,18 +1,16 @@
 .main {
- 
   display: flex;
   justify-content: space-between;
-  padding: 1rem 1rem;
-  margin: 8px 0px;
+  padding: 0 1rem;
+  // margin: 8px 0px;
   border-radius: 1rem;
   height: 4rem;
-  svg,input{
-
+  svg,
+  input {
     cursor: pointer;
   }
   .nameH {
     display: flex;
- 
   }
 }
 .chosedH {
@@ -25,16 +23,15 @@
   width: 8rem;
   height: 3rem;
   border: 1px #707070 solid;
-  color: #37383B;
+  color: #37383b;
   svg {
     cursor: pointer;
-   
   }
-  p{
+  p {
     max-width: 4rem;
     overflow: hidden;
   }
 }
-.firstSub{
+.firstSub {
   margin: 0 1rem 0 0;
 }

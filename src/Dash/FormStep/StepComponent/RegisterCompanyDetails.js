@@ -1,32 +1,46 @@
-import React, { Fragment, useContext, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import Form from 'react-bootstrap/Form'
+import React, {
+  Fragment,
+  useContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Col, Row } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import Select from "react-select";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
-import { RegisterServices } from '../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core';
-import { getAreaID, getcitiesID, getCountryID, getStateID } from '../../../core/redux/reducers/RegisterReducer/RegisterLocationID.core';
-import FlancerEditTagsComponent from '../../../components/FreeLancer/fLancerProfile/flancerEditAccount/FlancerEditTags/FlancerEditTags.component';
-import ButtonShare from '../../../shared/Button/Button.shared';
-import { getMessages } from '../../../core/redux/reducers/Messages/Messages.core';
-import { useNavigate } from 'react-router-dom'
-import IconButton from '@mui/material/IconButton';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import { LoginServices } from '../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core';
-import { getUserLoginData } from '../../../core/redux/reducers/UserLoginData/UserLoginData.core';
-import { getAuthentication } from '../../../core/redux/reducers/Authentication/AuthenticationReducer.core';
-import { getRoleUser } from '../../../core/redux/reducers/Role/RoleReducer.core';
+import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+import {
+  getAreaID,
+  getcitiesID,
+  getCountryID,
+  getStateID,
+} from "../../../core/redux/reducers/RegisterReducer/RegisterLocationID.core";
+import FlancerEditTagsComponent from "../../../components/FreeLancer/fLancerProfile/flancerEditAccount/FlancerEditTags/FlancerEditTags.component";
+import ButtonShare from "../../../shared/Button/Button.shared";
+import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
+import { useNavigate } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { LoginServices } from "../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core";
+import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
+import { getAuthentication } from "../../../core/redux/reducers/Authentication/AuthenticationReducer.core";
+import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 const RegisterCompanyDetails = () => {
-  const [location, messages, categorySkills, getMobileNumber, getFormData] = useSelector((state) => [
-    state.locationID,
-    state.messages,
-    state.registerCategory,
-    state.mobileOTP,
-    state.coreData,
-  ]);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [location, messages, categorySkills, getMobileNumber, getFormData] =
+    useSelector((state) => [
+      state.locationID,
+      state.messages,
+      state.registerCategory,
+      state.mobileOTP,
+      state.coreData,
+    ]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const value = useContext(LabelContext);
 
   // TODO Get Location [START]
@@ -43,112 +57,155 @@ const RegisterCompanyDetails = () => {
   const [selectedAreaName, setSelectedAreaName] = useState();
 
   const getCoreData = useMemo(() => {
-    let modal = ['country', 'city', 'state', 'area', 'category']
-    return RegisterServices.GET_RegisterData(modal, selectedCountry, selectedState, selectedCity).then(res => {
-      setGetAllCountryFromResponse(res.data.data)
-    })
-  }, [selectedCountry, selectedState,selectedCity])
+    let modal = ["country", "city", "state", "area", "category"];
+    return RegisterServices.GET_RegisterData(
+      modal,
+      selectedCountry,
+      selectedState,
+      selectedCity
+    ).then((res) => {
+      setGetAllCountryFromResponse(res.data.data);
+    });
+  }, [selectedCountry, selectedState, selectedCity]);
   useEffect(() => {
-    return getCoreData
-  }, [getCoreData])
+    return getCoreData;
+  }, [getCoreData]);
   const fetchCountry = (country) => {
-    dispatch(getCountryID(country?.id))
-    setSelectedCountry(country.id)
-    setSelectedCountryName(country?.name)
+    dispatch(getCountryID(country?.id));
+    setSelectedCountry(country.id);
+    setSelectedCountryName(country?.name);
   };
   const fetchCities = (city) => {
-    setSelectedState(city.id)
-    setSelectedStateName(city.name)
-    dispatch(getcitiesID(city?.id))
+    setSelectedState(city.id);
+    setSelectedStateName(city.name);
+    dispatch(getcitiesID(city?.id));
   };
   const fetchState = (state) => {
-    setSelectedCity(state.id)
-    setSelectedCityName(state?.name)
-    setSelectedAreaName(getAllCountryFromResponse?.area)
-    dispatch(getStateID(state?.id))
+    setSelectedCity(state.id);
+    setSelectedCityName(state?.name);
+    setSelectedAreaName(getAllCountryFromResponse?.area);
+    dispatch(getStateID(state?.id));
   };
   const fetchArea = (area) => {
-    setSelectedArea(area.id)
-    dispatch(getAreaID(area?.id))
+    setSelectedArea(area.id);
+    dispatch(getAreaID(area?.id));
   };
-  const refe = useRef()
+  const refe = useRef();
   // Country Select
   CountrySelect = React.forwardRef(CountrySelect);
   function CountrySelect(isProps = {}, ref) {
-    return <Select placeholder="البلد"
-      ref={refe}
-      options={isProps.isProps.location}
-      defaultInputValue={selectedCountryName ? selectedCountryName : isProps.isProps.value}
-      onChange={fetchCountry}
-      getOptionLabel={country => country?.name} getOptionValue={country => country?.id} />;
+    return (
+      <Select
+        placeholder="البلد"
+        ref={refe}
+        options={isProps.isProps.location}
+        defaultInputValue={
+          selectedCountryName ? selectedCountryName : isProps.isProps.value
+        }
+        onChange={fetchCountry}
+        getOptionLabel={(country) => country?.name}
+        getOptionValue={(country) => country?.id}
+      />
+    );
   }
   // City Select
   CitySelect = React.forwardRef(CitySelect);
   function CitySelect(isProps = {}, ref) {
-    return <Select placeholder="المنطقة"
-      ref={refe}
-      options={isProps.isProps.location}
-      defaultInputValue={selectedStateName ? selectedStateName : isProps.isProps.value}
-      onChange={fetchCities}
-      getOptionLabel={city => city?.name} getOptionValue={city => city?.id} />;
+    return (
+      <Select
+        placeholder="المنطقة"
+        ref={refe}
+        options={isProps.isProps.location}
+        defaultInputValue={
+          selectedStateName ? selectedStateName : isProps.isProps.value
+        }
+        onChange={fetchCities}
+        getOptionLabel={(city) => city?.name}
+        getOptionValue={(city) => city?.id}
+      />
+    );
   }
   // State Select
   StateSelect = React.forwardRef(StateSelect);
   function StateSelect(isProps = {}, ref) {
-    return <Select placeholder="المدينة"
-      ref={refe}
-      options={isProps.isProps.location}
-      defaultInputValue={selectedCityName ? selectedCityName : isProps.isProps.value}
-      onChange={fetchState}
-      getOptionLabel={state => state?.name} getOptionValue={state => state?.id} />;
+    return (
+      <Select
+        placeholder="المدينة"
+        ref={refe}
+        options={isProps.isProps.location}
+        defaultInputValue={
+          selectedCityName ? selectedCityName : isProps.isProps.value
+        }
+        onChange={fetchState}
+        getOptionLabel={(state) => state?.name}
+        getOptionValue={(state) => state?.id}
+      />
+    );
   }
   // ================[Block END]================ //
 
-
   //TODO Get Form Input Value
-  const [formInput, setFormInput] = useState({ username: '', fullname: '', email: '', password: '', commercialRegister: '' })
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormInput(formInput => ({ ...formInput, [name]: value }))
-  }, [setFormInput])
+  const [formInput, setFormInput] = useState({
+    username: "",
+    fullname: "",
+    email: "",
+    password: "",
+    commercialRegister: "",
+  });
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setFormInput((formInput) => ({ ...formInput, [name]: value }));
+    },
+    [setFormInput]
+  );
   // ================[Block END]================ //
 
   //TODO Get Nationality Input Value
   const [nationality, setNationality] = useState();
-  const fetchNationality = useCallback((nationality) => {
-    setNationality(nationality)
-  }, [setNationality]);
+  const fetchNationality = useCallback(
+    (nationality) => {
+      setNationality(nationality);
+    },
+    [setNationality]
+  );
 
   //TODO Get Gender Input Value
   const [gender, setGender] = useState();
-  const fetchGender = useCallback((gender) => {
-    setGender(gender)
-  }, [setGender]);
+  const fetchGender = useCallback(
+    (gender) => {
+      setGender(gender);
+    },
+    [setGender]
+  );
 
   //TODO Get Gender Input Value
   const [jobName, setJobName] = useState();
-  const fetchJobName = useCallback((jobName) => {
-    setJobName(jobName)
-  }, [setJobName]);
+  const fetchJobName = useCallback(
+    (jobName) => {
+      setJobName(jobName);
+    },
+    [setJobName]
+  );
 
-  const [userId, setUserId] = useState()
+  const [userId, setUserId] = useState();
   useEffect(() => {
     switch (value?.accountType?.userKind) {
-      case 'company':
-        return setUserId(4)
+      case "company":
+        return setUserId(4);
       default:
-        return null
+        return null;
     }
-  }, [value?.accountType?.userKind])
-  const [formLoading, setLoading] = useState(false)
-  const [formMessages, setMessages] = useState()
-  const [check, setCheck] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-  const hideIcon = formInput.password.length > 0
+  }, [value?.accountType?.userKind]);
+  const [formLoading, setLoading] = useState(false);
+  const [formMessages, setMessages] = useState();
+  const [check, setCheck] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const hideIcon = formInput.password.length > 0;
 
   const getNext = (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     const data = {
       username: formInput?.username,
       fullname: formInput?.fullname,
@@ -156,7 +213,9 @@ const RegisterCompanyDetails = () => {
       password: formInput?.password,
       job_name_id: jobName?.id,
       role_id: userId,
-      country_id: location?.countriesID ? location?.countriesID : selectedCountry,
+      country_id: location?.countriesID
+        ? location?.countriesID
+        : selectedCountry,
       city_id: location?.citiesID ? location?.citiesID : selectedState,
       state_id: location?.stateID ? location?.stateID : selectedCity,
       area_id: location?.areaID ? location?.areaID : selectedArea,
@@ -165,64 +224,83 @@ const RegisterCompanyDetails = () => {
       commercial_number: formInput.commercialRegister,
       mobile: getMobileNumber.mobile.split("+").join(""),
       category: categorySkills,
-    }
-    RegisterServices.POST_RegisterData(data).then(res => {
-      dispatch(getMessages({ messages: res.data.message, messageType: 'success', messageClick: true }))
-      setLoading(false)
-      const dataWithToken = {
-        email: formInput?.email,
-        password: formInput?.password,
-        device_token: localStorage.getItem("FCM"),
-      };
-      LoginServices._POST_LoginData(dataWithToken).then((res) => {
-        if (res?.data?.status === 1) {
-          dispatch(
-            getMessages({
-              messages: res?.data?.message,
-              messageType: "success",
+    };
+    RegisterServices.POST_RegisterData(data)
+      .then((res) => {
+        dispatch(
+          getMessages({
+            messages: res.data.message,
+            messageType: "success",
+            messageClick: true,
+          })
+        );
+        setLoading(false);
+        const dataWithToken = {
+          email: formInput?.email,
+          password: formInput?.password,
+          device_token: localStorage.getItem("FCM"),
+        };
+        LoginServices._POST_LoginData(dataWithToken).then((res) => {
+          if (res?.data?.status === 1) {
+            dispatch(
+              getMessages({
+                messages: res?.data?.message,
+                messageType: "success",
+                messageClick: true,
+              })
+            );
+            localStorage.setItem("UI", res?.data?.data?.id);
+            const data = {
+              avatar: res?.data?.data?.avatar,
+              id: res?.data?.data?.id,
+              username: res?.data?.data?.username,
+              profileValidation: res?.data?.data?.profile_validation,
+              userRole: res?.data?.data?.role,
+            };
+            dispatch(getUserLoginData(data));
+            const userToken = res?.data?.data.token;
+            localStorage.setItem("userTK", JSON.stringify(userToken));
+            dispatch(getAuthentication(true));
+            localStorage.setItem("usID", res?.data?.data?.id);
+            localStorage.setItem("userRL", res?.data?.data?.role?.id);
+            localStorage.setItem("valid", res?.data?.data?.profile_validation);
+            dispatch(getRoleUser(true));
+
+            const routTimeOut = setTimeout(() => {
+              navigate(`/`);
+            }, 1000);
+
+            return () => clearTimeout(routTimeOut);
+          }
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setMessages(err.response.data.message);
+        dispatch(
+          getMessages([
+            {
+              messages: err.response.data.message,
+              messageType: "error",
               messageClick: true,
-            })
-          );
-          localStorage.setItem("UI", res?.data?.data?.id);
-          const data = {
-            avatar: res?.data?.data?.avatar,
-            id: res?.data?.data?.id,
-            username: res?.data?.data?.username,
-            profileValidation: res?.data?.data?.profile_validation,
-            userRole: res?.data?.data?.role,
-          };
-          dispatch(getUserLoginData(data));
-          const userToken = res?.data?.data.token;
-          localStorage.setItem("userTK", JSON.stringify(userToken));
-          dispatch(getAuthentication(true));
-          localStorage.setItem("usID", res?.data?.data?.id);
-          localStorage.setItem("userRL", res?.data?.data?.role?.id);
-          localStorage.setItem("valid", res?.data?.data?.profile_validation);
-          dispatch(getRoleUser(true));
-
-          const routTimeOut = setTimeout(() => {
-            navigate(`/`);
-          }, 1000);
-
-          return () => clearTimeout(routTimeOut);
-        }
+            },
+          ])
+        );
+        window.scrollTo({
+          top: 250,
+          behavior: "smooth",
+        });
       });
-    }).catch(err => {
-      setLoading(false)
-      setMessages(err.response.data.message)
-      dispatch(getMessages([{ messages: err.response.data.message, messageType: 'error', messageClick: true }]))
-      window.scrollTo({
-        top: 250,
-        behavior: 'smooth'
-        })
-    })
-  }
-  const validation = categorySkills?.length !== 0 && jobName?.id !== undefined && formInput.commercialRegister !== ""
+  };
+  const validation =
+    categorySkills?.length !== 0 &&
+    jobName?.id !== undefined &&
+    formInput.commercialRegister !== "";
   return (
     <Fragment>
       <Form
         onSubmit={(e) => getNext(e)}
-        className="container px-0 my-4 d-flex flex-column gap-4"
+        className="container px-0 my-4 d-flex flex-column"
         dir="rtl"
       >
         {/* First Row [Name & Email] */}
@@ -655,5 +733,5 @@ const RegisterCompanyDetails = () => {
       </Form>
     </Fragment>
   );
-}
-export default RegisterCompanyDetails
+};
+export default RegisterCompanyDetails;

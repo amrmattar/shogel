@@ -46,10 +46,10 @@ const IdPage = () => {
     form.append("gender_id", getClientData.gender);
     form.append("nationality_id", getClientData.nation.id);
     form.append("category", skillsIds);
-    form.append("info",getClientData.info);
+    form.append("info", getClientData.info);
     form.append("description", getClientData.description);
-    form.append("media",getClientData.files);
-    form.append("avatar",getClientData.img);
+    form.append("media", getClientData.files);
+    form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {
@@ -186,7 +186,7 @@ const IdPage = () => {
     <div className="DialogSim2">
       <form
         onSubmit={(e) => getNext(e)}
-        className="container px-0 my-4 d-flex flex-column gap-4"
+        className="container px-0 my-4 d-flex flex-column"
         dir="rtl"
         style={{ width: "30rem" }}
       >
@@ -297,14 +297,14 @@ const IdPage = () => {
             </Form.Group>
           </Row>
         </div>
-        <div className="d-flex align-items-center justify-content-around gap-4">
+        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
           <div className="">
             <ButtonShare
               type={!validation}
               loading={nextLoading}
               innerText={"تسجيل"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
@@ -312,7 +312,7 @@ const IdPage = () => {
               onClick={() => getBack()}
               innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
         </div>

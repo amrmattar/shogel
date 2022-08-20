@@ -198,7 +198,12 @@ const RegisterMobileStep = () => {
       </div>
       <div
         className="d-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
-        style={{ paddingBottom: "3rem", width: "90%", alignSelf: "center" }}
+        style={{
+          paddingBottom: "3rem",
+          width: "90%",
+          alignSelf: "center",
+          margin: "auto",
+        }}
       >
         <p className="m-0 fLT-Bold-sm-sA cLT-main-text"> لديك حساب بالفعل ؟</p>
         {/* <Button onClick={switchSignup} className='px-0'

@@ -321,7 +321,7 @@ const RegisterFreelancerPersonalDetails = () => {
     <Fragment>
       <Form
         onSubmit={(e) => getNext(e)}
-        className="container px-0 my-4 d-flex flex-column gap-4"
+        className="container px-0 my-4 d-flex flex-column"
         dir="rtl"
       >
         {/* First Row [Name & Email] */}
