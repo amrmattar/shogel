@@ -146,6 +146,7 @@ const SkillsStep = () => {
       </div>
       <div className={cls.contain}>
         <div className={cls.gride}>
+          <p className={cls.skillTitle}>اختيار التصنيف</p>
           {skills
             .filter((ele) => ele.name.includes(inpV))
             .map((ele, indx) => (
@@ -160,7 +161,7 @@ const SkillsStep = () => {
         </div>
 
         <div className={cls.grid}>
-          {chosenSubs[0] && (
+       
             <div className={cls.messageH}>
               <p className={cls.h}>{chosenSubs.length} مهارات</p>
               <p className={cls.p}>
@@ -168,7 +169,7 @@ const SkillsStep = () => {
                 إليك
               </p>
             </div>
-          )}
+       
           <div className={cls.gridF}>
             {chosenSubs.map((ele, indx) => (
               <ChosedSkill
@@ -188,9 +189,9 @@ const SkillsStep = () => {
         {" "}
         التالي
       </button>
-      <button onClick={getBack} className={cls.back}>
+      {/* <button onClick={getBack} className={cls.back}>
         رجوع
-      </button>
+      </button> */}
     </div>
   );
 };

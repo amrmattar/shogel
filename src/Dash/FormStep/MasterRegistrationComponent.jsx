@@ -37,9 +37,7 @@ const MasterRegistrationComponent = () => {
 
   return (
     <div className="LT-stepper-style" dir="ltr">
-   
-        <StepperComp steps={first} activeStep={value?.page} />
-  
+      {value.page > 3 && <StepperComp steps={first} activeStep={value?.page} />}
 
       {/* <StepperComp steps={first} activeStep={value?.page} /> */}
 

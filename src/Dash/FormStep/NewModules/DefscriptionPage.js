@@ -20,7 +20,7 @@ const DersciptionPage = () => {
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
-    value.jumpPage( value?.accountType?.userKind == "client"?5:6);
+    value.jumpPage(value?.accountType?.userKind == "client" ? 5 : 6);
   };
   const getBack = (e) => {
     e.preventDefault();
@@ -66,15 +66,24 @@ const DersciptionPage = () => {
 
           <Row className="mb-4 gap-3 two row">
             <Form.Group>
-              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                اسم الفرد<span className="cLT-danger-text">*</span>
-              </Form.Label>
+              {value?.accountType?.userKind !== "company" ? (
+                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                  اسم الفرد بالكامل
+                  <span className="cLT-danger-text">*</span>
+                </Form.Label>
+              ) : (
+                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                  اسم الشركة بالكامل
+                  <span className="cLT-danger-text">*</span>
+                </Form.Label>
+              )}
               <Form.Control
                 autoComplete="off"
                 maxLength={15}
                 minLength={3}
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
+                value={getClientData.fullName}
                 // value={getClientData.fullName}
                 onChange={value.setDataDetails("fullName")}
                 placeholder="الاسم الاول والاخير"

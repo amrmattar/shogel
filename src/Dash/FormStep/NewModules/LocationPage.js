@@ -37,7 +37,9 @@ const IdPage = () => {
     form.append("username", getClientData.username);
     form.append("email", getClientData.email);
     form.append("password", getClientData.password);
-    form.append("role_id", 3);
+    value?.accountType?.userKind === "company"
+      ? form.append("role_id", 4)
+      : form.append("role_id", 3);
     form.append("country_id", selectedCountry.id);
     form.append("city_id", selectedCity.id);
     form.append("state_id", selectedState.id);
@@ -46,10 +48,10 @@ const IdPage = () => {
     form.append("gender_id", getClientData.gender);
     form.append("nationality_id", getClientData.nation.id);
     form.append("category", skillsIds);
-    form.append("info",getClientData.info);
+   getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
-    form.append("media",getClientData.files);
-    form.append("avatar",getClientData.img);
+    form.append("media", getClientData.files);
+    form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {

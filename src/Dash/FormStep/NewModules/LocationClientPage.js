@@ -37,8 +37,8 @@ const LocationClientPage = () => {
     form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
     getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
-     form.append("document", getClientData.files);
-     form.append("avatar", getClientData.img);
+    form.append("document", getClientData.files);
+    form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {
@@ -96,10 +96,10 @@ const LocationClientPage = () => {
           for (const key in ob) {
             let ele = ob[key];
 
-            // toast.error(ele[0]);
+            toast.error(ele[0]);
           }
         } else {
-          // toast.error("حدث خطأ ما");
+          toast.error("حدث خطأ ما");
         }
         dispatch(
           getMessages([
