@@ -259,7 +259,7 @@ const IdPage = () => {
               loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
@@ -267,7 +267,7 @@ const IdPage = () => {
               onClick={() => getBack()}
               innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
         </div>

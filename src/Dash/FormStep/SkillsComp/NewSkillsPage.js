@@ -162,15 +162,14 @@ const SkillsStep = () => {
         </div>
 
         <div className={cls.grid}>
-       
-            <div className={cls.messageH}>
-              <p className={cls.h}>{chosenSubs.length} مهارات</p>
-              <p className={cls.p}>
-                اختار علي الأقل مهارة واحدة لنساعدك علي ترشيح الوظائق المناسبة
-                إليك
-              </p>
-            </div>
-       
+          <div className={cls.messageH}>
+            <p className={cls.h}>{chosenSubs.length} مهارات</p>
+            <p className={cls.p}>
+              اختار علي الأقل مهارة واحدة لنساعدك علي ترشيح الوظائف المناسبة
+              إليك
+            </p>
+          </div>
+
           <div className={cls.gridF}>
             {chosenSubs.map((ele, indx) => (
               <ChosedSkill
