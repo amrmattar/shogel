@@ -37,7 +37,9 @@ const IdPage = () => {
     form.append("username", getClientData.username);
     form.append("email", getClientData.email);
     form.append("password", getClientData.password);
-    form.append("role_id", 3);
+    value?.accountType?.userKind === "company"
+      ? form.append("role_id", 4)
+      : form.append("role_id", 3);
     form.append("country_id", selectedCountry.id);
     form.append("city_id", selectedCity.id);
     form.append("state_id", selectedState.id);
