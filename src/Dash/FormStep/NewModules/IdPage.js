@@ -177,13 +177,13 @@ const IdPage = () => {
             )} */}
             </Form.Group>
             <Form.Group>
-              {value?.accountType?.userKind === "company" ? (
+              {value?.accountType?.userKind !== "company" ? (
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
                   رقم الهوية
                 </Form.Label>
               ) : (
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  رقم الشركة
+                  رقم السجل التجاري
                 </Form.Label>
               )}
               <Form.Control

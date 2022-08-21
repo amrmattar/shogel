@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import {  Dialog } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import { Col, Form, Row } from "react-bootstrap";
 import "../NewStyle.scss";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const RegisterClientView = () => {
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
@@ -15,7 +15,7 @@ const RegisterClientView = () => {
     getClientData.password.length >= 8;
   let v2 =
     getClientData.username.length > 3 && getClientData.password.length >= 8;
-  const validation = value?.accountType?.userKind === "company" ? v2 : v1;
+  const validation = v1;
 
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const RegisterClientView = () => {
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
-    value.jumpPage( 4);
+    value.jumpPage(4);
   };
   const getBack = () => {
     value.prevPage();
@@ -69,10 +69,7 @@ const RegisterClientView = () => {
             </Form.Group>
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                البريد الالكتروني{" "}
-                {value?.accountType?.userKind !== "company" && (
-                  <span className="cLT-danger-text">*</span>
-                )}
+                البريد الالكتروني <span className="cLT-danger-text">*</span>
               </Form.Label>
               <Form.Control
                 name="email"

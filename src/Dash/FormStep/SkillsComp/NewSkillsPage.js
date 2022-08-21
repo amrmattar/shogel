@@ -189,9 +189,9 @@ const SkillsStep = () => {
         {" "}
         التالي
       </button>
-      {/* <button onClick={getBack} className={cls.back}>
+      <button onClick={getBack} className={cls.back}>
         رجوع
-      </button> */}
+      </button>
     </div>
   );
 };

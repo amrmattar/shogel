@@ -27,7 +27,7 @@ const IdPage = () => {
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
-
+  console.log(getClientData.img?.type);
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
@@ -48,10 +48,10 @@ const IdPage = () => {
     form.append("gender_id", getClientData.gender);
     form.append("nationality_id", getClientData.nation.id);
     form.append("category", skillsIds);
-   getClientData.info?.length > 2 && form.append("info", getClientData.info);
+    getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
     form.append("media", getClientData.files);
-    form.append("avatar", getClientData.img);
+    getClientData.img?.type && form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {

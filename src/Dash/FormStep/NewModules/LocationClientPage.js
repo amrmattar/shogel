@@ -38,7 +38,7 @@ const LocationClientPage = () => {
     getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
     form.append("document", getClientData.files);
-    form.append("avatar", getClientData.img);
+     getClientData.img?.type && form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {
