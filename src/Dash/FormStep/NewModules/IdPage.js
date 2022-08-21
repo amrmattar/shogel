@@ -142,11 +142,7 @@ const IdPage = () => {
             style={{ textAlign: "center" }}
             className=" LT-account-logo d-flex flex-column p-3"
           >
-            {value?.accountType?.userKind !== "company" ? (
-              <p className="regiTitle"> معلومات الفرد </p>
-            ) : (
-              <p className="regiTitle"> معلومات الشركة </p>
-            )}
+            <p className="regiTitle"> معلومات الفرد </p>
           </div>
 
           <Row className="mb-4 gap-3 two row">
@@ -160,7 +156,7 @@ const IdPage = () => {
               >
                 <Select
                   value={getClientData.nation?.id ? getClientData.nation : ""}
-                  placeholder="الجنسية"
+                  placeholder="سعودي"
                   options={nations}
                   onChange={value.setDataDetails("nation")}
                   getOptionLabel={(city) => city?.name}
@@ -227,35 +223,33 @@ const IdPage = () => {
                 )} */}
             </Form.Group>
           </Row>
-          {value?.accountType?.userKind !== "cpmpany" && (
-            <FormControl>
-              <FormLabel
-                style={{
-                  color: "black",
-                  fontSize: "1.4rem",
-                  margin: "0 1rem 0 0",
-                }}
-                id="demo-row-radio-buttons-group-label"
-              >
-                النوع
-              </FormLabel>
-              <RadioGroup
-                style={{ gap: "5rem" }}
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-                onChange={value.setDataDetails("gender")}
-              >
-                {gender.map((ele) => (
-                  <FormControlLabel
-                    value={ele.id}
-                    control={<Radio style={{ color: "#1EAAAD" }} />}
-                    label={ele.name}
-                  />
-                ))}
-              </RadioGroup>
-            </FormControl>
-          )}
+          <FormControl>
+            <FormLabel
+              style={{
+                color: "black",
+                fontSize: "1.4rem",
+                margin: "0 1rem 0 0",
+              }}
+              id="demo-row-radio-buttons-group-label"
+            >
+              النوع
+            </FormLabel>
+            <RadioGroup
+              style={{ gap: "5rem" }}
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+              onChange={value.setDataDetails("gender")}
+            >
+              {gender.map((ele) => (
+                <FormControlLabel
+                  value={ele.id}
+                  control={<Radio style={{ color: "#1EAAAD" }} />}
+                  label={ele.name}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
         </div>
         <div className="d-flex align-items-center justify-content-around gap-4">
           <div className="">

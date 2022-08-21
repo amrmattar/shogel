@@ -137,6 +137,7 @@ const SkillsStep = () => {
       <div className={cls.head}>
         <input
           type={"text"}
+          placeholder={"ابحث هنا"}
           value={inpV}
           onChange={(e) => setInpV(e.target.value)}
         />

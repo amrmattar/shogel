@@ -39,7 +39,7 @@ const RegisterClientView = () => {
     <div className="DialogSim2">
       <form
         onSubmit={(e) => getNext(e)}
-        className="container px-0 my-4 d-flex flex-column gap-4"
+        className="container px-0 my-4 d-flex flex-column"
         dir="rtl"
         style={{ width: "30rem" }}
       >
@@ -108,14 +108,14 @@ const RegisterClientView = () => {
             </Form.Group>
           </Row>
         </div>
-        <div className="d-flex align-items-center justify-content-around gap-4">
+        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
           <div className="">
             <ButtonShare
               type={!validation}
               loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
@@ -123,7 +123,7 @@ const RegisterClientView = () => {
               onClick={() => getBack()}
               innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-3 px-5 cLT-white-text fLT-Regular-sB"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
         </div>
