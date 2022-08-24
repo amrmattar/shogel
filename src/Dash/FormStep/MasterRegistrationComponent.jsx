@@ -18,6 +18,7 @@ import IdPage from "./NewModules/IdPage";
 import LocationPage from "./NewModules/LocationPage";
 import LocationClientPage from "./NewModules/LocationClientPage";
 import StepperComp from "./StepComponent/StepperComp";
+import Chat from "../../components/ChatPage/Chat";
 const MasterRegistrationComponent = () => {
   const value = useContext(LabelContext);
 
@@ -34,7 +35,6 @@ const MasterRegistrationComponent = () => {
   useEffect(() => {
     handleRoute();
   }, [handleRoute]);
-
   return (
     <div className="LT-stepper-style" dir="ltr">
       {value.page > 3 && <StepperComp steps={first} activeStep={value?.page} />}
@@ -69,6 +69,7 @@ const MasterRegistrationComponent = () => {
       {value.page === 7 && value?.accountType?.userKind !== "client" && (
         <LocationPage />
       )}
+      {/* <Chat /> */}
     </div>
   );
 };

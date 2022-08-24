@@ -35,6 +35,10 @@ const Navbar = () => {
       route: `/`,
     },
     {
+      name: "chat",
+      route: `/chat`,
+    },
+    {
       name: "الاعلانات",
       route: `advertising/page=${1}`,
     },
@@ -93,6 +97,7 @@ const Navbar = () => {
               id: res?.data?.data?.id,
               category: res.data.data?.category,
               permission: res?.data?.data.role?.permission,
+              avatar: res?.data?.data?.avatar,
             })
           );
           setuserID(res.data.data);
