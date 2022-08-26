@@ -43,17 +43,20 @@ const ViewLayout = () => {
         <MasterContainer />
       </main>
       {/* Footer  [Holder] */}
-      {show && !location.pathname.includes("register") && !location.pathname.includes("dev")&& (
-        <footer className="imLT-footer-shape uLT-img-cover cLT-main-bg">
-          {/* Footer Gradian-Linear [Line] */}
-          <div className="cLT-Gradian-Linear-Main LT-footer-line "></div>
-          {/* Footer Feature [Holder] */}
-          <div className="container-fluid px-0">
-            {" "}
-            <Footer />
-          </div>
-        </footer>
-      )}
+      {show &&
+        !location.pathname.includes("register") &&
+        !location.pathname.includes("chat") &&
+        !location.pathname.includes("dev") && (
+          <footer className="imLT-footer-shape uLT-img-cover cLT-main-bg">
+            {/* Footer Gradian-Linear [Line] */}
+            <div className="cLT-Gradian-Linear-Main LT-footer-line "></div>
+            {/* Footer Feature [Holder] */}
+            <div className="container-fluid px-0">
+              {" "}
+              <Footer />
+            </div>
+          </footer>
+        )}
     </div>
   );
 };

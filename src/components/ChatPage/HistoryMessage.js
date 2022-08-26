@@ -1,5 +1,5 @@
 import cls from "./Chat.module.scss";
-const HistoryMesages = ({ changeSide, chunk, user }) => {
+const HistoryMesages = ({ changeSide, search, chunk, user }) => {
   // const messageClass = senderId === props?.user?.id ? "sent" : "received";
   const openInNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");

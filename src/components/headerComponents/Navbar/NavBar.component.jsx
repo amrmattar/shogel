@@ -16,6 +16,7 @@ import { getAuthentication } from "../../../core/redux/reducers/Authentication/A
 import { userProfile } from "../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
 import { authAction } from "../../../core/services/AuthServices/AuthActions/AuthActions.core";
+import { getUserDataReducer } from "../../../core/redux/reducers/UserDataReducer/UserDataReducer.core";
 
 const Navbar = () => {
   const [user, activeUserId, userUpdateAvatar] = useSelector((state) => [
@@ -63,6 +64,7 @@ const Navbar = () => {
       routeTo: "/",
     },
   ];
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event?.currentTarget);
   };
@@ -101,6 +103,7 @@ const Navbar = () => {
             })
           );
           setuserID(res.data.data);
+          dispatch(getUserDataReducer(res.data.data));
         });
     }
   }, [dispatch, user.loggedIn]);
