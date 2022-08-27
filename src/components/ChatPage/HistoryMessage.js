@@ -22,16 +22,22 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
           alt="userImg"
           src={sideData.avatar}
           style={{
-            width: "45px",
-            height: "45px",
+            width: "48px",
+            height: "48px",
             borderRadius: "8px",
           }}
         />
-        <p className={cls.chatUser}>{sideData.name}</p>
-        <p>{sideData.role}</p>
+        <div>
+          <p className={cls.chatUser}>{sideData.name}</p>
+          <p className={cls.chatJop}>{sideData.role}</p>
+        </div>
+        <TimeDisplayer time={lastmsg.createdAt} />
       </div>
-      {lastmsg.text ? <p>{lastmsg.text}</p> : <p>file</p>}
-      <TimeDisplayer time={lastmsg.createdAt} />
+      {lastmsg.text ? (
+        <p className={cls.chatMSG}>{lastmsg.text}</p>
+      ) : (
+        <p>file</p>
+      )}
     </div>
   ) : null;
 };

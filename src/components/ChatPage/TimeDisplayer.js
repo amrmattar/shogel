@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import cls from "./Chat.module.scss";
 
 const TimeDisplayer = ({ time }) => {
   const [fakeCurrentDate, setFakeCurrentDate] = useState(new Date());
@@ -23,6 +24,6 @@ const TimeDisplayer = ({ time }) => {
       }-${msgDate.getDate()}`;
     }
   };
-  return <p>{getMsgTime(time)}</p>;
+  return <p className={cls.chatTimer}>{getMsgTime(time)}</p>;
 };
 export default TimeDisplayer;

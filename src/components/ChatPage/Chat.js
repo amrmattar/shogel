@@ -15,7 +15,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import { FiSend } from "react-icons/fi";
 import HistoryMesages from "./HistoryMessage";
 import { AiOutlineSearch } from "react-icons/ai";
-import TimeDisplayer from './TimeDisplayer'
+import TimeDisplayer from "./TimeDisplayer";
 firebase.initializeApp({
   apiKey: "AIzaSyCf5qfwF35M7O9fqqi9xtiPcwhkGM6nR78",
   authDomain: "chat-3278d.firebaseapp.com",
@@ -209,14 +209,18 @@ function ChatRoom({
           <img
             alt="chatImg"
             style={{
-              width: "100px",
-              height: "100px",
-              borderRadius: "50%",
+              width: "48px",
+              height: "48px",
+              borderRadius: "10px",
             }}
             src={otherSideData?.avatar || demoIcon}
           />
-          <p>{otherSideData?.name}</p>
-          <p>{otherSideData?.role}</p>
+          {/* <p>{otherSideData?.name}</p>
+          <p>{otherSideData?.role}</p> */}
+          <div>
+            <div className={cls.chatUser}>{otherSideData?.name}</div>
+            <div className={cls.chatJop}>{otherSideData?.role}</div>
+          </div>
         </div>
         <button
           onClick={() =>
@@ -239,7 +243,7 @@ function ChatRoom({
           value={inpValue}
           className={cls.txtInput}
           onChange={(e) => setFormValue(e.target.value)}
-          placeholder="say something nice"
+          placeholder=" إرسال رسالة ...."
         />
         <div className={cls.fileHolder}>
           <input
@@ -284,12 +288,12 @@ function ChatMessage(props) {
           style={{
             width: "40px",
             height: "40px",
-            borderRadius: "50%",
+            borderRadius: "8px",
           }}
         />
         {text ? (
-          <div>
-            <p>{text}</p>
+          <div className={cls.chatFrame}>
+            <p className={cls.chatActual}>{text}</p>
             <TimeDisplayer time={createdAt} />
           </div>
         ) : isImage ? (
