@@ -15,7 +15,7 @@ import { BsCloudUpload } from "react-icons/bs";
 import { FiSend } from "react-icons/fi";
 import HistoryMesages from "./HistoryMessage";
 import { AiOutlineSearch } from "react-icons/ai";
-
+import TimeDisplayer from './TimeDisplayer'
 firebase.initializeApp({
   apiKey: "AIzaSyCf5qfwF35M7O9fqqi9xtiPcwhkGM6nR78",
   authDomain: "chat-3278d.firebaseapp.com",
@@ -270,23 +270,7 @@ function ChatMessage(props) {
   const openInNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
-  const getMsgTime = (time) => {
-    let msgDate = new Date(time);
-    let seconds = (new Date() - msgDate) / 1000;
-    let minutes = seconds / 60;
-    let hours = minutes / 60;
-    if (minutes < 1) {
-      return "الان";
-    } else if (minutes < 60) {
-      return `${Math.ceil(minutes)} دقيقة`;
-    } else if (hours < 24) {
-      return `${Math.ceil(hours)} ساعة`;
-    } else {
-      return `${msgDate.getFullYear()}-${
-        msgDate.getMonth() + 1
-      }-${msgDate.getDate()}`;
-    }
-  };
+
   return (
     <>
       <div
@@ -306,7 +290,7 @@ function ChatMessage(props) {
         {text ? (
           <div>
             <p>{text}</p>
-            <p>{getMsgTime(createdAt)}</p>
+            <TimeDisplayer time={createdAt} />
           </div>
         ) : isImage ? (
           <img
