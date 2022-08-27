@@ -12,7 +12,7 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
     name: hisFirstMsg?.senderName || myFirstMsg?.recevierName,
   };
   const lastmsg = chunk[chunk.length - 1];
-  return (
+  return sideData.name.includes(search) ? (
     <div onClick={() => changeSide(sideData)} className={cls.historymessage}>
       <div className={cls.historyComp}>
         <img
@@ -28,6 +28,6 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
       </div>
       {lastmsg.text ? <p>{lastmsg.text}</p> : <p>file</p>}
     </div>
-  );
+  ) : null;
 };
 export default HistoryMesages;
