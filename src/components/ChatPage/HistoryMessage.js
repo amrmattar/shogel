@@ -10,8 +10,25 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
     id: myFirstMsg?.recevierId || hisFirstMsg?.senderId,
     avatar: hisFirstMsg?.senderAvatar || myFirstMsg?.recevierAvatar,
     name: hisFirstMsg?.senderName || myFirstMsg?.recevierName,
+    role: hisFirstMsg?.senderRole || myFirstMsg?.recevierRole,
   };
   const lastmsg = chunk[chunk.length - 1];
+  const getMsgTime = (time) => {
+    let msgDate = new Date(time);
+    let seconds = (new Date() - msgDate) / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+
+    if (minutes < 60) {
+      return `${Math.ceil(minutes)} دقيقة`;
+    } else if (hours < 24) {
+      return `${Math.ceil(hours)} ساعة`;
+    } else {
+      return `${msgDate.getFullYear()}-${
+        msgDate.getMonth() + 1
+      }-${msgDate.getDate()}`;
+    }
+  };
   return sideData.name.includes(search) ? (
     <div onClick={() => changeSide(sideData)} className={cls.historymessage}>
       <div className={cls.historyComp}>
@@ -25,8 +42,10 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
           }}
         />
         <p>{sideData.name}</p>
+        <p>{sideData.role}</p>
       </div>
       {lastmsg.text ? <p>{lastmsg.text}</p> : <p>file</p>}
+      <p>{getMsgTime(lastmsg.createdAt)}</p>
     </div>
   ) : null;
 };

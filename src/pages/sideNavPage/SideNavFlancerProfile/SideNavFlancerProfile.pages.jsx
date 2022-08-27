@@ -49,10 +49,16 @@ const SideNavFlancerProfilePages = ({ data }) => {
       iconName: "iLT-flancer-mobile",
     },
   ];
+  console.log(data, "aa");
   const vistorUser = useSelector((state) => state.authentication.loggedIn);
   const handleChat = () => {
     navigate("/chat", {
-      state: { id: data.id, avatar: data.avatar, name: data.username },
+      state: {
+        id: data.id,
+        avatar: data.avatar,
+        name: data.username,
+        role: data.role?.name,
+      },
     });
   };
   // Get User Profile By ID

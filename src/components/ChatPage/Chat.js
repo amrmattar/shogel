@@ -30,16 +30,18 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const demoIcon =
-  'data:image/png;base64,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';
+  "data:image/png;base64,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";
 function Chat() {
   const param = useLocation();
   const otherSideId = param.state?.id;
   const otherSidAvatar = param.state?.avatar;
   const otherSidName = param.state?.name;
+  const otherSidٌRole = param.state?.role;
   const [otherSideData, setOtherSideData] = useState({
     name: otherSidName,
     avatar: otherSidAvatar,
     id: otherSideId,
+    role: otherSidٌRole,
   });
   const changeSide = (data) => {
     setOtherSideData(data);
@@ -90,7 +92,7 @@ function Chat() {
       setHistoryMessages(Mainsortingarr);
     }
   }, [messages, user, otherSideData]);
-  console.log(user);
+  console.log(user, "a");
   const sendMessage = async (e) => {
     e.preventDefault();
     if (file?.type) {
@@ -101,12 +103,14 @@ function Chat() {
               file: url,
               type: file.type,
               senderId: user.id,
+              senderRole: user.role?.name,
               senderName: user?.fullname,
               senderAvatar: user.avatar || demoIcon,
               recevierId: otherSideData.id,
               recevierName: otherSideData.name,
+              recevierRole: otherSideData.role,
               recevierAvatar: otherSideData.avatar || demoIcon,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              createdAt: new Date().toISOString(),
             })
           );
         })
@@ -118,12 +122,14 @@ function Chat() {
       messagesRef.add({
         text: formValue,
         senderId: user.id,
+        senderRole: user.role?.name,
         senderAvatar: user.avatar || demoIcon,
         senderName: user?.fullname,
         recevierId: otherSideData.id,
         recevierName: otherSideData.name,
+        recevierRole: otherSideData.role,
         recevierAvatar: otherSideData.avatar || demoIcon,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: new Date().toISOString(),
       });
     }
     setFormValue("");
@@ -139,7 +145,7 @@ function Chat() {
           <div style={{ justifyContent: "space-between", display: "flex" }}>
             <h3>جميع الرسائل</h3>
 
-            <p className={cls.numHolder}>{historyMesage.length || 0}</p>
+            {/* <p className={cls.numHolder}>{historyMesage.length || 0}</p> */}
           </div>
           <input
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -210,6 +216,7 @@ function ChatRoom({
             src={otherSideData?.avatar || demoIcon}
           />
           <p>{otherSideData?.name}</p>
+          <p>{otherSideData?.role}</p>
         </div>
         <button
           onClick={() =>
@@ -258,10 +265,26 @@ function ChatRoom({
 }
 
 function ChatMessage(props) {
-  const { text, senderId, senderAvatar, file, type } = props.message;
+  const { text, senderId, senderAvatar, file, type, createdAt } = props.message;
   const isImage = type?.includes("image");
   const openInNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+  const getMsgTime = (time) => {
+    let msgDate = new Date(time);
+    let seconds = (new Date() - msgDate) / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+
+    if (minutes < 60) {
+      return `${Math.ceil(minutes)} دقيقة`;
+    } else if (hours < 24) {
+      return `${Math.ceil(hours)} ساعة`;
+    } else {
+      return `${msgDate.getFullYear()}-${
+        msgDate.getMonth() + 1
+      }-${msgDate.getDate()}`;
+    }
   };
   return (
     <>
@@ -280,7 +303,10 @@ function ChatMessage(props) {
           }}
         />
         {text ? (
-          <p>{text}</p>
+          <div>
+            <p>{text}</p>
+            <p>{getMsgTime(createdAt)}</p>
+          </div>
         ) : isImage ? (
           <img
             alt="sentImg"
