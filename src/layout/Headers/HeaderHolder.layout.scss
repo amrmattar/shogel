@@ -2,6 +2,7 @@
   width: 100%;
   display: grid;
   gap: 24px;
+  height: 50px;
   grid-template-columns: 1fr auto;
   align-items: center;
 
@@ -30,7 +31,6 @@
   }
 }
 
-
-.padd{
-  padding: 0 0 2vh 0 !important;
+.padd {
+  padding: 0 0 10px 0 !important;
 }

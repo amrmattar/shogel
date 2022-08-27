@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshoghl_app=self.webpackChunkshoghl_app||[]).push([[0],{99e3:function(e,n,h){h.r(n);h(47313);var s=h(46417);n.default=function(){return(0,s.jsx)("div",{children:(0,s.jsx)("p",{children:"Page Not Found"})})}}}]);

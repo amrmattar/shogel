@@ -13,7 +13,7 @@ const HeaderHolder = () => {
   const mediaMD = useMediaQuery({ query: `(max-width: 992px)` });
   const checkLogin = useSelector((state) => state.authentication.loggedIn);
   return (
-    <div className="container-md-fluid bg-white padd container-lg ">
+    <div className="container-md-fluid bg-white padd mxFull">
       {/* Navbar Selector */}
       <div className=" px-0 ">
         <Navbar />
@@ -21,7 +21,7 @@ const HeaderHolder = () => {
       {location.pathname !== "/register" && (
         <>
           {/* divier border */}
-          <div className="LT-nav-divied uLT-bd-b-platinum-sA my-3"></div>
+          <div className="LT-nav-divied uLT-bd-b-platinum-sA mb-2"></div>
           {/* SearchBar Selector */}
           <div className=" LT-searchBar-holder-grid ">
             <div className="LT-searchBar w-100">
@@ -40,7 +40,7 @@ const HeaderHolder = () => {
                 <NavLink to="/offer-price">
                   <div className="shadow uLT-f-radius-sB">
                     <ButtonShare
-                      btnClasses="cLT-secondary-bg p-2 py-md-3 uLT-f-radius-sB"
+                      btnClasses="cLT-secondary-bg p-2  uLT-f-radius-sB"
                       textClasses={`px-md-4 cLT-white-text ${
                         mediaMD ? "fLT-Regular-sA" : "fLT-Regular-sC"
                       } `}

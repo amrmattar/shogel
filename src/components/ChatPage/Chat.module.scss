@@ -1,31 +1,30 @@
 .chatApp {
   display: grid;
   grid-template-columns: 30% 70%;
-  padding: 1rem;
-  height: 80vh;
-  width: 80%;
-  margin: auto;
+  padding: 1rem 0rem 1rem 0rem;
+  height: 100%;
+  margin: 0 10vw;
   .grid1 {
-    height: 70vh;
+    padding-left: 16px;
     .historyHolder {
       height: 75%;
       overflow: hidden;
       overflow-y: auto;
-   
     }
     .grid1Header {
       background-color: white;
-      border-radius: 10px;
+      border-radius: 10px 10px 0 0;
       padding: 1rem;
       position: relative;
       input {
         width: 100%;
         border-radius: 10px;
-        border-color: #bec0c2;
+        border: 1px solid #bec0c2;
         padding: 5px;
       }
       h3 {
-        font-size: 1.5rem;
+        font-size: 18px;
+        margin-bottom: 14px;
       }
       svg {
         position: absolute;
@@ -35,11 +34,12 @@
         left: 6%;
       }
       p {
-        padding: 5px 1rem 5px 1rem;
+        padding: 0 1rem 0 1rem;
 
         background-color: #1eaaad;
         color: white;
-        border-radius: 5px;
+        border-radius: 10px;
+        margin-bottom: 14px;
       }
     }
     .historymessage {
@@ -48,7 +48,6 @@
       height: 5rem;
       max-height: 50vh;
       border-radius: 5px;
-      margin: 2px 0;
       cursor: pointer;
       .sideName {
         margin-right: 5px;
@@ -60,9 +59,6 @@
   }
   .grid2 {
     overflow-y: auto;
-    height: 70vh;
-
-    padding: 0 1rem;
     .activeChat {
       background-color: white;
       height: 100%;
@@ -175,4 +171,10 @@
     padding: 1rem;
     border-radius: 10px;
   }
+}
+
+.chatUser {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #37383b;
 }

@@ -11,13 +11,13 @@ const ViewLayout = () => {
   const location = useLocation();
   const show = useSelector((state) => state.Fotter.visible);
   return (
-    <div className="d-flex flex-column align-items-between gap-3 p-0 justify-content-between h-100">
+    <div className="d-flex flex-column align-items-between p-0 mb-3 h-100">
       {location.pathname !== "/offer-price" &&
       location.pathname !== "/freelancer-offer" &&
       !location.pathname.includes("register") &&
       !location.pathname.includes("dev") &&
       location.pathname !== "/advertising-price" ? (
-        <header className="w-100 bg-white">
+        <header className="w-100 bg-white borderHeader">
           {/* Nav Gradian-Linear [Line] */}
           <div className="cLT-Gradian-Linear-Main LT-nav-line "></div>
           {/* Navbar  & Searchbar  [Holder] */}

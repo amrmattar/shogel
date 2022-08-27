@@ -125,12 +125,11 @@ const SearchBar = () => {
       {/* SearchBar & Drop menu Holder  */}
       <div className="w-100">
         <form
-          className="d-flex justify-content-center align-items-center"
+          className="d-flex justify-content-center align-items-center hSearch"
           autoComplete="false"
         >
           {/* drop menu List  */}
 
-       
           {/* Search Bar Input  */}
           <div className={cls.inputH}>
             <input

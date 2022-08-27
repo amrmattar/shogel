@@ -35,10 +35,10 @@ const Navbar = () => {
       name: "الرئيسية",
       route: `/`,
     },
-    {
-      name: "chat",
-      route: `/chat`,
-    },
+    // {
+    //   name: "chat",
+    //   route: `/chat`,
+    // },
     {
       name: "الاعلانات",
       route: `advertising/page=${1}`,
@@ -122,7 +122,7 @@ const Navbar = () => {
       dir="rtl"
       sx={{ background: "none", boxShadow: "none" }}
     >
-      <Container maxWidth="xl" className="LT-nav-container">
+      <Container maxWidth="100%" className="LT-nav-container">
         <Toolbar disableGutters className="LT-navbar-sm-holder">
           <Typography
             variant="h6"

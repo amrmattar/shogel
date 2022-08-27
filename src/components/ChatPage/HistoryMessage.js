@@ -37,12 +37,12 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
           alt="userImg"
           src={sideData.avatar}
           style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
+            width: "45px",
+            height: "45px",
+            borderRadius: "8px",
           }}
         />
-        <p>{sideData.name}</p>
+        <p className={cls.chatUser}>{sideData.name}</p>
         <p>{sideData.role}</p>
       </div>
       {lastmsg.text ? <p>{lastmsg.text}</p> : <p>file</p>}
