@@ -18,8 +18,9 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
     let seconds = (new Date() - msgDate) / 1000;
     let minutes = seconds / 60;
     let hours = minutes / 60;
-
-    if (minutes < 60) {
+    if (minutes < 1) {
+      return "الان";
+    } else if (minutes < 60) {
       return `${Math.ceil(minutes)} دقيقة`;
     } else if (hours < 24) {
       return `${Math.ceil(hours)} ساعة`;
