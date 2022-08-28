@@ -44,10 +44,10 @@ const categories = [
   { id: 14, title: "شبكات" },
 ];
 const mostUse = [
-  { id: 1, title: "افراد" },
-  { id: 2, title: "شركات" },
-  { id: 3, title: "بالقرب مني" },
-  { id: 4, title: "الاكثر رد علي الطلبات" },
+  { id: 1, name: "افراد" },
+  { id: 2, name: "شركات" },
+  { id: 3, name: "بالقرب مني" },
+  { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
 const Employed = () => {
   const param = useParams();
@@ -149,7 +149,7 @@ const Employed = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [rate,active, location, categ, search]);
+  }, [rate, active, location, categ, search]);
   // Condition For Show Loading Style Untill Data Return From API
   if (!flancersList?.data)
     return (
@@ -166,22 +166,22 @@ const Employed = () => {
 
   return (
     <>
-      {flancersList?.data.length !== 0 ? (
-        <div className={cls.container}>
-          <div className="d-flex">
-            <RouteHandler data={route} />
-          </div>
-          <div className={cls.holder}>
-            <DynamicFilter
-              isEmployee={true}
-              setSearch={setSearch}
-              setCategory={categHandler}
-              setActive={setActive}
-              setRate={setRate}
-              setLocation={setLocation}
-              mostUse={mostUse}
-              categories={categories}
-            />
+      <div className={cls.container}>
+        <div className="d-flex">
+          <RouteHandler data={route} />
+        </div>
+        <div className={cls.holder}>
+          <DynamicFilter
+            isEmployee={true}
+            setSearch={setSearch}
+            setCategory={categHandler}
+            setActive={setActive}
+            setRate={setRate}
+            setLocation={setLocation}
+            mostUse={mostUse}
+            categories={categories}
+          />
+          {flancersList?.data.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">
               {flancersList?.data?.map((list, idx) => {
                 return (
@@ -196,35 +196,35 @@ const Employed = () => {
                 );
               })}
             </div>
-          </div>
-          {/* Pagination [Holder] */}
-          <div className="container d-flex justify-content-center pt-4 mt-auto">
-            {/* Pagination [Number Navigate Holder] */}
-            <Stack>
-              <Pagination
-                dir="rtl"
-                showFirstButton={true}
-                showLastButton={true}
-                count={pagination}
-                page={parseInt(param?.num)}
-                onChange={getPageNumber}
-                size="large"
-              />
-            </Stack>
-          </div>
+          ) : (
+            <div
+              className="d-flex flex-column justify-content-center align-items-center w-100"
+              style={{ height: "100vh " }}
+            >
+              <div
+                className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
+                style={{ width: "200px", height: "200px" }}
+              ></div>
+              <p className="mb-0 fLT-Bold-sD cLT-gray-text">لا يوجد مشتغلين</p>
+            </div>
+          )}
         </div>
-      ) : (
-        <div
-          className="d-flex flex-column justify-content-center align-items-center w-100"
-          style={{ height: "100vh " }}
-        >
-          <div
-            className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-            style={{ width: "200px", height: "200px" }}
-          ></div>
-          <p className="mb-0 fLT-Bold-sD cLT-gray-text">لا يوجد مشتغلين</p>
+        {/* Pagination [Holder] */}
+        <div className="container d-flex justify-content-center pt-4 mt-auto">
+          {/* Pagination [Number Navigate Holder] */}
+          <Stack>
+            <Pagination
+              dir="rtl"
+              showFirstButton={true}
+              showLastButton={true}
+              count={pagination}
+              page={parseInt(param?.num)}
+              onChange={getPageNumber}
+              size="large"
+            />
+          </Stack>
         </div>
-      )}
+      </div>
     </>
   );
 };

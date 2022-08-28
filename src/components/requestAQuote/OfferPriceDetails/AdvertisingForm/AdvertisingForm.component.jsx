@@ -114,8 +114,8 @@ const AdvertisingFormComponent = () => {
       return media.append(`videos[${idx}]`, video);
     });
     media.set("name", formData.name);
-    media.set("description", content?.value);
-    media.set("price", formData.price);
+    media.set("description", content);
+    Number.isFinite(formData.price) && media.set("price", formData.price);
     getAllUserUpdate.category.forEach((cate, idx) => {
       media.append(`category[${idx}]`, cate);
     });
@@ -224,7 +224,6 @@ const AdvertisingFormComponent = () => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-   
       setGetAllCountryFromResponse(res.data.data);
     });
   }, [selectedCountry, selectedCity, selectedState]);
@@ -236,14 +235,10 @@ const AdvertisingFormComponent = () => {
 
   useEffect(() => {
     if (
-      formData.name.length > 10 &&
-      content.length > 20 &&
-      getAllUserUpdate.category[0] &&
-      formData?.price > 0 &&
-      selectedArea?.id &&
-      selectedCity?.id &&
-      selectedCountry?.id &&
-      selectedState?.id
+      formData.name.length > 2 &&
+      content.length > 2 &&
+      getAllUserUpdate.category?.length > 0 &&
+      selectedArea?.id
     ) {
       setDisable(false);
     } else {

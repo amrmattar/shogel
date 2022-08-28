@@ -13,6 +13,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { AdvertisingFav } from "../../../../core/services/Favourite/AdvertisingFavourite/AdvertisingFavourite.core";
 import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.shared";
 import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.core";
+import { API } from "../../../../enviroment/enviroment/enviroment";
+import { toast } from "react-toastify";
 
 const FlancerAdvsDetailsPage = () => {
   const [vistorUser, messages] = useSelector((state) => [
@@ -103,6 +105,17 @@ const FlancerAdvsDetailsPage = () => {
       top: 220,
       behavior: "smooth",
     });
+  };
+  const sendReport = () => {
+    console.log(advsDataById);
+    let data = { model: "ad" };
+    API.post(`setting/report/${advsDataById?.id}`, data)
+      .then((res) => {
+        toast.success("تم ارسال البلاغ");
+      })
+      .catch((e) => {
+        toast.error("حدث خطأ ما");
+      });
   };
   const addFavourite = () => {
     AdvertisingFav._POST_AdvsFavourite(advsDataById?.id)
@@ -278,81 +291,78 @@ const FlancerAdvsDetailsPage = () => {
       </div>
       {vistorUser && (
         <div className="container-md px-4 mt-5">
-            <div className="d-flex align-items-center marginC gap-3 flex-wrap  ">
-              <div
-                onClick={() => sendEmail()}
-                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
-              >
-                <i className={`iLT-flancer-email uLT-img-contain iLT-sC`}></i>
-                <p>رسالة</p>
-              </div>
-              <div
-                onClick={() => copyPhoneNumber(advsDataById?.user?.mobile)}
-                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
-              >
-                <i className={`iLT-flancer-mobile uLT-img-contain iLT-sC`}></i>
-                <p>اتصال</p>
-                <Toast
-                  className="s"
-                  onClose={() => setCopyMobile(false)}
-                  show={mobileCopy}
-                  delay={2000}
-                  autohide
-                >
-                  <Toast.Body>The Phone Number Is copied</Toast.Body>
-                </Toast>
-              </div>
-              <div
-                onClick={() => startChat()}
-                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
-              >
-                <i
-                  className={`iLT-flancer-whatsApp uLT-img-contain iLT-sC`}
-                ></i>
-                <p>واتساب</p>
-              </div>
-
-              <div
-                onClick={() => addFavourite()}
-                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
-              >
-                <i
-                  className={`${
-                    advsDataById.is_favourite !== 0
-                      ? "iLT-flancer-red-heart"
-                      : "iLT-flancer-heart"
-                  } uLT-img-contain iLT-sC`}
-                ></i>
-                <p>مفضله</p>
-              </div>
-              <CopyToClipboard text={`${window.location.href}`}>
-                <div
-                  onClick={() => startShare()}
-                  className="uLT-advs-contact uLT-click hova  d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
-                >
-                  <i className={`iLT-flancer-share uLT-img-contain iLT-sC`}></i>
-                  <p>مشاركة</p>
-                  <Toast
-                    className="s"
-                    onClose={() => setCopyUrl(false)}
-                    show={urlCopy}
-                    delay={2000}
-                    autohide
-                  >
-                    <Toast.Body>The Link Is copied</Toast.Body>
-                  </Toast>
-                </div>
-              </CopyToClipboard>
-              <div className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-platinum-sA uLT-f-radius-sB p-2 ">
-                <i
-                  className={`   iLT-flancer-report uLT-img-contain iLT-sC `}
-                ></i>
-              <p > ارسال بلاغ </p>
-              </div>
+          <div className="d-flex align-items-center marginC gap-3 flex-wrap  ">
+            <div
+              onClick={() => sendEmail()}
+              className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+            >
+              <i className={`iLT-flancer-email uLT-img-contain iLT-sC`}></i>
+              <p>رسالة</p>
+            </div>
+            <div
+              onClick={() => copyPhoneNumber(advsDataById?.user?.mobile)}
+              className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+            >
+              <i className={`iLT-flancer-mobile uLT-img-contain iLT-sC`}></i>
+              <p>اتصال</p>
+            </div>
+            <Toast
+              onClose={() => setCopyMobile(false)}
+              show={mobileCopy}
+              delay={2000}
+              autohide
+            >
+              <Toast.Body>The Phone Number Is copied</Toast.Body>
+            </Toast>
+            <div
+              onClick={() => startChat()}
+              className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+            >
+              <i className={`iLT-flancer-whatsApp uLT-img-contain iLT-sC`}></i>
+              <p>واتساب</p>
             </div>
 
-           
-  
+            <div
+              onClick={() => addFavourite()}
+              className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+            >
+              <i
+                className={`${
+                  advsDataById.is_favourite !== 0
+                    ? "iLT-flancer-red-heart"
+                    : "iLT-flancer-heart"
+                } uLT-img-contain iLT-sC`}
+              ></i>
+              <p>مفضله</p>
+            </div>
+            <CopyToClipboard text={`${window.location.href}`}>
+              <div
+                onClick={() => startShare()}
+                className="uLT-advs-contact uLT-click hova  d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+              >
+                <i className={`iLT-flancer-share uLT-img-contain iLT-sC`}></i>
+                <p>مشاركة</p>
+              </div>
+            </CopyToClipboard>
+            <Toast
+              className="s"
+              onClose={() => setCopyUrl(false)}
+              show={urlCopy}
+              delay={2000}
+              autohide
+            >
+              <Toast.Body>The Link Is copied</Toast.Body>
+            </Toast>
+            <div
+              onClick={sendReport}
+              className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-platinum-sA uLT-f-radius-sB p-2 "
+            >
+              <i
+                className={`   iLT-flancer-report uLT-img-contain iLT-sC `}
+              ></i>
+              <p> ارسال بلاغ </p>
+            </div>
+          </div>
         </div>
       )}
       <div className="container-md d-flex flex-column px-2 px-sm-3 px-md-4 flex-wrap">

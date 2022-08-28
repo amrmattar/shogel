@@ -22,27 +22,21 @@ const OfferPriceForm = () => {
     state.profileUpdate,
     state.messages,
   ]);
-   const userLoginData = useMemo(async () => {
-     try {
-       const res = await userProfile._GET_ProfileByToken(
-         localStorage.getItem("userTK")
-       );
+  const userLoginData = useMemo(async () => {
+    try {
+      const res = await userProfile._GET_ProfileByToken(
+        localStorage.getItem("userTK")
+      );
 
-     
-
-       const res2 = await userProfile._GET_ProfileData(res.data.data?.id);
-       presetLocation(res2.data.data);
-     } catch (e) {
-       console.log(e);
-     }
-   }, [localStorage]);
-   useEffect(() => {
-    
-         return userLoginData;
-       
-  
-    
-   }, []);
+      const res2 = await userProfile._GET_ProfileData(res.data.data?.id);
+      presetLocation(res2.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [localStorage]);
+  useEffect(() => {
+    return userLoginData;
+  }, []);
   const errMessage = messages[0]?.messages;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,30 +51,30 @@ const OfferPriceForm = () => {
   const [selectedState, setSelectedState] = useState();
   const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
- const fetchCountry = (country) => {
-   setSelectedCountry(country);
-   setSelectedCity({});
-   setSelectedState({});
-   setSelectedArea({});
- };
- const fetchCities = (city) => {
-   setSelectedCity(city);
-   setSelectedState({});
-   setSelectedArea({});
- };
- const fetchState = (state) => {
-   setSelectedState(state);
-   setSelectedArea({});
- };
- const fetchArea = (area) => {
-   setSelectedArea(area);
- };
- const presetLocation = (data) => {
-   setSelectedCountry(data?.country);
-   setSelectedCity(data?.city);
-   setSelectedState(data?.state);
-   setSelectedArea(data?.area);
- };
+  const fetchCountry = (country) => {
+    setSelectedCountry(country);
+    setSelectedCity({});
+    setSelectedState({});
+    setSelectedArea({});
+  };
+  const fetchCities = (city) => {
+    setSelectedCity(city);
+    setSelectedState({});
+    setSelectedArea({});
+  };
+  const fetchState = (state) => {
+    setSelectedState(state);
+    setSelectedArea({});
+  };
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+  };
+  const presetLocation = (data) => {
+    setSelectedCountry(data?.country);
+    setSelectedCity(data?.city);
+    setSelectedState(data?.state);
+    setSelectedArea(data?.area);
+  };
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
@@ -171,7 +165,7 @@ const OfferPriceForm = () => {
     offerPrice.set("name", formData.name);
     offerPrice.set(
       "description",
-      content?.value ? content?.value : recivedData?.description
+      content ? content : recivedData?.description
     );
     // offerPrice.set("time", formData.time);
     // offerPrice.set("type_work", formData.type_work);
@@ -206,14 +200,14 @@ const OfferPriceForm = () => {
       })
       .catch((err) => {
         setAdvsCheck(false);
-        let obj = err.response?.data.message;
-        if (obj && typeof obj == Object) {
-          for (const key in obj) {
-            let ele = obj[key];
-            toast.error(ele);
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
           }
         } else {
-          toast.error(obj);
           toast.error("حدث خطأ ما");
         }
         dispatch(
@@ -232,23 +226,20 @@ const OfferPriceForm = () => {
     navigate(-1);
   };
   const [disable, setDisable] = useState(false);
-   useEffect(() => {
-     if (
-       formData.name.length > 10 &&
-       content.length > 20 &&
-       getAllUserUpdate.category[0] &&
-     
-       selectedArea?.id &&
-       selectedCity?.id &&
-       selectedCountry?.id &&
-       selectedState?.id
-     ) {
-       setDisable(false);
-     } else {
-       setDisable(true);
-     }
-   }, [formData, content, getAllUserUpdate]);
-  
+  useEffect(() => {
+    console.log(getAllUserUpdate.category);
+    if (
+      formData.name.length > 2 &&
+      content.length > 2 &&
+      getAllUserUpdate.category?.length > 0 &&
+      selectedArea?.id
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [formData, content, getAllUserUpdate]);
+
   const [anyJob, setAnyJob] = useState(false);
   return (
     <>

@@ -58,10 +58,10 @@ const categories = [
   { id: 14, title: "شبكات" },
 ];
 const mostUse = [
-  { id: 1, title: "افراد" },
-  { id: 2, title: "شركات" },
-  { id: 3, title: "بالقرب مني" },
-  { id: 4, title: "الاكثر رد علي الطلبات" },
+  { id: 1, name: "افراد" },
+  { id: 2, name: "شركات" },
+  { id: 3, name: "بالقرب مني" },
+  { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
 const FlancerAdvsListPage = () => {
   const param = useParams();
