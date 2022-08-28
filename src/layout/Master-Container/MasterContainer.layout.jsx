@@ -18,7 +18,7 @@ const MasterContainer = () => {
   const userID = useSelector((state) => state.userData.id);
   return (
     <>
-      <div className="overflow-hidden w-100 bodyH">
+      <div className="overflow-hidden w-100 ">
         <Routes>
           <Route
             path={`/advertising-price/:id`}

@@ -63,6 +63,7 @@
     .activeChat {
       background-color: white;
       height: 100%;
+      height: calc(100vh - 175px);
       position: relative;
       .chatHeader {
         display: flex;
