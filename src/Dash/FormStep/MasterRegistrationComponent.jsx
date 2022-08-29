@@ -40,8 +40,8 @@ const MasterRegistrationComponent = () => {
       {value.page > 3 && <StepperComp steps={first} activeStep={value?.page} />}
 
       {/* <StepperComp steps={first} activeStep={value?.page} /> */}
-
-      {value.page === 0 && <RegisterMobileStep />}
+      <RegisterDetectedAccount />
+      {/* {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
       {value.page === 2 || value?.accountType?.userKind === "undo" ? (
         <RegisterDetectedAccount />
@@ -68,7 +68,7 @@ const MasterRegistrationComponent = () => {
       {value.page === 6 && <IdPage />}
       {value.page === 7 && value?.accountType?.userKind !== "client" && (
         <LocationPage />
-      )}
+      )} */}
       {/* <Chat /> */}
     </div>
   );

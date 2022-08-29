@@ -3,9 +3,11 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
-
 import "../NewStyle.scss";
 import "./RegisterDetectedAccount.scss";
+import Logo from "../../../assets/Register-Icons/Logo.svg";
+import Logo2 from "../../../assets/Register-Icons/Logo2.svg";
+
 const RegisterDetectedAccount = (props) => {
   const value = useContext(LabelContext);
   const navigate = useNavigate();
@@ -75,12 +77,13 @@ const RegisterDetectedAccount = (props) => {
               </div>
             </i>
             <p
-              className="m-0 fLT-Bold-sA cLT-main-text LT-account-title"
+              className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-account-title"
               name="client"
             >
               {" "}
               حســاب مستخدم
             </p>
+            <img src={Logo2} />
           </button>
           <button
             onClick={() => handleChangeScreen()}
@@ -99,12 +102,13 @@ const RegisterDetectedAccount = (props) => {
               name="freelancer"
             ></i>
             <p
-              className="m-0 fLT-Bold-sA cLT-main-text LT-freelancer-title"
+              className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
               name="freelancer"
             >
               {" "}
               حســاب مشتغل
             </p>
+            <img src={Logo} />
           </button>
         </div>
         <div style={{ width: "30%" }}>

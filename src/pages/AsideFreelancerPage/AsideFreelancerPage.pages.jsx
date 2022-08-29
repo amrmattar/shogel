@@ -23,6 +23,7 @@ const AsideFreelancerPage = ({
     state.userFullData,
     state.messages,
   ]);
+  console.log(userDataByParam);
   // Get User Edit Profile Data By ID
   const [userProfileData, setEditProfileData] = useState();
 
@@ -182,6 +183,30 @@ const AsideFreelancerPage = ({
             </p>
             <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i>
           </div>
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="m-0 ps-3 card-text cLT-support2-text">
+              {userProfileData?.role?.name}{" "}
+            </p>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="m-0 ps-3 card-text cLT-support2-text">
+              {userProfileData?.state?.country?.name}{" "}
+            </p>
+            <p className="m-0 ps-3 card-text cLT-support2-text">
+              {userProfileData?.state?.city?.name}{" "}
+            </p>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="m-0 ps-3 card-text cLT-support2-text">
+              {userProfileData?.email}{" "}
+            </p>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="m-0 ps-3 card-text cLT-support2-text">
+              {userProfileData?.mobile}{" "}
+            </p>
+          </div>
+          
           <p className="m-0 cLT-support2-text fLT-Regular-sB">
             {isUserData?.job_name_id?.name}
           </p>

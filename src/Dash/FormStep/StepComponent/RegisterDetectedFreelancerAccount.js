@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import "../NewStyle.scss";
+import Logo3 from "../../../assets/Register-Icons/Logo3.svg";
+import Logo4 from "../../../assets/Register-Icons/Logo4.svg";
 const RegisterDetectedFreelancerAccount = () => {
   const value = useContext(LabelContext);
   const navigate = useNavigate();
@@ -79,16 +81,13 @@ const RegisterDetectedFreelancerAccount = () => {
               </div>
             </i>
             <p
-              className="m-0 fLT-Bold-sA cLT-main-text LT-account-title"
+              className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-account-title"
               name="worker"
             >
               {" "}
               حســاب فرد
             </p>
-            <i
-              name="worker"
-              className={`LT-account-arrow-icon iLT-long-right-arrow uLT-img-contain iLT-sC mt-1`}
-            ></i>
+            <img src={Logo4} />
           </button>
           <button
             style={{
@@ -105,16 +104,14 @@ const RegisterDetectedFreelancerAccount = () => {
               name="company"
             ></i>
             <p
-              className="m-0 fLT-Bold-sA cLT-main-text LT-freelancer-title"
+              className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
               name="company"
             >
               {" "}
               حســاب شركة
             </p>
-            <i
-              className={`LT-freelancer-arrow-icon iLT-long-right-arrow uLT-img-contain iLT-sC mt-1`}
-              name="company"
-            ></i>
+
+            <img src={Logo3} />
           </button>
         </div>
         <div style={{ width: "30%" }}>

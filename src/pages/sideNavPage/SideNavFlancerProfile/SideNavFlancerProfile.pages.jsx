@@ -8,6 +8,11 @@ import PerformanceShared from "../../../shared/Performance/Performance.shared";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import cls from "./SideNavFlancer.module.scss";
+import { BsFillStarFill } from "react-icons/bs";
+import { GrStatusGood } from "react-icons/gr";
+import { RiMessage2Fill } from "react-icons/ri";
+import { BsPeopleFill } from "react-icons/bs";
 
 const SideNavFlancerProfilePages = ({ data }) => {
   const navigate = useNavigate();
@@ -89,6 +94,28 @@ const SideNavFlancerProfilePages = ({ data }) => {
   }, []);
   return (
     <div className="cLT-white-bg p-4 d-flex flex-column gap-3 ">
+      <div className={cls.statsHolder}>
+        <div className={cls.grid}>
+          <BsFillStarFill />
+          <p>التقييمات</p>
+          <span>(22) 4.2</span>
+        </div>
+        <div className={cls.grid}>
+          <GrStatusGood />
+          <p>الشغل المنجز</p>
+          <span>76</span>
+        </div>
+        <div className={cls.grid}>
+          <RiMessage2Fill />
+          <p>الطلبات</p>
+          <span>200</span>
+        </div>
+        <div className={cls.grid}>
+          <BsPeopleFill />
+          <p>عدد العملاء</p>
+          <span>88</span>
+        </div>
+      </div>
       {/* Flancer Communicated  */}
       {vistorUser && !isProfileOwner && (
         <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
@@ -104,7 +131,17 @@ const SideNavFlancerProfilePages = ({ data }) => {
                 </div>
               );
             })}
-            <button onClick={handleChat}>CHAT</button>
+
+            <div className="shadow  uLT-f-radius-sB">
+              <ButtonShare
+                onClick={handleChat}
+                btnClasses="cLT-secondary-bg py-2 px-4  d-flex align-items-center gap-2 uLT-f-radius-sB"
+                textClasses={`fLT-Regular-sB px-1 cLT-white-text `}
+                innerText="CHAT"
+                iconName={"iLT-work-case-white"}
+              />
+            </div>
+
             <NavLink
               to={`/freelancer-offer/${data?.id}`}
               className={"uLT-list-style"}
@@ -194,6 +231,40 @@ const SideNavFlancerProfilePages = ({ data }) => {
               </div>
             );
           })}
+        </div>
+      </div>
+      <div className="uLT-bd-b-platinum-sA pb-4">
+        <p className="fLT-Bold-sA text-nowrap">اوسمة </p>
+        <div className="d-flex align-items-center flex-wrap gap-3">
+          {/* {data?.reverse?.map((document, ix) => {
+            return (
+              <div key={ix}>
+                <FlancerDocumentationComponent
+                  status={document.status}
+                  documentName={document.title}
+                />
+              </div>
+            );
+          })} */}
+          <p className="mb-0 fLT-Bold-sA cLT-gray-text">لا يوجداوسمة</p>
+        </div>
+      </div>
+      <div className="uLT-bd-b-platinum-sA pb-4">
+        <p className="fLT-Bold-sA text-nowrap">مواقع شغلي الاخري </p>
+        <div className="d-flex align-items-center flex-wrap gap-3">
+          {/* {data?.reverse?.map((document, ix) => {
+            return (
+              <div key={ix}>
+              <FlancerDocumentationComponent
+              status={document.status}
+              documentName={document.title}
+              />
+              </div>
+              );
+            })} */}
+          <p className="mb-0 fLT-Bold-sA cLT-gray-text">
+            لا يوجد مواقع شغل اخري
+          </p>
         </div>
       </div>
     </div>
