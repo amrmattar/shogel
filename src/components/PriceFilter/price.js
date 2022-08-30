@@ -10,7 +10,7 @@ function valuetext(value) {
 }
 
 const PriceSlider = ({ changePrice, title, quote }) => {
-  const [value, setValue] = useState([0, 300]);
+  const [value, setValue] = useState([0, 1000]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -32,7 +32,7 @@ const PriceSlider = ({ changePrice, title, quote }) => {
           onChange={handleChange}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
-          max={1000}
+          max={3000}
         />
       </Box>
       <p className={classes.desc}>

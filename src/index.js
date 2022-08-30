@@ -17,6 +17,7 @@ import "./utility/icons.sass";
 import "./utility/images.sass";
 import { Provider } from 'react-redux'
 import { store } from './core/redux/Store/Store.core'
+
 ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>

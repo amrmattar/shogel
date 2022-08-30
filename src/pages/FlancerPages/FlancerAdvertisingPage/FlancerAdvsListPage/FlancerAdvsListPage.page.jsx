@@ -98,10 +98,11 @@ const FlancerAdvsListPage = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
-  const [active, setActive] = useState(false);
-  const [rate, setRate] = useState(0);
+  const [active, setActive] = useState(null);
+  const [rate, setRate] = useState(null);
   const [price, setPrice] = useState([]);
   const [categ, setCateg] = useState([]);
+  const [rateCount, setRateCount] = useState([]);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const categHandler = (id, state) => {
@@ -120,14 +121,14 @@ const FlancerAdvsListPage = () => {
       body.set("name", search);
 
       body.set("category", categ);
-      body.set("price", price);
+
+      body.set("rate_count", rateCount);
       body.set("rate", rate);
-      active && body.set("available", active);
+      body.set("available", active);
       body.set("location", location);
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
-      
           setUserAdvsDetatils(res.data);
         })
         .catch((err) => {
@@ -135,7 +136,7 @@ const FlancerAdvsListPage = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [price, location, categ, search, rate, active]);
+  }, [price, location, categ, search, rate, rateCount, active]);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userAdvsDetatils?.pagination) {
@@ -180,23 +181,24 @@ const FlancerAdvsListPage = () => {
     <>
       {/* Advertising List [Holder] */}
 
-      {userAdvsDetatils?.data?.length !== 0 ? (
-        <div className={cls.container}>
-          <div className="d-flex">
-            <RouteHandler data={route} />
-          </div>
-          <div className={cls.holder}>
-            <DynamicFilter
-              isAdvert={true}
-              setSearch={setSearch}
-              setCategory={categHandler}
-              setPrice={setPrice}
-              setActive={setActive}
-              setRate={setRate}
-              setLocation={setLocation}
-              mostUse={mostUse}
-              categories={categories}
-            />
+      <div className={cls.container}>
+        <div className="d-flex">
+          <RouteHandler data={route} />
+        </div>
+        <div className={cls.holder}>
+          <DynamicFilter
+            isAdvert={true}
+            setSearch={setSearch}
+            setCategory={categHandler}
+            setPrice={setPrice}
+            setActive={setActive}
+            setRate={setRate}
+            setLocation={setLocation}
+            setRateCount={setRateCount}
+            mostUse={mostUse}
+            categories={categories}
+          />
+          {userAdvsDetatils?.data?.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">
               {userAdvsDetatils?.data?.map((advs, ix) => {
                 return (
@@ -216,36 +218,38 @@ const FlancerAdvsListPage = () => {
                 );
               })}
             </div>
-          </div>
-          {/* Pagination [Holder] */}
-          {userAdvsDetatils?.data?.length === 9 && (
-            <div className="container d-flex justify-content-center pt-4 mt-auto">
-              <Stack>
-                <Pagination
-                  dir="rtl"
-                  showFirstButton={true}
-                  showLastButton={true}
-                  count={pagination}
-                  page={parseInt(param?.num)}
-                  onChange={getPageNumber}
-                  size="large"
-                />
-              </Stack>
+          ) : (
+            <div
+              className="d-flex flex-column justify-content-center align-items-center w-100  "
+              style={{ height: "100vh " }}
+            >
+              <div
+                className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
+                style={{ width: "200px", height: "200px" }}
+              ></div>
+              <p className="mb-0 fLT-Bold-sD cLT-gray-text">
+                لا يوجد إعلانـــات
+              </p>
             </div>
           )}
         </div>
-      ) : (
-        <div
-          className="d-flex flex-column justify-content-center align-items-center w-100  "
-          style={{ height: "100vh " }}
-        >
-          <div
-            className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-            style={{ width: "200px", height: "200px" }}
-          ></div>
-          <p className="mb-0 fLT-Bold-sD cLT-gray-text">لا يوجد إعلانـــات</p>
-        </div>
-      )}
+        {/* Pagination [Holder] */}
+        {userAdvsDetatils?.data?.length === 9 && (
+          <div className="container d-flex justify-content-center pt-4 mt-auto">
+            <Stack>
+              <Pagination
+                dir="rtl"
+                showFirstButton={true}
+                showLastButton={true}
+                count={pagination}
+                page={parseInt(param?.num)}
+                onChange={getPageNumber}
+                size="large"
+              />
+            </Stack>
+          </div>
+        )}
+      </div>
     </>
   );
 };
