@@ -25,7 +25,7 @@ const FlancerAdvsListCardComponent = ({ data, roll }) => {
               className="LT-advsListCard-img"
               style={{ width: "216px", height: "177px" }}
             >
-              <div className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB w-100 h-100"></div>
+              <div className="imLT-main-logo-finacer uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB w-100 h-100"></div>
             </picture>
           )
         ) : (
