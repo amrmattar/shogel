@@ -6,6 +6,8 @@ import { updateProfile } from "../../core/services/userProfile/UpdateProfile/Upd
 import { getUserDataReducer } from "../../core/redux/reducers/UserDataReducer/UserDataReducer.core";
 import { getMessages } from "../../core/redux/reducers/Messages/Messages.core";
 import UserFeedBackShared from "../../shared/UserFeedBack/UserFeedBack.shared";
+import { BsTelephoneFill } from "react-icons/bs";
+import { MdEmail, MdLocationOn } from "react-icons/md";
 
 const AsideFreelancerPage = ({
   selector,
@@ -185,10 +187,12 @@ const AsideFreelancerPage = ({
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <p className="m-0 ps-3 card-text cLT-support2-text">
-              {userProfileData?.role?.name}{" "}
+              {userProfileData?.job_name_id?.name ||
+                userProfileData?.role?.name}{" "}
             </p>
           </div>
           <div className="d-flex justify-content-between align-items-center">
+            <MdLocationOn />
             <p className="m-0 ps-3 card-text cLT-support2-text">
               {userProfileData?.state?.country?.name}{" "}
             </p>
@@ -197,16 +201,18 @@ const AsideFreelancerPage = ({
             </p>
           </div>
           <div className="d-flex justify-content-between align-items-center">
+            <MdEmail />
             <p className="m-0 ps-3 card-text cLT-support2-text">
               {userProfileData?.email}{" "}
             </p>
           </div>
           <div className="d-flex justify-content-between align-items-center">
+            <BsTelephoneFill />
             <p className="m-0 ps-3 card-text cLT-support2-text">
               {userProfileData?.mobile}{" "}
             </p>
           </div>
-          
+
           <p className="m-0 cLT-support2-text fLT-Regular-sB">
             {isUserData?.job_name_id?.name}
           </p>

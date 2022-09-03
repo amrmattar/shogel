@@ -108,7 +108,7 @@ const Employed = () => {
       ? setCateg([...categ, id])
       : setCateg(categ.filter((ele) => ele != id));
   };
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(null);
   const [rate, setRate] = useState(0);
   const [categ, setCateg] = useState([]);
   const [search, setSearch] = useState("");
@@ -135,7 +135,7 @@ const Employed = () => {
       body.set("fullname", search);
 
       body.set("category", categ);
-      body.set("rate", rate);
+      body.set("rate", rate == 0 ? null : rate);
       body.set("available", active);
       body.set("location", location);
       freelancersListProfile

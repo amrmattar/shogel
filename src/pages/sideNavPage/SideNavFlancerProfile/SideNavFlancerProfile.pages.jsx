@@ -74,9 +74,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
       );
     }
     if (id === "email") {
-      window.open(
-        `https://mail.google.com/mail/mu/mp/159/#co/to=${userInfo?.email}`
-      );
+      handleChat();
     }
     if (id === "mobile") {
       window.open(`tel:${userInfo?.mobile}`);
@@ -98,22 +96,24 @@ const SideNavFlancerProfilePages = ({ data }) => {
         <div className={cls.grid}>
           <BsFillStarFill />
           <p>التقييمات</p>
-          <span>(22) 4.2</span>
+          <span>
+            ({data?.rate?.count}) {data?.rate?.rate}
+          </span>
         </div>
         <div className={cls.grid}>
           <GrStatusGood />
           <p>الشغل المنجز</p>
-          <span>76</span>
+          <span>{data?.task_count}</span>
         </div>
         <div className={cls.grid}>
           <RiMessage2Fill />
           <p>الطلبات</p>
-          <span>200</span>
+          <span>{data?.offer_count}</span>
         </div>
         <div className={cls.grid}>
           <BsPeopleFill />
           <p>عدد العملاء</p>
-          <span>88</span>
+          <span>{data?.client_count}</span>
         </div>
       </div>
       {/* Flancer Communicated  */}
@@ -132,15 +132,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
               );
             })}
 
-            <div className="shadow  uLT-f-radius-sB">
-              <ButtonShare
-                onClick={handleChat}
-                btnClasses="cLT-secondary-bg py-2 px-4  d-flex align-items-center gap-2 uLT-f-radius-sB"
-                textClasses={`fLT-Regular-sB px-1 cLT-white-text `}
-                innerText="CHAT"
-                iconName={"iLT-work-case-white"}
-              />
-            </div>
+          
 
             <NavLink
               to={`/freelancer-offer/${data?.id}`}
