@@ -35,9 +35,7 @@ const FlancerProfilePage = ({ data }) => {
       {/* User Rating */}
       <div className="">
         <PageTitle title="التقيمات" />
-        <FlancerRate
-          rateNumber={parseInt(data?.rate?.rate ? data?.rate?.rate : 0)}
-        />
+        <FlancerRate rate={data?.rate} />
       </div>
       {/* User Reviews */}
       <div className=" ">

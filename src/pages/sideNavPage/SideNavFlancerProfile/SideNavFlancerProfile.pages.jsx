@@ -13,6 +13,8 @@ import { BsFillStarFill } from "react-icons/bs";
 import { GrStatusGood } from "react-icons/gr";
 import { RiMessage2Fill } from "react-icons/ri";
 import { BsPeopleFill } from "react-icons/bs";
+import { API } from "../../../enviroment/enviroment/enviroment";
+import { SettingsVoiceSharp } from "@material-ui/icons";
 
 const SideNavFlancerProfilePages = ({ data }) => {
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
       iconName: "iLT-flancer-mobile",
     },
   ];
-  console.log(data, "aa");
+
   const vistorUser = useSelector((state) => state.authentication.loggedIn);
   const handleChat = () => {
     navigate("/chat", {
@@ -131,8 +133,6 @@ const SideNavFlancerProfilePages = ({ data }) => {
                 </div>
               );
             })}
-
-          
 
             <NavLink
               to={`/freelancer-offer/${data?.id}`}
@@ -223,44 +223,40 @@ const SideNavFlancerProfilePages = ({ data }) => {
               </div>
             );
           })}
+          {!data?.reverse?.[0] && (
+            <p className="mb-0 fLT-Bold-sA cLT-gray-text">لا يوجد توثيقات</p>
+          )}{" "}
         </div>
       </div>
-      <div className="uLT-bd-b-platinum-sA pb-4">
-        <p className="fLT-Bold-sA text-nowrap">اوسمة </p>
-        <div className="d-flex align-items-center flex-wrap gap-3">
-          {/* {data?.reverse?.map((document, ix) => {
-            return (
-              <div key={ix}>
-                <FlancerDocumentationComponent
-                  status={document.status}
-                  documentName={document.title}
-                />
-              </div>
-            );
-          })} */}
-          <p className="mb-0 fLT-Bold-sA cLT-gray-text">لا يوجداوسمة</p>
-        </div>
-      </div>
+
       <div className="uLT-bd-b-platinum-sA pb-4">
         <p className="fLT-Bold-sA text-nowrap">مواقع شغلي الاخري </p>
         <div className="d-flex align-items-center flex-wrap gap-3">
-          {/* {data?.reverse?.map((document, ix) => {
+          {data?.social?.map((document, ix) => {
             return (
               <div key={ix}>
-              <FlancerDocumentationComponent
-              status={document.status}
-              documentName={document.title}
-              />
+                <SocialCom item={document} />
               </div>
-              );
-            })} */}
-          <p className="mb-0 fLT-Bold-sA cLT-gray-text">
-            لا يوجد مواقع شغل اخري
-          </p>
+            );
+          })}
+          {!data?.social?.[0] && (
+            <p className="mb-0 fLT-Bold-sA cLT-gray-text">
+              لا يوجد مواقع شغل اخري
+            </p>
+          )}{" "}
         </div>
       </div>
     </div>
   );
 };
-
 export default SideNavFlancerProfilePages;
+const SocialCom = ({ item }) => {
+  return (
+    <div
+      onClick={() => window.open(item.value)}
+      style={{ cursor: "pointer", margin: "auto" }}
+    >
+      <img width={70} height={70} src={item.logo} />
+    </div>
+  );
+};

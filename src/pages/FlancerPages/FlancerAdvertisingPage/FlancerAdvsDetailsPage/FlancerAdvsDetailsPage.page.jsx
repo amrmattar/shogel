@@ -16,6 +16,35 @@ import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.c
 import { API } from "../../../../enviroment/enviroment/enviroment";
 import { toast } from "react-toastify";
 import RouteHandler from "../../../Orders/OrderPage/RoteHandler";
+import CircularProgress, {
+  CircularProgressProps,
+} from "@mui/material/CircularProgress";
+import { Box, Typography } from "@mui/material";
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <CircularProgress variant="determinate" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          variant="caption"
+          component="div"
+          color="text.secondary"
+        >{`${Math.round(props.value)}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
 
 const FlancerAdvsDetailsPage = () => {
   const [vistorUser, messages] = useSelector((state) => [
@@ -201,6 +230,8 @@ const FlancerAdvsDetailsPage = () => {
               <div className="d-flex justify-content-between align-items-start">
                 {/* User Info [Holder] */}
                 <div className="LT-performance-rate-holder">
+                  <CircularProgressWithLabel value={80} />
+
                   {/* User Rate */}
                   <div className="d-flex align-items-center LT-rate-font-size">
                     <p className="m-0 card-text cLT-support2-text ">
@@ -235,28 +266,32 @@ const FlancerAdvsDetailsPage = () => {
           </div>
         </div>
       </div>
-      <div className="container-md mb-4  px-2 px-sm-3 px-md-4">
-        <PageTitle title="تفاصيل الاعلان" />
-        <div className="d-flex">
-          <div className="">
-            <p
-              className={`m-0 fLT-Regular-sB cLT-smoke-text ${
-                showDescription === true ? "" : "text-ellipsis3"
-              }  ${
-                location.pathname ===
-                `/advertising/advertise-details/${param?.id}`
-                  ? ""
-                  : "text-ellipsis3"
-              }`}
-              dangerouslySetInnerHTML={{
-                __html:
-                  advsDataById?.description !== "undefined"
-                    ? advsDataById?.description
-                    : "لايوجد وصف للإعلان",
-              }}
-            ></p>
-          </div>
-          <div className="d-flex align-items-end p-0">
+      <div
+        className="mb-3 container-md px-2 px-sm-3 px-md-4"
+        style={{ backgroundColor: "white" }}
+      >
+        <div className="container-md mb-4  px-2 px-sm-3 px-md-4">
+          <PageTitle title="تفاصيل الاعلان" />
+          <div className="d-flex">
+            <div className="">
+              <p
+                className={`m-0 fLT-Regular-sB cLT-smoke-text ${
+                  showDescription === true ? "" : "text-ellipsis3"
+                }  ${
+                  location.pathname ===
+                  `/advertising/advertise-details/${param?.id}`
+                    ? ""
+                    : "text-ellipsis3"
+                }`}
+                dangerouslySetInnerHTML={{
+                  __html:
+                    advsDataById?.description !== "undefined"
+                      ? advsDataById?.description
+                      : "لايوجد وصف للإعلان",
+                }}
+              ></p>
+            </div>
+            {/* <div className="d-flex align-items-end p-0">
             {location.pathname ===
               `/advertising/advertise-details/${param?.id}` && (
               <div
@@ -288,13 +323,14 @@ const FlancerAdvsDetailsPage = () => {
                 )}
               </div>
             )}
+          </div> */}
           </div>
         </div>
-      </div>
-      <div className="">
-        <FlancerCertificatesComponent
-          certificatesData={advsDataById?.document}
-        />
+        <div className="">
+          <FlancerCertificatesComponent
+            certificatesData={advsDataById?.document}
+          />
+        </div>
       </div>
       {vistorUser && (
         <div className="container-md px-4 mt-5">
@@ -374,7 +410,10 @@ const FlancerAdvsDetailsPage = () => {
       )}
       <div className="container-md d-flex flex-column px-2 px-sm-3 px-md-4 flex-wrap">
         <PageTitle title="إعلانات مشابهة" />
-        <div className="LT-list-Of-AdvsCategory ">
+        <div
+          style={{ height: "30rem", overflowY: "hidden" }}
+          className="LT-list-Of-AdvsCategory "
+        >
           {/* List Card Component [Loop]  */}
           {advsDataByCategory?.map((advs, ix) => {
             return (
