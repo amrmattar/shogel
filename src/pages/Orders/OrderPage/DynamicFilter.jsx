@@ -18,6 +18,7 @@ const DynamicFilter = ({
   setLocation,
   setRate,
   setActive,
+  setRateCount,
 }) => {
   console.log(mostUse);
   return (
@@ -72,7 +73,7 @@ const DynamicFilter = ({
           <div className={cls.swich}>
             <label class="switch">
               <input
-                onChange={(e) => setActive(e.target.checked)}
+                onChange={(e) => setActive(e.target.checked ? 1 : 0)}
                 type="checkbox"
               />
               <span class="slider round"></span>
@@ -91,7 +92,11 @@ const DynamicFilter = ({
             />
           )}
           {isAdvert && (
-            <PriceSlider quote="مراجعة" title="مراجعة" changePrice={setPrice} />
+            <PriceSlider
+              quote="مراجعة"
+              title="مراجعة"
+              changePrice={setRateCount}
+            />
           )}
         </div>
       )}

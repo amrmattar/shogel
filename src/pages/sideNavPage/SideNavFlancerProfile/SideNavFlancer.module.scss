@@ -1,0 +1,27 @@
+.statsHolder {
+  background-color: #e9e9e9;
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  .grid {
+    text-align: center;
+    svg {
+      color: #02385a;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    p {
+      font-size: 1rem;
+      color: gray;
+      margin: 0;
+    }
+    span {
+      margin: 0;
+      color: black;
+      font-size: 1.2rem;
+      font-weight: bolder;
+    }
+  }
+}

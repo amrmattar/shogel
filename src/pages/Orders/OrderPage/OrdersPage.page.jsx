@@ -158,20 +158,20 @@ const OrdersPage = () => {
 
   return (
     <>
-      {userOfferDetatils.length !== 0 ? (
-        <div className={cls.container}>
-          <div className="d-flex">
-            <RouteHandler data={route} />
-          </div>
-          <div className={cls.holder}>
-            <DynamicFilter
-              setSearch={setSearch}
-              setCategory={categHandler}
-              setPrice={setPrice}
-              setLocation={setLocation}
-              mostUse={mostUse}
-              categories={categories}
-            />
+      <div className={cls.container}>
+        <div className="d-flex">
+          <RouteHandler data={route} />
+        </div>
+        <div className={cls.holder}>
+          <DynamicFilter
+            setSearch={setSearch}
+            setCategory={categHandler}
+            setPrice={setPrice}
+            setLocation={setLocation}
+            mostUse={mostUse}
+            categories={categories}
+          />
+          {userOfferDetatils.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">
               {userOfferDetatils?.map((offer, ix) => {
                 return (
@@ -199,35 +199,37 @@ const OrdersPage = () => {
                 );
               })}
             </div>
-          </div>
-          {/* Pagination [Holder] */}
-          <div className="container d-flex justify-content-center pt-4 mt-auto">
-            {/* Pagination [Number Navigate Holder] */}
-            <Stack>
-              <Pagination
-                dir="rtl"
-                showFirstButton={true}
-                showLastButton={true}
-                count={pagination}
-                page={parseInt(param?.num)}
-                onChange={getPageNumber}
-                size="large"
-              />
-            </Stack>
-          </div>
+          ) : (
+            <div
+              className="d-flex flex-column justify-content-center align-items-center w-100  "
+              style={{ height: "100vh " }}
+            >
+              <div
+                className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
+                style={{ width: "200px", height: "200px" }}
+              ></div>
+              <p className="mb-0 fLT-Bold-sD cLT-gray-text">
+                لا يوجد طلبــــات
+              </p>
+            </div>
+          )}
         </div>
-      ) : (
-        <div
-          className="d-flex flex-column justify-content-center align-items-center w-100  "
-          style={{ height: "100vh " }}
-        >
-          <div
-            className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-            style={{ width: "200px", height: "200px" }}
-          ></div>
-          <p className="mb-0 fLT-Bold-sD cLT-gray-text">لا يوجد طلبــــات</p>
+        {/* Pagination [Holder] */}
+        <div className="container d-flex justify-content-center pt-4 mt-auto">
+          {/* Pagination [Number Navigate Holder] */}
+          <Stack>
+            <Pagination
+              dir="rtl"
+              showFirstButton={true}
+              showLastButton={true}
+              count={pagination}
+              page={parseInt(param?.num)}
+              onChange={getPageNumber}
+              size="large"
+            />
+          </Stack>
         </div>
-      )}
+      </div>
     </>
   );
 };

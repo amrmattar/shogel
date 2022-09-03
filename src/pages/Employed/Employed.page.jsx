@@ -132,7 +132,7 @@ const Employed = () => {
       body.set("perPage", 20);
       body.set("pagination", true);
       body.set("search", true);
-      body.set("name", search);
+      body.set("fullname", search);
 
       body.set("category", categ);
       body.set("rate", rate);

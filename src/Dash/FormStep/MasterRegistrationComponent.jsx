@@ -40,7 +40,6 @@ const MasterRegistrationComponent = () => {
       {value.page > 3 && <StepperComp steps={first} activeStep={value?.page} />}
 
       {/* <StepperComp steps={first} activeStep={value?.page} /> */}
-
       {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
       {value.page === 2 || value?.accountType?.userKind === "undo" ? (
