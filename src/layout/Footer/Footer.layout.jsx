@@ -113,12 +113,12 @@ const Footer = () => {
               </div>
             </li>
             {/* تسجيل جديد */}
-            <li className="nav-item">
+            {/* <li className="nav-item">
                 <button disabled={user?.loggedIn} className="btn LT-btn-hover p-0 mb-3 cLT-white-text" onClick={() => setClick(!click)} >تسجيل جديد</button>
               <div className="d-none">
                 <AuthComponent clickMe={click} clickStatus={click} />
               </div>
-            </li>
+            </li> */}
             {/* قدم كشريك */}
             {/* <li className="nav-item">
               <NavLink

@@ -52,54 +52,96 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
         }
     }
     return (
-        <>
-            {/* Certificate [Title] */}
-            <div className='fLT-Regular-sB cLT-support2-text mb-3'>اللغة </div>
-            <Row className="mb-3 d-flex align-items-center gap-4  m-0">
-                {/* Certificate Input  [Section] */}
-                <Form.Group as={Col} md={5} className='px-0' >
-                    <Form.Control className={`${requireds ? 'uLT-bd-f-danger-sA' : 'uLT-bd-f-platinum-sA'} uLT-f-radius-sB cLT-main-text fLT-Regular-sB`} type='text' placeholder="اسم اللغة"
-                        onBlur={() => { setRequired(false) }}
-                        ref={languageRef}
-                        name="fLanguage"
-                        onChange={(e) => languageValue(e)}
-                        value={languageVal}
-                        required={lanSkillsData.fLanguage.length === 0 ? 'required' : ''}
-                    />
-                </Form.Group>
-                {/* Certificate Performance  [Section] */}
-                <Form.Group as={Col} md={4} className={`px-0 d-flex gap-3 h-100 ${rateRequireds && 'uLT-bd-f-danger-sA uLT-f-radius-sB p-3 '} `}
-                    onBlur={() => { setRateRequired(false) }}
-                    onFocus={() => { setRateRequired(false) }}
+      <>
+        {/* Certificate [Title] */}
+        <div className="fLT-Regular-sB cLT-support2-text mb-3">اللغة </div>
+        <Row className="mb-3 d-flex align-items-center gap-4  m-0">
+          {/* Certificate Input  [Section] */}
+          <Form.Group as={Col} md={5} className="px-0">
+            <Form.Control
+              className={`${
+                requireds ? "uLT-bd-f-danger-sA" : "uLT-bd-f-platinum-sA"
+              } uLT-f-radius-sB cLT-main-text fLT-Regular-sB`}
+              type="text"
+              placeholder="اسم اللغة"
+              onBlur={() => {
+                setRequired(false);
+              }}
+              ref={languageRef}
+              name="fLanguage"
+              onChange={(e) => languageValue(e)}
+              value={languageVal}
+              required={lanSkillsData.fLanguage.length === 0 ? "required" : ""}
+            />
+          </Form.Group>
+          {/* Certificate Performance  [Section] */}
+          <Form.Group
+            as={Col}
+            md={4}
+            className={`px-0 d-flex gap-3 h-100 ${
+              rateRequireds && "uLT-bd-f-danger-sA uLT-f-radius-sB p-3 "
+            } `}
+            onBlur={() => {
+              setRateRequired(false);
+            }}
+            onFocus={() => {
+              setRateRequired(false);
+            }}
+          >
+            <div className="fLT-Regular-sB cLT-support2-text  ">الكفاءة </div>
+            <PerformanceShared
+              type={type}
+              setLevelValue={setType}
+              skillsType={skillType}
+            />
+          </Form.Group>
+          {requireds && (
+            <div className="cLT-danger-text fLT-Regular-sA">
+              * please Fill Field
+            </div>
+          )}
+          {/* Certificate Show Input Value  [Section] */}
+          <div className="d-flex flex-column justify-content-center gap-3 px-0">
+            {lanSkillsData?.fLanguage?.map(({ skill, id, level_id }) => {
+              return (
+                <div
+                  className="d-flex align-items-center gap-3 uLT-f-radius "
+                  key={id}
                 >
-                    <div className='fLT-Regular-sB cLT-support2-text  '>الكفاءة </div>
-                    <PerformanceShared type={type} setLevelValue={setType} skillsType={skillType} />
-                </Form.Group>
-                {requireds && <div className='cLT-danger-text fLT-Regular-sA'>* please Fill Field</div>}
-                {/* Certificate Show Input Value  [Section] */}
-                <div className="d-flex flex-column justify-content-center gap-3 px-0">
-                    {lanSkillsData?.fLanguage?.map(({ skill, id, level_id }) => {
-                        return (
-                            <div className="d-flex align-items-center gap-3 uLT-f-radius " key={id} >
-                                <div className="d-flex align-items-center gap-3 uLT-f-radius uLT-bd-f-platinum-sA cLT-secondary-bg p-2">
-                                    <p className='mb-0 fLT-Regular-sB cLT-white-text'> {skill} </p>
-                                    <i className='iLT-Close-button-white iLT-sB uLT-img-contain uLT-click' onClick={() => { dispatch(deleteLanguage(id)) }}></i>
-                                </div>
-                                <div className="cLT-support2-text">{level_id}</div>
-                            </div>
-                        )
-                    })}
+                  <div className="d-flex align-items-center gap-3 uLT-f-radius uLT-bd-f-platinum-sA cLT-secondary-bg p-2">
+                    <p className="mb-0 fLT-Regular-sB cLT-white-text">
+                      {" "}
+                      {skill}{" "}
+                    </p>
+                    <i
+                      className="iLT-Close-button-white iLT-sB uLT-img-contain uLT-click"
+                      onClick={() => {
+                        dispatch(deleteLanguage(id));
+                      }}
+                    ></i>
+                  </div>
+                  <div className="cLT-support2-text">{level_id}</div>
                 </div>
-                {/* Add Certificates Skills [Button] */}
-                <div className="d-flex justify-content-end align-items-center px-0">
-                    <div className="uLT-f-radius-sB uLT-bd-f-secondary-sA uLT-click d-flex align-items-center justify-content-center gap-2 px-3 py-1">
-                        <p className='mb-0 fLT-Bold-sC cLT-secondary-text'>+</p>
-                        <ButtonShare onClick={(e) => langHandleClick(e)} innerText="اضف مهارة" textClasses="fLT-Regular-sD cLT-secondary-text px-0 py-0" btnClasses="px-0" />
-                    </div>
-                </div>
-            </Row>
-        </>
-    )
+              );
+            })}
+          </div>
+          {/* Add Certificates Skills [Button] */}
+          <div
+            onClick={(e) => langHandleClick(e)}
+            className="d-flex justify-content-end align-items-center px-0"
+          >
+            <div className="uLT-f-radius-sB uLT-bd-f-secondary-sA uLT-click d-flex align-items-center justify-content-center gap-2 px-3 py-1">
+              <p className="mb-0 fLT-Bold-sC cLT-secondary-text">+</p>
+              <ButtonShare
+                innerText="اضف مهارة"
+                textClasses="fLT-Regular-sD cLT-secondary-text px-0 py-0"
+                btnClasses="px-0"
+              />
+            </div>
+          </div>
+        </Row>
+      </>
+    );
 }
 
 export default FlancerLanguageSkillsComponent

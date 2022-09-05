@@ -139,7 +139,6 @@ const FlancerAdvsDetailsPage = () => {
     });
   };
   const sendReport = () => {
-    console.log(advsDataById);
     let data = { model: "ad" };
     API.post(`setting/report/${advsDataById?.id}`, data)
       .then((res) => {

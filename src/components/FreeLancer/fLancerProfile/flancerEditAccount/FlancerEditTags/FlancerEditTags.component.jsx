@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
+import { toast } from "react-toastify";
 import { getCategoryValue } from "../../../../../core/redux/reducers/CategoryReducer.core";
 import { getMessages } from "../../../../../core/redux/reducers/Messages/Messages.core";
 import { getRegisterCategoryValue } from "../../../../../core/redux/reducers/RegisterReducer/RegisterCategory.core";
@@ -91,6 +92,7 @@ const FlancerEditTagsComponent = ({
         );
       })
       .catch((err) => {
+        toast.error("error");
         dispatch(
           getMessages([
             {

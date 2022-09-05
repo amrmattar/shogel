@@ -15,7 +15,6 @@ import { getUpdateDataForm } from "../../../../../core/redux/reducers/UpdateProf
 
 const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
   const [userRole] = useSelector((state) => [state.userRole.userRole]);
-
   const userIsData = useMemo(() => {
     if (userProfileData) {
       return userProfileData;
@@ -56,30 +55,32 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
     nationality_number: "",
   });
   const [updateMobile, setUpdateMobile] = useState();
- const nationalIdHandler = useCallback(
-   (e) => {
-     const { name, value } = e.target;
-     return value.length < 36
-       ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
-       : null;
-   },
-   [setFormInput]
+  const nationalIdHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      return value.length < 36
+        ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
+        : null;
+    },
+    [setFormInput]
   );
-   const fullNameHandler = useCallback(
-     (e) => {
-       const { name, value } = e.target;
-       return value.length < 36
-         ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
-         : null;
-     },
-     [setFormInput]
-   );
+  const fullNameHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      return value.length < 36
+        ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
+        : null;
+    },
+    [setFormInput]
+  );
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((formInput) => ({ ...formInput, [name]: value }));
   };
   useEffect(() => {
     if (userIsData !== undefined) {
+      console.log(formInput.nationality_number, "b");
+      console.log(userProfileData.nationality_number, "a");
       const updateForm = {
         username: formInput.username
           ? formInput.username
@@ -100,6 +101,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
         mobile: updateMobile ? updateMobile : userProfileData?.mobile,
         gender_id: gender?.id ? gender?.id : userProfileData?.gender?.id,
       };
+      console.log(updateForm);
       dispatch(getUpdateDataForm(updateForm));
     }
   }, [
@@ -129,7 +131,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
             ? gender?.name
             : isProps.isProps.value
             ? isProps.isProps.value
-            : "loading"
+            : ""
         }
         onChange={fetchGender}
         getOptionLabel={(gender) => gender?.name}
@@ -150,7 +152,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
             ? jobName?.name
             : isProps.isProps.value
             ? isProps.isProps.value
-            : "loading"
+            : ""
         }
         onChange={fetchJobName}
         getOptionLabel={(jobname) => jobname?.name}
@@ -309,7 +311,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
               <Form.Group as={Col} sm={12} md={6} controlId="formGridJobName">
                 {/* Job Title [Label] */}
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
-                  الوصف المختصر 
+                  الوصف المختصر
                 </Form.Label>
                 {/* Job Title [Option]  */}
                 <div
