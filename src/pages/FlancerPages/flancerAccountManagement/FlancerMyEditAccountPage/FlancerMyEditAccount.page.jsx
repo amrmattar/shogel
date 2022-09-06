@@ -31,10 +31,7 @@ const FlancerMyEditAccountPage = ({
     state.messages,
   ]);
   useEffect(() => {
-    console.log("ss22");
-    API.get("coredata/category/list").then((res) => {
-      console.log(res, "ss22");
-    });
+    API.get("coredata/category/list").then((res) => {});
   }, []);
   const userLocation = useMemo(() => {
     if (personalData) {
@@ -117,6 +114,7 @@ const FlancerMyEditAccountPage = ({
           data={personalData}
           fileUpload={fileUploads}
           handleClick={onClick}
+      
           Sdelet={Sdelet}
         />
       </>

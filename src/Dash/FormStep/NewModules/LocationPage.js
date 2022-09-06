@@ -46,8 +46,9 @@ const IdPage = () => {
     form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
     form.append("gender_id", getClientData.gender);
     form.append("nationality_id", getClientData.nation.id);
+    form.append("nationality_number", getClientData.id);
     form.append("category", skillsIds);
-   getClientData.info?.length > 2 && form.append("info", getClientData.info);
+    getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
     form.append("media", getClientData.files);
     getClientData.img?.type && form.append("avatar", getClientData.img);

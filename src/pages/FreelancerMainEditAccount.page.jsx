@@ -7,6 +7,7 @@ import FlancerMyEditAccountPage from "./FlancerPages/flancerAccountManagement/Fl
 import { useParams } from "react-router-dom";
 import UserFeedBackShared from "../shared/UserFeedBack/UserFeedBack.shared";
 import { getMessages } from "../core/redux/reducers/Messages/Messages.core";
+import { toast } from "react-toastify";
 
 const FreelancerMainEditAccountPage = () => {
   const mySkill = new FormData();
@@ -95,8 +96,8 @@ const FreelancerMainEditAccountPage = () => {
     newfile.document?.forEach((docx, idx) => {
       return mySkill.append(`document[${idx}]`, docx);
     });
-    console.log(getAllUserUpdate.updateData, "ss");
     mySkill.append("email", getAllUserUpdate?.updateData.email);
+    mySkill.append("info", getAllUserUpdate?.updateData.info);
     mySkill.append("fullname", getAllUserUpdate?.updateData.fullname);
     getAllUserUpdate?.updateData.gender_id &&
       mySkill.append("gender_id", getAllUserUpdate?.updateData.gender_id);
@@ -148,6 +149,7 @@ const FreelancerMainEditAccountPage = () => {
         setUpdateLoading(false);
       })
       .catch((err) => {
+        toast.error("error occure");
         dispatch(
           getMessages([
             {

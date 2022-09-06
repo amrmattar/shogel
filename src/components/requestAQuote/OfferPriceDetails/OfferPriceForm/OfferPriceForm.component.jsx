@@ -22,6 +22,7 @@ const OfferPriceForm = () => {
     state.profileUpdate,
     state.messages,
   ]);
+
   const userLoginData = useMemo(async () => {
     try {
       const res = await userProfile._GET_ProfileByToken(
@@ -163,10 +164,7 @@ const OfferPriceForm = () => {
       return offerPrice.append(`images[${idx}]`, image);
     });
     offerPrice.set("name", formData.name);
-    offerPrice.set(
-      "description",
-      content ? content : recivedData?.description
-    );
+    offerPrice.set("description", content ? content : recivedData?.description);
     // offerPrice.set("time", formData.time);
     // offerPrice.set("type_work", formData.type_work);
     offerPrice.set("country_id", selectedCountry?.id);
