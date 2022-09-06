@@ -95,7 +95,6 @@ const FlancerEmployedListCard = ({ data }) => {
           </p>
         </div>
         {/* Card Divied */}
-        <div className="LT-employed-divied uLT-bd-b-platinum-sA"></div>
         {/* Card Amenties */}
         <div className="LT-employed-amenties">
           <div className="card-body amentiesWithLocation p-0 w-100">
