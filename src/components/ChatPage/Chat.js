@@ -92,7 +92,6 @@ function Chat() {
       setHistoryMessages(Mainsortingarr);
     }
   }, [messages, user, otherSideData]);
-  console.log(user, "a");
   const sendMessage = async (e) => {
     e.preventDefault();
     if (file?.type) {
@@ -118,7 +117,6 @@ function Chat() {
           console.log(e);
         });
     } else {
-      console.log(otherSideData);
       messagesRef.add({
         text: formValue,
         senderId: user.id,

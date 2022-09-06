@@ -69,6 +69,14 @@ const FreelancerMainEditAccountPage = () => {
       alert("file type not supported");
     }
   };
+  const deleteFiles = (e, file, indx) => {
+    setNames(filenames.filter((ele) => ele.name != file));
+    let arr = [...newfile];
+    arr.images.filter((ele) => ele.name != file);
+    arr.document.filter((ele) => ele.name != file);
+    arr.videos.filter((ele) => ele.name != file);
+    setFiles(arr);
+  };
   const postUpdate = () => {
     setUpdateLoading(true);
     dispatch(
@@ -87,6 +95,7 @@ const FreelancerMainEditAccountPage = () => {
     newfile.document?.forEach((docx, idx) => {
       return mySkill.append(`document[${idx}]`, docx);
     });
+    console.log(getAllUserUpdate.updateData, "ss");
     mySkill.append("email", getAllUserUpdate?.updateData.email);
     mySkill.append("fullname", getAllUserUpdate?.updateData.fullname);
     getAllUserUpdate?.updateData.gender_id &&
@@ -98,6 +107,11 @@ const FreelancerMainEditAccountPage = () => {
       "nationality_id",
       getAllUserUpdate?.updateData.nationality_id
     );
+    getAllUserUpdate?.updateData.nationality_number &&
+      mySkill.append(
+        "nationality_number",
+        getAllUserUpdate?.updateData.nationality_number
+      );
     getAllUserUpdate?.discription !== undefined &&
       mySkill.append("discription", getAllUserUpdate?.discription);
     getAllUserUpdate?.countriesID !== undefined &&
@@ -162,6 +176,7 @@ const FreelancerMainEditAccountPage = () => {
         updateLoading={updateLoading}
         handleClick={postUpdate}
         personalData={userData}
+        Sdelet={deleteFiles}
       />
     </div>
   );

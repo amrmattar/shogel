@@ -25,7 +25,6 @@ const AsideFreelancerPage = ({
     state.userFullData,
     state.messages,
   ]);
-  console.log(userDataByParam);
   // Get User Edit Profile Data By ID
   const [userProfileData, setEditProfileData] = useState();
 

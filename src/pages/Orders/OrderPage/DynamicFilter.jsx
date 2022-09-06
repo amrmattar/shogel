@@ -20,7 +20,6 @@ const DynamicFilter = ({
   setActive,
   setRateCount,
 }) => {
-  console.log(mostUse);
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>

@@ -27,7 +27,6 @@ const IdPage = () => {
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
-  console.log(getClientData.img?.type);
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);

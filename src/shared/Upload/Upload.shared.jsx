@@ -11,6 +11,7 @@ const Upload = ({
   isDrop,
   inputRef,
   fileArr,
+  Sdelet,
   handleDelete,
   isHaveData,
   changeStylrToAnotherComponnet,
@@ -103,7 +104,7 @@ const Upload = ({
             >
               <IoIosClose
                 style={{ cursor: "pointer" }}
-                onClick={(e) => handleDelete(e, file?.name, idx)}
+                onClick={(e) => Sdelet(e, file?.name, idx)}
               />
               <p style={{ margin: "0" }}>{file.name}</p>
               {/* <Progress

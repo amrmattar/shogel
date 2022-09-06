@@ -227,7 +227,6 @@ const OfferPriceForm = () => {
   };
   const [disable, setDisable] = useState(false);
   useEffect(() => {
-    console.log(getAllUserUpdate.category);
     if (
       formData.name.length > 2 &&
       content.length > 2 &&
