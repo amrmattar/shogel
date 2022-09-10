@@ -79,12 +79,11 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
   };
   useEffect(() => {
     if (userIsData !== undefined) {
-      console.log(formInput.nationality_number, "b");
-      console.log(userProfileData.nationality_number, "a");
       const updateForm = {
         username: formInput.username
           ? formInput.username
           : userProfileData?.username,
+        info: formInput.info ? formInput.info : userProfileData?.info,
         fullname: formInput.fullname
           ? formInput.fullname
           : userProfileData?.fullname,
@@ -101,7 +100,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
         mobile: updateMobile ? updateMobile : userProfileData?.mobile,
         gender_id: gender?.id ? gender?.id : userProfileData?.gender?.id,
       };
-      console.log(updateForm);
+
       dispatch(getUpdateDataForm(updateForm));
     }
   }, [
@@ -308,23 +307,24 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
             </Form.Group>
             {/* Job Title */}
             {userRole !== "2" && (
-              <Form.Group as={Col} sm={12} md={6} controlId="formGridJobName">
-                {/* Job Title [Label] */}
+              <Form.Group
+                as={Col}
+                sm={12}
+                md={6}
+                controlId="formGridUserName"
+                className="px-0"
+              >
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
                   الوصف المختصر
                 </Form.Label>
-                {/* Job Title [Option]  */}
-                <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-                >
-                  <JobSelect
-                    isProps={{
-                      value: userProfileData?.job_name_id?.name,
-                      selecName: data?.jobName,
-                    }}
-                    ref={refe}
-                  />
-                </div>
+                <Form.Control
+                  name="info"
+                  className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
+                  type="text"
+                  placeholder="وصف مختصر"
+                  onChange={(e) => fullNameHandler(e)}
+                  defaultValue={userIsData?.info}
+                />
               </Form.Group>
             )}
           </Row>

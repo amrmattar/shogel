@@ -292,13 +292,13 @@ const AdvertisingFormComponent = () => {
                 type="text"
                 placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
               />
-              {/* <div>
+              <div>
                 {errMessage?.name && (
                   <p className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                     {errMessage?.name}
                   </p>
                 )}
-              </div> */}
+              </div>
             </Form.Group>
           </div>
         </Row>

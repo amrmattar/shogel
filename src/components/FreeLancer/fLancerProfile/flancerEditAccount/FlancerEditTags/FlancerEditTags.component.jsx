@@ -44,10 +44,20 @@ const FlancerEditTagsComponent = ({
     }),
   };
 
+  const [profileTags, setProfileTags] = useState([]);
   const [selectedValue, setSelectedValue] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  useEffect(() => {
+    if (userProfileTags) {
+      setProfileTags(userProfileTags);
+      setSelectedValue(userProfileTags?.map((ele) => ele.id));
+    }
+  }, [userProfileTags]);
   const handleChange = (e) => {
-    setSelectedValue(e.map((x) => x.id));
+    setSelectedValue([
+      ...profileTags.map((ele) => ele.id),
+      ...e.map((x) => x.id),
+    ]);
     setSelectedTags(e.map((x) => x));
   };
   useEffect(() => {
@@ -71,38 +81,9 @@ const FlancerEditTagsComponent = ({
     const holderID = document.getElementById(id);
     holderID.remove();
   };
-
-  const handleDelete = (e) => {
-    dispatch(
-      getMessages({
-        messages: "جاري الحذف",
-        messageType: "warning",
-        messageClick: true,
-      })
-    );
-    deleteBasicData
-      ._Delete_Data(e)
-      .then((res) => {
-        dispatch(
-          getMessages({
-            messages: res.data.message,
-            messageType: "success",
-            messageClick: true,
-          })
-        );
-      })
-      .catch((err) => {
-        toast.error("error");
-        dispatch(
-          getMessages([
-            {
-              messages: err.response.data.message,
-              messageType: "error",
-              messageClick: true,
-            },
-          ])
-        );
-      });
+  const handleDelete = (id) => {
+    setProfileTags(profileTags.filter((ele) => ele.id != id));
+    setSelectedValue(selectedValue.filter((ele) => ele != id));
   };
   return (
     <div>
@@ -142,7 +123,7 @@ const FlancerEditTagsComponent = ({
           )}
         />
         <div className="d-flex gap-3 ">
-          {userProfileTags?.map((tag, ix) => {
+          {profileTags?.map((tag, ix) => {
             return (
               <div
                 key={tag?.id}
@@ -152,6 +133,7 @@ const FlancerEditTagsComponent = ({
               >
                 <div className="css-12jo7m5">{tag?.name}</div>
                 <div
+                  style={{ cursor: "pointer" }}
                   className="css-o833bd"
                   onClick={(e) => handleDelete(tag?.id)}
                 >

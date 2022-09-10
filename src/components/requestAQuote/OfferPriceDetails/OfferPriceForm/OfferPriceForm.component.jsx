@@ -22,6 +22,7 @@ const OfferPriceForm = () => {
     state.profileUpdate,
     state.messages,
   ]);
+
   const userLoginData = useMemo(async () => {
     try {
       const res = await userProfile._GET_ProfileByToken(
@@ -163,10 +164,7 @@ const OfferPriceForm = () => {
       return offerPrice.append(`images[${idx}]`, image);
     });
     offerPrice.set("name", formData.name);
-    offerPrice.set(
-      "description",
-      content ? content : recivedData?.description
-    );
+    offerPrice.set("description", content ? content : recivedData?.description);
     // offerPrice.set("time", formData.time);
     // offerPrice.set("type_work", formData.type_work);
     offerPrice.set("country_id", selectedCountry?.id);
@@ -275,14 +273,14 @@ const OfferPriceForm = () => {
                 type="text"
                 placeholder="مثال : احتاج معقب .. برمجة تطبيق .. ترميم ملحق .. حفار قبو"
               />
-              {/* {errMessage?.name && (
+              {errMessage?.name && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2"
-                  style={{ top: "90px" }}
+                  style={{ bottom: "-1rem" }}
                 >
                   {errMessage?.name}
                 </p>
-              )} */}
+              )}
             </Form.Group>
           </div>
         </Row>
@@ -301,14 +299,14 @@ const OfferPriceForm = () => {
           {/* <div className="text-start w-100 cLT-smoke-text">
             {getDescriptionLength} / {maxCharacters}
           </div> */}
-          {/* {errMessage?.description && (
+          {errMessage?.description && (
             <p
               className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-              style={{ bottom: "0px" }}
+              style={{ bottom: "-1rem" }}
             >
               {errMessage?.description}
             </p>
-          )} */}
+          )}
         </div>
         {/* Time And Type Of Work [Section] */}
         {/* <Row className="mb-1 flex-column m-0 pt-0">
@@ -568,14 +566,14 @@ const OfferPriceForm = () => {
               // tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
               //             `}
             />
-            {/* {errMessage?.category && (
-            <p
-              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-              style={{ bottom: "10px" }}
-            >
-              {errMessage?.category}
-            </p>
-          )} */}
+            {errMessage?.category && (
+              <p
+                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                style={{ bottom: "-1rem" }}
+              >
+                {errMessage?.category}
+              </p>
+            )}
 
             <p>
               اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال

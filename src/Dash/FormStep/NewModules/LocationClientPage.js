@@ -31,6 +31,7 @@ const LocationClientPage = () => {
     form.append("username", getClientData.username);
     form.append("email", getClientData.email);
     form.append("password", getClientData.password);
+    form.append("nationality_number ", getClientData.id);
     form.append("role_id", 2);
     form.append("country_id", selectedCountry.id);
     form.append("city_id", selectedCity.id);
@@ -38,7 +39,7 @@ const LocationClientPage = () => {
     getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
     form.append("document", getClientData.files);
-     getClientData.img?.type && form.append("avatar", getClientData.img);
+    getClientData.img?.type && form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {

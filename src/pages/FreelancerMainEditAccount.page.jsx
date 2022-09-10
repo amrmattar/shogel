@@ -7,6 +7,7 @@ import FlancerMyEditAccountPage from "./FlancerPages/flancerAccountManagement/Fl
 import { useParams } from "react-router-dom";
 import UserFeedBackShared from "../shared/UserFeedBack/UserFeedBack.shared";
 import { getMessages } from "../core/redux/reducers/Messages/Messages.core";
+import { toast } from "react-toastify";
 
 const FreelancerMainEditAccountPage = () => {
   const mySkill = new FormData();
@@ -70,12 +71,12 @@ const FreelancerMainEditAccountPage = () => {
     }
   };
   const deleteFiles = (e, file, indx) => {
+    let imgs = newfile.images.filter((ele) => ele.name != file);
+    let docs = newfile.document.filter((ele) => ele.name != file);
+    let vids = newfile.videos.filter((ele) => ele.name != file);
     setNames(filenames.filter((ele) => ele.name != file));
-    let arr = [...newfile];
-    arr.images.filter((ele) => ele.name != file);
-    arr.document.filter((ele) => ele.name != file);
-    arr.videos.filter((ele) => ele.name != file);
-    setFiles(arr);
+
+    setFiles({ images: imgs, videos: vids, document: docs });
   };
   const postUpdate = () => {
     setUpdateLoading(true);
@@ -95,8 +96,8 @@ const FreelancerMainEditAccountPage = () => {
     newfile.document?.forEach((docx, idx) => {
       return mySkill.append(`document[${idx}]`, docx);
     });
-    console.log(getAllUserUpdate.updateData, "ss");
     mySkill.append("email", getAllUserUpdate?.updateData.email);
+    mySkill.append("info", getAllUserUpdate?.updateData.info);
     mySkill.append("fullname", getAllUserUpdate?.updateData.fullname);
     getAllUserUpdate?.updateData.gender_id &&
       mySkill.append("gender_id", getAllUserUpdate?.updateData.gender_id);
@@ -148,6 +149,7 @@ const FreelancerMainEditAccountPage = () => {
         setUpdateLoading(false);
       })
       .catch((err) => {
+        toast.error("error occure");
         dispatch(
           getMessages([
             {

@@ -76,7 +76,7 @@ const Upload = ({
                 id="responseUploadData"
                 className="uLT-click"
                 key={idx}
-                onClick={(e) => handleDelete(e, oldFile?.file, oldFile?.id)}
+                onClick={(e) => handleDelete(oldFile?.id)}
               >
                 <Progress
                   name={oldFile.file.slice(62)}
