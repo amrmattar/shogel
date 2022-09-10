@@ -137,18 +137,18 @@ const DersciptionPage = () => {
         <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
           <div className="">
             <ButtonShare
-              onClick={getNext}
-              type={!validation}
-              loading={nextLoading}
-              innerText={"التـــالى"}
+              onClick={getBack}
+              innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
             <ButtonShare
-              onClick={getBack}
-              innerText={"رجــــوع"}
+              onClick={getNext}
+              type={!validation}
+              loading={nextLoading}
+              innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />

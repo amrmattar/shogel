@@ -120,7 +120,7 @@ const FlancerAdvsListPage = () => {
 
       body.set("category", categ);
 
-      body.set("rate_count", rateCount);
+      // body.set("rate_count", rateCount);
       body.set("rate", rate);
       body.set("available", active);
       body.set("location", location);

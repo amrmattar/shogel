@@ -105,7 +105,6 @@ const OfferPriceForm = () => {
 
   const inputRef = useRef();
   const backButton = useRef();
-
   const [newfile, setFiles] = useState({ images: [], videos: [] });
   const [filenames, setNames] = useState([]);
   const fileHandler = (files) => {
@@ -417,14 +416,14 @@ const OfferPriceForm = () => {
                 getOptionValue={(country) => country?.id}
               />
             </div>
-            {/* {errMessage?.country_id && (
+            {errMessage?.country_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
               >
                 {errMessage?.country_id}
               </p>
-            )} */}
+            )}
           </Form.Group>
           {/* State [Section] */}
           <Form.Group as={Col} md={6} className="mb-3 position-relative">
@@ -441,14 +440,14 @@ const OfferPriceForm = () => {
                 getOptionValue={(city) => city?.id}
               />
             </div>
-            {/* {errMessage?.city_id && (
+            {errMessage?.city_id && (
               <p
                 className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                 style={{ bottom: "-27px" }}
               >
                 {errMessage?.city_id}
               </p>
-            )} */}
+            )}
           </Form.Group>
         </Row>
         <Row className="d-flex align-items-center">
@@ -469,14 +468,14 @@ const OfferPriceForm = () => {
                 getOptionValue={(country) => country?.id}
               />
             </div>
-            {/* {errMessage?.country_id && (
+            {errMessage?.country_id && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.country_id}
                 </p>
-              )} */}
+              )}
           </Form.Group>
           {/* State [Section] */}
           <Form.Group as={Col} md={6} className="mb-3 position-relative">
@@ -493,14 +492,14 @@ const OfferPriceForm = () => {
                 getOptionValue={(city) => city?.id}
               />
             </div>
-            {/* {errMessage?.city_id && (
+            {errMessage?.city_id && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                  style={{ bottom: "-27px" }}
+                  style={{ bottom: "27px" }}
                 >
                   {errMessage?.city_id}
                 </p>
-              )} */}
+              )}
           </Form.Group>
         </Row>
         {/* State Of Location Show Only Type Of Work === Offline */}

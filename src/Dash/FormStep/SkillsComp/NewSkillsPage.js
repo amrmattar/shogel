@@ -181,6 +181,9 @@ const SkillsStep = () => {
           </div>
         </div>
       </div>
+      <button onClick={getBack} className={cls.back}>
+        رجوع
+      </button>
       <button
         onClick={() => value.jumpPage(5)}
         disabled={!chosenSubs[0]}
@@ -188,9 +191,6 @@ const SkillsStep = () => {
       >
         {" "}
         التالي
-      </button>
-      <button onClick={getBack} className={cls.back}>
-        رجوع
       </button>
     </div>
   );
