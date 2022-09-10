@@ -206,7 +206,7 @@ const LocationClientPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                البلد<span className="cLT-danger-text">*</span>
+                البلد الاقامه<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -234,7 +234,7 @@ const LocationClientPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المدينة<span className="cLT-danger-text">*</span>
+                المدينة الاقامه<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* State [Option]  */}
               <div

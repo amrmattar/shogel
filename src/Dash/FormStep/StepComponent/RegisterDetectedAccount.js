@@ -76,6 +76,7 @@ const RegisterDetectedAccount = (props) => {
                 {" "}
               </div>
             </i>
+            <img src={Logo2} />
             <p
               className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-account-title"
               name="client"
@@ -83,7 +84,6 @@ const RegisterDetectedAccount = (props) => {
               {" "}
               حســاب مستخدم
             </p>
-            <img src={Logo2} />
           </button>
           <button
             onClick={() => handleChangeScreen()}
@@ -101,6 +101,7 @@ const RegisterDetectedAccount = (props) => {
               className={` LT-freelancer-icon iLT-freelancer-icon uLT-img-contain `}
               name="freelancer"
             ></i>
+            <img src={Logo} />
             <p
               className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
               name="freelancer"
@@ -108,7 +109,6 @@ const RegisterDetectedAccount = (props) => {
               {" "}
               حســاب مشتغل
             </p>
-            <img src={Logo} />
           </button>
         </div>
         <div style={{ width: "30%" }}>
