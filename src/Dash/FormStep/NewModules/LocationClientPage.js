@@ -206,7 +206,7 @@ const LocationClientPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                البلد<span className="cLT-danger-text">*</span>
+                البلد الاقامه<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -234,7 +234,7 @@ const LocationClientPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المدينة<span className="cLT-danger-text">*</span>
+                المدينة الاقامه<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -265,18 +265,18 @@ const LocationClientPage = () => {
         <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
           <div className="">
             <ButtonShare
-              onClick={(e) => getNext(e)}
-              type={!validation}
-              loading={nextLoading}
-              innerText={"تسجيل"}
+              onClick={getBack}
+              innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
             <ButtonShare
-              onClick={getBack}
-              innerText={"رجــــوع"}
+              onClick={(e) => getNext(e)}
+              type={!validation}
+              loading={nextLoading}
+              innerText={"تسجيل"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />

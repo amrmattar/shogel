@@ -80,6 +80,7 @@ const RegisterDetectedFreelancerAccount = () => {
                 {" "}
               </div>
             </i>
+            <img src={Logo4} />
             <p
               className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-account-title"
               name="worker"
@@ -87,7 +88,6 @@ const RegisterDetectedFreelancerAccount = () => {
               {" "}
               حســاب فرد
             </p>
-            <img src={Logo4} />
           </button>
           <button
             style={{
@@ -103,6 +103,7 @@ const RegisterDetectedFreelancerAccount = () => {
               className={` LT-freelancer-icon iLT-freelancer-icon uLT-img-contain `}
               name="company"
             ></i>
+            <img src={Logo3} />
             <p
               className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
               name="company"
@@ -110,8 +111,6 @@ const RegisterDetectedFreelancerAccount = () => {
               {" "}
               حســاب شركة
             </p>
-
-            <img src={Logo3} />
           </button>
         </div>
         <div style={{ width: "30%" }}>

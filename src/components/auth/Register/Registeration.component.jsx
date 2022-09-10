@@ -103,24 +103,24 @@ const RegisterationComponent = ({
     nationalID: "",
     commercialRegister: "",
   });
-     const nationalIdHandler = useCallback(
-       (e) => {
-         const { name, value } = e.target;
-         return value.length < 11
-           ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
-           : null;
-       },
-       [setFormInput]
-     );
-     const fullNameHandler = useCallback(
-       (e) => {
-         const { name, value } = e.target;
-         return value.length < 36
-           ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
-           : null;
-       },
-       [setFormInput]
-     );
+  const nationalIdHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      return value.length < 11
+        ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
+        : null;
+    },
+    [setFormInput]
+  );
+  const fullNameHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      return value.length < 36
+        ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
+        : null;
+    },
+    [setFormInput]
+  );
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -181,7 +181,7 @@ const RegisterationComponent = ({
   function CountrySelect(isProps = {}, ref) {
     return (
       <Select
-        placeholder="البلد"
+        placeholder=" بلد الاقامه"
         ref={refe}
         options={isProps.isProps.location}
         defaultInputValue={
@@ -198,7 +198,7 @@ const RegisterationComponent = ({
   function CitySelect(isProps = {}, ref) {
     return (
       <Select
-        placeholder="المدينة"
+        placeholder=" مدينه الاقامه"
         ref={refe}
         options={isProps.isProps.location}
         defaultInputValue={
