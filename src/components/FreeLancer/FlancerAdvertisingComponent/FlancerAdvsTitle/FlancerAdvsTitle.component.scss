@@ -1,7 +1,12 @@
-.LT-advsTitle-size {
-  font-size: 54px;
-  font-family: "Cairo-Bold";
-  @media screen and (max-width: 430px) {
-    font-size: 32px;
-  }
+.homeTilteGreen {
+  font: normal normal normal 40px/53px El Messiri;
+  letter-spacing: 0px;
+  color: #1eaaad;
+  opacity: 1;
+}
+.homeTitleBlack {
+  font: normal normal bold 56px/105px Cairo;
+  letter-spacing: 0px;
+  color: #37383b;
+  opacity: 1;
 }

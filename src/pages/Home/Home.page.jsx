@@ -122,30 +122,7 @@ const Home = () => {
       <Divider spaceSize="py-5" />
       <section className="container-md px-0 text-center ">
         <CategoryTitleComponent data={sectionNum} />
-        {sectionThreeData?.image?.length !== 0 ? (
-          <section className="LT-card-grid-holder ">
-            {sectionThreeData?.image?.map((category, ix) => {
-              return (
-                <CategoryListComponent
-                  ix={ix}
-                  iconName={category.iconName}
-                  categoryName={category.categoryName}
-                  key={ix}
-                />
-              );
-            })}
-          </section>
-        ) : (
-          <div className="d-flex flex-column justify-content-center align-items-center w-100">
-            <div
-              className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-              style={{ width: "200px", height: "200px" }}
-            ></div>
-            <p className="mb-0 fLT-Bold-sD cLT-gray-text">
-              لا يتوافر اشغال حاليا
-            </p>
-          </div>
-        )}
+      
       </section>
       <Divider spaceSize="py-5" />
       <section className="container-md d-flex flex-column px-2 px-sm-3 px-md-4 ">
