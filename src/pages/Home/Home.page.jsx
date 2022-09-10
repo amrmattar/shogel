@@ -166,7 +166,10 @@ const Home = () => {
         </section>
         <Divider spaceSize="py-4" />
         <section className="d-flex w-100 px-0 justify-content-center align-items-center ">
-          <NavLink to={sectionFourData?.url} className="shadow uLT-f-radius-sB">
+          <NavLink
+            to={"/advertising/page=1"}
+            className="shadow uLT-f-radius-sB"
+          >
             <ButtonShare
               btnClasses="cLT-secondary-bg px-4 uLT-f-radius-sB py-3"
               textClasses="px-4 cLT-white-text fLT-Regular-sC"

@@ -15,12 +15,20 @@ const FlancerBusinessPhotosComponent = ({
 }) => {
   const inputRef = useRef();
   const [files, setFiles] = useState([]);
+  /////////////////////////////////////////////////
+
+  const handleDelete = (id) => {
+    deleteBasicData
+      ._Delete_Data(id)
+      .then((res) => {
+        setFiles(files.filter((x) => x.id != id));
+      })
+      .catch((e) => {});
+  };
+  /////////////////////////////////////////////////////////
   useEffect(() => {
     setFiles(data?.document);
   }, [data]);
-  const handleDelete = (id) => {
-    setFiles(files.filter((x) => x.id != id));
-  };
   const filePicker = (e) => {
     inputRef.current.click();
   };

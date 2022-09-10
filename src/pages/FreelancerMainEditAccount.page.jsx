@@ -71,12 +71,12 @@ const FreelancerMainEditAccountPage = () => {
     }
   };
   const deleteFiles = (e, file, indx) => {
+    let imgs = newfile.images.filter((ele) => ele.name != file);
+    let docs = newfile.document.filter((ele) => ele.name != file);
+    let vids = newfile.videos.filter((ele) => ele.name != file);
     setNames(filenames.filter((ele) => ele.name != file));
-    let arr = [...newfile];
-    arr.images.filter((ele) => ele.name != file);
-    arr.document.filter((ele) => ele.name != file);
-    arr.videos.filter((ele) => ele.name != file);
-    setFiles(arr);
+
+    setFiles({ images: imgs, videos: vids, document: docs });
   };
   const postUpdate = () => {
     setUpdateLoading(true);

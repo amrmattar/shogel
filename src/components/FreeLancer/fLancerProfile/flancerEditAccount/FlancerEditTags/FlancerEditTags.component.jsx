@@ -48,8 +48,10 @@ const FlancerEditTagsComponent = ({
   const [selectedValue, setSelectedValue] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   useEffect(() => {
-    setProfileTags(userProfileTags);
-    setSelectedValue(userProfileTags?.map((ele) => ele.id));
+    if (userProfileTags) {
+      setProfileTags(userProfileTags);
+      setSelectedValue(userProfileTags?.map((ele) => ele.id));
+    }
   }, [userProfileTags]);
   const handleChange = (e) => {
     setSelectedValue([
