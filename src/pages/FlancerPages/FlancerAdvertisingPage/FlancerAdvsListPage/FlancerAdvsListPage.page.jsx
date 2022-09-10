@@ -21,7 +21,6 @@ import Helmet from "react-helmet";
 import { pageTitle } from "../../../../core/services/PageTitleServices/PageTitleServices.core";
 import { useSelector } from "react-redux";
 import DynamicFilter from "../../../Orders/OrderPage/DynamicFilter";
-import RouteHandler from "../../../Orders/OrderPage/RoteHandler";
 import { API } from "../../../../enviroment/enviroment/enviroment";
 const categories = [
   {
@@ -72,7 +71,6 @@ const FlancerAdvsListPage = () => {
   ]);
 
   // Todo Block Of Get All Advertising Form
-  const [route, setRoutes] = useState(["الاعلانات", "برمجة", "حاسب"]);
 
   const [currentPage, setCurrentPage] = useState(null);
   const [userAdvsDetatils, setUserAdvsDetatils] = useState();
@@ -183,7 +181,6 @@ const FlancerAdvsListPage = () => {
 
       <div className={cls.container}>
         <div className="d-flex">
-          <RouteHandler data={route} />
         </div>
         <div className={cls.holder}>
           <DynamicFilter

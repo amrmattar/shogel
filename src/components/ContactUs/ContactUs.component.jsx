@@ -142,10 +142,9 @@ const ContactUs = ({ data }) => {
         <section className="col-12 col-lg px-0 px-lg-4 d-flex flex-column justify-content-center ">
           {/* Contact Us Title [Holder] */}
           <section className="col-12 pb-4 text-end px-0 mt-4 mt-lg-0">
-            <p
-              className=""
-              dangerouslySetInnerHTML={{ __html: sectionFiveData?.title }}
-            ></p>
+            <p className={"homeTilteGreen"}>معلومات</p>
+            <p className={"homeTitleBlack"}>نحن نفضل ان نسمع منك؟</p>
+
             <i className="iLT-contacUs-two-line iLT-sD uLT-img-contain py-4 px-5"></i>
           </section>
           {/* Contact Us Form [Holder] */}

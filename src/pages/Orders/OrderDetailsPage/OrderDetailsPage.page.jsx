@@ -32,6 +32,7 @@ const OrderDetailsPage = () => {
   //  Use MEMO Function To Store Whte API Return Advertising List Data
   const [offerPriceTaskData, setOfferPriceTaskData] = useState();
   const [refreshTasks, setRefreshTasks] = useState(false);
+
   const offerDataById = useCallback(() => {
     return userOfferPrice
       ._GET_OffersPriceTaskByID(param.id)
@@ -177,6 +178,7 @@ const OrderDetailsPage = () => {
         type={messages?.messageType}
         clickMe={messages?.messageClick}
       />
+
       <div className="d-flex flex-column flex-lg-row px-3 gap-3 px-lg-0 container-lg">
         <div className="w-100">
           {/* Order Details [Holder] */}

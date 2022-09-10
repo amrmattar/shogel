@@ -15,7 +15,6 @@ import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.sha
 import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.core";
 import { API } from "../../../../enviroment/enviroment/enviroment";
 import { toast } from "react-toastify";
-import RouteHandler from "../../../Orders/OrderPage/RoteHandler";
 import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";
@@ -56,7 +55,6 @@ const FlancerAdvsDetailsPage = () => {
   const [mobileCopy, setCopyMobile] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [urlCopy, setCopyUrl] = useState(false);
-  const [route, setRoutes] = useState([" اعلانات", "برمجة", "تصميم مواقع"]);
 
   const location = useLocation();
   const param = useParams();
@@ -190,7 +188,6 @@ const FlancerAdvsDetailsPage = () => {
 
       <div className="mb-3 container-md px-2 px-sm-3 px-md-4">
         <div className="d-flex my-3">
-          <RouteHandler data={route} />
         </div>
         {/* List Card Row [Holder] */}
         <div className="LT-advsDetails-grid cLT-white-bg uLT-f-radius-sB ">

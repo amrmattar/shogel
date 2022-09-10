@@ -6,7 +6,7 @@ import TextEditorShared from "../../../shared/TextEditor/TextEditor.shared";
 import { Col, Form, Row } from "react-bootstrap";
 import UserFeedBackShared from "../../../shared/UserFeedBack/UserFeedBack.shared";
 import AuthComponent from "../../auth/Auth.component";
-import "./OfferPriceInfo.component.scss";
+import cls from"./OfferPriceInfo.component.module.scss";
 const OfferPriceInfo = ({ data }) => {
   const [checkLogin, messages] = useSelector((state) => [
     state.authentication.loggedIn,
@@ -69,7 +69,7 @@ const OfferPriceInfo = ({ data }) => {
       cancel = true;
     };
   }, [handleSectionOne]);
-
+  console.log(sectionTwoData);
   return (
     <>
       <UserFeedBackShared
@@ -81,17 +81,25 @@ const OfferPriceInfo = ({ data }) => {
         {/* Offer Price [Title] */}
         <div className="col-12 text-center px-0 pb-4">
           <p
-            className="m-0 cLT-main-text LT-offerPrice-title-size"
+            className={cls.title}
             dangerouslySetInnerHTML={{ __html: sectionTwoData?.title }}
           ></p>
           <i className="iLT-offerPrice-one-line iLT-sD uLT-img-contain p-4"></i>
         </div>
         {/* Offer Price [Sub Title Content] */}
         <div className="col-12 col-lg-6 px-0 d-flex flex-column justify-content-center align-items-start gap-3 py-3 ps-md-4">
-          <p
-            className="cLT-gray-text fLT-Regular-sD text-ellipsis"
-            dangerouslySetInnerHTML={{ __html: sectionTwoData?.decription }}
-          ></p>
+          <p className={cls.title1}>معلومات</p>
+          <p className={cls.title2}>طلب عرض سعر</p>
+          <i className="iLT-contacUs-two-line iLT-sD uLT-img-contain py-4 px-5"></i>
+
+          <p className={cls.title3}>
+            لتبسيط نجاحك في العمل والحياة الأفضل لكل ميزانية ابحث عن خدمات عالية
+            الجودة في كل نقطة سعر. لا توجد أسعار بالساعة ، فقط تسعير قائم على
+            المشروع. جودة العمل تتم بسرعة ابحث عن المستقل المناسب لبدء العمل على
+            مشروعك في غضون دقائق بحث عن المستقل المناسب لبدء العمل على مشروعك في
+            غضون دقائق عرف دائمًا ما ستدفعه مقدمًا. لن يتم تحرير دفعتك حتى توافق
+            على العمل
+          </p>
         </div>
         {/* Offer Price Info [Holder] */}
         <div className="col-12 col-lg-6 d-flex flex-column justify-content-center cLT-secondary-opacity-3 uLT-f-radius-sB p-3 p-md-4">

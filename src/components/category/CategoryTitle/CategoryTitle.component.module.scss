@@ -1,0 +1,33 @@
+.main {
+  background-color: white;
+  width: 100%;
+  .title1 {
+    text-align: center;
+    font: normal normal normal 40px/53px El Messiri;
+    letter-spacing: 0px;
+    color: #1eaaad;
+    opacity: 1;
+  }
+  .title2 {
+   
+    font: normal normal bold 56px/105px Cairo;
+    letter-spacing: 0px;
+    color: #37383b;
+    opacity: 1;
+  }
+  .iconSec {
+    display: flex;
+    justify-content: space-between;
+    .iconHolder {
+      margin: 10px;
+      img {
+        height: 13rem;
+      }
+      p {
+        margin: 1rem 0 0 0;
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+    }
+  }
+}

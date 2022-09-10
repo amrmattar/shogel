@@ -8,7 +8,6 @@ import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
 import cls from "./OrderPage.module.scss";
 import DynamicFilter from "./DynamicFilter";
-import RouteHandler from "./RoteHandler";
 import { API } from "../../../enviroment/enviroment/enviroment";
 const categories = [
   {
@@ -60,7 +59,6 @@ const OrdersPage = () => {
   ]);
   const [currentPage, setCurrentPage] = useState(null);
   const [userOfferDetatils, setUserOfferDetatils] = useState();
-  const [route, setRoutes] = useState(["الطلبات", "برمجة", "حاسب"]);
 
   //  Use MEMO Function To Store Whte API Return Advertising List Data
   const [price, setPrice] = useState([]);
@@ -160,7 +158,6 @@ const OrdersPage = () => {
     <>
       <div className={cls.container}>
         <div className="d-flex">
-          <RouteHandler data={route} />
         </div>
         <div className={cls.holder}>
           <DynamicFilter
