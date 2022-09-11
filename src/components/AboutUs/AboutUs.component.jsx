@@ -71,7 +71,7 @@ const AboutUs = ({ data }) => {
       <>
         <section
           className="imLT-aboutUs-ima~ge uLT-img-cover cLT-white-text position-relative"
-          style={{ zIndex: "1" }}
+          style={{ zIndex: "1", height: "100%" }}
         >
           <img
             src={sectionOneData?.image}

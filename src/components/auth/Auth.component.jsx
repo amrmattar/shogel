@@ -41,26 +41,32 @@ const AuthComponent = ({ clickMe, clickStatus }) => {
     <div className="">
       <button
         ref={elementRef}
-        onClick={()=>navigate("/register")}
+        onClick={() => navigate("/register")}
         type="button"
         style={{
           border: "0",
-          height: "45px",
-          width: "161px",
+          height: "40px",
+          width: "130px",
           borderRadius: "9px",
           margin: "0 0 0 1rem",
           backgroundColor: "#1EAAAD",
         }}
       >
-        <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">انضم لنا </p>
+        <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">كن مشتغل </p>
       </button>
       <button
         ref={elementRef}
         onClick={() => handleLogin()}
         type="button"
-        className="btn cLT-main-bg py-2 px-0 px-lg-4 uLT-f-radius-sB"
+        className=" uLT-f-radius-sB"
+        style={{
+          height: "40px",
+          border: "0",
+          color: "#1EAAAD",
+          backgroundColor: "#fff",
+        }}
       >
-        <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">تسجيل الدخول</p>
+        <p className="mb-0  px-2  fLT-Regular-sC">تسجيل الدخول</p>
       </button>
       {loginOpen && (
         <LoginPage

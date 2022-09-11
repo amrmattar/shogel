@@ -131,7 +131,7 @@ const Navbar = () => {
             sx={{
               display: { xs: "none", md: "flex" },
               width: "116px",
-              height: "47px",
+              height: "40px",
             }}
           >
             {/* Main Logo [Shoghl] */}

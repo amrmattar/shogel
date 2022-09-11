@@ -41,17 +41,15 @@ const Home = () => {
     },
   ];
   const [sectionNum, setSectionNum] = useState();
-  const dispatch = useDispatch(
-    
-  )
-    const fotterStateHandler = () => {
-      dispatch(ChangeFotterState(true));
-    };
-   
-    useEffect(() => {
-      let cancel = false;
-      if (cancel) return;
-      fotterStateHandler();
+  const dispatch = useDispatch();
+  const fotterStateHandler = () => {
+    dispatch(ChangeFotterState(true));
+  };
+
+  useEffect(() => {
+    let cancel = false;
+    if (cancel) return;
+    fotterStateHandler();
     homePages._GET_HomePagesSections(1).then((res) => {
       setSectionNum(res.data?.data);
     });
@@ -112,7 +110,12 @@ const Home = () => {
   }, [userAdvsDetatils, listOfUsersAdvs]);
   return (
     <>
-      <section className="container-fluid cLT-main-bg px-0 text-center LT-aboutUs-holder">
+      <section
+        className="container-fluid cLT-main-bg px-0 text-center LT-aboutUs-holder"
+        style={{
+          height: "500px",
+        }}
+      >
         <AboutUs data={sectionNum} />
       </section>
       <section className="container-fluid container-lg px-0">
@@ -122,7 +125,6 @@ const Home = () => {
       <Divider spaceSize="py-5" />
       <section className="container-md px-0 text-center ">
         <CategoryTitleComponent data={sectionNum} />
-      
       </section>
       <Divider spaceSize="py-5" />
       <section className="container-md d-flex flex-column px-2 px-sm-3 px-md-4 ">

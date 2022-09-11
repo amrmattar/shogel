@@ -146,32 +146,33 @@ const IdPage = () => {
           </div>
 
           <Row className="mb-4 gap-3 two row">
-            <Form.Group>
-              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                الجنسية<span className="cLT-danger-text">*</span>
-              </Form.Label>
-              {/* State [Option]  */}
-              <div
-                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+            <FormControl>
+              <FormLabel
+                style={{
+                  color: "black",
+                  fontSize: "1.4rem",
+                  margin: "0 1rem 0 0",
+                }}
+                id="demo-row-radio-buttons-group-label"
               >
-                <Select
-                  value={getClientData.nation?.id ? getClientData.nation : ""}
-                  placeholder="سعودي"
-                  options={nations}
-                  onChange={value.setDataDetails("nation")}
-                  getOptionLabel={(city) => city?.name}
-                  getOptionValue={(city) => city?.id}
-                />
-              </div>
-              {/* {errMessage?.city_id && (
-              <p
-                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                style={{ bottom: "-27px" }}
+                النوع
+              </FormLabel>
+              <RadioGroup
+                style={{ gap: "5rem" }}
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="row-radio-buttons-group"
+                onChange={value.setDataDetails("gender")}
               >
-                {errMessage?.city_id}
-              </p>
-            )} */}
-            </Form.Group>
+                {gender.map((ele) => (
+                  <FormControlLabel
+                    value={ele.id}
+                    control={<Radio style={{ color: "#1EAAAD" }} />}
+                    label={ele.name}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
             <Form.Group>
               {value?.accountType?.userKind !== "company" ? (
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
@@ -198,6 +199,33 @@ const IdPage = () => {
                 )} */}
             </Form.Group>
             <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                الجنسية<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={getClientData.nation?.id ? getClientData.nation : ""}
+                  placeholder="سعودي"
+                  options={nations}
+                  onChange={value.setDataDetails("nation")}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {/* {errMessage?.city_id && (
+              <p
+                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                style={{ bottom: "-27px" }}
+              >
+                {errMessage?.city_id}
+              </p>
+            )} */}
+            </Form.Group>
+
+            <Form.Group>
               <Upload
                 inputRef={inputRef}
                 isDrop={fileHandler}
@@ -223,33 +251,6 @@ const IdPage = () => {
                 )} */}
             </Form.Group>
           </Row>
-          <FormControl>
-            <FormLabel
-              style={{
-                color: "black",
-                fontSize: "1.4rem",
-                margin: "0 1rem 0 0",
-              }}
-              id="demo-row-radio-buttons-group-label"
-            >
-              النوع
-            </FormLabel>
-            <RadioGroup
-              style={{ gap: "5rem" }}
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              onChange={value.setDataDetails("gender")}
-            >
-              {gender.map((ele) => (
-                <FormControlLabel
-                  value={ele.id}
-                  control={<Radio style={{ color: "#1EAAAD" }} />}
-                  label={ele.name}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
         </div>
         <div className="d-flex align-items-center justify-content-around gap-4">
           <div className="">
