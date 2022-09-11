@@ -56,6 +56,7 @@ const TextEditorShared = ({
       <div id="toolbar"></div>
       <div className="w-100 " dir="rtl">
         <ReactQuill
+          style={{ maxWidth: "100%", overflow: "hidden" }}
           className="h-100 w-100 inpBG "
           onKeyDown={checkCharacterCount}
           theme="snow"

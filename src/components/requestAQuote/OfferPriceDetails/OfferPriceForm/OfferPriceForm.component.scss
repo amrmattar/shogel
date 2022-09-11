@@ -60,3 +60,17 @@
     width: 80%;
   }
 }
+.locationStateHandler {
+  h5 {
+    font-size: 1rem;
+    color: #0d4493;
+  }
+  p {
+    margin: 0 0 0 10px;
+  }
+  span {
+    cursor: pointer;
+    color: blue;
+    border-bottom: 1px solid blue;
+  }
+}

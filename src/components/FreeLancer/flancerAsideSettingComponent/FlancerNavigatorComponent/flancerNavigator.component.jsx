@@ -21,6 +21,15 @@ const FlancerNavigatorComponent = () => {
       name: "my-order",
     },
     {
+      iconName: "iLT-my-order",
+      iconNameMain: "iLT-my-order-main",
+      innerText: "طلبات العملاء",
+      // id: "hireMeRequests",
+      // toggle: "pill",
+      to: "#pills-profile",
+    },
+
+    {
       iconName: "iLT-my-advs",
       iconNameMain: "iLT-my-advs-main",
       innerText: "إعلاناتي",

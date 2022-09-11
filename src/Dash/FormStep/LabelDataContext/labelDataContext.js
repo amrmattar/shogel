@@ -66,7 +66,10 @@ export const LabelProvider = (props) => {
       ? event.target.value.length < 11 &&
         setlabelInfo({
           ...labelInfo,
-          clientView: { ...labelInfo.clientView, [prop]: event.target.value },
+          clientView: {
+            ...labelInfo.clientView,
+            [prop]: event.target.value.replace(/[^0-9٠-٩]/gi, ""),
+          },
         })
       : prop == "nation"
       ? setlabelInfo({

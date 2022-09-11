@@ -15,6 +15,7 @@ import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.sha
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 import { userProfile } from "../../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
+import LocationHandler from "./LocationHandler";
 
 const OfferPriceForm = () => {
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
@@ -107,6 +108,7 @@ const OfferPriceForm = () => {
   const backButton = useRef();
   const [newfile, setFiles] = useState({ images: [], videos: [] });
   const [filenames, setNames] = useState([]);
+  const [locationState, setLocationState] = useState(false);
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
@@ -398,110 +400,7 @@ const OfferPriceForm = () => {
           </div>
         </Row> */}
         {/* Location [Section] */}
-        <Row className="d-flex align-items-center">
-          {/* Country [Section] */}
-          <label className="fLT-Regular-sB cLT-support2-text mb-2">موقعك</label>
-          <Form.Group as={Col} md={6} className="mb-3 position-relative ">
-            {/* Country [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <Select
-                value={selectedCountry}
-                placeholder="البلد"
-                className="uLT-f-radius-sB "
-                options={getAllCountryFromResponse?.country}
-                onChange={fetchCountry}
-                getOptionLabel={(country) => country?.name}
-                getOptionValue={(country) => country?.id}
-              />
-            </div>
-            {errMessage?.country_id && (
-              <p
-                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                style={{ bottom: "-27px" }}
-              >
-                {errMessage?.country_id}
-              </p>
-            )}
-          </Form.Group>
-          {/* State [Section] */}
-          <Form.Group as={Col} md={6} className="mb-3 position-relative">
-            {/* State [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <Select
-                value={selectedCity}
-                placeholder="المدينة"
-                options={getAllCountryFromResponse?.city}
-                onChange={fetchCities}
-                getOptionLabel={(city) => city?.name}
-                getOptionValue={(city) => city?.id}
-              />
-            </div>
-            {errMessage?.city_id && (
-              <p
-                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                style={{ bottom: "-27px" }}
-              >
-                {errMessage?.city_id}
-              </p>
-            )}
-          </Form.Group>
-        </Row>
-        <Row className="d-flex align-items-center">
-          {/* Country [Section] */}
 
-          <Form.Group as={Col} md={6} className="mb-3 position-relative ">
-            {/* Country [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <Select
-                value={selectedState}
-                placeholder="المنطقة"
-                className="uLT-f-radius-sB "
-                options={getAllCountryFromResponse?.state}
-                onChange={fetchState}
-                getOptionLabel={(country) => country?.name}
-                getOptionValue={(country) => country?.id}
-              />
-            </div>
-            {errMessage?.country_id && (
-                <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                  style={{ bottom: "-27px" }}
-                >
-                  {errMessage?.country_id}
-                </p>
-              )}
-          </Form.Group>
-          {/* State [Section] */}
-          <Form.Group as={Col} md={6} className="mb-3 position-relative">
-            {/* State [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <Select
-                value={selectedArea}
-                placeholder="الحي"
-                options={getAllCountryFromResponse?.area}
-                onChange={fetchArea}
-                getOptionLabel={(city) => city?.name}
-                getOptionValue={(city) => city?.id}
-              />
-            </div>
-            {errMessage?.city_id && (
-                <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                  style={{ bottom: "27px" }}
-                >
-                  {errMessage?.city_id}
-                </p>
-              )}
-          </Form.Group>
-        </Row>
         {/* State Of Location Show Only Type Of Work === Offline */}
 
         {/* <Row>
@@ -612,6 +511,123 @@ const OfferPriceForm = () => {
           </div>
           {/* </div> */}
         </div>
+        <LocationHandler
+          country={selectedCountry?.name}
+          city={selectedCity?.name}
+          state={selectedState?.name}
+          area={selectedArea?.name}
+          setState={() => setLocationState(!locationState)}
+        />
+        {locationState && (
+          <div>
+            <Row className="d-flex align-items-center">
+              {/* Country [Section] */}
+              <label className="fLT-Regular-sB cLT-support2-text mb-2">
+                موقعك
+              </label>
+              <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+                {/* Country [Option]  */}
+                <div
+                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                >
+                  <Select
+                    value={selectedCountry}
+                    placeholder="البلد"
+                    className="uLT-f-radius-sB "
+                    options={getAllCountryFromResponse?.country}
+                    onChange={fetchCountry}
+                    getOptionLabel={(country) => country?.name}
+                    getOptionValue={(country) => country?.id}
+                  />
+                </div>
+                {errMessage?.country_id && (
+                  <p
+                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                    style={{ bottom: "-27px" }}
+                  >
+                    {errMessage?.country_id}
+                  </p>
+                )}
+              </Form.Group>
+              {/* State [Section] */}
+              <Form.Group as={Col} md={6} className="mb-3 position-relative">
+                {/* State [Option]  */}
+                <div
+                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                >
+                  <Select
+                    value={selectedCity}
+                    placeholder="المدينة"
+                    options={getAllCountryFromResponse?.city}
+                    onChange={fetchCities}
+                    getOptionLabel={(city) => city?.name}
+                    getOptionValue={(city) => city?.id}
+                  />
+                </div>
+                {errMessage?.city_id && (
+                  <p
+                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                    style={{ bottom: "-27px" }}
+                  >
+                    {errMessage?.city_id}
+                  </p>
+                )}
+              </Form.Group>
+            </Row>
+            <Row className="d-flex align-items-center">
+              {/* Country [Section] */}
+
+              <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+                {/* Country [Option]  */}
+                <div
+                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                >
+                  <Select
+                    value={selectedState}
+                    placeholder="المنطقة"
+                    className="uLT-f-radius-sB "
+                    options={getAllCountryFromResponse?.state}
+                    onChange={fetchState}
+                    getOptionLabel={(country) => country?.name}
+                    getOptionValue={(country) => country?.id}
+                  />
+                </div>
+                {errMessage?.country_id && (
+                  <p
+                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                    style={{ bottom: "-27px" }}
+                  >
+                    {errMessage?.country_id}
+                  </p>
+                )}
+              </Form.Group>
+              {/* State [Section] */}
+              <Form.Group as={Col} md={6} className="mb-3 position-relative">
+                {/* State [Option]  */}
+                <div
+                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                >
+                  <Select
+                    value={selectedArea}
+                    placeholder="الحي"
+                    options={getAllCountryFromResponse?.area}
+                    onChange={fetchArea}
+                    getOptionLabel={(city) => city?.name}
+                    getOptionValue={(city) => city?.id}
+                  />
+                </div>
+                {errMessage?.city_id && (
+                  <p
+                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                    style={{ bottom: "27px" }}
+                  >
+                    {errMessage?.city_id}
+                  </p>
+                )}
+              </Form.Group>
+            </Row>
+          </div>
+        )}
       </Form>
     </>
   );

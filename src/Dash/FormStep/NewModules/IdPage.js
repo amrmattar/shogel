@@ -186,7 +186,7 @@ const IdPage = () => {
                 name="id"
                 required
                 className="uLT-bd-f-platinum-sA inpBG inp"
-                type="number"
+                type="text"
                 placeholder="ادخل رقم الهوية "
                 onChange={value.setDataDetails("id")}
                 value={getClientData.id}

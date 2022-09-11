@@ -4,9 +4,14 @@ import { LabelContext } from "../LabelDataContext/labelDataContext";
 import { Col, Form, Row } from "react-bootstrap";
 import "../NewStyle.scss";
 import { useNavigate } from "react-router-dom";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { useSelector } from "react-redux";
+import { IconButton } from "@material-ui/core";
 const RegisterClientView = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
   let v1 =
@@ -86,25 +91,31 @@ const RegisterClientView = () => {
                 </p>
               )}
             </Form.Group>
-            <Form.Group
-              as={Col}
-              controlId="formGridPassword"
-              className={"position-relative"}
-            >
+            <Form.Group as={Col} className={"position-relative"}>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
-                كلمة المرور<span className="cLT-danger-text">*</span>
+                كلمة المرور
               </Form.Label>
               <Form.Control
                 autoComplete="off"
                 minLength={8}
                 onChange={value.setDataDetails("password")}
-                value={getClientData.password}
-                required={true}
                 name="password"
                 className="uLT-bd-f-platinum-sA inpBG inp"
-                type={"password"}
+                value={getClientData.password}
+                type={showPassword ? "text" : "password"}
                 placeholder="كلمة المرور"
               />
+
+              <IconButton
+                style={{ position: "absolute", bottom: "8px", left: "18px" }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <VisibilityOffOutlinedIcon />
+                ) : (
+                  <VisibilityOutlinedIcon />
+                )}{" "}
+              </IconButton>
             </Form.Group>
           </Row>
         </div>
