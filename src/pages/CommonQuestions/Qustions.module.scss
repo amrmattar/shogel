@@ -1,0 +1,20 @@
+.container {
+  border-bottom: 0.5px gray dashed;
+  .titleH {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 2rem;
+    cursor: pointer;
+  }
+
+  .pClosed {
+    height: 0;
+    transition: 1s;
+    overflow: hidden;
+  }
+  .pOpen {
+    overflow: hidden;
+    height: 5rem;
+    transition: 1s;
+  }
+}

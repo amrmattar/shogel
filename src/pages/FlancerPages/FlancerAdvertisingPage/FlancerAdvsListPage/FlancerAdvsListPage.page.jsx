@@ -119,8 +119,8 @@ const FlancerAdvsListPage = () => {
       body.set("name", search);
 
       body.set("category", categ);
-
-      // body.set("rate_count", rateCount);
+      body.set("price", price);
+      body.set("rate_count", rateCount);
       body.set("rate", rate);
       body.set("available", active);
       body.set("location", location);
@@ -180,8 +180,7 @@ const FlancerAdvsListPage = () => {
       {/* Advertising List [Holder] */}
 
       <div className={cls.container}>
-        <div className="d-flex">
-        </div>
+        <div className="d-flex"></div>
         <div className={cls.holder}>
           <DynamicFilter
             isAdvert={true}

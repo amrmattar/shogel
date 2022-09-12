@@ -1,39 +1,10 @@
 import AmentiesShared from "../../../shared/Amenties/Amenties.shared";
 import FlancerPersonalInformationComponent from "../fLancerProfile/FlancerPersonalInformation/FlancerPersonalInformation.component";
 import "./FlancerEmployedListCard.component.scss";
-import CircularProgress, {
-  CircularProgressProps,
-} from "@mui/material/CircularProgress";
-import Typography from "@mui/material/Typography";
+import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import { useState } from "react";
-function CircularProgressWithLabel(
-  props: CircularProgressProps & { value: number }
-) {
-  return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          variant="caption"
-          component="div"
-          color="text.secondary"
-        >{`${Math.round(props.value)}%`}</Typography>
-      </Box>
-    </Box>
-  );
-}
+import Typography from "@mui/material/Typography";
 
 const FlancerEmployedListCard = ({ data }) => {
   const [progress, setProgress] = useState(80);
@@ -44,6 +15,20 @@ const FlancerEmployedListCard = ({ data }) => {
     myFlag: data?.nationality?.logo,
     status: data?.available,
   };
+  function LinearProgressWithLabel(props) {
+    return (
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "100%", mr: 1 }}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2" color="text.secondary">{`${Math.round(
+            props.value
+          )}%`}</Typography>
+        </Box>
+      </Box>
+    );
+  }
   return (
     <>
       <div className="LT-employed-listCard-grid uLT-bd-f-platinum-sA uLT-f-radius-sB ">
@@ -53,6 +38,7 @@ const FlancerEmployedListCard = ({ data }) => {
           style={{ width: "42px", height: "42px" }}
         >
           <FlancerPersonalInformationComponent
+            rate={data.rate}
             myData={myPersonData}
             statusIcon={
               data?.available === 1 ? (
@@ -71,19 +57,14 @@ const FlancerEmployedListCard = ({ data }) => {
               <div className="LT-performance-rate-holder  ">
                 {/* User Rate */}
 
-                <CircularProgressWithLabel value={progress} />
-
-                <div className="d-flex align-items-center LT-rate-font-size  ">
-                  <p className="m-0 card-text cLT-support2-text ">
-                    ({data?.rate?.count})
-                  </p>
-                  <p className="m-0 card-text cLT-support2-text ">
-                    {data?.rate?.rate}
-                  </p>
-                  <i
-                    className={` iLT-Rate-star uLT-img-contain LT-rate-icon-size me-sm-2`}
-                  ></i>
-                </div>
+                <Box
+                  sx={{
+                    width: "10%",
+                    position: "absolute",
+                  }}
+                >
+                  <LinearProgressWithLabel  value={progress} />
+                </Box>
               </div>
             </div>
           </div>

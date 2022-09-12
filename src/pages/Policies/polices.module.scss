@@ -1,0 +1,28 @@
+.policesHolder {
+  margin: 2rem 2rem 4rem 2rem;
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  p {
+    margin: 0 0 2rem 0;
+    text-align: right;
+    font: normal normal normal 16px/30px Cairo;
+    letter-spacing: 0px;
+    color: #8f8f8f;
+    opacity: 0.8;
+    font-size: 1rem;
+    width: 50rem;
+  }
+  span {
+    display: list-item;
+    list-style-type: disc;
+    margin-right: 25px;
+    text-align: right;
+    font: normal normal normal 16px/30px Cairo;
+    letter-spacing: 0px;
+    color: #8f8f8f;
+    opacity: 0.8;
+    font-size: 1rem;
+  }
+}

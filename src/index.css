@@ -7,7 +7,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #F8FAFC !important;
+  background-color: #f8fafc !important;
 }
 
 /* .css-1fzpoyk {
@@ -16,7 +16,6 @@ body {
 .css-1qzevvg {
   display: none !important;
 } */
-
 
 .LT-nav-container {
   @media screen and (min-width: "992px") {
@@ -34,7 +33,7 @@ body {
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -48,8 +47,8 @@ body {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -60,16 +59,16 @@ body {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: rgb(89,178,89);
+  background-color: rgb(89, 178, 89);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px rgb(89,178,89);
+  box-shadow: 0 0 1px rgb(89, 178, 89);
 }
 
 input:checked + .slider:before {
@@ -84,4 +83,10 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+.css-5xe99f-MuiLinearProgress-bar1 {
+  background-color: rgb(93, 194, 106) !important;
+}
+.css-eglki6-MuiLinearProgress-root {
+  background-color: gray;
 }
