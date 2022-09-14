@@ -162,6 +162,7 @@ const IdPage = () => {
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
+                value={getClientData.gender}
                 onChange={value.setDataDetails("gender")}
               >
                 {gender.map((ele) => (

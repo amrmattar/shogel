@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Dialog } from "@mui/material";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import { Col, Form, Row } from "react-bootstrap";
@@ -6,10 +6,12 @@ import "../NewStyle.scss";
 import { useNavigate } from "react-router-dom";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
+import { API } from "../../../enviroment/enviroment/enviroment";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import { useSelector } from "react-redux";
 import { IconButton } from "@material-ui/core";
+import { toast } from "react-toastify";
+import { useRef } from "react";
 const RegisterClientView = () => {
   const [showPassword, setShowPassword] = useState(false);
   const value = useContext(LabelContext);
@@ -40,6 +42,37 @@ const RegisterClientView = () => {
     setOpen(false);
     navigate("/");
   };
+  const [emailValid, setEmailValid] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
+  const checkEmail = async () => {
+    try {
+      await API.get(`/auth/check/email?email=${getClientData.email}`);
+
+      setEmailValid(true);
+    } catch (e) {
+      setEmailValid(false);
+      toast.error("email is used");
+    }
+  };
+  const checkUserName = async () => {
+    try {
+      await API.get(`/auth/check/username?username=${getClientData.username}`);
+      setNameValid(true);
+    } catch (e) {
+      setNameValid(false);
+      toast.error("userName is Used");
+    }
+  };
+  const timRef = useRef();
+  useEffect(() => {
+    clearTimeout(timRef.current);
+    if (validation) {
+      timRef.current = setTimeout(() => {
+        checkUserName();
+        checkEmail();
+      }, 500);
+    }
+  }, [validation, getClientData]);
   return (
     <div className="DialogSim2">
       <form
@@ -130,7 +163,7 @@ const RegisterClientView = () => {
           </div>
           <div className="">
             <ButtonShare
-              type={!validation}
+              type={!validation || !nameValid || !emailValid}
               loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}

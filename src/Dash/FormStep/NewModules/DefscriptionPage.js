@@ -46,7 +46,7 @@ const DersciptionPage = () => {
           <UploadProfileImg
             open={openImage}
             // reset={reset}
-            // def={defimg}
+            def={getClientData.img}
             onClose={() => setOpenImage(false)}
             // upload={setimage}
             upload={imgHandler}
@@ -84,14 +84,13 @@ const DersciptionPage = () => {
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
                 value={getClientData.fullName}
-                // value={getClientData.fullName}
                 onChange={value.setDataDetails("fullName")}
                 placeholder="الاسم الاول والاخير"
               />
               {/* {messages?.messages?.username && (
-                  <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                    {messages?.messages?.username}
-                  </p>
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {messages?.messages?.username}
+                </p>
                 )} */}
             </Form.Group>
             <Form.Group>
@@ -103,15 +102,16 @@ const DersciptionPage = () => {
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
                 placeholder="وصف مختصر"
+                value={getClientData.description}
                 onChange={value.setDataDetails("description")}
 
                 // value={getClientData.shortDesc}
               />
               {/* {messages?.messages?.username && (
-                  <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                    {messages?.messages?.username}
-                  </p>
-                )} */}
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {messages?.messages?.username}
+                </p>
+              )} */}
             </Form.Group>
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
@@ -122,6 +122,7 @@ const DersciptionPage = () => {
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
                 placeholder=" اكتب نبذة"
+                value={getClientData.info}
                 onChange={value.setDataDetails("info")}
 
                 // value={getClientData.brief}

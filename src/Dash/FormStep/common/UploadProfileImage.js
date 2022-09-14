@@ -70,8 +70,8 @@ function UploadProfileImg({ reset, def, partnerId, open, upload, onClose }) {
   const [serverImg, setServerImg] = React.useState("");
 
   useEffect(() => {
-    if (def) {
-      setServerImg(def);
+    if (def?.type) {
+      setProfileImg(def);
       upload(def);
     }
   }, [def]);
