@@ -2,7 +2,7 @@ import './Button.shared.scss'
 const ButtonShare = ({ ID, innerText, textClasses, btnClasses, type, onClick, iconName, loading, style , onFocus, attrName}) => {
 
   return (
-    <button id={ID} onClick={onClick} onFocus={onFocus} className={`btn w-100 hover  ${btnClasses}`} disabled={type}  name={attrName} >
+    <button id={ID} onClick={onClick} onFocus={onFocus} className={`btn w-100 hover  ${btnClasses}`} disabled={type} name={attrName} >
       {iconName &&
         <i className={`d-flex  ${iconName} gap-2 p-2  uLT-img-contain`}></i>
       }

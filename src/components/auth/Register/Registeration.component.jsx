@@ -595,7 +595,7 @@ const RegisterationComponent = ({
               className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
             >
               <Select
-                placeholder=" الوصف المختصر"
+                placeholder=" مثال - مطور ويب - خبير صيانه"
                 options={getFormData?.jobName}
                 onChange={fetchJobName}
                 getOptionLabel={(jobName) => jobName?.name}

@@ -321,7 +321,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
                   name="info"
                   className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
                   type="text"
-                  placeholder="وصف مختصر"
+                  placeholder="مثال - مطور ويب - خبير صيانه"
                   onChange={(e) => fullNameHandler(e)}
                   defaultValue={userIsData?.info}
                 />

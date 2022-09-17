@@ -262,21 +262,24 @@ const LocationClientPage = () => {
             {/* Country [Section] */}
           </Row>
         </div>
-        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
-          <div className="">
-            <ButtonShare
-              onClick={getBack}
-              innerText={"رجــــوع"}
-              btnClasses={"cLT-secondary-bg br14"}
-              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
+        <div
+          style={{ direction: "ltr" }}
+          className="d-flex align-items-center justify-content-around gap-4 mb-3"
+        >
           <div className="">
             <ButtonShare
               onClick={(e) => getNext(e)}
               type={!validation}
               loading={nextLoading}
               innerText={"تسجيل"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+          <div className="">
+            <ButtonShare
+              onClick={getBack}
+              innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />

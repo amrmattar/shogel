@@ -43,35 +43,34 @@ const RegisterClientView = () => {
     navigate("/");
   };
   const [emailValid, setEmailValid] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const [nameValid, setNameValid] = useState(false);
+  const [nameError, setNameError] = useState("");
   const checkEmail = async () => {
     try {
       await API.get(`/auth/check/email?email=${getClientData.email}`);
 
       setEmailValid(true);
+      setEmailError("");
     } catch (e) {
       setEmailValid(false);
-      toast.error("email is used");
+      setEmailError("الأيميل مستخدم من قبل");
     }
   };
   const checkUserName = async () => {
     try {
       await API.get(`/auth/check/username?username=${getClientData.username}`);
       setNameValid(true);
+      setNameError("");
     } catch (e) {
       setNameValid(false);
-      toast.error("userName is Used");
+      setNameError("الأسم مستخدم من قبل");
     }
   };
-  const timRef = useRef();
+
   useEffect(() => {
-    clearTimeout(timRef.current);
-    if (validation) {
-      timRef.current = setTimeout(() => {
-        checkUserName();
-        checkEmail();
-      }, 500);
-    }
+    checkUserName();
+    checkEmail();
   }, [validation, getClientData]);
   return (
     <div className="DialogSim2">
@@ -99,9 +98,9 @@ const RegisterClientView = () => {
                 onChange={value.setDataDetails("username")}
                 placeholder="الاسم"
               />
-              {messages?.messages?.username && (
+              {nameError.length > 0 && (
                 <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                  {messages?.messages?.username}
+                  {nameError}
                 </p>
               )}
             </Form.Group>
@@ -118,9 +117,9 @@ const RegisterClientView = () => {
                 pattern="[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+(\.[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+)*@([a-zA-Z0-9_][-a-zA-Z0-9_]*(\.[-a-zA-Z0-9_]+)*\.([cC][oO][mM]))(:[0-9]{1,5})?"
                 value={getClientData.email}
               />
-              {messages?.messages?.username && (
+              {emailError.length > 0 && (
                 <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                  {messages?.messages?.username}
+                  {emailError}
                 </p>
               )}
             </Form.Group>
@@ -152,20 +151,23 @@ const RegisterClientView = () => {
             </Form.Group>
           </Row>
         </div>
-        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
+        <div
+          style={{ direction: "ltr" }}
+          className="d-flex align-items-center justify-content-around gap-4 mb-3"
+        >
           <div className="">
             <ButtonShare
-              onClick={() => getBack()}
-              innerText={"رجــــوع"}
+              type={!validation || !nameValid || !emailValid}
+              loading={nextLoading}
+              innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
           <div className="">
             <ButtonShare
-              type={!validation || !nameValid || !emailValid}
-              loading={nextLoading}
-              innerText={"التـــالى"}
+              onClick={() => getBack()}
+              innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />

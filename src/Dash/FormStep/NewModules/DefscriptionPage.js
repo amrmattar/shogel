@@ -101,7 +101,7 @@ const DersciptionPage = () => {
                 name="email"
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
-                placeholder="وصف مختصر"
+                placeholder="مثال - مطور ويب - خبير صيانه"
                 value={getClientData.description}
                 onChange={value.setDataDetails("description")}
 
@@ -119,8 +119,10 @@ const DersciptionPage = () => {
               </Form.Label>
               <Form.Control
                 name="description"
+           
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
+                as="textarea"
                 placeholder=" اكتب نبذة"
                 value={getClientData.info}
                 onChange={value.setDataDetails("info")}
@@ -135,21 +137,24 @@ const DersciptionPage = () => {
             </Form.Group>
           </Row>
         </div>
-        <div className="d-flex align-items-center justify-content-around gap-4 mb-3">
-          <div className="">
-            <ButtonShare
-              onClick={getBack}
-              innerText={"رجــــوع"}
-              btnClasses={"cLT-secondary-bg br14"}
-              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
+        <div
+          style={{ direction: "ltr" }}
+          className="d-flex align-items-center justify-content-around gap-4 mb-3"
+        >
           <div className="">
             <ButtonShare
               onClick={getNext}
               type={!validation}
               loading={nextLoading}
               innerText={"التـــالى"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+          <div className="">
+            <ButtonShare
+              onClick={getBack}
+              innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
             />
