@@ -205,7 +205,7 @@ const IdPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                البلد<span className="cLT-danger-text">*</span>
+                الدولة<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -213,7 +213,7 @@ const IdPage = () => {
               >
                 <Select
                   value={selectedCountry}
-                  placeholder="البلد"
+                  placeholder="اختيار الدولة"
                   className="uLT-f-radius-sB "
                   options={getAllCountryFromResponse?.country}
                   onChange={fetchCountry}
@@ -233,7 +233,7 @@ const IdPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المدينة<span className="cLT-danger-text">*</span>
+                المنطقة<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -241,7 +241,7 @@ const IdPage = () => {
               >
                 <Select
                   value={selectedCity}
-                  placeholder="المدينة"
+                  placeholder="اختيار المنطقة"
                   options={getAllCountryFromResponse?.city}
                   onChange={fetchCities}
                   getOptionLabel={(city) => city?.name}
@@ -262,7 +262,7 @@ const IdPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المنطقة<span className="cLT-danger-text">*</span>
+                المدينة<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -270,7 +270,7 @@ const IdPage = () => {
               >
                 <Select
                   value={selectedState}
-                  placeholder="المنطقة"
+                  placeholder="اختيار المدينة"
                   className="uLT-f-radius-sB "
                   options={getAllCountryFromResponse?.state}
                   onChange={fetchState}
@@ -290,7 +290,7 @@ const IdPage = () => {
               >
                 <Select
                   value={selectedArea}
-                  placeholder="الحي"
+                  placeholder="اختيار الحي"
                   options={getAllCountryFromResponse?.area}
                   onChange={fetchArea}
                   getOptionLabel={(city) => city?.name}

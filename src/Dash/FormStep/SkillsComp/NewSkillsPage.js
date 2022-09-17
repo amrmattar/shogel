@@ -7,10 +7,10 @@ import SkillTree from "./SkillTree";
 
 const SkillsStep = () => {
   const value = useContext(LabelContext);
+  const storeSkills = value.labelInfo.skills;
   const [inpV, setInpV] = useState("");
   const [skills, setSkills] = useState([]);
   const [chosenSubs, setChosenSubs] = useState([]);
-
   const handleCancel = (id, parentId, subId) => {
     let arr2 = chosenSubs.filter((ele) => ele.id != id);
     setChosenSubs(arr2);
@@ -25,7 +25,30 @@ const SkillsStep = () => {
     API.get("coredata/category/list?search=s")
       .then((res) => {
         let arr = res.data.data?.map((ele) => {
-          ele.active = false;
+          let activeChilds = [];
+          let Tele = storeSkills.filter((e) => e.id == ele.id);
+          Tele[0] ? (ele.active = true) : (ele.active = false);
+          ele.children[0] &&
+            ele.children.forEach((child) => {
+              let activeSubChilds = [];
+              let Tchild = storeSkills.filter((e) => e.id == child.id);
+              Tchild[0] ? (child.active = true) : (child.active = false);
+              Tchild[0] && activeChilds.push(child.id);
+              ele.active =
+                activeChilds.length == ele.children.length ? true : false;
+              child.children[0] &&
+                child.children.forEach((child2) => {
+                  let Tchild2 = storeSkills.filter((e) => e.id == child2.id);
+
+                  Tchild2[0] ? (child2.active = true) : (child2.active = false);
+                  Tchild2[0] && activeSubChilds.push(child2.id);
+                  if (activeSubChilds.length == child.children.length) {
+                    child.active = true;
+                    activeChilds.push(child.id);
+                  }
+                });
+            });
+
           return ele;
         });
         setSkills(arr);

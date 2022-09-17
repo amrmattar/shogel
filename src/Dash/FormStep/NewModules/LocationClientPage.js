@@ -214,7 +214,7 @@ const LocationClientPage = () => {
               >
                 <Select
                   value={selectedCountry}
-                  placeholder="البلد"
+                  placeholder="اختيار البلد"
                   className="uLT-f-radius-sB "
                   options={getAllCountryFromResponse?.country}
                   onChange={fetchCountry}
@@ -234,7 +234,7 @@ const LocationClientPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المدينة الاقامه<span className="cLT-danger-text">*</span>
+                المنطقة الاقامه<span className="cLT-danger-text">*</span>
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -242,7 +242,7 @@ const LocationClientPage = () => {
               >
                 <Select
                   value={selectedCity}
-                  placeholder="المدينة"
+                  placeholder="اختيار المنطقة"
                   options={getAllCountryFromResponse?.city}
                   onChange={fetchCities}
                   getOptionLabel={(city) => city?.name}

@@ -67,10 +67,15 @@ const RegisterClientView = () => {
       setNameError("الأسم مستخدم من قبل");
     }
   };
-
+  const timerRef = useRef();
   useEffect(() => {
-    checkUserName();
-    checkEmail();
+    if (validation) {
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
+        checkUserName();
+        checkEmail();
+      }, 200);
+    }
   }, [validation, getClientData]);
   return (
     <div className="DialogSim2">
@@ -139,7 +144,7 @@ const RegisterClientView = () => {
               />
 
               <IconButton
-                style={{ position: "absolute", bottom: "8px", left: "18px" }}
+                style={{ position: "absolute", bottom: "0", left: "18px" }}
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
