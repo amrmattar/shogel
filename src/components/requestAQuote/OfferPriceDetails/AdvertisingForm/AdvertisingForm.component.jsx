@@ -153,8 +153,7 @@ const AdvertisingFormComponent = () => {
         //     toast.error(ele[0]);
         //   }
         // } else {
-          toast.error("حدث خطأ ما");
-        
+        toast.error("حدث خطأ ما");
 
         dispatch(
           getMessages([
@@ -291,7 +290,7 @@ const AdvertisingFormComponent = () => {
               />
               <div>
                 {errMessage?.name && (
-                  <p className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
+                  <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                     {errMessage?.name}
                   </p>
                 )}
@@ -430,7 +429,7 @@ const AdvertisingFormComponent = () => {
           />
 
           <ButtonShare
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
             textClasses="px-4 cLT-white-text fLT-Regular-sC"
             innerText=" رجوع"
