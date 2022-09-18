@@ -199,16 +199,7 @@ const OfferPriceForm = () => {
       })
       .catch((err) => {
         setAdvsCheck(false);
-        let ob = err.response?.data.message;
-        if (ob) {
-          for (const key in ob) {
-            let ele = ob[key];
-
-            toast.error(ele[0]);
-          }
-        } else {
-          toast.error("حدث خطأ ما");
-        }
+        toast.error("حدث خطأ ما");
         dispatch(
           getMessages([
             {
@@ -247,10 +238,7 @@ const OfferPriceForm = () => {
         clickMe={messages?.messageClick}
       />
       {/* LT-request-form [Holder] */}
-      <Form
-        onSubmit={(e) => handleCLick(e)}
-        className="LT-request-form-grid h100 pt-3 mt-4 px-4 uLT-f-radius-sB "
-      >
+      <Form className="LT-request-form-grid h100 pt-3 mt-4 px-4 uLT-f-radius-sB ">
         {/* Address Request [Section] */}
         <Row className="m-0 flex-column m-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
@@ -500,16 +488,24 @@ const OfferPriceForm = () => {
 
           {/* [Request Button */}
 
-          <div className="bottn">
-            <ButtonShare
-              type={disable}
-              loading={advsCheck}
-              btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-              textClasses="px-4 cLT-white-text fLT-Regular-sC"
-              innerText=" إرسال"
-            />
-          </div>
           {/* </div> */}
+        </div>
+        <div className="btnsHolder">
+          <ButtonShare
+            onClick={(e) => handleCLick(e)}
+            type={disable}
+            loading={advsCheck}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" إرسال"
+          />
+
+          <ButtonShare
+            onClick={() => navigate("/")}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" رجوع"
+          />
         </div>
         <LocationHandler
           country={selectedCountry?.name}

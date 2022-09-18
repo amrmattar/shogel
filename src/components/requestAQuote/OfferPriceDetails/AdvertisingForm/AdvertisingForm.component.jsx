@@ -266,10 +266,7 @@ const AdvertisingFormComponent = () => {
         clickMe={messages?.messageClick}
       />
       {/* LT-request-form [Holder] */}
-      <Form
-        onSubmit={(e) => handleCLick(e)}
-        className="uLT-f-radius-sB LT-advs-form-grid pt-3 mt-4 px-4"
-      >
+      <Form className="uLT-f-radius-sB LT-advs-form-grid pt-3 mt-4 px-4">
         {/* Address Request [Section] */}
         <Row className=" flex-column ">
           <div className="d-flex ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
@@ -420,16 +417,24 @@ const AdvertisingFormComponent = () => {
                 تغيير الموقع
               </span>
             </p>
-            <div className="btnH">
-              <ButtonShare
-                type={disabled}
-                loading={advsCheck}
-                btnClasses="cLT-secondary-bg py-2  px-4 uLT-f-radius-sB"
-                textClasses="px-4 cLT-white-text fLT-Regular-sC"
-                innerText=" إرسال"
-              />
-            </div>
           </div>
+        </div>
+        <div className="btnsHolder">
+          <ButtonShare
+            onClick={(e) => handleCLick(e)}
+            type={disabled}
+            loading={advsCheck}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" إرسال"
+          />
+
+          <ButtonShare
+            onClick={() => navigate('/')}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" رجوع"
+          />
         </div>
         {locationState && (
           <Row className="d-flex align-items-center">

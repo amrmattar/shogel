@@ -6,34 +6,39 @@ import { useSelector } from "react-redux";
 import { homePages } from "../../core/services/HomeServices/Home.core";
 const Footer = () => {
   const user = useSelector((state) => state.authentication);
-  const [socialMedia, setSocialMedia] = useState()
+  const [socialMedia, setSocialMedia] = useState();
+  const contactSec = document.getElementById("contactSec");
   useEffect(() => {
-    let cancel = false
-      if(cancel) return;
-      homePages._GET_HomePagesSections().then(res => {
-              setSocialMedia(res.data?.data)
-            })
+    let cancel = false;
+    if (cancel) return;
+    homePages._GET_HomePagesSections().then((res) => {
+      setSocialMedia(res.data?.data);
+    });
     return () => {
-      cancel = true
-    }
-  }, [])
-  const [resault, setResault] = useState({facebook:'', linkedin: '', youtube:''})
+      cancel = true;
+    };
+  }, []);
+  const [resault, setResault] = useState({
+    facebook: "",
+    linkedin: "",
+    youtube: "",
+  });
   useEffect(() => {
     socialMedia?.filter(function (el) {
       switch (el?.id) {
         case 15:
-          return setResault(resault => ({...resault, facebook:el?.value}))
-          case 16:
-          return setResault(resault => ({...resault, linkedin:el?.value}))
-          case 17:
-          return setResault(resault => ({...resault, youtube:el?.value}))
+          return setResault((resault) => ({ ...resault, facebook: el?.value }));
+        case 16:
+          return setResault((resault) => ({ ...resault, linkedin: el?.value }));
+        case 17:
+          return setResault((resault) => ({ ...resault, youtube: el?.value }));
         default:
-          return false
+          return false;
       }
       // return el?.id == socailId && setResault(el);
-  })
-  }, [socialMedia])
-  const [click, setClick] = useState(false)
+    });
+  }, [socialMedia]);
+  const [click, setClick] = useState(false);
   return (
     <div className="LT-footer d-flex flex-column h-100 px-3 px-sm-4 px-lg-0">
       {/* Footer-Logo */}
@@ -45,13 +50,18 @@ const Footer = () => {
           <ul className="nav flex-column ">
             {/* معلومات عن شغل */}
             <li className="nav-item  h-100">
-              <div className="px-0 pt-0 pb-2 fLT-Bold-sA nav-link" >
-                <span className="cLT-white-text text-nowrap">معلومات عن شغل</span>
+              <div className="px-0 pt-0 pb-2 fLT-Bold-sA nav-link">
+                <span className="cLT-white-text text-nowrap">
+                  معلومات عن شغل
+                </span>
               </div>
             </li>
             {/* الأسئلة الشائعة */}
             <li className="nav-item  h-100">
-              <NavLink className=" px-0 pt-0 pb-2 fLT-Bold-sA nav-link" to="/questions">
+              <NavLink
+                className=" px-0 pt-0 pb-2 fLT-Bold-sA nav-link"
+                to="/questions"
+              >
                 <span className="cLT-white-text">الأسئلة الشائعة</span>
               </NavLink>
             </li>
@@ -63,7 +73,10 @@ const Footer = () => {
             </li> */}
             {/* شروط الاستخدام */}
             <li className="nav-item  h-100">
-              <NavLink className=" px-0 pt-0 pb-2 fLT-Bold-sA nav-link" to="/policies">
+              <NavLink
+                className=" px-0 pt-0 pb-2 fLT-Bold-sA nav-link"
+                to="/policies"
+              >
                 <span className="cLT-white-text">شروط الاستخدام</span>
               </NavLink>
             </li>
@@ -138,12 +151,16 @@ const Footer = () => {
               </NavLink>
             </li> */}
             {/* اتصل بنا */}
-            <li className="nav-item">
+            <li
+              onClick={() => contactSec.scrollIntoView()}
+              // onClick={() => window.scrollTo({ top: 1000, behavior: "smooth" })}
+              className="nav-item"
+            >
               <NavLink
                 className="px-0 pt-0 pb-2 fLT-Regular-sB nav-link"
                 to="/"
               >
-                <span className="cLT-white-text" onClick={()=> window.scrollTo({ top: 3500, behavior: 'smooth' })}>اتصل بنا</span>
+                <span className="cLT-white-text">اتصل بنا</span>
               </NavLink>
             </li>
           </ul>
@@ -185,25 +202,41 @@ const Footer = () => {
             <ul className="uLT-list-style d-flex">
               {/* Snapchat */}
               <li className="nav-item">
-                <a className="px-0 pt-0 pb-2" href="https://www.snapchat.com" aria-label="snapchat">
+                <a
+                  className="px-0 pt-0 pb-2"
+                  href="https://www.snapchat.com"
+                  aria-label="snapchat"
+                >
                   <div className="ms-3 iLT-snapchat iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
               </li>
               {/* Instagram */}
               <li className="nav-item">
-                <a className="px-0 pt-0 pb-2" href={resault?.youtube} aria-label="instagram">
+                <a
+                  className="px-0 pt-0 pb-2"
+                  href={resault?.youtube}
+                  aria-label="instagram"
+                >
                   <div className="ms-3 iLT-instagram iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
               </li>
               {/* Twitter */}
               <li className="nav-item">
-                <a className="px-0 pt-0 pb-2" href={resault?.linkedin} aria-label="twitter">
+                <a
+                  className="px-0 pt-0 pb-2"
+                  href={resault?.linkedin}
+                  aria-label="twitter"
+                >
                   <div className="ms-3 iLT-twitter iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
               </li>
               {/* Facebook */}
               <li className="nav-item">
-                <a className="px-0 pt-0 pb-2" href={resault?.facebook} aria-label="facebook">
+                <a
+                  className="px-0 pt-0 pb-2"
+                  href={resault?.facebook}
+                  aria-label="facebook"
+                >
                   <div className="iLT-facebook iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
               </li>
@@ -214,7 +247,7 @@ const Footer = () => {
       {/* Copy Right */}
       <div className="w-100 LT-copyRight imLT-copy-right-shape uLT-img-cover">
         <p className="mb-0 py-4 d-flex h-100 justify-content-center text-center align-items-center cLT-white-text fLT-Bold-sA">
-          Copyright &copy;2021 All rights reserved | Shogl Platform
+          Copyright &copy;2021 All rights reserved | Shogl Platform by lun startup studio
         </p>
       </div>
     </div>

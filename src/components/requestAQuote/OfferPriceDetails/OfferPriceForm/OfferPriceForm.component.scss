@@ -74,3 +74,12 @@
     border-bottom: 1px solid blue;
   }
 }
+.btnsHolder{
+  display: flex;
+  direction: ltr;
+  button{
+   
+    width: 8rem !important;
+    margin: 0 0 0 10px;
+  }
+}
