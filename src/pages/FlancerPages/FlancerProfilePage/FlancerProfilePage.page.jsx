@@ -86,6 +86,10 @@ const FlancerProfilePage = ({ data }) => {
               {myAdvs?.map((advs, idx) => {
                 return (
                   <NavLink
+                    style={{
+                      padding: "0 5px",
+                      border: "#E9E9E9 solid 1px",
+                    }}
                     className="uLT-list-style"
                     to={`/advertising/advertise-details/${advs.id}`}
                     key={idx}

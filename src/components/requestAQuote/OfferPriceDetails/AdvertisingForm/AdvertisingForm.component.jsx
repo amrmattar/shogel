@@ -418,23 +418,7 @@ const AdvertisingFormComponent = () => {
             </p>
           </div>
         </div>
-        <div className="btnsHolder">
-          <ButtonShare
-            onClick={(e) => handleCLick(e)}
-            type={disabled}
-            loading={advsCheck}
-            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-            textClasses="px-4 cLT-white-text fLT-Regular-sC"
-            innerText=" إرسال"
-          />
 
-          <ButtonShare
-            onClick={() => navigate("/")}
-            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-            textClasses="px-4 cLT-white-text fLT-Regular-sC"
-            innerText=" رجوع"
-          />
-        </div>
         {locationState && (
           <Row className="d-flex align-items-center">
             {/* Country [Section] */}
@@ -545,6 +529,23 @@ const AdvertisingFormComponent = () => {
             </Form.Group>
           </Row>
         )}
+        <div className="btnsHolder">
+          <ButtonShare
+            onClick={(e) => handleCLick(e)}
+            type={disabled}
+            loading={advsCheck}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" إرسال"
+          />
+
+          <ButtonShare
+            onClick={() => navigate("/")}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" رجوع"
+          />
+        </div>
       </Form>
     </>
   );

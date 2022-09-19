@@ -9,14 +9,14 @@ import { Carousel } from "react-bootstrap";
 const FlancerCertificatesComponent = ({ certificatesData }) => {
   const [slideIn, setSlide] = useState(0);
   useEffect(() => {
-    certificatesData?.map((el, idx) => {
+      certificatesData?.map((el, idx) => {
       setSlide(idx);
     });
   }, [certificatesData]);
   return (
     <div className="container">
       {certificatesData?.length !== 0 ? (
-        <Carousel
+          <Carousel
           keyboard={true}
           indicators={slideIn <= 0 ? false : true}
           interval={null}
@@ -25,7 +25,7 @@ const FlancerCertificatesComponent = ({ certificatesData }) => {
           touch={true}
         >
           {certificatesData?.map((elmFile, idx) => {
-            return (
+              return (
               <Carousel.Item key={idx}>
                 {elmFile.file.match(".mp4") ? (
                   <video
@@ -37,7 +37,7 @@ const FlancerCertificatesComponent = ({ certificatesData }) => {
                     <source src={elmFile?.file} type="video/mp4" />
                   </video>
                 ) : (
-                  <picture className="LT-advsListCard-img">
+                    <picture className="LT-advsListCard-img">
                     <img
                       style={{ height: "450px" }}
                       src={elmFile?.file}
@@ -51,7 +51,7 @@ const FlancerCertificatesComponent = ({ certificatesData }) => {
           })}
         </Carousel>
       ) : (
-        <div
+          <div
           className="d-flex flex-column justify-content-center align-items-center w-100  "
           style={{ height: "100% " }}
         >
@@ -68,3 +68,20 @@ const FlancerCertificatesComponent = ({ certificatesData }) => {
   );
 };
 export default FlancerCertificatesComponent;
+
+//   const [targetIndx, setTargetIndx] = useState(1);
+
+//   return (
+//     <div>
+//       {certificatesData.map((ele) => (
+//         <ImageComp targetIndx={targetIndx} ele={ele} />
+//       ))}
+//     </div>
+//   );
+// };
+// const ImageComp = ({ ele, targetIndx}) => {
+//   return (
+//     <div>
+//       <img width="100px" src={ele.file} />
+//     </div>
+//   );
