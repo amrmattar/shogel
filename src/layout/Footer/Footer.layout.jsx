@@ -22,20 +22,32 @@ const Footer = () => {
     facebook: "",
     linkedin: "",
     youtube: "",
+    insta: "",
+    twitter: "",
+    ios: "",
+    android: "",
   });
   useEffect(() => {
-    socialMedia?.filter(function (el) {
+    console.log(socialMedia);
+    socialMedia?.forEach(function (el) {
       switch (el?.id) {
         case 15:
           return setResault((resault) => ({ ...resault, facebook: el?.value }));
         case 16:
-          return setResault((resault) => ({ ...resault, linkedin: el?.value }));
-        case 17:
           return setResault((resault) => ({ ...resault, youtube: el?.value }));
+        case 17:
+          return setResault((resault) => ({ ...resault, linkedin: el?.value }));
+        case 18:
+          return setResault((resault) => ({ ...resault, ios: el?.value }));
+        case 19:
+          return setResault((resault) => ({ ...resault, android: el?.value }));
+        case 57:
+          return setResault((resault) => ({ ...resault, insta: el?.value }));
+        case 58:
+          return setResault((resault) => ({ ...resault, twitter: el?.value }));
         default:
           return false;
       }
-      // return el?.id == socailId && setResault(el);
     });
   }, [socialMedia]);
   const [click, setClick] = useState(false);
@@ -82,6 +94,8 @@ const Footer = () => {
             </li>
           </ul>
         </div>
+
+    
         {/* Links-section */}
         {/* <div className="LT-link-sec">
           <div className="px-0 pt-0 pb-2 nav-link">
@@ -206,6 +220,7 @@ const Footer = () => {
                   className="px-0 pt-0 pb-2"
                   href="https://www.snapchat.com"
                   aria-label="snapchat"
+                  target="_blank"
                 >
                   <div className="ms-3 iLT-snapchat iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
@@ -214,8 +229,9 @@ const Footer = () => {
               <li className="nav-item">
                 <a
                   className="px-0 pt-0 pb-2"
-                  href={resault?.youtube}
+                  href={resault?.insta}
                   aria-label="instagram"
+                  target="_blank"
                 >
                   <div className="ms-3 iLT-instagram iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
@@ -224,8 +240,9 @@ const Footer = () => {
               <li className="nav-item">
                 <a
                   className="px-0 pt-0 pb-2"
-                  href={resault?.linkedin}
+                  href={resault?.twitter}
                   aria-label="twitter"
+                  target="_blank"
                 >
                   <div className="ms-3 iLT-twitter iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
@@ -236,6 +253,7 @@ const Footer = () => {
                   className="px-0 pt-0 pb-2"
                   href={resault?.facebook}
                   aria-label="facebook"
+                  target="_blank"
                 >
                   <div className="iLT-facebook iLT-sC uLT-img-contain uLT-f-radius"></div>
                 </a>
@@ -247,7 +265,8 @@ const Footer = () => {
       {/* Copy Right */}
       <div className="w-100 LT-copyRight imLT-copy-right-shape uLT-img-cover">
         <p className="mb-0 py-4 d-flex h-100 justify-content-center text-center align-items-center cLT-white-text fLT-Bold-sA">
-          Copyright &copy;2021 All rights reserved | Shogl Platform by lun startup studio
+          Copyright &copy;2021 All rights reserved | Shogl Platform by lun
+          startup studio
         </p>
       </div>
     </div>
