@@ -264,7 +264,12 @@ const Footer = () => {
       </div>
       {/* Copy Right */}
       <div className="w-100 LT-copyRight imLT-copy-right-shape uLT-img-cover">
-        <p className="mb-0 py-4 d-flex h-100 justify-content-center text-center align-items-center cLT-white-text fLT-Bold-sA">
+        <p
+          className="mb-0 py-2 d-flex h-100 justify-content-center text-center align-items-center cLT-white-text fLT-Bold-sA"
+          style={{
+            background: "rgba(2, 46, 70, 0.7)",
+          }}
+        >
           Copyright &copy;2021 All rights reserved | Shogl Platform by lun
           startup studio
         </p>

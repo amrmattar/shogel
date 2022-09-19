@@ -490,23 +490,7 @@ const OfferPriceForm = () => {
 
           {/* </div> */}
         </div>
-        <div className="btnsHolder">
-          <ButtonShare
-            onClick={(e) => handleCLick(e)}
-            type={disable}
-            loading={advsCheck}
-            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-            textClasses="px-4 cLT-white-text fLT-Regular-sC"
-            innerText=" إرسال"
-          />
 
-          <ButtonShare
-            onClick={() => navigate("/")}
-            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-            textClasses="px-4 cLT-white-text fLT-Regular-sC"
-            innerText=" رجوع"
-          />
-        </div>
         <LocationHandler
           country={selectedCountry?.name}
           city={selectedCity?.name}
@@ -624,6 +608,23 @@ const OfferPriceForm = () => {
             </Row>
           </div>
         )}
+        <div className="btnsHolder">
+          <ButtonShare
+            onClick={(e) => handleCLick(e)}
+            type={disable}
+            loading={advsCheck}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" إرسال"
+          />
+
+          <ButtonShare
+            onClick={() => navigate("/")}
+            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
+            textClasses="px-4 cLT-white-text fLT-Regular-sC"
+            innerText=" رجوع"
+          />
+        </div>
       </Form>
     </>
   );
