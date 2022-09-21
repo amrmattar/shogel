@@ -1,4 +1,4 @@
-import "./FlancerCertificates.component.scss";
+import cls from "./FlancerCertificates.component.module.scss";
 import advsimg from "../../../../assets/images/contact-us-image.webp";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import imge from "../../../../assets/images/Electronic.png";
@@ -44,74 +44,47 @@ const slides = [
   },
 ];
 
-
-
-const initialState = {
-  slideIndex: 3,
-};
-
-const slidesReducer = (state, event) => {
-  if (event.type === "NEXT") {
-    return {
-      ...state,
-      slideIndex: (state.slideIndex + 1) % slides.length,
-    };
-  }
-  if (event.type === "PREV") {
-    return {
-      ...state,
-      slideIndex:
-        state.slideIndex === 0 ? slides.length - 1 : state.slideIndex - 1,
-    };
-  }
-};
-
 function Slide({ slide, offset }) {
   const active = offset === 0 ? true : null;
   console.log(active ? slide : null);
 
   return (
     <div
-      className="slide"
+      className={cls.slide}
       data-active={active}
       style={{
-        "--offset": offset-.5,
+        "--offset": offset * 1.05 - 0.3,
         "--dir": 0,
+        backgroundImage: `url('${slide.file}')`,
       }}
-    >
-      <div
-        className="slideBackground"
-        style={{
-          backgroundImage: `url('${slide.image}')`,
-        }}
-      />
-      <div
-        className="slideContent"
-        style={{
-          backgroundImage: `url('${slide.image}')`,
-        }}
-      >
-      
-      </div>
-    </div>
+    ></div>
   );
 }
 
 function FlancerCertificatesComponent({ certificatesData }) {
-  const [state, dispatch] = React.useReducer(slidesReducer, initialState);
+  const [state, setState] = useState(0);
 
   return (
-    <div className="slides">
-      <button className="prev" onClick={() => dispatch({ type: "PREV" })}>
-        ‹
-      </button>
-
-      {[...slides].map((slide, i) => {
-        let offset = state.slideIndex - i;
-        return <Slide slide={slide} offset={offset} key={i} />;
-      })}
-      <button className="next" onClick={() => dispatch({ type: "NEXT" })}>
+    <div className={cls.main}>
+      <div className={cls.slides}>
+        {certificatesData.map((slide, i) => {
+          let offset = state - i;
+          return <Slide slide={slide} offset={offset} key={i} />;
+        })}
+      </div>
+      <button
+        onClick={() => setState((state + 1) % certificatesData.length)}
+        className={cls.next}
+      >
         ›
+      </button>
+      <button
+        className={cls.prev}
+        onClick={() =>
+          setState(state === 0 ? certificatesData.length - 1 : state - 1)
+        }
+      >
+        ‹
       </button>
     </div>
   );

@@ -157,6 +157,7 @@ const OfferPriceForm = () => {
         messageClick: true,
       })
     );
+    console.log(content);
     setAdvsCheck(true);
     newfile.videos?.forEach((video, idx) => {
       return offerPrice.append(`videos[${idx}]`, video);
@@ -165,7 +166,15 @@ const OfferPriceForm = () => {
       return offerPrice.append(`images[${idx}]`, image);
     });
     offerPrice.set("name", formData.name);
-    offerPrice.set("description", content ? content : recivedData?.description);
+    offerPrice.set("description", content);
+    // offerPrice.set(
+    //   "description",
+    //   content
+    //     ? content
+    //     : recivedData?.description
+    //     ? recivedData.description
+    //     : ""
+    // );
     // offerPrice.set("time", formData.time);
     // offerPrice.set("type_work", formData.type_work);
     offerPrice.set("country_id", selectedCountry?.id);
@@ -217,17 +226,12 @@ const OfferPriceForm = () => {
   };
   const [disable, setDisable] = useState(false);
   useEffect(() => {
-    if (
-      formData.name.length > 2 &&
-      content.length > 2 &&
-      getAllUserUpdate.category?.length > 0 &&
-      selectedArea?.id
-    ) {
+    if (getAllUserUpdate.category?.length > 0 && selectedArea?.id) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-  }, [formData, content, getAllUserUpdate]);
+  }, [ getAllUserUpdate, selectedArea]);
 
   const [anyJob, setAnyJob] = useState(false);
   return (

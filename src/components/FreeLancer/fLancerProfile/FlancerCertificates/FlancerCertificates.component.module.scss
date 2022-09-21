@@ -1,0 +1,54 @@
+.main {
+  position: relative;
+  .slides {
+    display: grid;
+    height: 20rem;
+    .slide {
+      grid-area: 1/-1;
+      width: 60%;
+      height: 15rem;
+      margin-top: 3rem;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      border-radius: 10px;
+      opacity: 0.7;
+      transform: perspective(1000px) translateX(calc(100% * var(--offset)))
+        rotateY(calc(-45deg * var(--dir)));
+      transition: 0.5s;
+    }
+    .slide[data-active] {
+      z-index: 2;
+      pointer-events: auto;
+      opacity: 1;
+      height: 20rem;
+      margin-top: 0;
+    }
+  }
+  .prev {
+    appearance: none;
+    border: none;
+    color: black;
+    position: absolute;
+    font-size: 3rem;
+    background-color: transparent;
+    transition: opacity 0.3s;
+    bottom: -1rem;
+    right: 4rem;
+    opacity: 0.7;
+    z-index: 5;
+  }
+  .next {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: black;
+    position: absolute;
+    font-size: 3rem;
+    bottom: -1rem;
+    left: 4rem;
+    transition: opacity 0.3s;
+    opacity: 0.7;
+    z-index: 5;
+  }
+}

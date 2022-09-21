@@ -233,17 +233,12 @@ const AdvertisingFormComponent = () => {
   const advsMaxCharacters = 5000;
 
   useEffect(() => {
-    if (
-      formData.name.length > 2 &&
-      content.length > 2 &&
-      getAllUserUpdate.category?.length > 0 &&
-      selectedArea?.id
-    ) {
+    if (getAllUserUpdate.category?.length > 0 && selectedArea?.id) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-  }, [formData, content, getAllUserUpdate]);
+  }, [getAllUserUpdate, selectedArea]);
   const [showSkills, setShowSkills] = useState(false);
   const [allSkills, setAllSkills] = useState(false);
   const fetchAllSkills = async () => {
@@ -312,14 +307,14 @@ const AdvertisingFormComponent = () => {
           {/* <div className="text-start w-100 cLT-smoke-text">
             {getDescriptionLength} / {advsMaxCharacters}
           </div> */}
-          {/* {errMessage?.description && (
+          {errMessage?.description && (
             <p
-              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+              className="mb-0 fLT-Regular-sA cLT-danger-text  px-2"
               style={{ bottom: "0px" }}
             >
               {errMessage?.description}
             </p>
-          )} */}
+          )}
         </div>
         <Form.Group
           as={Col}
@@ -340,13 +335,13 @@ const AdvertisingFormComponent = () => {
             type="number"
             placeholder="4 ريال"
           />
-          {/* <div>
+          <div>
             {errMessage?.price && (
-              <p className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
                 {errMessage?.price}
               </p>
             )}
-          </div> */}
+          </div>
         </Form.Group>
         {/* Upload Files [Holder] */}
         <div className=" LT-upload-advs">
@@ -392,13 +387,13 @@ const AdvertisingFormComponent = () => {
               tags={allSkills}
             />
           )}
-          {/* <div>
+          <div>
             {errMessage?.category && (
-              <p className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2">
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
                 {errMessage?.category}
               </p>
             )}
-          </div> */}
+          </div>
         </div>
         <div className="  position-relative">
           {/* [Title] */}

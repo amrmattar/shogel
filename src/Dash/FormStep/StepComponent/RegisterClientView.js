@@ -46,6 +46,7 @@ const RegisterClientView = () => {
   const [emailError, setEmailError] = useState("");
   const [nameValid, setNameValid] = useState(false);
   const [nameError, setNameError] = useState("");
+  const [passError, setPassError] = useState("");
   const checkEmail = async () => {
     try {
       await API.get(`/auth/check/email?email=${getClientData.email}`);
@@ -74,7 +75,7 @@ const RegisterClientView = () => {
       timerRef.current = setTimeout(() => {
         checkUserName();
         checkEmail();
-      }, 200);
+      }, 300);
     }
   }, [validation, getClientData]);
   return (
@@ -119,7 +120,7 @@ const RegisterClientView = () => {
                 type="email"
                 placeholder="البريد الإلكتروني"
                 onChange={value.setDataDetails("email")}
-                pattern="[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+(\.[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+)*@([a-zA-Z0-9_][-a-zA-Z0-9_]*(\.[-a-zA-Z0-9_]+)*\.([cC][oO][mM]))(:[0-9]{1,5})?"
+                pattern="[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+(\.[-a-zA-Z0-9~!$%^&amp;*_=+}{'?]+)*@([a-zA-Z0-9_][-a-zA-Z0-9_]*(\.[-a-zA-Z0-9_]+)*\.([cCnN][oOeE][mMtT]))(:[0-9]{1,5})?"
                 value={getClientData.email}
               />
               {emailError.length > 0 && (
@@ -142,11 +143,10 @@ const RegisterClientView = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="كلمة المرور"
               />
-
               <IconButton
                 style={{ position: "absolute", bottom: "0", left: "18px" }}
                 onClick={() => setShowPassword(!showPassword)}
-              >
+                >
                 {showPassword ? (
                   <VisibilityOffOutlinedIcon />
                 ) : (
@@ -154,6 +154,11 @@ const RegisterClientView = () => {
                 )}{" "}
               </IconButton>
             </Form.Group>
+                  {getClientData.password.length < 8 && (
+                    <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                      {'كلمة المرور يجب ان تكون 8 خانات علي الاقل'}
+                    </p>
+                  )}
           </Row>
         </div>
         <div
