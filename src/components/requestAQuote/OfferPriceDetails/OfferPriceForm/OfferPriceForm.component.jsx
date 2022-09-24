@@ -267,10 +267,7 @@ const OfferPriceForm = () => {
                 placeholder="مثال : احتاج معقب .. برمجة تطبيق .. ترميم ملحق .. حفار قبو"
               />
               {errMessage?.name && (
-                <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2"
-                  style={{ bottom: "-1rem" }}
-                >
+                <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                   {errMessage?.name}
                 </p>
               )}
@@ -293,10 +290,7 @@ const OfferPriceForm = () => {
             {getDescriptionLength} / {maxCharacters}
           </div> */}
           {errMessage?.description && (
-            <p
-              className=" position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-              style={{ bottom: "-1rem" }}
-            >
+            <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
               {errMessage?.description}
             </p>
           )}
@@ -325,7 +319,7 @@ const OfferPriceForm = () => {
               />
               {errMessage?.time && (
                 <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.time}
@@ -382,7 +376,7 @@ const OfferPriceForm = () => {
               </div>
               {errMessage?.type_work && (
                 <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.type_work}
@@ -457,10 +451,7 @@ const OfferPriceForm = () => {
               //             `}
             />
             {errMessage?.category && (
-              <p
-                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                style={{ bottom: "-1rem" }}
-              >
+              <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                 {errMessage?.category}
               </p>
             )}
@@ -525,10 +516,7 @@ const OfferPriceForm = () => {
                   />
                 </div>
                 {errMessage?.country_id && (
-                  <p
-                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                    style={{ bottom: "-27px" }}
-                  >
+                  <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                     {errMessage?.country_id}
                   </p>
                 )}
@@ -550,7 +538,7 @@ const OfferPriceForm = () => {
                 </div>
                 {errMessage?.city_id && (
                   <p
-                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                    className="mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                     style={{ bottom: "-27px" }}
                   >
                     {errMessage?.city_id}
@@ -577,10 +565,7 @@ const OfferPriceForm = () => {
                   />
                 </div>
                 {errMessage?.country_id && (
-                  <p
-                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                    style={{ bottom: "-27px" }}
-                  >
+                  <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                     {errMessage?.country_id}
                   </p>
                 )}
@@ -602,7 +587,7 @@ const OfferPriceForm = () => {
                 </div>
                 {errMessage?.city_id && (
                   <p
-                    className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                    className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                     style={{ bottom: "27px" }}
                   >
                     {errMessage?.city_id}

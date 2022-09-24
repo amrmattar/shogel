@@ -4,12 +4,12 @@ import { getDescription } from '../../../../core/redux/reducers/UpdateProfileRed
 
 const FlancerAboutComponent = ({ about, data }) => {
     const dispatch = useDispatch()
-    const [description, setDiscription] = useState('')
+    const [info, setInfo] = useState('')
     const getAboutMe = useCallback(
         (e) => {
-            dispatch(getDescription(description ? description : data))
+            dispatch(getDescription(info ? info : data))
         },
-        [dispatch, description],
+        [dispatch, info],
     )
     useEffect(() => {
         getAboutMe()
@@ -27,7 +27,7 @@ const FlancerAboutComponent = ({ about, data }) => {
             {/* Freelancer About Edit  [Section] */}
             {about === 'editAbout' &&
                 <div className="">
-                    <textarea onChange={(e) => setDiscription(e?.target?.value)}
+                    <textarea onChange={(e) => setInfo(e?.target?.value)}
                         defaultValue={data}
                         className="form-control fLT-Regular-sB p-3 uLT-bd-f-platinum-sA fLT-Regular-sB cLT-main-text" rows="3" placeholder="اكتب هنا"></textarea>
                 </div>
