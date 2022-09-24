@@ -231,7 +231,7 @@ const OfferPriceForm = () => {
     } else {
       setDisable(true);
     }
-  }, [ getAllUserUpdate, selectedArea]);
+  }, [getAllUserUpdate, selectedArea]);
 
   const [anyJob, setAnyJob] = useState(false);
   return (

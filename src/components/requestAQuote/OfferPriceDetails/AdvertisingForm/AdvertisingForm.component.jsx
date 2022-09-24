@@ -281,7 +281,6 @@ const AdvertisingFormComponent = () => {
                 onChange={handleChange}
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
-                placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
               />
               <div>
                 {errMessage?.name && (
