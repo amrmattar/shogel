@@ -186,11 +186,10 @@ const FlancerAdvsDetailsPage = () => {
         clickMe={messages?.messageClick}
       />
 
-      <div className="mb-3 container-md px-2 px-sm-3 px-md-4">
-        <div className="d-flex my-3">
-        </div>
+      <div className="mb-3  mDefault">
+        <div className="d-flex my-3 "></div>
         {/* List Card Row [Holder] */}
-        <div className="LT-advsDetails-grid cLT-white-bg uLT-f-radius-sB ">
+        <div className="LT-advsDetails-grid cLT-white-bg uLT-f-radius-sB p-4">
           {/* List Card [Image] */}
           <div className="LT-advsDetails-image position-relative">
             <img
@@ -262,11 +261,9 @@ const FlancerAdvsDetailsPage = () => {
           </div>
         </div>
       </div>
-      <div
-        className="mb-3 container-md px-2 px-sm-3 px-md-4"
-        style={{ backgroundColor: "white" }}
-      >
-        <div className="container-md mb-4  px-2 px-sm-3 px-md-4">
+
+      <div className="mb-3 mDefault pb-5" style={{ backgroundColor: "white" }}>
+        <div className="p-4">
           <PageTitle title="تفاصيل الاعلان" />
           <div className="d-flex">
             <div className="">
@@ -404,7 +401,7 @@ const FlancerAdvsDetailsPage = () => {
           </div>
         </div>
       )}
-      <div className="container-md d-flex flex-column px-2 px-sm-3 px-md-4 flex-wrap">
+      <div className="mDefault d-flex flex-column pb-4 flex-wrap">
         <PageTitle title="إعلانات مشابهة" />
         <div
           style={{ height: "30rem", overflowY: "hidden" }}
