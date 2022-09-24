@@ -32,6 +32,7 @@ const FreelancerMainEditAccountPage = () => {
 
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateSocail, setUpdateSocail] = useState(false);
+  // console.log(getAllUserUpdate?.updateData);
   useEffect(() => {
     if (userID !== 0) {
       return userProfile._GET_ProfileData(userID).then((res) => {
@@ -97,7 +98,7 @@ const FreelancerMainEditAccountPage = () => {
       return mySkill.append(`document[${idx}]`, docx);
     });
     mySkill.append("email", getAllUserUpdate?.updateData.email);
-    mySkill.append("info", getAllUserUpdate?.updateData.info);
+    mySkill.append("info", getAllUserUpdate?.discription);
     mySkill.append("fullname", getAllUserUpdate?.updateData.fullname);
     getAllUserUpdate?.updateData.gender_id &&
       mySkill.append("gender_id", getAllUserUpdate?.updateData.gender_id);
@@ -113,16 +114,16 @@ const FreelancerMainEditAccountPage = () => {
         "nationality_number",
         getAllUserUpdate?.updateData.nationality_number
       );
-    getAllUserUpdate?.discription !== undefined &&
-      mySkill.append("discription", getAllUserUpdate?.discription);
-    getAllUserUpdate?.countriesID !== undefined &&
-      mySkill.append("country_id", getAllUserUpdate?.countriesID);
-    getAllUserUpdate?.citiesID !== undefined &&
-      mySkill.append("city_id", getAllUserUpdate?.citiesID);
-    getAllUserUpdate?.stateID !== undefined &&
-      mySkill.append("state_id", getAllUserUpdate?.stateID);
-    getAllUserUpdate?.areaID !== undefined &&
-      mySkill.append("area_id", getAllUserUpdate?.areaID);
+    getAllUserUpdate?.updateData?.description !== undefined &&
+      mySkill.append("description", getAllUserUpdate?.updateData.description);
+    getAllUserUpdate?.updateData?.countriesID !== undefined &&
+      mySkill.append("country_id", getAllUserUpdate?.updateData.countriesID);
+    getAllUserUpdate?.updateData?.citiesID !== undefined &&
+      mySkill.append("city_id", getAllUserUpdate?.updateData.citiesID);
+    getAllUserUpdate?.updateData?.stateID !== undefined &&
+      mySkill.append("state_id", getAllUserUpdate?.updateData.stateID);
+    getAllUserUpdate?.updateData?.areaID !== undefined &&
+      mySkill.append("area_id", getAllUserUpdate?.updateData.areaID);
     categorySkills?.forEach((cate, idx) => {
       mySkill.append(`category[${idx}]`, cate);
     });

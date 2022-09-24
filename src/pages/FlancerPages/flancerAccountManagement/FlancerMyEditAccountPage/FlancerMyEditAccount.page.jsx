@@ -61,7 +61,7 @@ const FlancerMyEditAccountPage = ({
         {/* About Me [Component] */}
         <FlancerAboutComponent
           about={"editAbout"}
-          data={personalData?.description}
+          data={personalData?.info}
         />
       </>
       {/* My Location [Section] */}

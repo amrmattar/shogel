@@ -45,6 +45,9 @@ const SkillsStep = () => {
                   if (activeSubChilds.length == child.children.length) {
                     child.active = true;
                     activeChilds.push(child.id);
+                    if (activeChilds.length == ele.children.length) {
+                      ele.active = true;
+                    }
                   }
                 });
             });

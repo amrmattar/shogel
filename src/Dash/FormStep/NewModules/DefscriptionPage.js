@@ -101,7 +101,7 @@ const DersciptionPage = () => {
                 name="email"
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
-                placeholder="مثال - مطور ويب - خبير صيانه"
+                placeholder="مطور ويب | خبير صيانه"
                 value={getClientData.description}
                 onChange={value.setDataDetails("description")}
 
@@ -119,7 +119,6 @@ const DersciptionPage = () => {
               </Form.Label>
               <Form.Control
                 name="description"
-           
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
                 as="textarea"

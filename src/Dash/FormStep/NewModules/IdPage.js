@@ -174,31 +174,7 @@ const IdPage = () => {
                 ))}
               </RadioGroup>
             </FormControl>
-            <Form.Group>
-              {value?.accountType?.userKind !== "company" ? (
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  رقم الهوية
-                </Form.Label>
-              ) : (
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                  رقم السجل التجاري
-                </Form.Label>
-              )}
-              <Form.Control
-                name="id"
-                required
-                className="uLT-bd-f-platinum-sA inpBG inp"
-                type="text"
-                placeholder="ادخل رقم الهوية "
-                onChange={value.setDataDetails("id")}
-                value={getClientData.id}
-              />
-              {/* {messages?.messages?.username && (
-                  <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                    {messages?.messages?.username}
-                  </p>
-                )} */}
-            </Form.Group>
+
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
                 الجنسية<span className="cLT-danger-text">*</span>
@@ -225,7 +201,31 @@ const IdPage = () => {
               </p>
             )} */}
             </Form.Group>
-
+            <Form.Group>
+              {value?.accountType?.userKind !== "company" ? (
+                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                  رقم الهوية
+                </Form.Label>
+              ) : (
+                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                  رقم السجل التجاري
+                </Form.Label>
+              )}
+              <Form.Control
+                name="id"
+                required
+                className="uLT-bd-f-platinum-sA inpBG inp"
+                type="text"
+                placeholder="ادخل رقم الهوية "
+                onChange={value.setDataDetails("id")}
+                value={getClientData.id}
+              />
+              {/* {messages?.messages?.username && (
+                  <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                    {messages?.messages?.username}
+                  </p>
+                )} */}
+            </Form.Group>
             <Form.Group>
               <Upload
                 inputRef={inputRef}

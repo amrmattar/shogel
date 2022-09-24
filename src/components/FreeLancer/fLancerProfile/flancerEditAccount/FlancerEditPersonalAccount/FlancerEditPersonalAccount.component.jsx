@@ -52,6 +52,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
     username: "",
     fullname: "",
     email: "",
+    description: "",
     nationality_number: "",
   });
   const [updateMobile, setUpdateMobile] = useState();
@@ -73,6 +74,14 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
     },
     [setFormInput]
   );
+  const descHandler = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+
+      setFormInput((formInput) => ({ ...formInput, [name]: value }));
+    },
+    [setFormInput]
+  );
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((formInput) => ({ ...formInput, [name]: value }));
@@ -83,7 +92,10 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
         username: formInput.username
           ? formInput.username
           : userProfileData?.username,
-        info: formInput.info ? formInput.info : userProfileData?.info,
+        info: formInput.info ? formInput.info : userIsData?.info,
+        description: formInput.description
+          ? formInput.description
+          : userIsData?.description,
         fullname: formInput.fullname
           ? formInput.fullname
           : userProfileData?.fullname,
@@ -118,6 +130,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
   }, [userIsData]);
   const refe = useRef();
   // Gender Select
+  console.log(userIsData);
   GenderSelect = React.forwardRef(GenderSelect);
   function GenderSelect(isProps = {}, ref) {
     return (
@@ -318,12 +331,12 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
                   الوصف المختصر
                 </Form.Label>
                 <Form.Control
-                  name="info"
+                  name="description"
                   className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
                   type="text"
-                  placeholder="مثال - مطور ويب - خبير صيانه"
-                  onChange={(e) => fullNameHandler(e)}
-                  defaultValue={userIsData?.info}
+                  placeholder="مطور ويب | خبير صيانه"
+                  onChange={(e) => descHandler(e)}
+                  defaultValue={userIsData?.description}
                 />
               </Form.Group>
             )}

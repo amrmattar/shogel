@@ -263,11 +263,11 @@ const AdvertisingFormComponent = () => {
       <Form className="uLT-f-radius-sB LT-advs-form-grid pt-3 mt-4 px-4">
         {/* Address Request [Section] */}
         <Row className=" flex-column ">
-          <div className="d-flex ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
+          <div className="d-flex ps-0  ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             <Form.Group
               as={Col}
-              sm={12}
-              md={12}
+              sm={6}
+              md={6}
               controlId="formGridPassword"
               className=" position-relative px-0 "
             >
@@ -287,6 +287,34 @@ const AdvertisingFormComponent = () => {
                 {errMessage?.name && (
                   <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
                     {errMessage?.name}
+                  </p>
+                )}
+              </div>
+            </Form.Group>
+            <Form.Group
+              as={Col}
+              sm={4}
+              md={4}
+              style={{marginRight:'auto'}}
+              controlId="formGridPassword"
+              className=" position-relative px-0 "
+            >
+              <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
+                {" "}
+                السعر
+              </Form.Label>
+              <Form.Control
+                value={formData?.price}
+                name="price"
+                onChange={handleChange}
+                className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
+                type="number"
+                placeholder="4 ريال"
+              />
+              <div>
+                {errMessage?.price && (
+                  <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
+                    {errMessage?.price}
                   </p>
                 )}
               </div>
@@ -316,33 +344,7 @@ const AdvertisingFormComponent = () => {
             </p>
           )}
         </div>
-        <Form.Group
-          as={Col}
-          sm={6}
-          md={3}
-          controlId="formGridPassword"
-          className=" position-relative px-0"
-        >
-          <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
-            {" "}
-            السعر
-          </Form.Label>
-          <Form.Control
-            value={formData?.price}
-            name="price"
-            onChange={handleChange}
-            className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
-            type="number"
-            placeholder="4 ريال"
-          />
-          <div>
-            {errMessage?.price && (
-              <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
-                {errMessage?.price}
-              </p>
-            )}
-          </div>
-        </Form.Group>
+
         {/* Upload Files [Holder] */}
         <div className=" LT-upload-advs">
           <Upload
