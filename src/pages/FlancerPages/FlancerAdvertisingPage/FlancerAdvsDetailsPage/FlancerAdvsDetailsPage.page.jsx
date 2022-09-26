@@ -319,7 +319,7 @@ const FlancerAdvsDetailsPage = () => {
           </div> */}
           </div>
         </div>
-        <div className="">
+        <div style={{ overflow: "hidden", margin:'auto' }}>
           <FlancerCertificatesComponent
             certificatesData={advsDataById?.document}
           />

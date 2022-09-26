@@ -53,6 +53,31 @@ const RegisterDetectedAccount = (props) => {
           className="d-flex"
         >
           <button
+            onClick={() => handleChangeScreen()}
+            onFocus={value.handleChange("user")}
+            id={3}
+            name="freelancer"
+            style={{
+              backgroundColor: "#F8FAFC",
+              height: "8rem",
+              width: "9rem",
+              border: "0",
+            }}
+          >
+            <i
+              className={` LT-freelancer-icon iLT-freelancer-icon uLT-img-contain `}
+              name="freelancer"
+            ></i>
+            <img src={Logo} />
+            <p
+              className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
+              name="freelancer"
+            >
+              {" "}
+              حســاب مشتغل
+            </p>
+          </button>
+          <button
             style={{
               backgroundColor: "#F8FAFC",
               height: "8rem",
@@ -83,31 +108,6 @@ const RegisterDetectedAccount = (props) => {
             >
               {" "}
               حســاب مستخدم
-            </p>
-          </button>
-          <button
-            onClick={() => handleChangeScreen()}
-            onFocus={value.handleChange("user")}
-            id={3}
-            name="freelancer"
-            style={{
-              backgroundColor: "#F8FAFC",
-              height: "8rem",
-              width: "9rem",
-              border: "0",
-            }}
-          >
-            <i
-              className={` LT-freelancer-icon iLT-freelancer-icon uLT-img-contain `}
-              name="freelancer"
-            ></i>
-            <img src={Logo} />
-            <p
-              className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
-              name="freelancer"
-            >
-              {" "}
-              حســاب مشتغل
             </p>
           </button>
         </div>

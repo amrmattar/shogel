@@ -185,7 +185,7 @@ const IdPage = () => {
               >
                 <Select
                   value={getClientData.nation?.id ? getClientData.nation : ""}
-                  placeholder="سعودي"
+                  placeholder="جنسية"
                   options={nations}
                   onChange={value.setDataDetails("nation")}
                   getOptionLabel={(city) => city?.name}

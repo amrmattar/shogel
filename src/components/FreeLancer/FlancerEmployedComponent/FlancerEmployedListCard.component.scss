@@ -79,3 +79,25 @@
     gap: 12px;
   }
 }
+.containo32 {
+  display: flex;
+  direction: ltr;
+  gap: 1px;
+  p {
+    color: #1eaaad;
+    font-size: 10px;
+    font-weight: bolder;
+    margin: 0 3px 0 0;
+  }
+  .progressHo {
+    width: 8px;
+    background-color: #e9e9e9;
+    height: 16px;
+    border-radius: 5px;
+    .progressCh {
+      height: 100%;
+      background-color: #1eaaad;
+      border-radius: 5px;
+    }
+  }
+}

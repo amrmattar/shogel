@@ -18,7 +18,6 @@ import IdPage from "./NewModules/IdPage";
 import LocationPage from "./NewModules/LocationPage";
 import LocationClientPage from "./NewModules/LocationClientPage";
 import StepperComp from "./StepComponent/StepperComp";
-import Chat from "../../components/ChatPage/Chat";
 const MasterRegistrationComponent = () => {
   const value = useContext(LabelContext);
 
@@ -29,7 +28,7 @@ const MasterRegistrationComponent = () => {
         return setfirst(2);
 
       default:
-        return setfirst(4);
+        return setfirst(5);
     }
   }, [value?.accountType?.userKind]);
   useEffect(() => {
@@ -37,7 +36,9 @@ const MasterRegistrationComponent = () => {
   }, [handleRoute]);
   return (
     <div className="LT-stepper-style" dir="ltr">
-      {value.page > 3 && <StepperComp steps={first} activeStep={value?.page} />}
+      {value.page > 2 && value?.accountType?.userKind !== "freelancer" && (
+        <StepperComp steps={first} activeStep={value?.page} />
+      )}
 
       {/* <StepperComp steps={first} activeStep={value?.page} /> */}
       {value.page === 0 && <RegisterMobileStep />}
@@ -54,14 +55,14 @@ const MasterRegistrationComponent = () => {
       {value.page === 4 && value?.accountType?.userKind !== "client" && (
         <SkillsStep />
       )}
-      {value.page === 4 && value?.accountType?.userKind == "client" && (
+      {/* {value.page === 4 && value?.accountType?.userKind == "client" && (
         <DescriptionPage />
+      )} */}
+      {value.page === 4 && value?.accountType?.userKind === "client" && (
+        <LocationClientPage />
       )}
       {value.page === 5 && value?.accountType?.userKind !== "client" && (
         <DescriptionPage />
-      )}
-      {value.page === 5 && value?.accountType?.userKind === "client" && (
-        <LocationClientPage />
       )}
 
       {value.page === 6 && <IdPage />}

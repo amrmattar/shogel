@@ -27,7 +27,8 @@ const LocationClientPage = () => {
     e.preventDefault();
     setNextLoadiing(true);
     const form = new FormData();
-    form.append("fullname", getClientData.fullName);
+    // form.append("fullname", getClientData.fullName);
+     form.append("fullname", 'awadbee');
     form.append("username", getClientData.username);
     form.append("email", getClientData.email);
     form.append("password", getClientData.password);
@@ -35,6 +36,8 @@ const LocationClientPage = () => {
     form.append("role_id", 2);
     form.append("country_id", selectedCountry.id);
     form.append("city_id", selectedCity.id);
+    form.append("state_id", selectedState.id);
+    form.append("area_id", selectedArea.id);
     form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
     getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
@@ -93,15 +96,9 @@ const LocationClientPage = () => {
       .catch((err) => {
         setNextLoadiing(false);
         let ob = err.response?.data.message;
-        if (ob) {
-          for (const key in ob) {
-            let ele = ob[key];
-
-            toast.error(ele[0]);
-          }
-        } else {
+  
           toast.error("حدث خطأ ما");
-        }
+        
         dispatch(
           getMessages([
             {
@@ -118,7 +115,7 @@ const LocationClientPage = () => {
       });
   };
   const getBack = () => {
-    value.jumpPage(4);
+    value.jumpPage(3);
   };
   const handleClose = () => {
     setOpen(false);
@@ -129,6 +126,8 @@ const LocationClientPage = () => {
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
   const [selectedCountry, setSelectedCountry] = useState();
   const [selectedCity, setSelectedCity] = useState();
+  const [selectedState, setSelectedState] = useState();
+  const [selectedArea, setSelectedArea] = useState();
   const [nations, setNations] = useState([]);
   const getNations = () => {
     API.get("coredata/nationality/list")
@@ -137,7 +136,7 @@ const LocationClientPage = () => {
       })
       .catch((e) => {});
   };
-  const validation = selectedCity?.id && getClientData.nation;
+  const validation = selectedArea?.id && getClientData.nation;
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity("");
@@ -145,17 +144,26 @@ const LocationClientPage = () => {
   const fetchCities = (city) => {
     setSelectedCity(city);
   };
+  const fetchState = (state) => {
+    setSelectedState(state);
+    setSelectedArea("");
+  };
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+    value.setDataDetails(area);
+  };
 
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
       modal,
       selectedCountry?.id,
-      selectedCity?.id
+      selectedCity?.id,
+      selectedState?.id
     ).then((res) => {
       setGetAllCountryFromResponse(res.data.data);
     });
-  }, [selectedCountry, selectedCity]);
+  }, [selectedCountry, selectedState, selectedCity]);
   useEffect(() => {
     getNations();
     return getCoreData;
@@ -186,7 +194,7 @@ const LocationClientPage = () => {
               >
                 <Select
                   value={getClientData.nation?.id ? getClientData.nation : ""}
-                  placeholder="سعودي"
+                  placeholder="الجنسية"
                   options={nations}
                   onChange={value.setDataDetails("nation")}
                   getOptionLabel={(city) => city?.name}
@@ -258,7 +266,44 @@ const LocationClientPage = () => {
               </p>
             )} */}
             </Form.Group>
-
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                المدينة<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={selectedState}
+                  placeholder="اختيار المدينة"
+                  className="uLT-f-radius-sB "
+                  options={getAllCountryFromResponse?.state}
+                  onChange={fetchState}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
+                />
+              </div>
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                الحي<span className="cLT-danger-text">*</span>
+              </Form.Label>
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={selectedArea}
+                  placeholder="اختيار الحي"
+                  options={getAllCountryFromResponse?.area}
+                  onChange={fetchArea}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+            </Form.Group>
             {/* Country [Section] */}
           </Row>
         </div>

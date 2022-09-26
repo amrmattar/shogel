@@ -239,7 +239,18 @@ const OrderDetailsPage = () => {
                   />
                 </>
               ) : (
-                false
+                <div
+                  style={{
+                    border: "1px solid gray",
+                    borderRight: "none",
+                    borderLeft: "none",
+                    padding: "1rem 0 1rem 0",
+                    margin: "1rem 0 1rem 0",
+                  }}
+                >
+                  <h3>لا يمكنك أضافة عرض</h3>
+                  <p>يجب ان تكون مشتغل لتضيف عرض سعر</p>
+                </div>
               )}
               {/*  All freelancer offers */}
               <PageTitle smallUnderTitle=" " title="العروض المقدمة" />

@@ -1,5 +1,6 @@
 .main {
   position: relative;
+  
   .slides {
     display: grid;
     height: 20rem;
@@ -28,12 +29,12 @@
   .prev {
     appearance: none;
     border: none;
-    color: black;
+    color: rgb(28,159,162);
     position: absolute;
-    font-size: 3rem;
+    font-size: 6rem;
     background-color: transparent;
     transition: opacity 0.3s;
-    bottom: -1rem;
+    bottom: 30%;
     right: 4rem;
     opacity: 0.7;
     z-index: 5;
@@ -42,10 +43,10 @@
     appearance: none;
     background: transparent;
     border: none;
-    color: black;
+    color: rgb(28,159,162);
     position: absolute;
-    font-size: 3rem;
-    bottom: -1rem;
+    font-size: 6rem;
+    bottom: 30%;
     left: 4rem;
     transition: opacity 0.3s;
     opacity: 0.7;

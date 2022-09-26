@@ -2,7 +2,7 @@ import cls from "./Stepper.module.scss";
 import { NavLink } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 const StepperComp = ({ activeStep, steps }) => {
-  const widthRatio = ((activeStep - 3) / steps) * 100;
+  const widthRatio = ((activeStep - 2) / steps) * 100;
   return (
     <div>
       <div
@@ -35,7 +35,7 @@ const StepperComp = ({ activeStep, steps }) => {
       <div
         style={{
           width: `${
-            activeStep > 3 ? (widthRatio <= 100 ? widthRatio : 0) : 0
+            activeStep > 2 ? (widthRatio <= 100 ? widthRatio : 0) : 0
           }%`,
         }}
         className={cls.Stepper}

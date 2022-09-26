@@ -8,6 +8,7 @@ import { getMessages } from "../../core/redux/reducers/Messages/Messages.core";
 import UserFeedBackShared from "../../shared/UserFeedBack/UserFeedBack.shared";
 import { BsTelephoneFill } from "react-icons/bs";
 import { MdEmail, MdLocationOn } from "react-icons/md";
+import CompletionChart from "../../components/FreeLancer/FlancerEmployedComponent/CompletionChart";
 
 const AsideFreelancerPage = ({
   selector,
@@ -51,6 +52,8 @@ const AsideFreelancerPage = ({
   useEffect(() => {
     return !userDataByParam && getCoreData;
   }, [getCoreData, userDataByParam]);
+   
+
   const handleChange = (e) => {
     dispatch(
       getMessages({
@@ -107,6 +110,9 @@ const AsideFreelancerPage = ({
       subTitle: isUserData?.city?.name,
     },
   ];
+   console.log(userProfileData, "waae");
+   console.log(userData, "wde");
+   console.log(isUserData, "qawe");
   return (
     <>
       <UserFeedBackShared
@@ -260,18 +266,9 @@ const AsideFreelancerPage = ({
               );
             })}
           {/* Profile Performance */}
-          <div className="w-100 text-center">
-            <meter
-              id="fuel"
-              style={{ width: "100%", height: "20px" }}
-              min="0"
-              max="100"
-              value={isUserData?.complete_profile}
-            ></meter>
-            <p className="m-0 fLT-Regular-sA ">
-              {isUserData?.complete_profile}%
-            </p>
-          </div>
+       
+            <CompletionChart value={isUserData?.complete_profile} />
+       
         </div>
         {/* Side Navigator Selector Component */}
         <div className="w-100">{selector}</div>

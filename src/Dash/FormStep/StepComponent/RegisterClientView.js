@@ -33,7 +33,8 @@ const RegisterClientView = () => {
     setNextLoadiing(true);
     value.jumpPage(4);
   };
-  const getBack = () => {
+  const getBack = (e) => {
+    e.preventDefault()
     value.prevPage();
   };
   const [open, setOpen] = useState(true);
@@ -176,7 +177,7 @@ const RegisterClientView = () => {
           </div>
           <div className="">
             <ButtonShare
-              onClick={() => getBack()}
+              onClick={getBack}
               innerText={"رجــــوع"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}

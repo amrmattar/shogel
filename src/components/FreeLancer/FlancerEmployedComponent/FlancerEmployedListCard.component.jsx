@@ -1,34 +1,17 @@
 import AmentiesShared from "../../../shared/Amenties/Amenties.shared";
 import FlancerPersonalInformationComponent from "../fLancerProfile/FlancerPersonalInformation/FlancerPersonalInformation.component";
+import CompletionChart from "./CompletionChart";
 import "./FlancerEmployedListCard.component.scss";
-import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box";
-import { useState } from "react";
-import Typography from "@mui/material/Typography";
 
 const FlancerEmployedListCard = ({ data }) => {
-  const [progress, setProgress] = useState(80);
   const myPersonData = {
     avatar: data?.avatar,
     fullname: data?.fullname,
     jobName: data?.job_name_id?.name,
     myFlag: data?.nationality?.logo,
     status: data?.available,
+    profileComplition: data?.complete_profile,
   };
-  function LinearProgressWithLabel(props) {
-    return (
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Box sx={{ width: "100%", mr: 1 }}>
-          <LinearProgress variant="determinate" {...props} />
-        </Box>
-        <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" color="text.secondary">{`${Math.round(
-            props.value
-          )}%`}</Typography>
-        </Box>
-      </Box>
-    );
-  }
   return (
     <>
       <div className="LT-employed-listCard-grid uLT-bd-f-platinum-sA uLT-f-radius-sB ">
@@ -54,18 +37,8 @@ const FlancerEmployedListCard = ({ data }) => {
           <div className="info-child">
             <div className="d-flex justify-content-between w-100 align-items-start">
               {/* User Info [Holder] */}
-              <div className="LT-performance-rate-holder  ">
-                {/* User Rate */}
 
-                <Box
-                  sx={{
-                    width: "10%",
-                    position: "absolute",
-                  }}
-                >
-                  <LinearProgressWithLabel  value={progress} />
-                </Box>
-              </div>
+              <CompletionChart value={myPersonData.profileComplition} />
             </div>
           </div>
         </div>
