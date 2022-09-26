@@ -28,7 +28,7 @@ const LocationClientPage = () => {
     setNextLoadiing(true);
     const form = new FormData();
     // form.append("fullname", getClientData.fullName);
-     form.append("fullname", 'awadbee');
+    //  form.append("fullname", 'awadbee');
     form.append("username", getClientData.username);
     form.append("email", getClientData.email);
     form.append("password", getClientData.password);
