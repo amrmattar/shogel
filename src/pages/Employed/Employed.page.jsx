@@ -8,40 +8,7 @@ import { useSelector } from "react-redux";
 import cls from "./Employee.module.scss";
 import DynamicFilter from "../Orders/OrderPage/DynamicFilter";
 import { API } from "../../enviroment/enviroment/enviroment";
-const categories = [
-  {
-    id: 1,
-    title: "برمجة",
-    subs: [
-      { id: 1, title: "برمجة ويب" },
-      { id: 1, title: "برمجة ويب" },
-      { id: 1, title: "برمجة ويب" },
-      { id: 1, title: "برمجة ويب" },
-    ],
-  },
-  { id: 2, title: "جوال" },
-  { id: 3, title: "جرافيك" },
-  { id: 4, title: "عروض" },
-  { id: 5, title: "فيديو" },
-  { id: 6, title: "مايكرو" },
-  { id: 7, title: "رسم" },
-  {
-    id: 8,
-    title: "ترجمة",
-    subs: [
-      { id: 1, title: "برمجة ويب" },
-      { id: 1, title: "برمجة ويب" },
-      { id: 1, title: "برمجة ويب" },
-      { id: 1, title: "برمجة ويب" },
-    ],
-  },
-  { id: 9, title: "شغل" },
-  { id: 10, title: "قيادة" },
-  { id: 11, title: "تسويق" },
-  { id: 12, title: "محاسبة" },
-  { id: 13, title: "علوم" },
-  { id: 14, title: "شبكات" },
-];
+
 const mostUse = [
   { id: 1, name: "افراد" },
   { id: 2, name: "شركات" },
@@ -51,30 +18,11 @@ const mostUse = [
 const Employed = () => {
   const param = useParams();
   const navigate = useNavigate();
-  const [getSearchKey] = useSelector((state) => [state.search]);
+  const key = useSelector((state) =>state.search.searchKey);
 
   // Todo Block Of Get All Advertising Form
   const [currentPage, setCurrentPage] = useState(null);
   const [flancersList, setFlancersList] = useState();
-  //  Use MEMO Function To Store Whte API Return Advertising List Data
-  // const listOfUsersAdvs = useMemo(() => {
-  //     return freelancersListProfile._GET_FreelancersListProfile(10, true, param.num, getSearchKey.searchStatus, getSearchKey?.searchKey).then(res => {
-  //         setFlancersList(res.data)
-  //     }).catch(err => { return err.response })
-  // }, [param.num, getSearchKey?.searchKey])
-  // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
-
-  // useEffect(() => {
-  //     const timeout = setTimeout(() => {
-  //         if (!flancersList) {
-  //             return listOfUsersAdvs
-  //         }
-  //     }, 100);
-  //     return () => clearTimeout(timeout)
-  // }, [flancersList, listOfUsersAdvs])
-
-  // ? ------------------[[[START Block]]]-----------------
-  //*TODO GET From API Response ==> Advertising Pagination
 
   const [pagination, setPagination] = useState();
   const handleAdvsPagination = useMemo(() => {
@@ -89,9 +37,7 @@ const Employed = () => {
     }, 1000);
     return clearTimeout(timeout);
   }, [flancersList?.pagination, handleAdvsPagination]);
-  // TODO GET From API Response ==> Advertising Pagination
-  // ? ------------------[[[END Block]]]-----------------
-  // Todo Set Current Page
+
   const getPageNumber = (e, value) => {
     setCurrentPage(param.num);
     navigate(`/employed/page=${value}`);
@@ -109,7 +55,6 @@ const Employed = () => {
   const [active, setActive] = useState(null);
   const [rate, setRate] = useState(0);
   const [categ, setCateg] = useState([]);
-  const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
@@ -130,7 +75,7 @@ const Employed = () => {
       body.set("perPage", 20);
       body.set("pagination", true);
       body.set("search", true);
-      body.set("fullname", search);
+      body.set("fullname", key);
 
       body.set("category", categ);
       body.set("rate", rate == 0 ? null : rate);
@@ -139,7 +84,7 @@ const Employed = () => {
       freelancersListProfile
         ._POST_FreelancersListProfileV2(body)
         .then((res) => {
-          getSearchKey?.searchKey && setFlancersList(res.data);
+          key?.searchKey && setFlancersList(res.data);
           setFlancersList(res.data);
         })
         .catch((err) => {
@@ -147,7 +92,7 @@ const Employed = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [rate, active, location, categ, search]);
+  }, [rate, active, location, categ, ,key]);
   // Condition For Show Loading Style Untill Data Return From API
   if (!flancersList?.data)
     return (
@@ -165,12 +110,10 @@ const Employed = () => {
   return (
     <>
       <div className={cls.container}>
-        <div className="d-flex">
-        </div>
+        <div className="d-flex"></div>
         <div className={cls.holder}>
           <DynamicFilter
             isEmployee={true}
-            setSearch={setSearch}
             setCategory={categHandler}
             setActive={setActive}
             setRate={setRate}

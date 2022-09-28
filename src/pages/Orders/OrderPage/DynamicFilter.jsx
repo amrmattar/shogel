@@ -6,6 +6,8 @@ import cls from "./DynamicFilter.module.scss";
 import { BiCurrentLocation } from "react-icons/bi";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
+import { getSearchKey } from "../../../core/redux/reducers/Search/Search.core";
+import { useDispatch, useSelector } from "react-redux";
 
 const DynamicFilter = ({
   mostUse,
@@ -14,17 +16,23 @@ const DynamicFilter = ({
   isAdvert,
   setCategory,
   setPrice,
-  setSearch,
   setLocation,
   setRate,
   setActive,
   setRateCount,
 }) => {
+  const key = useSelector((state) => state.search.searchKey);
+
+  const dispatch = useDispatch();
+  const handleInput = (v) => {
+    dispatch(getSearchKey(v));
+  };
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>
       <input
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => handleInput(e.target.value)}
+        value={key}
         className={cls.inp}
         placeholder="ابحث هنا"
         type="text"

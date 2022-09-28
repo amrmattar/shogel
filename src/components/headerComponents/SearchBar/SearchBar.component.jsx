@@ -3,12 +3,12 @@ import ArrowDown from "@mui/icons-material/ArrowDropDown";
 import ArrowUp from "@mui/icons-material/ArrowDropUp";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSearchKey } from "../../../core/redux/reducers/Search/Search.core";
 import cls from "./SearchBar.module.scss";
-import $ from "jquery";
 import { useLocation, useNavigate } from "react-router-dom";
 const SearchBar = () => {
+  const key = useSelector((state) => state.search.searchKey);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,82 +19,17 @@ const SearchBar = () => {
     selectRef.current?.value
   );
 
-  const any = (e) => {
-    setDevaultSelectValue(e?.target?.value);
-    if (e?.target?.value === "") {
-      setLoggin(false);
-    } else if (selectRef?.current === null) {
-      setLoggin(false);
-    } else {
-      setLoggin(true);
-    }
-  };
-  const [searchValue, setSearchValue] = useState({ searchKey: "" });
-  const handleChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setSearchValue((searchValue) => ({ ...searchValue, [name]: value }));
-      // switch (selectRef.current?.value || location?.pathname) {
-      //   case 'الاعلانات':
-      //   case '/advertising/page=1':
-      //     return (
-      //       navigate('/advertising/page=1') ,
-      //        dispatch(getSearchKey({searchStatus:true,searchKey:value ,pageName:selectRef.current?.value}))
-      //     )
-      //   case 'الطلبات':
-      //   case '/orders/page=1':
-      //     return (
-      //       navigate('/orders/page=1') ,
-      //        dispatch(getSearchKey({searchStatus:true,searchKey:value ,pageName:selectRef.current?.value}))
-      //     )
-      //   case 'المشتغلين':
-      //     return (
-      //       navigate('/employed/page=1') ,
-      //        dispatch(getSearchKey({searchStatus:true,searchKey:value ,pageName:selectRef.current?.value}))
-      //     )
-      //   default:
-      //     break;
-      // }
-    },
-    [setSearchValue]
-  );
-
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = () => {
     switch (selectRef.current?.value) {
       case "الاعلانات":
-        return (
-          navigate("/advertising/page=1"),
-          dispatch(
-            getSearchKey({
-              searchStatus: true,
-              searchKey: searchValue?.searchKey,
-              pageName: selectRef.current?.value,
-            })
-          )
-        );
+        return navigate("/advertising/page=1");
+
       case "الطلبات":
-        return (
-          navigate("/orders/page=1"),
-          dispatch(
-            getSearchKey({
-              searchStatus: true,
-              searchKey: searchValue?.searchKey,
-              pageName: selectRef.current?.value,
-            })
-          )
-        );
+        return navigate("/orders/page=1");
+
       case "المشتغلين":
-        return (
-          navigate("/employed/page=1"),
-          dispatch(
-            getSearchKey({
-              searchStatus: true,
-              searchKey: searchValue?.searchKey,
-              pageName: selectRef.current?.value,
-            })
-          )
-        );
+        return navigate("/employed/page=1");
+
       default:
         navigate("/");
         break;
@@ -116,7 +51,9 @@ const SearchBar = () => {
   useEffect(() => {
     handleDefaultValueScreen();
   }, [handleDefaultValueScreen, location.pathname]);
-
+  const handleInput = (v) => {
+    dispatch(getSearchKey(v));
+  };
   const anyTwo = (e) => {
     setLoggin(false);
   };
@@ -135,11 +72,11 @@ const SearchBar = () => {
             <input
               id="searchInput"
               onFocus={(e) => anyTwo()}
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleInput(e.target.value)}
               type="search"
               name="searchKey"
               placeholder="ابحث هنا"
-              value={searchValue?.searchKey}
+              value={key}
               style={{ background: "transparent" }}
               className="w-100 fLT-Regular-sB cLT-smoke-text uLT-outline-0 uLT-border-0 uLT-f-radius-sB px-2 "
               autoComplete="false"
@@ -170,7 +107,7 @@ const SearchBar = () => {
                   <select
                     id="select"
                     ref={selectRef}
-                    onChange={(e) => any(e)}
+                    onChange={handleSearch}
                     style={{ background: "transparent" }}
                     className={`${
                       loggin ? "minimal" : "xsxs"
@@ -187,7 +124,7 @@ const SearchBar = () => {
                 <select
                   ref={selectRef}
                   id="select"
-                  onChange={(e) => any(e)}
+                  onChange={handleSearch}
                   value={devaultSelectValue}
                   style={{ background: "transparent" }}
                   className={` mini cLT-main-text fLT-Regular-sB uLT-click`}

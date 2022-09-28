@@ -57,13 +57,13 @@ const OrdersPage = () => {
     state.authentication.loggedIn,
     state.search,
   ]);
+  const key = useSelector((state) => state.search.searchKey);
   const [currentPage, setCurrentPage] = useState(null);
   const [userOfferDetatils, setUserOfferDetatils] = useState();
 
   //  Use MEMO Function To Store Whte API Return Advertising List Data
   const [price, setPrice] = useState([]);
   const [categ, setCateg] = useState([]);
-  const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const categHandler = (id, state) => {
     state
@@ -78,8 +78,8 @@ const OrdersPage = () => {
       body.set("perPage", 20);
       body.set("pagination", true);
       body.set("search", true);
-      body.set("name", search);
-      
+      body.set("name", key);
+
       body.set("category", categ);
       body.set("price", price);
       body.set("location", location);
@@ -94,7 +94,7 @@ const OrdersPage = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [price, location, categ, search]);
+  }, [price, location, categ, key]);
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -157,11 +157,9 @@ const OrdersPage = () => {
   return (
     <>
       <div className={cls.container}>
-        <div className="d-flex">
-        </div>
+        <div className="d-flex"></div>
         <div className={cls.holder}>
           <DynamicFilter
-            setSearch={setSearch}
             setCategory={categHandler}
             setPrice={setPrice}
             setLocation={setLocation}

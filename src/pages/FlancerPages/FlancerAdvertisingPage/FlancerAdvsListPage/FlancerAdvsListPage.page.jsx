@@ -65,6 +65,7 @@ const mostUse = [
 const FlancerAdvsListPage = () => {
   const param = useParams();
   const navigate = useNavigate();
+    const key = useSelector((state) => state.search.searchKey);
   const [vistorUser, getSearchKey] = useSelector((state) => [
     state.authentication.loggedIn,
     state.search,
@@ -101,7 +102,6 @@ const FlancerAdvsListPage = () => {
   const [price, setPrice] = useState([]);
   const [categ, setCateg] = useState([]);
   const [rateCount, setRateCount] = useState([]);
-  const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
   const categHandler = (id, state) => {
     state
@@ -116,7 +116,7 @@ const FlancerAdvsListPage = () => {
       body.set("perPage", 20);
       body.set("pagination", true);
       body.set("search", true);
-      body.set("name", search);
+      body.set("name", key);
 
       body.set("category", categ);
       body.set("price", price);
@@ -134,7 +134,7 @@ const FlancerAdvsListPage = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [price, location, categ, search, rate, rateCount, active]);
+  }, [price, location, categ, key, rate, rateCount, active]);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userAdvsDetatils?.pagination) {
@@ -184,7 +184,6 @@ const FlancerAdvsListPage = () => {
         <div className={cls.holder}>
           <DynamicFilter
             isAdvert={true}
-            setSearch={setSearch}
             setCategory={categHandler}
             setPrice={setPrice}
             setActive={setActive}

@@ -1,19 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const userData = {
-    searchStatus: false,
-    searchKey: '',
-    pageName:''
-}
+  searchKey: "",
+};
 const searchReducer = createSlice({
-    name: 'searchReducer',
-    initialState: userData,
-    reducers: {
-        getSearchKey: (state, { payload }) => {
-            return state = payload
-        },
+  name: "searchReducer",
+  initialState: userData,
+  reducers: {
+    getSearchKey: (state, { payload }) => {
+      state.searchKey = payload;
     },
-})
+  },
+});
 
-export default searchReducer.reducer
-export const { getSearchKey } = searchReducer.actions
+export default searchReducer.reducer;
+export const { getSearchKey } = searchReducer.actions;
