@@ -98,17 +98,19 @@ const FreelancerMainEditAccountPage = () => {
       return mySkill.append(`document[${idx}]`, docx);
     });
     mySkill.append("email", getAllUserUpdate?.updateData.email);
-    mySkill.append("info", getAllUserUpdate?.discription);
+    getAllUserUpdate?.discription &&
+      mySkill.append("info", getAllUserUpdate?.discription);
     mySkill.append("fullname", getAllUserUpdate?.updateData.fullname);
     getAllUserUpdate?.updateData.gender_id &&
       mySkill.append("gender_id", getAllUserUpdate?.updateData.gender_id);
     getAllUserUpdate?.updateData.job_name_id &&
       mySkill.append("job_name_id", getAllUserUpdate?.updateData.job_name_id);
     mySkill.append("mobile", getAllUserUpdate?.updateData.mobile);
-    mySkill.append(
-      "nationality_id",
-      getAllUserUpdate?.updateData.nationality_id
-    );
+    getAllUserUpdate?.updateData.nationality_id &&
+      mySkill.append(
+        "nationality_id",
+        getAllUserUpdate?.updateData.nationality_id
+      );
     getAllUserUpdate?.updateData.nationality_number &&
       mySkill.append(
         "nationality_number",

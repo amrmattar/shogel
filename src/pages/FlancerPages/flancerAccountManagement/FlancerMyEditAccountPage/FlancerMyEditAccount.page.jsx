@@ -54,17 +54,6 @@ const FlancerMyEditAccountPage = ({
           userProfileData={personalData}
         />
       </>
-      {/* About Me [Section] */}
-      <>
-        {/* About Me [Title] */}
-        <PageTitle title={"نبذة عني"} />
-        {/* About Me [Component] */}
-        <FlancerAboutComponent
-          about={"editAbout"}
-          data={personalData?.info}
-        />
-      </>
-      {/* My Location [Section] */}
       <>
         {/* My Location [Title] */}
         <PageTitle title={" موقعك"} />
@@ -75,9 +64,22 @@ const FlancerMyEditAccountPage = ({
           userProfileLocation={userLocation ? userLocation : false}
         />
       </>
-      {/* My Tags [Section] */}
       {userRole !== "2" && (
         <>
+          {/* About Me [Section] */}
+          <>
+            {/* About Me [Title] */}
+            <PageTitle title={"نبذة عني"} />
+            {/* About Me [Component] */}
+            <FlancerAboutComponent
+              about={"editAbout"}
+              data={personalData?.info}
+            />
+          </>
+          {/* My Location [Section] */}
+
+          {/* My Tags [Section] */}
+
           {/* My Tags [Title] */}
           <PageTitle title={" مجالات الاختصاص"} />
           {/* My Tags [Component] */}
@@ -89,46 +91,46 @@ const FlancerMyEditAccountPage = ({
               "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها."
             }
           />
+
+          {/* Certificates [Section] */}
+          <>
+            {/* Certificates [Title] */}
+            <PageTitle title={"الشهادات والدورات"} />
+            {/* Certificates [Component] */}
+            <FlancerEditCertificatesComponent data={personalData?.skill} />
+          </>
+          {/* Language [Section] */}
+          <>
+            {/* Language [Title] */}
+            <PageTitle title={"اللغات "} />
+            {/* Language [Component] */}
+            <FlancerLanguageSkillsComponent />
+          </>
+          {/* Business Photos [Section] */}
+          <>
+            {/* Business Photos [Title] */}
+            <PageTitle title={"صور الاعمال والشهادات "} />
+            {/* Business Photos [Component] */}
+            <FlancerBusinessPhotosComponent
+              data={personalData}
+              fileUpload={fileUploads}
+              handleClick={onClick}
+              Sdelet={Sdelet}
+            />
+          </>
+          {/* Other Job Sites [Section] */}
+          <>
+            {/* Other Job Sites [Title] */}
+            <PageTitle title={"مواقع شغلي الاخري "} />
+            {/* Other Job Sites [Component] */}
+            <FlancerOtherJobSitesComponent
+              socialSite={coreData?.social}
+              data={personalData?.social}
+              checkupdate={setCheck}
+            />
+          </>
         </>
       )}
-      {/* Certificates [Section] */}
-      <>
-        {/* Certificates [Title] */}
-        <PageTitle title={"الشهادات والدورات"} />
-        {/* Certificates [Component] */}
-        <FlancerEditCertificatesComponent data={personalData?.skill} />
-      </>
-      {/* Language [Section] */}
-      <>
-        {/* Language [Title] */}
-        <PageTitle title={"اللغات "} />
-        {/* Language [Component] */}
-        <FlancerLanguageSkillsComponent />
-      </>
-      {/* Business Photos [Section] */}
-      <>
-        {/* Business Photos [Title] */}
-        <PageTitle title={"صور الاعمال والشهادات "} />
-        {/* Business Photos [Component] */}
-        <FlancerBusinessPhotosComponent
-          data={personalData}
-          fileUpload={fileUploads}
-          handleClick={onClick}
-      
-          Sdelet={Sdelet}
-        />
-      </>
-      {/* Other Job Sites [Section] */}
-      <>
-        {/* Other Job Sites [Title] */}
-        <PageTitle title={"مواقع شغلي الاخري "} />
-        {/* Other Job Sites [Component] */}
-        <FlancerOtherJobSitesComponent
-          socialSite={coreData?.social}
-          data={personalData?.social}
-          checkupdate={setCheck}
-        />
-      </>
       {/* Other Job Sites Save [Button] */}
       <div className="shadow uLT-f-radius-sB pb-4">
         <ButtonShare

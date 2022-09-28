@@ -18,6 +18,7 @@ const RegisterClientView = () => {
   const getClientData = value.labelInfo.clientView;
   let v1 =
     getClientData.username.length > 3 &&
+    getClientData.fullName.length > 3 &&
     getClientData.email.length > 7 &&
     getClientData.password.length >= 8;
   let v2 =
@@ -34,7 +35,7 @@ const RegisterClientView = () => {
     value.jumpPage(4);
   };
   const getBack = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     value.prevPage();
   };
   const [open, setOpen] = useState(true);
@@ -92,6 +93,28 @@ const RegisterClientView = () => {
           <Row className="mb-4 gap-3 two row">
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
+                اسم الفرد بالكامل
+                <span className="cLT-danger-text">*</span>
+              </Form.Label>
+
+              <Form.Control
+                autoComplete="off"
+                maxLength={15}
+                minLength={3}
+                className="uLT-bd-f-platinum-sA inpBG inp"
+                type="text"
+                value={getClientData.fullName}
+                onChange={value.setDataDetails("fullName")}
+                placeholder="الاسم الاول والاخير"
+              />
+              {/* {messages?.messages?.username && (
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {messages?.messages?.username}
+                </p>
+                )} */}
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
                 اسم المستخدم<span className="cLT-danger-text">*</span>
               </Form.Label>
               <Form.Control
@@ -133,6 +156,7 @@ const RegisterClientView = () => {
             <Form.Group as={Col} className={"position-relative"}>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
                 كلمة المرور
+                <span className="cLT-danger-text">*</span>
               </Form.Label>
               <Form.Control
                 autoComplete="off"
@@ -147,7 +171,7 @@ const RegisterClientView = () => {
               <IconButton
                 style={{ position: "absolute", bottom: "0", left: "18px" }}
                 onClick={() => setShowPassword(!showPassword)}
-                >
+              >
                 {showPassword ? (
                   <VisibilityOffOutlinedIcon />
                 ) : (
@@ -155,11 +179,11 @@ const RegisterClientView = () => {
                 )}{" "}
               </IconButton>
             </Form.Group>
-                  {getClientData.password.length < 8 && (
-                    <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
-                      {'كلمة المرور يجب ان تكون 8 خانات علي الاقل'}
-                    </p>
-                  )}
+            {getClientData.password.length < 8 && (
+              <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
+                {"كلمة المرور يجب ان تكون 8 خانات علي الاقل"}
+              </p>
+            )}
           </Row>
         </div>
         <div

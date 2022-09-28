@@ -185,7 +185,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
             ? nationality?.name
             : isProps.isProps.value
             ? isProps.isProps.value
-            : "loading"
+            : ""
         }
         onChange={fetchNationality}
         getOptionLabel={(nationality) => nationality?.name}
