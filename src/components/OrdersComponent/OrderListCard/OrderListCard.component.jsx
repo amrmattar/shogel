@@ -17,7 +17,7 @@ const OrderListCardComponent = ({
   return (
     <>
       <div className={cls.main}>
-        <div className={cls.offer}>
+        {/* <div className={cls.offer}>
           <i className={` iLT-orders-offer uLT-img-contain iLT-sA ms-2`}></i>
           <p className="m-0 card-text cLT-secondary-text fLT-Regular-sB fLT-Bold-sA ps-2">
             {offer?.offerCount}
@@ -26,7 +26,7 @@ const OrderListCardComponent = ({
             {" "}
             عروض
           </p>
-        </div>
+        </div> */}
         <p className={cls.title}>{orderTitle}</p>
         <div
           className={cls.description}

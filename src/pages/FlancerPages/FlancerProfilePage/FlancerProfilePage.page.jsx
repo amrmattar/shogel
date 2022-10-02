@@ -26,7 +26,7 @@ const FlancerProfilePage = ({ data }) => {
   }, [param.id, getMyAdvs]);
 
   return (
-    <div className="container-lg px-0 overflow-hidden cLT-white-bg ">
+    <div className="container-lg p-3 overflow-hidden cLT-white-bg ">
       {/* User About Him */}
       <div className="">
         <PageTitle title="نبذة عني" />

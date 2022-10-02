@@ -45,11 +45,11 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
         </div>
       </div>
 
-      <div className="d-flex align-items-center LT-rate-font-size  ">
+      {/* <div className="d-flex align-items-center LT-rate-font-size  ">
         <p className="m-0 card-text cLT-support2-text ">({rate?.count})</p>
         <p className="m-0 card-text cLT-support2-text ">{rate?.rate}</p>
         <i className={` iLT-Rate-star uLT-img-contain LT-rate-icon-size`}></i>
-      </div>
+      </div> */}
     </div>
   );
 };

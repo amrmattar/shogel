@@ -210,7 +210,7 @@ const OrdersPage = () => {
           )}
         </div>
         {/* Pagination [Holder] */}
-        <div className="container d-flex justify-content-center pt-4 mt-auto">
+        <div className="container d-flex justify-content-center pt-4 pb-3 mt-auto">
           {/* Pagination [Number Navigate Holder] */}
           <Stack>
             <Pagination

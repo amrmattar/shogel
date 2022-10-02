@@ -18,7 +18,7 @@ const mostUse = [
 const Employed = () => {
   const param = useParams();
   const navigate = useNavigate();
-  const key = useSelector((state) =>state.search.searchKey);
+  const key = useSelector((state) => state.search.searchKey);
 
   // Todo Block Of Get All Advertising Form
   const [currentPage, setCurrentPage] = useState(null);
@@ -92,7 +92,7 @@ const Employed = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [rate, active, location, categ, ,key]);
+  }, [rate, active, location, categ, , key]);
   // Condition For Show Loading Style Untill Data Return From API
   if (!flancersList?.data)
     return (
@@ -150,7 +150,7 @@ const Employed = () => {
           )}
         </div>
         {/* Pagination [Holder] */}
-        <div className="container d-flex justify-content-center pt-4 mt-auto">
+        <div className="container d-flex justify-content-center pb-3 pt-4 mt-auto">
           {/* Pagination [Number Navigate Holder] */}
           <Stack>
             <Pagination
