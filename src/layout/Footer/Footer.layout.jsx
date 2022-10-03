@@ -28,7 +28,7 @@ const Footer = () => {
     android: "",
   });
   useEffect(() => {
-    console.log(socialMedia);
+    // console.log(socialMedia);
     socialMedia?.forEach(function (el) {
       switch (el?.id) {
         case 15:
@@ -95,7 +95,6 @@ const Footer = () => {
           </ul>
         </div>
 
-    
         {/* Links-section */}
         {/* <div className="LT-link-sec">
           <div className="px-0 pt-0 pb-2 nav-link">

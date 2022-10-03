@@ -52,7 +52,6 @@ const AsideFreelancerPage = ({
   useEffect(() => {
     return !userDataByParam && getCoreData;
   }, [getCoreData, userDataByParam]);
-   
 
   const handleChange = (e) => {
     dispatch(
@@ -110,9 +109,9 @@ const AsideFreelancerPage = ({
       subTitle: isUserData?.city?.name,
     },
   ];
-   console.log(userProfileData, "waae");
-   console.log(userData, "wde");
-   console.log(isUserData, "qawe");
+  //  console.log(userProfileData, "waae");
+  //  console.log(userData, "wde");
+  //  console.log(isUserData, "qawe");
   return (
     <>
       <UserFeedBackShared
@@ -266,9 +265,8 @@ const AsideFreelancerPage = ({
               );
             })}
           {/* Profile Performance */}
-       
-            <CompletionChart value={isUserData?.complete_profile} />
-       
+
+          <CompletionChart value={isUserData?.complete_profile} />
         </div>
         {/* Side Navigator Selector Component */}
         <div className="w-100">{selector}</div>
