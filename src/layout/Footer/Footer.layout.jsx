@@ -29,7 +29,7 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    console.log(socialMedia);
+    // console.log(socialMedia);
     socialMedia?.forEach(function (el) {
       switch (el?.id) {
         case 15:

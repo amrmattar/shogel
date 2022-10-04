@@ -32,7 +32,11 @@ const FreelancerMainEditAccountPage = () => {
 
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateSocail, setUpdateSocail] = useState(false);
+<<<<<<< HEAD
   console.log(getAllUserUpdate?.updateData);
+=======
+  // console.log(getAllUserUpdate?.updateData);
+>>>>>>> 3206221d4ae1f30c300044ad78ae21a147d586a3
 
   useEffect(() => {
     if (userID !== 0) {

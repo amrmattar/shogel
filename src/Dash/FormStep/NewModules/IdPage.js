@@ -20,6 +20,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Upload from "../../../shared/Upload/Upload.shared";
 import { useRef } from "react";
 import { API } from "../../../enviroment/enviroment/enviroment";
+import { toast } from "react-toastify";
 
 const getENId = (arId) => {
   const converter = {
@@ -85,14 +86,17 @@ const IdPage = () => {
     const currentData = { id };
     setNextLoadiing(true);
 
-    RegisterServices.POST_CheckRegisterData(currentData).then(({ data }) => {
-      if (data?.code == 200) {
+    RegisterServices.POST_CheckRegisterData(currentData)
+      .then(({ data }) => {
         setNextLoadiing(false);
-        return value.nextPage();
-      }
+        if (data?.code == 200) return value.nextPage();
 
-      alert(data.msg);
-    });
+        toast.error(data.msg);
+      })
+      .catch((err) => {
+        setNextLoadiing(false);
+        toast.error(err?.message || err.response?.data.message);
+      });
   };
 
   const getBack = () => {

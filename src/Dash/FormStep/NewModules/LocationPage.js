@@ -185,6 +185,7 @@ const IdPage = () => {
       setGetAllCountryFromResponse(res.data.data);
     });
   }, [selectedCountry, selectedState, selectedCity]);
+
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);

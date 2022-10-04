@@ -130,7 +130,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
   }, [userIsData]);
   const refe = useRef();
   // Gender Select
-  console.log(userIsData);
+  // console.log(userIsData);
   GenderSelect = React.forwardRef(GenderSelect);
   function GenderSelect(isProps = {}, ref) {
     return (

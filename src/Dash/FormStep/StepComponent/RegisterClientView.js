@@ -40,14 +40,17 @@ const RegisterClientView = () => {
     const currentData = { fullName, username, email, password };
     setNextLoadiing(true);
 
-    RegisterServices.POST_CheckRegisterData(currentData).then(({ data }) => {
-      if (data?.code == 200) {
+    RegisterServices.POST_CheckRegisterData(currentData)
+      .then(({ data }) => {
         setNextLoadiing(false);
-        return value.jumpPage(4);
-      }
+        if (data?.code == 200) return value.jumpPage(4);
 
-      alert(data.msg);
-    });
+        toast.error(data.msg);
+      })
+      .catch((err) => {
+        setNextLoadiing(false);
+        toast.error(err?.message || err.response?.data.message);
+      });
   };
 
   const getBack = (e) => {

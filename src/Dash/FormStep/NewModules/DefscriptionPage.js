@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import UploadProfileImg from "../common/UploadProfileImage";
 
 import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+import { toast } from "react-toastify";
 
 const DersciptionPage = () => {
   const [open, setOpen] = useState(true);
@@ -41,14 +42,20 @@ const DersciptionPage = () => {
 
     setNextLoadiing(true);
 
-    RegisterServices.POST_CheckRegisterData(currentData).then(({ data }) => {
-      if (data?.code == 200) {
+    RegisterServices.POST_CheckRegisterData(currentData)
+      .then(({ data }) => {
         setNextLoadiing(false);
-        return value.jumpPage(value?.accountType?.userKind == "client" ? 5 : 6);
-      }
+        if (data?.code == 200)
+          return value.jumpPage(
+            value?.accountType?.userKind == "client" ? 5 : 6
+          );
 
-      alert(data.msg);
-    });
+        toast.error(data.msg);
+      })
+      .catch((err) => {
+        setNextLoadiing(false);
+        toast.error(err?.message || err.response?.data.message);
+      });
   };
 
   const getBack = (e) => {
