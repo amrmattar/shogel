@@ -15,6 +15,7 @@ import { getAuthentication } from "../../../core/redux/reducers/Authentication/A
 import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 import { API } from "../../../enviroment/enviroment/enviroment";
 import { toast } from "react-toastify";
+
 const LocationClientPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
@@ -95,9 +96,9 @@ const LocationClientPage = () => {
       .catch((err) => {
         setNextLoadiing(false);
         let ob = err.response?.data.message;
-  
-          toast.error("حدث خطأ ما");
-        
+
+        toast.error("حدث خطأ ما");
+
         dispatch(
           getMessages([
             {

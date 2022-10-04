@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useContext, useState } from "react";
 import { Dialog } from "@mui/material";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
@@ -8,32 +9,62 @@ import ButtonShare from "../../../shared/Button/Button.shared";
 import { useDispatch } from "react-redux";
 import UploadProfileImg from "../common/UploadProfileImage";
 
+import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+
 const DersciptionPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
   const getClientData = value.labelInfo.clientView;
-  const validation = getClientData.fullName.length > 3;
+
+  const validation = () => {
+    return (
+      getClientData.fullName.length >= 3 &&
+      getClientData.info.length >= 10 &&
+      getClientData.info.length <= 10000 &&
+      getClientData.description.length <= 35
+    );
+  };
+
   const dispatch = useDispatch();
-  //TODO Data from Reducers
+
+  // TODO Data from Reducers
   const navigate = useNavigate();
   const [nextLoading, setNextLoadiing] = useState(false);
+  const [openImage, setOpenImage] = useState(true);
+  const [isAboutMe, setIsAboutMe] = useState(false);
+
   const getNext = (e) => {
     e.preventDefault();
+
+    const { fullName, description, info } = getClientData;
+    const currentData = { fullName, description, info };
+
     setNextLoadiing(true);
-    value.jumpPage(value?.accountType?.userKind == "client" ? 5 : 6);
+
+    RegisterServices.POST_CheckRegisterData(currentData).then(({ data }) => {
+      if (data?.code == 200) {
+        setNextLoadiing(false);
+        return value.jumpPage(value?.accountType?.userKind == "client" ? 5 : 6);
+      }
+
+      alert(data.msg);
+    });
   };
+
   const getBack = (e) => {
     e.preventDefault();
     value.prevPage();
   };
+
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
-  const [openImage, setOpenImage] = useState(true);
+
   const imgHandler = (e) => {
     value.setImg({ prop: "img", e: e });
   };
+
   return (
     <div className="DialogSim2">
       <form
@@ -79,7 +110,7 @@ const DersciptionPage = () => {
               )}
               <Form.Control
                 autoComplete="off"
-                maxLength={15}
+                maxLength={25}
                 minLength={3}
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
@@ -104,6 +135,7 @@ const DersciptionPage = () => {
                 placeholder="مطور ويب | خبير صيانه"
                 value={getClientData.description}
                 onChange={value.setDataDetails("description")}
+                maxLength={35}
 
                 // value={getClientData.shortDesc}
               />
@@ -125,6 +157,8 @@ const DersciptionPage = () => {
                 placeholder=" اكتب نبذة"
                 value={getClientData.info}
                 onChange={value.setDataDetails("info")}
+                minLength={10}
+                maxLength={10000}
 
                 // value={getClientData.brief}
               />
@@ -143,7 +177,7 @@ const DersciptionPage = () => {
           <div className="">
             <ButtonShare
               onClick={getNext}
-              type={!validation}
+              type={!validation()}
               loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useContext, useEffect, useState } from "react";
 import { Dialog } from "@mui/material";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
@@ -12,6 +13,9 @@ import { useSelector } from "react-redux";
 import { IconButton } from "@material-ui/core";
 import { toast } from "react-toastify";
 import { useRef } from "react";
+
+import { RegisterServices } from "../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core.jsx";
+
 const RegisterClientView = () => {
   const [showPassword, setShowPassword] = useState(false);
   const value = useContext(LabelContext);
@@ -31,9 +35,21 @@ const RegisterClientView = () => {
   const [nextLoading, setNextLoadiing] = useState(false);
   const getNext = (e) => {
     e.preventDefault();
+
+    const { fullName, username, email, password } = getClientData;
+    const currentData = { fullName, username, email, password };
     setNextLoadiing(true);
-    value.jumpPage(4);
+
+    RegisterServices.POST_CheckRegisterData(currentData).then(({ data }) => {
+      if (data?.code == 200) {
+        setNextLoadiing(false);
+        return value.jumpPage(4);
+      }
+
+      alert(data.msg);
+    });
   };
+
   const getBack = (e) => {
     e.preventDefault();
     value.prevPage();
@@ -44,11 +60,13 @@ const RegisterClientView = () => {
     setOpen(false);
     navigate("/");
   };
+
   const [emailValid, setEmailValid] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [nameValid, setNameValid] = useState(false);
   const [nameError, setNameError] = useState("");
   const [passError, setPassError] = useState("");
+
   const checkEmail = async () => {
     try {
       await API.get(`/auth/check/email?email=${getClientData.email}`);
@@ -60,6 +78,7 @@ const RegisterClientView = () => {
       setEmailError("الأيميل مستخدم من قبل");
     }
   };
+
   const checkUserName = async () => {
     try {
       await API.get(`/auth/check/username?username=${getClientData.username}`);
@@ -70,6 +89,7 @@ const RegisterClientView = () => {
       setNameError("الأسم مستخدم من قبل");
     }
   };
+
   const timerRef = useRef();
   useEffect(() => {
     if (validation) {
@@ -80,6 +100,7 @@ const RegisterClientView = () => {
       }, 300);
     }
   }, [validation, getClientData]);
+
   return (
     <div className="DialogSim2">
       <form
@@ -99,7 +120,7 @@ const RegisterClientView = () => {
 
               <Form.Control
                 autoComplete="off"
-                maxLength={15}
+                maxLength={25}
                 minLength={3}
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"

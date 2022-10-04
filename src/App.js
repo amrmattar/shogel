@@ -7,23 +7,38 @@ import { RegisterServices } from "./core/services/AuthServices/Method_RegisterDa
 import { getCoreDataReducer } from "./core/redux/reducers/CoreDataReducer/CoreDataReducer";
 // import { getMessaging, onMessage } from '@firebase/messaging'
 // import { newMessaging } from "./core/firebase/firebase";
-  import "react-toastify/dist/ReactToastify.css";
-  import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  const [locationID] = useSelector((state) => [state.locationID])
-  const dispatch = useDispatch()
+  const [locationID] = useSelector((state) => [state.locationID]);
+  const dispatch = useDispatch();
 
   const getCoreData = useMemo(() => {
-    let modal = ['country', 'city', 'state', 'area', 'category', 'gender', 'nationality', 'jobName', 'social', 'status']
-    return RegisterServices.GET_RegisterData(modal, locationID?.countriesID, locationID?.citiesID).then(res => {
-      dispatch(getCoreDataReducer(res.data.data))
-    })
-  }, [dispatch, locationID?.countriesID, locationID?.citiesID])
+    let modal = [
+      "country",
+      "city",
+      "state",
+      "area",
+      "category",
+      "gender",
+      "nationality",
+      "jobName",
+      "social",
+      "status",
+    ];
+    return RegisterServices.GET_RegisterData(
+      modal,
+      locationID?.countriesID,
+      locationID?.citiesID
+    ).then((res) => {
+      dispatch(getCoreDataReducer(res.data.data));
+    });
+  }, [dispatch, locationID?.countriesID, locationID?.citiesID]);
   useEffect(() => {
-    return getCoreData
-  }, [getCoreData])
-  const [data, setData] = useState([])
+    return getCoreData;
+  }, [getCoreData]);
+  const [data, setData] = useState([]);
   // newMessaging.getToken().then((payload) => {
   //   localStorage.setItem('FCM', payload)
   // })
@@ -58,9 +73,6 @@ function App() {
   //     })
   //   }
   // }, [])
-
-
-
 
   return (
     <Router>

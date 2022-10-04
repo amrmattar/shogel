@@ -28,6 +28,7 @@ const RegisterDetectedAccount = (props) => {
     setOpen(false);
     navigate("/");
   };
+
   return (
     <div className="DialogSim">
       <div style={{ padding: "2rem" }}>

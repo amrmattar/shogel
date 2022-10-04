@@ -20,6 +20,24 @@ import FormLabel from "@mui/material/FormLabel";
 import Upload from "../../../shared/Upload/Upload.shared";
 import { useRef } from "react";
 import { API } from "../../../enviroment/enviroment/enviroment";
+
+const getENId = (arId) => {
+  const converter = {
+    "٠": 0,
+    "١": 1,
+    "٢": 2,
+    "٣": 3,
+    "٤": 4,
+    "٥": 5,
+    "٦": 6,
+    "٧": 7,
+    "٨": 8,
+    "٩": 9,
+  };
+
+  return [...arId].map((arNum) => converter[arNum]).join("");
+};
+
 const IdPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
@@ -27,6 +45,7 @@ const IdPage = () => {
   const hideIcon = getClientData.password.length > 0;
   const validation = getClientData.nation?.id;
   const dispatch = useDispatch();
+
   //TODO Data from Reducers
   const navigate = useNavigate();
   const inputRef = useRef();
@@ -36,6 +55,7 @@ const IdPage = () => {
   const [nextLoading, setNextLoadiing] = useState(false);
   const [nations, setNations] = useState([]);
   const [gender, setGender] = useState([]);
+
   const getNations = () => {
     API.get("coredata/nationality/list")
       .then((res) => {
@@ -43,6 +63,7 @@ const IdPage = () => {
       })
       .catch((e) => {});
   };
+
   const getGenders = () => {
     API.get("/coredata/gender/list")
       .then((res) => {
@@ -50,50 +71,42 @@ const IdPage = () => {
       })
       .catch((e) => {});
   };
+
   useEffect(() => {
     getGenders();
     getNations();
   }, []);
+
   const getNext = (e) => {
     e.preventDefault();
+    if (getClientData.id) getClientData.id = getENId(getClientData.id);
+
+    const { id } = getClientData;
+    const currentData = { id };
     setNextLoadiing(true);
-    // const data = {
-    //   username: value.labelInfo.clientView.username,
-    //   email: value.labelInfo.clientView.email,
-    // };
-    // RegisterServices.POST_RegisterData(data)
-    //   .then((res) => {
-    //     setNextLoadiing(false);
-    //   })
-    //   .catch((err) => {
-    //     dispatch(
-    //       getMessages({
-    //         messages: err.response.data.message,
-    //         messageType: "error",
-    //         messageClick: true,
-    //       })
-    //     );
-    //     if (
-    //       err.response.data.message.email ||
-    //       err.response.data.message.username
-    //     ) {
-    //       setNextLoadiing(false);
-    //     } else {
-    //       setNextLoadiing(false);
-    //       value.jumpPage(4);
-    //     }
-    //   });
-    value.nextPage();
+
+    RegisterServices.POST_CheckRegisterData(currentData).then(({ data }) => {
+      if (data?.code == 200) {
+        setNextLoadiing(false);
+        return value.nextPage();
+      }
+
+      alert(data.msg);
+    });
   };
+
   const getBack = () => {
     value.prevPage();
   };
+
   const handleClose = () => {
     setOpen(false);
     navigate("/");
   };
+
   const [file, setFiles] = useState([]);
   const [filenames, setNames] = useState([]);
+
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
@@ -118,10 +131,12 @@ const IdPage = () => {
       alert("file type not supported");
     }
   };
+
   const filePicker = (e) => {
     inputRef.current.click();
     media.append("images", e.target?.files);
   };
+
   // TODO Function Execute To Remove Upload Files
   const handleDelete = (e, fileNewName, i) => {
     const newfileImage = file.filter((element) => element.name !== fileNewName);
@@ -129,6 +144,7 @@ const IdPage = () => {
     setFiles(newfileImage);
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
+
   return (
     <div className="DialogSim2">
       <form
@@ -165,8 +181,9 @@ const IdPage = () => {
                 value={getClientData.gender}
                 onChange={value.setDataDetails("gender")}
               >
-                {gender.map((ele) => (
+                {gender.map((ele, idx) => (
                   <FormControlLabel
+                    key={idx}
                     value={ele.id}
                     control={<Radio style={{ color: "#1EAAAD" }} />}
                     label={ele.name}

@@ -18,6 +18,7 @@ import { LoginServices } from "../../../core/services/AuthServices/Method_LoginD
 import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
 import { getAuthentication } from "../../../core/redux/reducers/Authentication/AuthenticationReducer.core";
 import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
+
 const IdPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
@@ -28,6 +29,7 @@ const IdPage = () => {
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
+
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
@@ -130,9 +132,11 @@ const IdPage = () => {
         });
       });
   };
+
   const getBack = () => {
     value.prevPage();
   };
+
   const handleClose = () => {
     setOpen(false);
     navigate("/");

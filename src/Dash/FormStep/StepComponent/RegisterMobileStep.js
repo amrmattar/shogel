@@ -10,11 +10,13 @@ import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import UserFeedBackShared from "../../../shared/UserFeedBack/UserFeedBack.shared";
 import cls from "./RegisterMobile.module.scss";
+
 const RegisterMobileStep = () => {
   const value = useContext(LabelContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [messages] = useSelector((state) => [state.messages]);
+
   // TODO Function Set Maxlength To Mobile Input
   useEffect(() => {
     const attrTimeOut = setTimeout(() => {
@@ -56,6 +58,7 @@ const RegisterMobileStep = () => {
       ? setMobileType(true)
       : setMobileType(false);
   }, [mobileForm, setMobileType]);
+
   useEffect(() => {
     const mobileTimeOut = setTimeout(() => {
       activeMobileSend();

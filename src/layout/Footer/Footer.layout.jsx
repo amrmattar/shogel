@@ -27,6 +27,7 @@ const Footer = () => {
     ios: "",
     android: "",
   });
+
   useEffect(() => {
     console.log(socialMedia);
     socialMedia?.forEach(function (el) {
@@ -51,6 +52,7 @@ const Footer = () => {
     });
   }, [socialMedia]);
   const [click, setClick] = useState(false);
+
   return (
     <div className="LT-footer d-flex flex-column h-100 px-3 px-sm-4 px-lg-0">
       {/* Footer-Logo */}
@@ -95,7 +97,6 @@ const Footer = () => {
           </ul>
         </div>
 
-    
         {/* Links-section */}
         {/* <div className="LT-link-sec">
           <div className="px-0 pt-0 pb-2 nav-link">

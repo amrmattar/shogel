@@ -11,6 +11,7 @@ const SkillsStep = () => {
   const [inpV, setInpV] = useState("");
   const [skills, setSkills] = useState([]);
   const [chosenSubs, setChosenSubs] = useState([]);
+
   const handleCancel = (id, parentId, subId) => {
     let arr2 = chosenSubs.filter((ele) => ele.id != id);
     setChosenSubs(arr2);
@@ -21,6 +22,7 @@ const SkillsStep = () => {
       parentId ? handleSub(parentId, id) : handleParent(id);
     }
   };
+
   useEffect(() => {
     API.get("coredata/category/list?search=s")
       .then((res) => {
@@ -58,9 +60,11 @@ const SkillsStep = () => {
       })
       .catch((e) => {});
   }, []);
+
   const getBack = () => {
     value.prevPage();
   };
+
   const choosedSkills = () => {
     let arr = [...skills];
     let chosed = [];
@@ -81,6 +85,7 @@ const SkillsStep = () => {
     setChosenSubs(chosed);
     value.setSkills(chosed);
   };
+
   const handleParent = (id) => {
     let arr = [...skills];
 
@@ -98,6 +103,7 @@ const SkillsStep = () => {
     });
     setSkills(arr);
   };
+
   const handleSub = (id, subId) => {
     let arr = [...skills];
     arr.forEach((parent) => {
@@ -122,6 +128,7 @@ const SkillsStep = () => {
     });
     setSkills(arr);
   };
+
   const handle2Sub = (id, subId, sub2Id) => {
     let arr = [...skills];
     arr.forEach((parent) => {
@@ -154,9 +161,11 @@ const SkillsStep = () => {
     });
     setSkills(arr);
   };
+
   useEffect(() => {
     choosedSkills();
   }, [skills]);
+
   return (
     <div className={cls.main}>
       <p className={cls.title}>اخبرنا عن مهاراتك</p>

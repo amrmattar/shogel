@@ -616,6 +616,7 @@ const RegisterFreelancerPersonalDetails = () => {
             )}
           </Form.Group>
         </Row>
+
         <Row>
           {/* State [Section] */}
           <Form.Group as={Col} md={6} className="">

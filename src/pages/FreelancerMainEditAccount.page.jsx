@@ -32,7 +32,8 @@ const FreelancerMainEditAccountPage = () => {
 
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateSocail, setUpdateSocail] = useState(false);
-  // console.log(getAllUserUpdate?.updateData);
+  console.log(getAllUserUpdate?.updateData);
+
   useEffect(() => {
     if (userID !== 0) {
       return userProfile._GET_ProfileData(userID).then((res) => {
@@ -46,7 +47,9 @@ const FreelancerMainEditAccountPage = () => {
     videos: [],
     document: [],
   });
+
   const [filenames, setNames] = useState([]);
+
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
@@ -71,6 +74,7 @@ const FreelancerMainEditAccountPage = () => {
       alert("file type not supported");
     }
   };
+
   const deleteFiles = (e, file, indx) => {
     let imgs = newfile.images.filter((ele) => ele.name != file);
     let docs = newfile.document.filter((ele) => ele.name != file);
@@ -79,6 +83,7 @@ const FreelancerMainEditAccountPage = () => {
 
     setFiles({ images: imgs, videos: vids, document: docs });
   };
+
   const postUpdate = () => {
     setUpdateLoading(true);
     dispatch(
@@ -88,15 +93,19 @@ const FreelancerMainEditAccountPage = () => {
         messageClick: true,
       })
     );
+
     newfile.videos?.forEach((video, idx) => {
       return mySkill.append(`document[${idx}]`, video);
     });
+
     newfile.images?.forEach((image, idx) => {
       return mySkill.append(`document[${idx}]`, image);
     });
+
     newfile.document?.forEach((docx, idx) => {
       return mySkill.append(`document[${idx}]`, docx);
     });
+
     mySkill.append("email", getAllUserUpdate?.updateData.email);
     getAllUserUpdate?.discription &&
       mySkill.append("info", getAllUserUpdate?.discription);
@@ -149,19 +158,27 @@ const FreelancerMainEditAccountPage = () => {
             messageClick: true,
           })
         );
+
         setUpdateLoading(false);
       })
       .catch((err) => {
-        toast.error("error occure");
+        const errorMsg =
+          typeof err?.message === "string"
+            ? err?.message
+            : err?.response?.data?.message ||
+              "خطأ غير معروف يرجي المحاوله لاحقا";
+
+        toast.error(errorMsg);
         dispatch(
           getMessages([
             {
-              messages: err?.response?.data?.message,
+              messages: errorMsg,
               messageType: "error",
               messageClick: true,
             },
           ])
         );
+
         setUpdateLoading(false);
       });
     localStorage.setItem("valid", 1);

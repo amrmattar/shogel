@@ -18,10 +18,11 @@ import IdPage from "./NewModules/IdPage";
 import LocationPage from "./NewModules/LocationPage";
 import LocationClientPage from "./NewModules/LocationClientPage";
 import StepperComp from "./StepComponent/StepperComp";
+
 const MasterRegistrationComponent = () => {
   const value = useContext(LabelContext);
-
   const [first, setfirst] = useState(0);
+
   const handleRoute = useCallback(() => {
     switch (value?.accountType?.userKind) {
       case "client":
@@ -31,9 +32,9 @@ const MasterRegistrationComponent = () => {
         return setfirst(5);
     }
   }, [value?.accountType?.userKind]);
-  useEffect(() => {
-    handleRoute();
-  }, [handleRoute]);
+
+  useEffect(() => handleRoute(), [handleRoute]);
+
   return (
     <div className="LT-stepper-style" dir="ltr">
       {value.page > 2 && value?.accountType?.userKind !== "freelancer" && (
