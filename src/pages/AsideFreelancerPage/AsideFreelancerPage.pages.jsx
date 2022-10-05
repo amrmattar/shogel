@@ -109,15 +109,11 @@ const AsideFreelancerPage = ({
       subTitle: isUserData?.city?.name,
     },
   ];
-<<<<<<< HEAD
-  console.log(userProfileData, "waae");
-  console.log(userData, "wde");
-  console.log(isUserData, "qawe");
-=======
+
   //  console.log(userProfileData, "waae");
   //  console.log(userData, "wde");
   //  console.log(isUserData, "qawe");
->>>>>>> 3206221d4ae1f30c300044ad78ae21a147d586a3
+
   return (
     <>
       <UserFeedBackShared
