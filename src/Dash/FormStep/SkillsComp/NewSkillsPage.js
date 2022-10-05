@@ -1,9 +1,12 @@
+/* eslint-disable eqeqeq */
 import { useContext, useEffect, useState } from "react";
 import { API } from "../../../enviroment/enviroment/enviroment";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import ChosedSkill from "./ChosedSkill";
 import cls from "./Skills.module.scss";
 import SkillTree from "./SkillTree";
+
+import LTT from "list-to-tree";
 
 const SkillsStep = () => {
   const value = useContext(LabelContext);
@@ -69,13 +72,13 @@ const SkillsStep = () => {
     let arr = [...skills];
     let chosed = [];
     arr.forEach((parent) => {
-      parent.active && !parent.children[0] && chosed.push(parent);
+      parent.active && !parent.children?.[0] && chosed.push(parent);
 
-      parent.children.forEach((sub) => {
+      parent?.children?.forEach((sub) => {
         sub.parentId = parent.id;
-        sub.active && !sub.children[0] && chosed.push(sub);
+        sub.active && !sub.children?.[0] && chosed.push(sub);
 
-        sub.children.forEach((sub2) => {
+        sub?.children?.forEach((sub2) => {
           sub2.parentId = parent.id;
           sub2.subId = sub.id;
           sub2.active && chosed.push(sub2);
@@ -87,21 +90,68 @@ const SkillsStep = () => {
   };
 
   const handleParent = (id) => {
-    let arr = [...skills];
+    const result = [];
 
-    arr.forEach((parent) => {
-      if (parent.id == id) {
-        parent.active = !parent.active;
-        parent.children.forEach((sub) => {
-          sub.active = parent.active;
+    const renderTree = (arr) => {
+      result.push({
+        active: arr.active,
+        id: arr.id,
+        name: arr.name,
+        type_work: arr.type_work,
+        parentId: arr.parentId || 0,
+      });
 
-          sub.children.forEach((sub2) => {
-            sub2.active = parent.active;
-          });
-        });
+      arr?.children?.map((skl) => renderTree(skl));
+    };
+
+    const listToTree = (items) => {
+      const ltt = new LTT(items, {
+        key_id: "id",
+        key_parent: "parentId",
+      });
+
+      const tree = ltt.GetTree();
+
+      return tree;
+    };
+
+    renderTree({ children: skills });
+
+    delete result[0];
+    let arr = result;
+
+    let currentResult = [];
+    // parent
+    const parent = arr.find((skl) => skl?.id == id);
+    parent.active = !parent.active;
+    currentResult.push(parent);
+
+    // children
+    let children = arr.filter((skl) => {
+      return skl.parentId == id;
+    });
+    children.forEach((child) => {
+      child.active = !child.active;
+    });
+
+    // collect
+    arr.forEach((arrSkl) => {
+      if (!currentResult.find((skl) => skl.id == arrSkl?.id)) {
+        currentResult.push(arrSkl);
       }
     });
-    setSkills(arr);
+
+    currentResult = listToTree(currentResult).map((skl) => {
+      const chlid = skl.child;
+      delete skl.child;
+      delete skl.__depth;
+      if (skl.parentId === 0) delete skl.parentId;
+      if (!chlid) return { ...skl };
+
+      return { ...skl, children: chlid };
+    });
+
+    setSkills(currentResult);
   };
 
   const handleSub = (id, subId) => {
@@ -183,17 +233,12 @@ const SkillsStep = () => {
       <div className={cls.contain}>
         <div className={cls.gride}>
           <p className={cls.skillTitle}>اختيار التصنيف</p>
-          {skills
-            .filter((ele) => ele.name.includes(inpV))
-            .map((ele, indx) => (
-              <SkillTree
-                key={indx}
-                parentHandler={handleParent}
-                subHandler={handleSub}
-                sub2Handler={handle2Sub}
-                skill={ele}
-              />
-            ))}
+          <SkillTree
+            parentHandler={handleParent}
+            subHandler={handleSub}
+            sub2Handler={handle2Sub}
+            skills={skills}
+          />
         </div>
 
         <div className={cls.grid}>

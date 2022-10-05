@@ -22,11 +22,13 @@ const SubHandler = ({ skill, subHandler, sub2Handler, parentId, checked }) => {
         {open &&
           skill.children[0] &&
           skill.children.map((ele, indx) => (
-            <SkillComp
-              key={indx}
-              clicked={() => sub2Handler(parentId, skill.id, ele.id)}
-              skill={ele}
-            />
+            <>
+              <SkillComp
+                key={indx}
+                clicked={() => sub2Handler(parentId, skill.id, ele.id)}
+                skill={ele}
+              />
+            </>
           ))}
       </div>
     </div>

@@ -153,7 +153,10 @@ const SideNavFlancerProfilePages = ({ data }) => {
       {/* Flancer Areas Of Competence [Holder] */}
       <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
         <p className="mb-0 fLT-Bold-sA text-nowrap">مجالات الاختصاص </p>
-        <div className="d-flex gap-3 flex-wrap">
+        <div
+          className="d-flex gap-3 flex-wrap"
+          style={{ maxHeight: "235px", overflow: "auto" }}
+        >
           {data?.category?.map((category) => {
             return (
               <AmentiesShared

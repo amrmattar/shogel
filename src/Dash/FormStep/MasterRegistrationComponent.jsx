@@ -37,11 +37,13 @@ const MasterRegistrationComponent = () => {
 
   return (
     <div className="LT-stepper-style" dir="ltr">
-      {value.page > 2 && value?.accountType?.userKind !== "freelancer" && (
+      {/* {value.page > 2 && value?.accountType?.userKind !== "freelancer" && (
         <StepperComp steps={first} activeStep={value?.page} />
-      )}
+      )} */}
 
-      {/* <StepperComp steps={first} activeStep={value?.page} /> */}
+      <SkillsStep />
+
+      {/* <StepperComp steps={first} activeStep={value?.page} />
       {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
       {value.page === 2 || value?.accountType?.userKind === "undo" ? (
@@ -59,7 +61,7 @@ const MasterRegistrationComponent = () => {
       {/* {value.page === 4 && value?.accountType?.userKind == "client" && (
         <DescriptionPage />
       )} */}
-      {value.page === 4 && value?.accountType?.userKind === "client" && (
+      {/* {value.page === 4 && value?.accountType?.userKind === "client" && (
         <LocationClientPage />
       )}
       {value.page === 5 && value?.accountType?.userKind !== "client" && (
@@ -69,7 +71,7 @@ const MasterRegistrationComponent = () => {
       {value.page === 6 && <IdPage />}
       {value.page === 7 && value?.accountType?.userKind !== "client" && (
         <LocationPage />
-      )}
+      )}  */}
       {/* <Chat /> */}
     </div>
   );
