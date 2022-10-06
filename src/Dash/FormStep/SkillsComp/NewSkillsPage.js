@@ -27,7 +27,7 @@ const SkillsStep = () => {
   };
 
   useEffect(() => {
-    API.get("coredata/category/list?search=s")
+    API.get(`coredata/category/list${inpV ? `?name=${inpV}` : ""}`)
       .then((res) => {
         let arr = res.data.data?.map((ele) => {
           let activeChilds = [];
@@ -59,10 +59,13 @@ const SkillsStep = () => {
 
           return ele;
         });
+
         setSkills(arr);
       })
-      .catch((e) => {});
-  }, []);
+      .catch((err) => {
+        console.log(err?.message);
+      });
+  }, [inpV]);
 
   const getBack = () => {
     value.prevPage();
@@ -131,7 +134,8 @@ const SkillsStep = () => {
       return skl.parentId == id;
     });
     children.forEach((child) => {
-      child.active = !child.active;
+      child.active = parent.active;
+      currentResult.push(child);
     });
 
     // collect

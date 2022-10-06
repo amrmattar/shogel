@@ -1,21 +1,3 @@
-// import cls from "./SkillComp.module.scss";
-// import SkillComp from "./SkillComp";
-// import SubHandler from "./SubHandker";
-// import { useState } from "react";
-
-// const SkillTree = ({ skills, parentHandler, subHandler, sub2Handler }) => {
-//   return (
-//     <div>
-//       {skills.length ? (
-//         skills.map((skill, idx) => <SkillComp key={idx} skill={skill} />)
-//       ) : (
-//         <></>
-//       )}
-//     </div>
-//   );
-// };
-// export default SkillTree;
-
 import SkillComp from "./SkillComp";
 
 import TreeView from "@mui/lab/TreeView";
@@ -34,7 +16,7 @@ const SkillTree = ({ parentHandler, skills }) => {
 
   const RenderTree = ({ nodes }) => {
     const addSkill = (id) => {
-      //
+      parentHandler(id);
     };
 
     return (
@@ -46,7 +28,7 @@ const SkillTree = ({ parentHandler, skills }) => {
           nodes.id === "root" ? (
             <p className="m-0 me-3">{nodes.name}</p>
           ) : (
-            <SkillComp clicked={addSkill || null} skill={nodes} noArrow />
+            <SkillComp clicked={addSkill} skill={nodes} noArrow />
           )
         }
       >

@@ -22,6 +22,7 @@ import { pageTitle } from "../../../../core/services/PageTitleServices/PageTitle
 import { useSelector } from "react-redux";
 import DynamicFilter from "../../../Orders/OrderPage/DynamicFilter";
 import { API } from "../../../../enviroment/enviroment/enviroment";
+
 const categories = [
   {
     id: 1,
@@ -62,10 +63,11 @@ const mostUse = [
   { id: 3, name: "بالقرب مني" },
   { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
+
 const FlancerAdvsListPage = () => {
   const param = useParams();
   const navigate = useNavigate();
-    const key = useSelector((state) => state.search.searchKey);
+  const key = useSelector((state) => state.search.searchKey);
   const [vistorUser, getSearchKey] = useSelector((state) => [
     state.authentication.loggedIn,
     state.search,
@@ -88,15 +90,49 @@ const FlancerAdvsListPage = () => {
   }, [userAdvsDetatils?.pagination]);
   ///////////////////////////
   const [categories, setCategories] = useState([]);
-  const fetchCategories = async () => {
-    try {
-      const res = await API.get("coredata/category/list");
-      setCategories(res.data?.data);
-    } catch (e) {}
-  };
+
+  // search
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await API.get(
+          `coredata/category/list${query ? `?name=${query}` : ""}`
+        );
+
+        const treeToFlatArray = (tree) => {
+          let result = [];
+
+          const nodeTree = {
+            id: "root",
+            children: tree,
+          };
+          const faltHandelar = (node) => {
+            const returned = (node.children.length ? [] : [[node]]).concat(
+              ...node.children.map((child) =>
+                faltHandelar(child).map((arr) => [node, ...arr])
+              )
+            );
+
+            return returned;
+          };
+
+          faltHandelar(nodeTree)?.forEach((list) => result.push(...list));
+          result = result.filter((res) => res && res.id !== "root");
+
+          return result;
+        };
+
+        setCategories(treeToFlatArray(data?.data));
+      } catch (err) {
+        console.log(err?.message);
+      }
+    };
+
     fetchCategories();
-  }, []);
+  }, [query]);
+
   const [active, setActive] = useState(null);
   const [rate, setRate] = useState(null);
   const [price, setPrice] = useState([]);
@@ -109,6 +145,7 @@ const FlancerAdvsListPage = () => {
       : setCateg(categ.filter((ele) => ele != id));
   };
   const timeRef = useRef(0);
+
   const listOfUsersAdvs = useMemo(() => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
@@ -135,6 +172,7 @@ const FlancerAdvsListPage = () => {
     }, 1000);
     return () => clearTimeout(timeRef.current);
   }, [price, location, categ, key, rate, rateCount, active]);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userAdvsDetatils?.pagination) {
@@ -145,6 +183,7 @@ const FlancerAdvsListPage = () => {
   }, [userAdvsDetatils?.pagination, handleAdvsPagination]);
   // TODO GET From API Response ==> Advertising Pagination
   // ? ------------------[[[END Block]]]-----------------
+
   // Todo Set Current Page
   const getPageNumber = (e, value) => {
     setCurrentPage(param.num);
@@ -154,6 +193,7 @@ const FlancerAdvsListPage = () => {
       behavior: "smooth",
     });
   };
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userAdvsDetatils?.data) {
@@ -162,6 +202,7 @@ const FlancerAdvsListPage = () => {
     }, 1200);
     return () => clearTimeout(timeout);
   }, [userAdvsDetatils?.data, listOfUsersAdvs]);
+
   // Condition For Show Loading Style Untill Data Return From API
   if (!userAdvsDetatils?.data)
     return (
@@ -175,6 +216,7 @@ const FlancerAdvsListPage = () => {
         ></div>
       </div>
     );
+
   return (
     <>
       {/* Advertising List [Holder] */}
@@ -184,6 +226,8 @@ const FlancerAdvsListPage = () => {
         <div className={cls.holder}>
           <DynamicFilter
             isAdvert={true}
+            query={query}
+            setQuery={setQuery}
             setCategory={categHandler}
             setPrice={setPrice}
             setActive={setActive}

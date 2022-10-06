@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PriceSlider from "../../../components/PriceFilter/price";
 import CategoryHandler from "./CategoryHandler";
 import CategoryMain from "./CategoryMain";
@@ -6,8 +5,6 @@ import cls from "./DynamicFilter.module.scss";
 import { BiCurrentLocation } from "react-icons/bi";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
-import { getSearchKey } from "../../../core/redux/reducers/Search/Search.core";
-import { useDispatch, useSelector } from "react-redux";
 
 const DynamicFilter = ({
   mostUse,
@@ -20,19 +17,15 @@ const DynamicFilter = ({
   setRate,
   setActive,
   setRateCount,
+  query,
+  setQuery,
 }) => {
-  const key = useSelector((state) => state.search.searchKey);
-
-  const dispatch = useDispatch();
-  const handleInput = (v) => {
-    dispatch(getSearchKey(v));
-  };
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>
       <input
-        onChange={(e) => handleInput(e.target.value)}
-        value={key}
+        onChange={(e) => setQuery(e.target.value)}
+        value={query}
         className={cls.inp}
         placeholder="ابحث هنا"
         type="text"
@@ -78,12 +71,12 @@ const DynamicFilter = ({
 
           <p className={cls.search}>متصل</p>
           <div className={cls.swich}>
-            <label class="switch">
+            <label className="switch">
               <input
                 onChange={(e) => setActive(e.target.checked ? 1 : 0)}
                 type="checkbox"
               />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
             <p>مشتغلين متصلين بالانترنت فقط</p>
           </div>
@@ -110,8 +103,8 @@ const DynamicFilter = ({
       {mostUse[0] && (
         <div>
           <p className={cls.lastC}>الاكثر استخداما</p>
-          {mostUse.map((ele) => (
-            <CategoryHandler ele={ele} />
+          {mostUse.map((ele, idx) => (
+            <CategoryHandler key={idx} ele={ele} />
           ))}
         </div>
       )}
