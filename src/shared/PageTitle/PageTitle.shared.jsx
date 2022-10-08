@@ -9,7 +9,7 @@ const PageTitle = React.memo(
   }) => {
     return (
       <div className="  pb-md-2 pb-2 m-0">
-        <p className={`m-0 fLT-Bold-sA ${titleColor}`}>{title}</p>
+        <p className={`m-0 mt-3 fLT-Bold-sA ${titleColor}`}>{title}</p>
         {smallUnderTitle !== "" ? (
           <p className="mb-0 mt-2 mx-2 fCT-Regular-sD">
             <small className={smallColor}>{smallUnderTitle}</small>

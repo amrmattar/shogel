@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";
+
 import { Box, Typography } from "@mui/material";
 function CircularProgressWithLabel(props) {
   return (
@@ -50,6 +51,7 @@ const FlancerAdvsDetailsPage = () => {
     state.authentication.loggedIn,
     state.messages,
   ]);
+
   const dispatch = useDispatch();
   const [isFavourate, setIsFavourate] = useState(false);
   const [mobileCopy, setCopyMobile] = useState(false);
@@ -80,9 +82,11 @@ const FlancerAdvsDetailsPage = () => {
   }, [advsDataById, isFavourate, getAdvsById]);
 
   const [advsCategory, setCategory] = useState();
+
   const getUserAdsCategory = useMemo(() => {
     advsDataById?.category?.map((cate) => setCategory(cate.id));
   }, [advsDataById?.category]);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!advsCategory) {
@@ -117,25 +121,30 @@ const FlancerAdvsDetailsPage = () => {
       }&text=${"https://shogol.sa/"}`
     );
   };
+
   const sendEmail = () => {
     // window.open(`https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${advsDataById?.user?.email}`);
     window.open(
       `https://mail.google.com/mail/mu/mp/159/#co/to=${advsDataById?.user?.email}`
     );
   };
+
   const copyPhoneNumber = (num) => {
     setCopyMobile(true);
     window.open(`tel:${num}`);
   };
+
   const startShare = () => {
     setCopyUrl(true);
   };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 220,
       behavior: "smooth",
     });
   };
+
   const sendReport = () => {
     let data = { model: "ad" };
     API.post(`setting/report/${advsDataById?.id}`, data)
@@ -319,7 +328,7 @@ const FlancerAdvsDetailsPage = () => {
           </div> */}
           </div>
         </div>
-        <div style={{ overflow: "hidden", margin:'auto' }}>
+        <div style={{ overflow: "hidden", margin: "auto" }}>
           <FlancerCertificatesComponent
             certificatesData={advsDataById?.document}
           />

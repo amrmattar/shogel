@@ -27,9 +27,9 @@ const OrderListCardComponent = ({
             عروض
           </p>
         </div> */}
-        <p className={cls.title}>{orderTitle}</p>
+        <p className={`${cls.title} fs-5`}>{orderTitle}</p>
         <div
-          className={cls.description}
+          className={`${cls.description} text-muted`}
           dangerouslySetInnerHTML={{ __html: orderDescription }}
         ></div>
 
