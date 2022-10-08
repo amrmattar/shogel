@@ -11,13 +11,16 @@ import NewSkillPage from "../Dash/FormStep/SkillsComp/NewSkillsPage";
 import DescriptionPage from "../Dash/FormStep/NewModules/DefscriptionPage";
 import CommonQuestionsPage from "../pages/CommonQuestions/CommonQuestions.page";
 import Chat from "../components/ChatPage/Chat";
+
 const HomeLoadable = loadable(() => import("../pages/Home/Home.page"), {
   fallback: <div>Loading</div>,
 });
+
 const SideNavPage = loadable(
   () => import("../pages/sideNavPage/SideNavPage.page/SideNavPage.page"),
   { fallback: <div>Loading</div> }
 );
+
 const FlancerAdvsListPageLoadable = loadable(
   () =>
     import(
@@ -25,18 +28,22 @@ const FlancerAdvsListPageLoadable = loadable(
     ),
   { fallback: <div>Loading</div> }
 );
+
 const PageNotFoundLoadable = loadable(
   () => import("../pages/404Page/404.page"),
   { fallback: <div>Loading</div> }
 );
+
 const EmployedLoadable = loadable(
   () => import("../pages/Employed/Employed.page"),
   { fallback: <div>Loading</div> }
 );
+
 const ClientOfferPricePageLoadable = loadable(
   () => import("../pages/OfferPrice/ClientOfferPrice/ClientOfferPrice.page"),
   { fallback: <div>Loading</div> }
 );
+
 const FlancerAdvertisingOfferPageLoadable = loadable(
   () =>
     import(
@@ -44,18 +51,22 @@ const FlancerAdvertisingOfferPageLoadable = loadable(
     ),
   { fallback: <div>Loading</div> }
 );
+
 const FlancerOfferPageLoadable = loadable(
   () => import("../pages/FlancerPages/FlancerOfferPage/FlancerOfferPage.page"),
   { fallback: <div>Loading</div> }
 );
+
 const OrdersPageLoadable = loadable(
   () => import("../pages/Orders/OrderPage/OrdersPage.page"),
   { fallback: <div>Loading</div> }
 );
+
 const OrderDetailsPageLoadable = loadable(
   () => import("../pages/Orders/OrderDetailsPage/OrderDetailsPage.page"),
   { fallback: <div>Loading</div> }
 );
+
 const FLancerProfileAndSideNavPage = loadable(
   () =>
     import(
@@ -63,9 +74,11 @@ const FLancerProfileAndSideNavPage = loadable(
     ),
   { fallback: <div>Loading</div> }
 );
+
 const DashLoadable = loadable(() => import("../Dash/dash"), {
   fallback: <div>Loading</div>,
 });
+
 const appRoutes = {
   data: [
     {

@@ -18,9 +18,9 @@ import { toast } from "react-toastify";
 import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";
-
 import { Box, Typography } from "@mui/material";
-function CircularProgressWithLabel(props) {
+
+const CircularProgressWithLabel = (props) => {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress variant="determinate" {...props} />
@@ -44,7 +44,7 @@ function CircularProgressWithLabel(props) {
       </Box>
     </Box>
   );
-}
+};
 
 const FlancerAdvsDetailsPage = () => {
   const [vistorUser, messages] = useSelector((state) => [
@@ -70,6 +70,7 @@ const FlancerAdvsDetailsPage = () => {
       })
       .catch((err) => {});
   }, [param?.id, isFavourate]);
+
   useEffect(() => {
     if (!advsDataById) {
       window.scrollTo({ top: 220, behavior: "smooth" });
@@ -80,7 +81,6 @@ const FlancerAdvsDetailsPage = () => {
       return getAdvsById;
     }
   }, [advsDataById, isFavourate, getAdvsById]);
-
   const [advsCategory, setCategory] = useState();
 
   const getUserAdsCategory = useMemo(() => {
@@ -95,7 +95,6 @@ const FlancerAdvsDetailsPage = () => {
     }, 1200);
     return () => clearTimeout(timeout);
   }, [advsCategory, getUserAdsCategory]);
-
   // TODO API Retuen Only My Advertising By Catgeoryt
   const [advsDataByCategory, setAdsByCategory] = useState([]);
   const getAdvsByCategory = useMemo(() => {
@@ -108,6 +107,7 @@ const FlancerAdvsDetailsPage = () => {
         .catch((err) => {});
     }
   }, [advsCategory, advsDataById?.id]);
+
   useEffect(() => {
     if (!advsDataByCategory) {
       return getAdvsByCategory;
@@ -155,6 +155,7 @@ const FlancerAdvsDetailsPage = () => {
         toast.error("حدث خطأ ما");
       });
   };
+
   const addFavourite = () => {
     AdvertisingFav._POST_AdvsFavourite(advsDataById?.id)
       .then((res) => {
@@ -177,8 +178,9 @@ const FlancerAdvsDetailsPage = () => {
         );
       });
   };
+
   // ** User Feedback Loading UI Untill Response Return Data
-  if (!advsDataById)
+  if (!advsDataById) {
     return (
       <div>
         {" "}
@@ -187,6 +189,8 @@ const FlancerAdvsDetailsPage = () => {
         </p>{" "}
       </div>
     );
+  }
+
   return (
     <div>
       <UserFeedBackShared
