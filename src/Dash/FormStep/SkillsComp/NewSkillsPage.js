@@ -27,7 +27,7 @@ const SkillsStep = () => {
   };
 
   useEffect(() => {
-    API.get(`coredata/category/list${inpV ? `?name=${inpV}` : ""}`)
+    API.get(`coredata/category/list`)
       .then((res) => {
         let arr = res.data.data?.map((ele) => {
           let activeChilds = [];
@@ -65,7 +65,7 @@ const SkillsStep = () => {
       .catch((err) => {
         console.log(err?.message);
       });
-  }, [inpV]);
+  }, []);
 
   const getBack = () => {
     value.prevPage();
