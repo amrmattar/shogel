@@ -28,14 +28,9 @@ const ClientOfferPricePage = () => {
         />
       </div>
       <div className={cls.formContainer}>
-        {location.pathname === "/offer-price" && (
-          <OfferPriceForm  />
-        )}
+        {location.pathname === "/offer-price" && <OfferPriceForm />}
         {location.pathname === `/update-offer-price/${param?.id}` && (
-          <OfferUpdateFormComponent
-       
-            taskId={param?.id}
-          />
+          <OfferUpdateFormComponent taskId={param?.id} />
         )}
       </div>
     </div>

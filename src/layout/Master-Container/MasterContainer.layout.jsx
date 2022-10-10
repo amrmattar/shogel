@@ -28,6 +28,7 @@ const MasterContainer = () => {
             path={`/update-offer-price/:id`}
             element={<ClientOfferPricePage />}
           />
+
           <Route element={<UserValidta />}>
             <Route
               path={`account_management/*`}

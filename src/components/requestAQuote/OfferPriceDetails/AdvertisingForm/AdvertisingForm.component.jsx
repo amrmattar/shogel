@@ -99,6 +99,7 @@ const AdvertisingFormComponent = () => {
   const [getDescriptionLength, setGetDescriptionLength] = useState(0);
   const handleCLick = (e) => {
     e.preventDefault();
+
     dispatch(
       getMessages({
         messages: "جاري إرســـال طلبك",
@@ -107,12 +108,14 @@ const AdvertisingFormComponent = () => {
       })
     );
     setAdvsCheck(true);
+
     file.images?.map((image, idx) => {
       return media.append(`images[${idx}]`, image);
     });
     file.videos?.map((video, idx) => {
       return media.append(`videos[${idx}]`, video);
     });
+
     media.set("name", formData.name);
     media.set("description", content);
     Number.isFinite(formData.price) && media.set("price", formData.price);
@@ -153,12 +156,15 @@ const AdvertisingFormComponent = () => {
         //     toast.error(ele[0]);
         //   }
         // } else {
-        toast.error("حدث خطأ ما");
+        toast.error(
+          err?.response?.data.message || err?.message || "حدث خطأ ما"
+        );
 
         dispatch(
           getMessages([
             {
-              messages: err.response?.data.message,
+              messages:
+                err.response?.data.message || err?.message || "حدث خطأ ما",
               messageType: "error",
               messageClick: true,
             },
@@ -191,6 +197,7 @@ const AdvertisingFormComponent = () => {
   const [selectedCity, setSelectedCity] = useState({});
   const [selectedState, setSelectedState] = useState({});
   const [selectedArea, setSelectedArea] = useState({});
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity({});
@@ -252,6 +259,7 @@ const AdvertisingFormComponent = () => {
   useEffect(() => {
     fetchAllSkills();
   }, []);
+
   return (
     <>
       <UserFeedBackShared
@@ -294,7 +302,7 @@ const AdvertisingFormComponent = () => {
               as={Col}
               sm={4}
               md={4}
-              style={{marginRight:'auto'}}
+              style={{ marginRight: "auto" }}
               controlId="formGridPassword"
               className=" position-relative px-0 "
             >
@@ -347,6 +355,7 @@ const AdvertisingFormComponent = () => {
         {/* Upload Files [Holder] */}
         <div className=" LT-upload-advs">
           <Upload
+            Sdelet={handleDelete}
             inputRef={inputRef}
             isDrop={fileHandler}
             targetClick={filePicker}
