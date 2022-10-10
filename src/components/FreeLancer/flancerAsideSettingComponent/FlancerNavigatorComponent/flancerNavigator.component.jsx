@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./flancerNavigator.component.scss";
-const FlancerNavigatorComponent = () => {
-  const userID = useSelector((state) => state.userData.id);
-  const [userRole] = useSelector((state) => [state.userRole]);
-  const FreelancerNavigators = [
+
+const FreelancerNavigators = (userID) => {
+  return [
     {
       iconName: "iLT-my-edit",
       iconNameMain: "iLT-my-edit-main",
@@ -26,7 +25,8 @@ const FlancerNavigatorComponent = () => {
       innerText: "طلبات العملاء",
       // id: "hireMeRequests",
       // toggle: "pill",
-      to: "#pills-profile",
+      to: `account_management/my-pills/${userID}/page=${1}`,
+      name: "my-pills",
     },
 
     {
@@ -74,7 +74,10 @@ const FlancerNavigatorComponent = () => {
     //     name: 'my-logout'
     // },
   ];
-  const ClientNavigators = [
+};
+
+const ClientNavigators = (userID) => {
+  return [
     {
       iconName: "iLT-my-edit",
       iconNameMain: "iLT-my-edit-main",
@@ -134,10 +137,16 @@ const FlancerNavigatorComponent = () => {
     //     name: 'my-logout'
     // },
   ];
-  const HandleAccountView = () => {
+};
+
+const FlancerNavigatorComponent = () => {
+  const userID = useSelector((state) => state.userData.id);
+  const [userRole] = useSelector((state) => [state.userRole]);
+
+  const HandleAccountView = useCallback(() => {
     switch (userRole?.userRole) {
       case "2":
-        return ClientNavigators.map((navigator, ix) => {
+        return ClientNavigators(userID).map((navigator, ix) => {
           return (
             <div className="d-flex align-items-center gap-3 " key={ix}>
               <NavLink
@@ -164,7 +173,7 @@ const FlancerNavigatorComponent = () => {
           );
         });
       case "3":
-        return FreelancerNavigators?.map((navigator, ix) => {
+        return FreelancerNavigators(userID)?.map((navigator, ix) => {
           return (
             <div className="d-flex align-items-center gap-3 " key={ix}>
               <NavLink
@@ -191,7 +200,7 @@ const FlancerNavigatorComponent = () => {
           );
         });
       case "4":
-        return FreelancerNavigators?.map((navigator, ix) => {
+        return FreelancerNavigators(userID)?.map((navigator, ix) => {
           return (
             <div className="d-flex align-items-center gap-3 " key={ix}>
               <NavLink
@@ -221,7 +230,8 @@ const FlancerNavigatorComponent = () => {
       default:
         break;
     }
-  };
+  }, [userRole?.userRole, userID]);
+
   useEffect(() => {
     let cancel = false;
     if (cancel) return;

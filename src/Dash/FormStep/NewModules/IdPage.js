@@ -53,7 +53,6 @@ const IdPage = () => {
   const media = new FormData();
   const messages = useSelector((state) => state.messages);
   const [showPassword, setShowPassword] = useState(false);
-  const [nextLoading, setNextLoadiing] = useState(false);
   const [nations, setNations] = useState([]);
   const [gender, setGender] = useState([]);
 
@@ -82,21 +81,7 @@ const IdPage = () => {
     e.preventDefault();
     if (getClientData.id) getClientData.id = getENId(getClientData.id);
 
-    const { id } = getClientData;
-    const currentData = { id };
-    setNextLoadiing(true);
-
-    RegisterServices.POST_CheckRegisterData(currentData)
-      .then(({ data }) => {
-        setNextLoadiing(false);
-        if (data?.code == 200) return value.nextPage();
-
-        toast.error(data.msg);
-      })
-      .catch((err) => {
-        setNextLoadiing(false);
-        toast.error(err?.message || err.response?.data.message);
-      });
+    value.nextPage();
   };
 
   const getBack = () => {
@@ -282,7 +267,6 @@ const IdPage = () => {
             <ButtonShare
               onClick={getNext}
               type={!validation}
-              loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}

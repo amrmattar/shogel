@@ -32,25 +32,10 @@ const RegisterClientView = () => {
   const navigate = useNavigate();
 
   const messages = useSelector((state) => state.messages);
-  const [nextLoading, setNextLoadiing] = useState(false);
   const getNext = (e) => {
     e.preventDefault();
 
-    const { fullName, username, email, password } = getClientData;
-    const currentData = { fullName, username, email, password };
-    setNextLoadiing(true);
-
-    RegisterServices.POST_CheckRegisterData(currentData)
-      .then(({ data }) => {
-        setNextLoadiing(false);
-        if (data?.code == 200) return value.jumpPage(4);
-
-        toast.error(data.msg);
-      })
-      .catch((err) => {
-        setNextLoadiing(false);
-        toast.error(err?.message || err.response?.data.message);
-      });
+    value.jumpPage(4);
   };
 
   const getBack = (e) => {
@@ -217,7 +202,6 @@ const RegisterClientView = () => {
           <div className="">
             <ButtonShare
               type={!validation || !nameValid || !emailValid}
-              loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}

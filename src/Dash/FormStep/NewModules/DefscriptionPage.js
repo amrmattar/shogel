@@ -30,32 +30,13 @@ const DersciptionPage = () => {
 
   // TODO Data from Reducers
   const navigate = useNavigate();
-  const [nextLoading, setNextLoadiing] = useState(false);
   const [openImage, setOpenImage] = useState(true);
   const [isAboutMe, setIsAboutMe] = useState(false);
 
   const getNext = (e) => {
     e.preventDefault();
 
-    const { fullName, description, info } = getClientData;
-    const currentData = { fullName, description, info };
-
-    setNextLoadiing(true);
-
-    RegisterServices.POST_CheckRegisterData(currentData)
-      .then(({ data }) => {
-        setNextLoadiing(false);
-        if (data?.code == 200)
-          return value.jumpPage(
-            value?.accountType?.userKind == "client" ? 5 : 6
-          );
-
-        toast.error(data.msg);
-      })
-      .catch((err) => {
-        setNextLoadiing(false);
-        toast.error(err?.message || err.response?.data.message);
-      });
+    value.jumpPage(value?.accountType?.userKind == "client" ? 5 : 6);
   };
 
   const getBack = (e) => {
@@ -185,7 +166,6 @@ const DersciptionPage = () => {
             <ButtonShare
               onClick={getNext}
               type={!validation()}
-              loading={nextLoading}
               innerText={"التـــالى"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
