@@ -7,11 +7,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useState } from "react";
 
-const SkillTree = ({ parentHandler, skills }) => {
+const SkillTree = ({ parentHandler, skills, searchRes, inpV }) => {
   const [data, setData] = useState({
     id: "root",
     name: "التصنيفات",
     children: skills,
+    child: skills,
   });
 
   const RenderTree = ({ nodes }) => {
@@ -32,16 +33,22 @@ const SkillTree = ({ parentHandler, skills }) => {
           )
         }
       >
-        {Array.isArray(nodes.children)
-          ? nodes.children.map((nodes) => RenderTree({ nodes }))
+        {Array.isArray(nodes?.child || nodes?.children)
+          ? (nodes?.child || nodes?.children).map((nodes) =>
+              RenderTree({ nodes })
+            )
           : null}
       </TreeItem>
     );
   };
 
   useEffect(() => {
-    setData((prev) => ({ ...prev, children: skills }));
-  }, [skills]);
+    setData((prev) => ({
+      ...prev,
+      children: inpV ? searchRes : skills,
+      child: inpV ? searchRes : skills,
+    }));
+  }, [skills, searchRes, inpV]);
 
   return skills.length ? (
     <TreeView

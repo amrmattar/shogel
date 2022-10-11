@@ -6,16 +6,19 @@ import AdvertisingUpdateFormComponent from "../../../components/requestAQuote/Of
 import OfferPriceTitle from "../../../components/requestAQuote/OfferPriceDetails/OfferPriceTitle/OfferPriceTitle.component";
 import { ChangeFotterState } from "../../../core/redux/reducers/FotterReducer.core";
 import cls from "./FlancerAdvertisingOffer.pages.module.scss";
+
 const FlancerAdvertisingOfferPage = () => {
   const param = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
+
   const fotterStateHandler = () => {
     dispatch(ChangeFotterState(false));
   };
   useEffect(() => {
     fotterStateHandler();
   }, []);
+
   return (
     <div className={cls.main}>
       <div className={cls.Titlecontainer}>
@@ -28,13 +31,10 @@ const FlancerAdvertisingOfferPage = () => {
       </div>
       <div className={cls.formContainer}>
         {location.pathname === "/advertising-price" && (
-          <AdvertisingFormComponent  />
+          <AdvertisingFormComponent />
         )}
         {location.pathname === `/advertising-price/${param?.id}` && (
-          <AdvertisingUpdateFormComponent
-          
-            advsId={param?.id}
-          />
+          <AdvertisingUpdateFormComponent advsId={param?.id} />
         )}
       </div>
     </div>

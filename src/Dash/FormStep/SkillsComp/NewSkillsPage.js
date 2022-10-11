@@ -8,11 +8,47 @@ import SkillTree from "./SkillTree";
 
 import LTT from "list-to-tree";
 
+const renderTree = (arr) => {
+  const array = [...arr];
+  let result = [];
+
+  const render = (arr) => {
+    result.push({
+      active: arr.active,
+      id: arr.id,
+      name: arr.name,
+      type_work: arr.type_work,
+      parentId: arr.parent_id || arr.parentId || 0,
+      children: arr.children || arr.child,
+    });
+
+    arr?.children?.map((skl) => render(skl));
+  };
+
+  render({ children: array });
+  delete result[0];
+
+  return result.filter((res) => res);
+};
+
+const listToTree = (items) => {
+  const ltt = new LTT(items, {
+    key_id: "id",
+    key_parent: "parentId",
+    children: "children",
+  });
+
+  const tree = ltt.GetTree();
+
+  return tree;
+};
+
 const SkillsStep = () => {
   const value = useContext(LabelContext);
   const storeSkills = value.labelInfo.skills;
   const [inpV, setInpV] = useState("");
   const [skills, setSkills] = useState([]);
+  const [searchRes, setSearchRes] = useState([]);
   const [chosenSubs, setChosenSubs] = useState([]);
 
   const handleCancel = (id, parentId, subId) => {
@@ -67,6 +103,64 @@ const SkillsStep = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (!inpV) return;
+
+    API.get(`coredata/category/list${inpV ? `?name=${inpV}` : ""}`)
+      .then((res) => {
+        let arr = res.data.data?.map((ele) => {
+          let activeChilds = [];
+          let Tele = storeSkills.filter((e) => e.id == ele.id);
+          Tele[0] ? (ele.active = true) : (ele.active = false);
+          ele.children[0] &&
+            ele.children.forEach((child) => {
+              let activeSubChilds = [];
+              let Tchild = storeSkills.filter((e) => e.id == child.id);
+              Tchild[0] ? (child.active = true) : (child.active = false);
+              Tchild[0] && activeChilds.push(child.id);
+              ele.active =
+                activeChilds.length == ele.children.length ? true : false;
+              child.children[0] &&
+                child.children.forEach((child2) => {
+                  let Tchild2 = storeSkills.filter((e) => e.id == child2.id);
+
+                  Tchild2[0] ? (child2.active = true) : (child2.active = false);
+                  Tchild2[0] && activeSubChilds.push(child2.id);
+                  if (activeSubChilds.length == child.children.length) {
+                    child.active = true;
+                    activeChilds.push(child.id);
+                    if (activeChilds.length == ele.children.length) {
+                      ele.active = true;
+                    }
+                  }
+                });
+            });
+
+          return ele;
+        });
+
+        const searchSkls = renderTree(arr);
+        const cureentSkls = renderTree(skills);
+
+        const result = [];
+        const active = (child) => {
+          const isActive = cureentSkls.find(
+            (currentSkl) => currentSkl.id === child.id
+          )?.active;
+
+          result.push({ ...child, active: isActive ? true : false });
+        };
+
+        searchSkls.forEach(active);
+        const tree = listToTree(result);
+
+        setSearchRes(tree);
+      })
+      .catch((err) => {
+        console.log(err?.message);
+      });
+  }, [inpV]);
+
   const getBack = () => {
     value.prevPage();
   };
@@ -93,34 +187,61 @@ const SkillsStep = () => {
   };
 
   const handleParent = (id) => {
-    const result = [];
+    if (inpV) {
+      const result = renderTree(searchRes);
+      let arr = result;
+      let currentResult = [];
 
-    const renderTree = (arr) => {
-      result.push({
-        active: arr.active,
-        id: arr.id,
-        name: arr.name,
-        type_work: arr.type_work,
-        parentId: arr.parentId || 0,
+      // parent
+      const parent = arr.find((skl) => skl?.id == id);
+      parent.active = !parent.active;
+      currentResult.push(parent);
+
+      // children
+      const activeChildren = (arr) => {
+        const result = [];
+
+        let children = arr.filter(
+          (skl) => (skl.parentId || skl.parent_id) == id
+        );
+
+        const active = (child) => {
+          child.active = parent.active;
+          result.push(child);
+
+          let childChildren = arr.filter(
+            (skl) => (skl.parentId || skl.parent_id) == child.id
+          );
+          childChildren.forEach(active);
+        };
+
+        children.forEach(active);
+
+        return result;
+      };
+
+      currentResult = activeChildren(arr);
+
+      // collect
+      arr.forEach((arrSkl) => {
+        if (!currentResult.find((skl) => skl.id == arrSkl?.id)) {
+          currentResult.push(arrSkl);
+        }
       });
+      currentResult = listToTree(currentResult);
 
-      arr?.children?.map((skl) => renderTree(skl));
-    };
+      setSearchRes(currentResult);
+      setSkills((prev) => {
+        prev[prev.findIndex((el) => el.id === id)] = currentResult.find(
+          (el) => el.id === id
+        );
 
-    const listToTree = (items) => {
-      const ltt = new LTT(items, {
-        key_id: "id",
-        key_parent: "parentId",
+        return [...prev];
       });
+      return;
+    }
 
-      const tree = ltt.GetTree();
-
-      return tree;
-    };
-
-    renderTree({ children: skills });
-
-    delete result[0];
+    const result = renderTree(skills);
     let arr = result;
 
     let currentResult = [];
@@ -130,13 +251,27 @@ const SkillsStep = () => {
     currentResult.push(parent);
 
     // children
-    let children = arr.filter((skl) => {
-      return skl.parentId == id;
-    });
-    children.forEach((child) => {
-      child.active = parent.active;
-      currentResult.push(child);
-    });
+    const activeChildren = (arr) => {
+      const result = [];
+
+      let children = arr.filter((skl) => (skl.parentId || skl.parent_id) == id);
+
+      const active = (child) => {
+        child.active = parent.active;
+        result.push(child);
+
+        let childChildren = arr.filter(
+          (skl) => (skl.parentId || skl.parent_id) == child.id
+        );
+        childChildren.forEach(active);
+      };
+
+      children.forEach(active);
+
+      return result;
+    };
+
+    currentResult = activeChildren(arr);
 
     // collect
     arr.forEach((arrSkl) => {
@@ -144,16 +279,7 @@ const SkillsStep = () => {
         currentResult.push(arrSkl);
       }
     });
-
-    currentResult = listToTree(currentResult).map((skl) => {
-      const chlid = skl.child;
-      delete skl.child;
-      delete skl.__depth;
-      if (skl.parentId === 0) delete skl.parentId;
-      if (!chlid) return { ...skl };
-
-      return { ...skl, children: chlid };
-    });
+    currentResult = listToTree(currentResult);
 
     setSkills(currentResult);
   };
@@ -239,8 +365,8 @@ const SkillsStep = () => {
           <p className={cls.skillTitle}>اختيار التصنيف</p>
           <SkillTree
             parentHandler={handleParent}
-            subHandler={handleSub}
-            sub2Handler={handle2Sub}
+            searchRes={searchRes}
+            inpV={inpV}
             skills={skills}
           />
         </div>

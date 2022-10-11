@@ -14,8 +14,10 @@ import FlancerMyWalletPage from "../../pages/FlancerPages/flancerAccountManageme
 import FreelancerMainEditAccountPage from "../../pages/FreelancerMainEditAccount.page";
 import ClientOfferPricePage from "../../pages/OfferPrice/ClientOfferPrice/ClientOfferPrice.page";
 import FlancerAdvertisingOfferPage from "../../pages/OfferPrice/FlancerAdvertisingOffer/FlancerAdvertisingOffer.pages";
+
 const MasterContainer = () => {
   const userID = useSelector((state) => state.userData.id);
+
   return (
     <>
       <div className="overflow-hidden w-100 ">
