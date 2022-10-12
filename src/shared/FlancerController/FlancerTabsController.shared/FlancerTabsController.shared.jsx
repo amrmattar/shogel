@@ -6,6 +6,7 @@ const FlancerTabsControllerShared = ({
   Datafilter,
   tabSelect,
   loading,
+  isPills,
 }) => {
   const [statusData, userRole] = useSelector((state) => [
     state.coreData.status,
@@ -27,8 +28,7 @@ const FlancerTabsControllerShared = ({
         {/* Order Type Navigator [Holder] */}
         <div className="col-6 p-0">
           <label htmlFor="" className="cLT-main-text fLT-Bold-sm-sB mb-3">
-            {" "}
-            نوع الطلب{" "}
+            نوع الطلب
           </label>
           {/* Order Navigator List [Holder] */}
           <ul
@@ -38,8 +38,10 @@ const FlancerTabsControllerShared = ({
             onClick={(e) => handleTabsChange(e)}
           >
             {/* Request Offer Price [Holder] */}
+
             <li className="nav-item" role="presentation">
               <button
+                style={{ border: "1px solid transparent" }}
                 className="nav-link active px-2 py-1"
                 id="priceListOffer"
                 data-bs-toggle="pill"
@@ -52,9 +54,11 @@ const FlancerTabsControllerShared = ({
                 طلبات عرض سعر
               </button>
             </li>
+
             {/* Request My Job [Holder] */}
             <li className="nav-item" role="presentation">
               <button
+                style={{ border: "1px solid transparent" }}
                 className="nav-link  px-2 py-1"
                 id="hireMeRequests"
                 data-bs-toggle="pill"
@@ -68,9 +72,10 @@ const FlancerTabsControllerShared = ({
               </button>
             </li>
             {/* Request I Made [Holder] */}
-            {userRole !== "2" && (
+            {userRole !== "2" && isPills && (
               <li className="nav-item" role="presentation">
                 <button
+                  style={{ border: "1px solid transparent" }}
                   className="nav-link  px-2 py-1"
                   id="RequestsMade"
                   data-bs-toggle="pill"

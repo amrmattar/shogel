@@ -11,7 +11,7 @@ const ViewLayout = () => {
   const location = useLocation();
   const show = useSelector((state) => state.Fotter.visible);
   return (
-    <div className="d-flex flex-column align-items-between p-0 mb-3 h-100">
+    <div className="d-flex flex-column align-items-between p-0 h-100">
       {location.pathname !== "/offer-price" &&
       location.pathname !== "/freelancer-offer" &&
       !location.pathname.includes("register") &&

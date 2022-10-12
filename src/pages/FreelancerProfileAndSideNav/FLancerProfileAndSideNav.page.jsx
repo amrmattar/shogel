@@ -28,8 +28,11 @@ const FLancerProfileAndSideNavPage = () => {
   // Navigate If Data Not Found
   if (!isResult)
     return (
-      <div className="d-flex justify-content-center w-100 h-100">
-        <div className=" spinner"></div>
+      <div
+        style={{ transform: "scale(3)" }}
+        className="d-flex justify-content-center align-items-center w-100 vh-100"
+      >
+        <div className="fs-5 spinner"></div>
       </div>
     );
   return (

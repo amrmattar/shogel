@@ -233,7 +233,10 @@ const OrderDetailsPage = () => {
         clickMe={messages?.messageClick}
       />
 
-      <div className="d-flex flex-column flex-lg-row px-3 gap-3 px-lg-0 container-lg">
+      <div
+        className="d-flex flex-column flex-lg-row px-3 gap-3 px-lg-0 pt-5 container-lg"
+        style={{ minHeight: "100vh" }}
+      >
         <div className="w-100">
           {/* Order Details [Holder] */}
           <div className="">

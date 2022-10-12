@@ -57,6 +57,7 @@ const Home = () => {
       cancel = true;
     };
   }, []);
+
   const [sectionThreeData, setSectionThreeData] = useState({ image: [] });
   const [sectionFourData, setSectionFourData] = useState({ url: "" });
   const handleSectionOne = useCallback(() => {
@@ -79,6 +80,7 @@ const Home = () => {
       }
     });
   }, [sectionNum]);
+
   useEffect(() => {
     let cancel = false;
     if (cancel) return;
@@ -87,9 +89,11 @@ const Home = () => {
       cancel = true;
     };
   }, [handleSectionOne]);
+
   // TODO API Retuen Only My Advertising By Catgeoryt
   // Todo Block Of Get All Advertising Form
   const [userAdvsDetatils, setUserAdvsDetatils] = useState();
+
   //  Use MEMO Function To Store Whte API Return Advertising List Data
   const listOfUsersAdvs = useMemo(() => {
     return advertisingLists
@@ -101,6 +105,7 @@ const Home = () => {
         return err.response;
       });
   }, []);
+
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -108,13 +113,12 @@ const Home = () => {
     }, 300);
     return () => clearTimeout(timeout);
   }, [userAdvsDetatils, listOfUsersAdvs]);
+
   return (
     <>
       <section
         className="container-fluid cLT-main-bg px-0 text-center LT-aboutUs-holder"
-        style={{
-          height: "500px",
-        }}
+        style={{ height: "500px" }}
       >
         <AboutUs data={sectionNum} />
       </section>

@@ -49,6 +49,32 @@ const mostUse = [
   { id: 3, name: "بالقرب مني" },
   { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
+
+const treeToList = (arr) => {
+  if (!arr.length) return [];
+
+  const array = [...arr];
+  let result = [];
+
+  const render = (arr) => {
+    result.push({
+      active: arr.active,
+      id: arr.id,
+      name: arr.name,
+      type_work: arr.type_work,
+      parentId: arr.parent_id || arr.parentId || 0,
+      children: arr.children || arr.child,
+    });
+
+    arr?.children?.map((skl) => render(skl));
+  };
+
+  render({ children: array });
+  delete result[0];
+
+  return result.filter((res) => res);
+};
+
 const OrdersPage = () => {
   const param = useParams();
   const navigate = useNavigate();
@@ -65,6 +91,8 @@ const OrdersPage = () => {
   const [price, setPrice] = useState([]);
   const [categ, setCateg] = useState([]);
   const [location, setLocation] = useState("");
+  const [query, setQuery] = useState("");
+  const [searchRes, setSearchRes] = useState("");
   const categHandler = (id, state) => {
     state
       ? setCateg([...categ, id])
@@ -107,7 +135,7 @@ const OrdersPage = () => {
   const fetchCategories = async () => {
     try {
       const res = await API.get("coredata/category/list");
-      setCategories(res.data?.data);
+      setCategories(treeToList(res?.data?.data || []));
     } catch (e) {}
   };
   useEffect(() => {
@@ -140,6 +168,14 @@ const OrdersPage = () => {
       behavior: "smooth",
     });
   };
+
+  // search Query
+  useEffect(() => {
+    setSearchRes(() => {
+      return categories.filter((categ) => categ.name.includes(query));
+    });
+  }, [query, categories]);
+
   // Condition For Show Loading Style Untill Data Return From API
   if (!userOfferDetatils)
     return (
@@ -164,7 +200,9 @@ const OrdersPage = () => {
             setPrice={setPrice}
             setLocation={setLocation}
             mostUse={mostUse}
-            categories={categories}
+            categories={query ? searchRes : categories}
+            query={query}
+            setQuery={setQuery}
           />
           {userOfferDetatils.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">

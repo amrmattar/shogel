@@ -46,10 +46,6 @@ const MasterContainer = () => {
                   element={<FlancerMyOrderPage />}
                 />
                 <Route
-                  path={`my-pills/${userID}/page=:num`}
-                  element={<FlancerMyOrderPage />}
-                />
-                <Route
                   path={`my-advertising/${userID}/page=:num`}
                   element={<FlancerMyAdvsPage />}
                 />
