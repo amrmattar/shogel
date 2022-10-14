@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import AuthComponent from "../../components/auth/Auth.component";
 import { useSelector } from "react-redux";
 import { homePages } from "../../core/services/HomeServices/Home.core";
+
 const Footer = () => {
   const user = useSelector((state) => state.authentication);
   const [socialMedia, setSocialMedia] = useState();
