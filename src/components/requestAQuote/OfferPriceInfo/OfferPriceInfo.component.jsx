@@ -6,7 +6,7 @@ import TextEditorShared from "../../../shared/TextEditor/TextEditor.shared";
 import { Col, Form, Row } from "react-bootstrap";
 import UserFeedBackShared from "../../../shared/UserFeedBack/UserFeedBack.shared";
 import AuthComponent from "../../auth/Auth.component";
-import cls from"./OfferPriceInfo.component.module.scss";
+import cls from "./OfferPriceInfo.component.module.scss";
 const OfferPriceInfo = ({ data }) => {
   const [checkLogin, messages] = useSelector((state) => [
     state.authentication.loggedIn,
@@ -69,7 +69,7 @@ const OfferPriceInfo = ({ data }) => {
       cancel = true;
     };
   }, [handleSectionOne]);
-  console.log(sectionTwoData);
+
   return (
     <>
       <UserFeedBackShared

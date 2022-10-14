@@ -76,7 +76,7 @@ function App() {
 
   return (
     <Router>
-      <div className="" style={{ height: "100vh" }}>
+      <div className="" style={{ minHeight: "100vh" }}>
         <ViewLayout />
         <ToastContainer theme="colored" />
       </div>

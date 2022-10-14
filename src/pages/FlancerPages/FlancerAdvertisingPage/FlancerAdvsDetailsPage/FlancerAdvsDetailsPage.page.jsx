@@ -182,11 +182,8 @@ const FlancerAdvsDetailsPage = () => {
   // ** User Feedback Loading UI Untill Response Return Data
   if (!advsDataById) {
     return (
-      <div>
-        {" "}
-        <p className="mb-0 fLT-Bold-sD cLT-gray-text text-center">
-          Loading
-        </p>{" "}
+      <div className="vh-100 d-flex justify-content-center align-items-center">
+        <p className="mb-0 fLT-Bold-sD cLT-gray-text text-center">Loading</p>{" "}
       </div>
     );
   }

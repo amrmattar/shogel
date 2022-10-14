@@ -64,6 +64,31 @@ const mostUse = [
   { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
 
+const treeToList = (arr) => {
+  if (!arr.length) return [];
+
+  const array = [...arr];
+  let result = [];
+
+  const render = (arr) => {
+    result.push({
+      active: arr.active,
+      id: arr.id,
+      name: arr.name,
+      type_work: arr.type_work,
+      parentId: arr.parent_id || arr.parentId || 0,
+      children: arr.children || arr.child,
+    });
+
+    arr?.children?.map((skl) => render(skl));
+  };
+
+  render({ children: array });
+  delete result[0];
+
+  return result.filter((res) => res);
+};
+
 const FlancerAdvsListPage = () => {
   const param = useParams();
   const navigate = useNavigate();
@@ -90,48 +115,28 @@ const FlancerAdvsListPage = () => {
   }, [userAdvsDetatils?.pagination]);
   ///////////////////////////
   const [categories, setCategories] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
 
   // search
   const [query, setQuery] = useState("");
 
+  // search Query
+  useEffect(() => {
+    setSearchResult(() => {
+      return categories.filter((categ) => categ.name.includes(query));
+    });
+  }, [query, categories]);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await API.get(
-          `coredata/category/list${query ? `?name=${query}` : ""}`
-        );
-
-        const treeToFlatArray = (tree) => {
-          let result = [];
-
-          const nodeTree = {
-            id: "root",
-            children: tree,
-          };
-          const faltHandelar = (node) => {
-            const returned = (node.children.length ? [] : [[node]]).concat(
-              ...node.children.map((child) =>
-                faltHandelar(child).map((arr) => [node, ...arr])
-              )
-            );
-
-            return returned;
-          };
-
-          faltHandelar(nodeTree)?.forEach((list) => result.push(...list));
-          result = result.filter((res) => res && res.id !== "root");
-
-          return result;
-        };
-
-        setCategories(treeToFlatArray(data?.data));
-      } catch (err) {
-        console.log(err?.message);
-      }
+        const res = await API.get("coredata/category/list");
+        setCategories(treeToList(res?.data?.data || []));
+      } catch (e) {}
     };
 
     fetchCategories();
-  }, [query]);
+  }, []);
 
   const [active, setActive] = useState(null);
   const [rate, setRate] = useState(null);
@@ -235,7 +240,7 @@ const FlancerAdvsListPage = () => {
             setLocation={setLocation}
             setRateCount={setRateCount}
             mostUse={mostUse}
-            categories={categories}
+            categories={query ? searchResult : categories}
           />
           {userAdvsDetatils?.data?.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">
@@ -243,9 +248,7 @@ const FlancerAdvsListPage = () => {
                 return (
                   <NavLink
                     className="uLT-list-style"
-                    to={
-                      vistorUser && `/advertising/advertise-details/${advs.id}`
-                    }
+                    to={`/advertising/advertise-details/${advs.id}`}
                     key={ix}
                   >
                     {" "}

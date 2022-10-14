@@ -9,6 +9,7 @@ import FlancerMyFavoritePage from "../../pages/FlancerPages/flancerAccountManage
 import FlancerMyLogoutPage from "../../pages/FlancerPages/flancerAccountManagement/FlancerMyLogoutPage/FlancerMyLogout.page";
 import FlancerMyNotificationPage from "../../pages/FlancerPages/flancerAccountManagement/FlancerMyNotificationPage/FlancerMyNotification.page";
 import FlancerMyOrderPage from "../../pages/FlancerPages/flancerAccountManagement/FlancerMyOrderPage/FlancerMyOrder.page";
+import FlancerMyPillsPage from "../../pages/FlancerPages/flancerAccountManagement/FlancerMyPillsPage/FlancerMyPillsPage";
 import FlancerMySettingPage from "../../pages/FlancerPages/flancerAccountManagement/FlancerMySettingPage/FlancerMySetting.page";
 import FlancerMyWalletPage from "../../pages/FlancerPages/flancerAccountManagement/FlancerMyWalletPage/FlancerMyWallet.page";
 import FreelancerMainEditAccountPage from "../../pages/FreelancerMainEditAccount.page";
@@ -47,7 +48,7 @@ const MasterContainer = () => {
                 />
                 <Route
                   path={`my-pills/${userID}/page=:num`}
-                  element={<FlancerMyOrderPage />}
+                  element={<FlancerMyPillsPage />}
                 />
                 <Route
                   path={`my-advertising/${userID}/page=:num`}

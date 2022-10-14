@@ -6,7 +6,7 @@ import PriceTasksListsComponent from "../../../../components/FreeLancer/fLancerP
 import RequestMyJobComponent from "../../../../components/FreeLancer/fLancerProfile/flancerTasksOfferController/RequestMyJob/RequestMyJob.component";
 import RequestsMadeComponent from "../../../../components/FreeLancer/fLancerProfile/flancerTasksOfferController/RequestsMadeLists/RequestsMade.component";
 
-const FlancerMyOrderPage = () => {
+const FlancerMyPillsPage = () => {
   const param = useParams();
   const navigate = useNavigate();
   const [tabsSelected, setTabsSelected] = useState();
@@ -85,6 +85,7 @@ const FlancerMyOrderPage = () => {
           children={children}
           Datafilter={setOfferFilter}
           tabSelect={setTabsSelected}
+          isPills
         />
       </div>
       {pagination !== 0 && (
@@ -109,4 +110,4 @@ const FlancerMyOrderPage = () => {
   );
 };
 
-export default FlancerMyOrderPage;
+export default FlancerMyPillsPage;

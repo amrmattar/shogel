@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Footer.layout.scss";
 import React, { useEffect, useState } from "react";
 import AuthComponent from "../../components/auth/Auth.component";
@@ -53,6 +53,8 @@ const Footer = () => {
   }, [socialMedia]);
   const [click, setClick] = useState(false);
 
+  const location = useLocation();
+
   return (
     <div className="LT-footer d-flex flex-column h-100 px-3 px-sm-4 px-lg-0">
       {/* Footer-Logo */}
@@ -72,12 +74,12 @@ const Footer = () => {
             </li>
             {/* الأسئلة الشائعة */}
             <li className="nav-item  h-100">
-              <NavLink
+              <Link
                 className=" px-0 pt-0 pb-2 fLT-Bold-sA nav-link"
                 to="/questions"
               >
                 <span className="cLT-white-text">الأسئلة الشائعة</span>
-              </NavLink>
+              </Link>
             </li>
             {/* ضمان حقوقك */}
             {/* <li className="nav-item  h-100">
@@ -87,12 +89,12 @@ const Footer = () => {
             </li> */}
             {/* شروط الاستخدام */}
             <li className="nav-item  h-100">
-              <NavLink
+              <Link
                 className=" px-0 pt-0 pb-2 fLT-Bold-sA nav-link"
                 to="/policies"
               >
                 <span className="cLT-white-text">شروط الاستخدام</span>
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </div>
@@ -171,12 +173,12 @@ const Footer = () => {
               // onClick={() => window.scrollTo({ top: 1000, behavior: "smooth" })}
               className="nav-item"
             >
-              <NavLink
+              <Link
                 className="px-0 pt-0 pb-2 fLT-Regular-sB nav-link"
-                to="/"
+                to={location.pathname === "/" ? "/#contactSec" : "/"}
               >
                 <span className="cLT-white-text">اتصل بنا</span>
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </div>
