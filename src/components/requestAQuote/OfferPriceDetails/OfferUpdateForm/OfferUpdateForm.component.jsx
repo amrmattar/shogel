@@ -1,21 +1,30 @@
-import './OfferUpdateForm.component.scss'
-import ButtonShare from '../../../../shared/Button/Button.shared'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import Select from 'react-select'
-import { useDispatch, useSelector } from 'react-redux'
-import FlancerEditTagsComponent from '../../../FreeLancer/fLancerProfile/flancerEditAccount/FlancerEditTags/FlancerEditTags.component'
-import { Col, Form, Row } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom';
-import UserFeedBackShared from '../../../../shared/UserFeedBack/UserFeedBack.shared';
-import { getMessages } from '../../../../core/redux/reducers/Messages/Messages.core';
-import { userOfferRequest } from '../../../../core/services/OfferRequestServices/OfferRequest.core';
-import { RegisterServices } from '../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core';
-import { userOfferPrice } from '../../../../core/services/OfferPriceService/OfferPriceService.core';
-import Upload from '../../../../shared/Upload/Upload.shared';
-import { getcitiesID, getCountryID, getStateID } from '../../../../core/redux/reducers/RegisterReducer/RegisterLocationID.core';
-import { deleteBasicData } from '../../../../core/services/MethodDeleteGlobal/MethodDeleteGlobal.core';
-import TextEditorShared from '../../../../shared/TextEditor/TextEditor.shared';
-
+import "./OfferUpdateForm.component.scss";
+import ButtonShare from "../../../../shared/Button/Button.shared";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import FlancerEditTagsComponent from "../../../FreeLancer/fLancerProfile/flancerEditAccount/FlancerEditTags/FlancerEditTags.component";
+import { Col, Form, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.shared";
+import { getMessages } from "../../../../core/redux/reducers/Messages/Messages.core";
+import { userOfferRequest } from "../../../../core/services/OfferRequestServices/OfferRequest.core";
+import { RegisterServices } from "../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+import { userOfferPrice } from "../../../../core/services/OfferPriceService/OfferPriceService.core";
+import Upload from "../../../../shared/Upload/Upload.shared";
+import {
+  getcitiesID,
+  getCountryID,
+  getStateID,
+} from "../../../../core/redux/reducers/RegisterReducer/RegisterLocationID.core";
+import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/MethodDeleteGlobal.core";
+import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 
 const OfferUpdateFormComponent = ({ taskId }) => {
   // Get Data From Redux Store By UseSelector
@@ -367,8 +376,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         );
       });
   };
-    const handleGoBack = (e) => {
-      
+  const handleGoBack = (e) => {
     e.preventDefault();
     navigate(-1);
   };
@@ -624,6 +632,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
             handleDelete={handleDelete}
             isHaveData={loadTaskData?.document}
             uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
+            noHover
           />
         </div>
 
@@ -680,4 +689,4 @@ const OfferUpdateFormComponent = ({ taskId }) => {
   );
 };
 
-export default OfferUpdateFormComponent
+export default OfferUpdateFormComponent;

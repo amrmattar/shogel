@@ -136,6 +136,7 @@ const DersciptionPage = () => {
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
                 نبذة عني
+                <span className="cLT-danger-text">*</span>
               </Form.Label>
               <Form.Control
                 name="description"

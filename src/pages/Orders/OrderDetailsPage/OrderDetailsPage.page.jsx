@@ -72,7 +72,14 @@ const OrderDetailsPage = () => {
   const getOfferDataValue = useMemo(() => {
     return (e) => {
       const { name, value } = e?.target;
-      setRequestData((getOfferData) => ({ ...getOfferData, [name]: value }));
+
+      // only price number
+      if (name === "offerPrice" && value && !/^\d+$/.test(value)) return;
+
+      setRequestData((getOfferData) => ({
+        ...getOfferData,
+        [name]: value,
+      }));
     };
   }, []);
   // TODO  Send My Offer To This Task

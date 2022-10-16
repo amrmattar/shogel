@@ -137,8 +137,12 @@ const AsideFreelancerPage = ({
                 src={userProfileData?.avatar}
                 id="output"
                 alt="test"
-                className=" uLT-f-radius"
-                style={{ width: "128px", height: "128px" }}
+                className="uLT-f-radius img border rounded-4 px-3 py-3"
+                style={{
+                  width: "128px",
+                  height: "128px",
+                  backgroundColor: "#fff",
+                }}
               />
               {userProfileData?.available === 1 ? (
                 <div className="LT-freelancer-profile uLT-status-online"></div>
@@ -155,8 +159,12 @@ const AsideFreelancerPage = ({
                     src={userProfileData?.avatar}
                     id="output"
                     alt="test"
-                    className=" uLT-f-radius"
-                    style={{ width: "128px", height: "128px" }}
+                    className="uLT-f-radius img border rounded-4 px-3 py-3"
+                    style={{
+                      width: "128px",
+                      height: "128px",
+                      backgroundColor: "#fff",
+                    }}
                   />
                   <label htmlFor="attachment" className="position-absolute">
                     <i

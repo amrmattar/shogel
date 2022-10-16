@@ -5,7 +5,7 @@ import FlancerCertificatesComponent from "../../../../components/FreeLancer/fLan
 import FlancerAdvsGridCards from "../../../../components/FreeLancer/FlancerAdvertisingComponent/FlancerAdvsGridCard/FlancerAdvsGridCard.component";
 import AmentiesShared from "../../../../shared/Amenties/Amenties.shared";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { advertisingLists } from "../../../../core/services/AdvertisingOfferServices/AdvertisingOfferServices.core";
 import defautFlag from "../../../../assets/icons/Advs-flag.svg";
 import Toast from "react-bootstrap/Toast";
@@ -36,17 +36,16 @@ const CircularProgressWithLabel = (props) => {
           justifyContent: "center",
         }}
       >
-        <Typography
-          variant="caption"
-          component="div"
-          color="text.secondary"
-        >{`${Math.round(props.value)}%`}</Typography>
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${Math.round(props.value)}%`}
+        </Typography>
       </Box>
     </Box>
   );
 };
 
 const FlancerAdvsDetailsPage = () => {
+  const navigate = useNavigate();
   const [vistorUser, messages] = useSelector((state) => [
     state.authentication.loggedIn,
     state.messages,
@@ -122,13 +121,6 @@ const FlancerAdvsDetailsPage = () => {
     );
   };
 
-  const sendEmail = () => {
-    // window.open(`https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${advsDataById?.user?.email}`);
-    window.open(
-      `https://mail.google.com/mail/mu/mp/159/#co/to=${advsDataById?.user?.email}`
-    );
-  };
-
   const copyPhoneNumber = (num) => {
     setCopyMobile(true);
     window.open(`tel:${num}`);
@@ -177,6 +169,17 @@ const FlancerAdvsDetailsPage = () => {
           })
         );
       });
+  };
+
+  const handleChat = () => {
+    navigate("/chat", {
+      state: {
+        id: advsDataById.user.id,
+        avatar: advsDataById.user.avatar,
+        name: advsDataById.user.username,
+        role: advsDataById.user.role?.name,
+      },
+    });
   };
 
   // ** User Feedback Loading UI Untill Response Return Data
@@ -339,7 +342,7 @@ const FlancerAdvsDetailsPage = () => {
         <div className="container-md px-4 mt-5">
           <div className="d-flex align-items-center marginC gap-3 flex-wrap  ">
             <div
-              onClick={() => sendEmail()}
+              onClick={handleChat}
               className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
             >
               <i className={`iLT-flancer-email uLT-img-contain iLT-sC`}></i>

@@ -87,7 +87,7 @@ const DynamicFilter = ({
           {!isEmployee && (
             <PriceSlider
               quote="ريال"
-              title="نحديد السعر"
+              title="تحديد السعر"
               changePrice={setPrice}
             />
           )}

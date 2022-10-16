@@ -16,6 +16,7 @@ const Upload = ({
   isHaveData,
   changeStylrToAnotherComponnet,
   title,
+  noHover,
 }) => {
   const handleOpen = (e, files) => {
     if (e.target.tagName === "svg" && e.target.tagName === "path") {
@@ -36,7 +37,9 @@ const Upload = ({
               <i className="iLT-Add-items-black d-block uLT-img-contain iLT-sA"></i>
               <label
                 htmlFor="attachment"
-                className="btn fLT-Regular-sB px-2 cLT-support2-text text-nowrap"
+                className={`btn ${
+                  noHover ? "btn-hover-transparent" : ""
+                } fLT-Regular-sB px-2 cLT-support2-text text-nowrap`}
               >
                 تحميل الملفات
               </label>

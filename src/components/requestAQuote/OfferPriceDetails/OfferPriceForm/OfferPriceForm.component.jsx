@@ -433,6 +433,7 @@ const OfferPriceForm = () => {
             fileArr={filenames}
             handleDelete={handleDelete}
             uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
+            noHover
           />
         </div>
         <div className="finalH">

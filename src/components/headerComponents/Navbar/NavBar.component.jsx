@@ -37,10 +37,10 @@ const Navbar = () => {
       name: "الرئيسية",
       route: `/`,
     },
-    // {
-    //   name: "chat",
-    //   route: `/chat`,
-    // },
+    {
+      name: "شات",
+      route: `/chat`,
+    },
     {
       name: "الاعلانات",
       route: `advertising/page=${1}`,

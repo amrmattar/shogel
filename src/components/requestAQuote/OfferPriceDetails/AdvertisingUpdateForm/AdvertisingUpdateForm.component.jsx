@@ -20,6 +20,8 @@ import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/Me
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 
+import arNumberConverter from "../../../../utils/arNumberConverter";
+
 const AdvertisingUpdateFormComponent = ({ advsId }) => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
     state.profileUpdate,
@@ -117,11 +119,14 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     description: "",
     price: 0,
   });
+  console.log(formData);
   const handleChange = (e) => {
-    setFormData((formData) => ({
-      ...formData,
-      [e?.target?.name]: e?.target?.value,
-    }));
+    const { name, value } = e?.target;
+
+    // only price number
+    if (name === "price" && value && !/^\d+$/.test(value)) return;
+
+    setFormData((formData) => ({ ...formData, [name]: value }));
   };
   // TODO et Form Input Value Inside Component By OnChange Function [END]
   // ================[Block END]================ //
@@ -174,6 +179,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
         messageClick: true,
       })
     );
+
     // @Param Block Of Files Get All And Initial Before Post */
     file.images?.map((image, idx) => {
       media.append(`images[${idx}]`, image);
@@ -186,10 +192,16 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
       "description",
       content?.value ? content?.value : loadAdvsData?.description
     );
-    media.set("price", formData.price ? formData.price : loadAdvsData.price);
+    media.set(
+      "price",
+      formData.price
+        ? arNumberConverter(formData.price)
+        : arNumberConverter(loadAdvsData.price)
+    );
     loadAdvsData?.category?.forEach((newCate, idx) => {
       media.append(`category[${idx}]`, newCate.id);
     });
+
     // @Param POST Method To API */
     advertisingLists
       ._POST_UpdateAdvertisingForm(advsId, media)
@@ -312,17 +324,19 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 {" "}
                 السعر
               </Form.Label>
+              {console.log(loadAdvsData?.price)}
               <Form.Control
                 name="price"
                 onChange={handleChange}
                 defaultValue={
-                  loadAdvsData?.price !== null
-                    ? loadAdvsData?.price
-                    : formData?.price
+                  loadAdvsData?.price ? loadAdvsData?.price : formData?.price
+                }
+                value={
+                  formData?.price === 0 ? loadAdvsData?.price : formData?.price
                 }
                 className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
-                type="number"
-                min={1}
+                type="text"
+                maxLength={6}
                 placeholder="0 ريال"
               />
               <div className="">
@@ -376,6 +390,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             fileArr={filenames}
             handleDelete={handleDelete}
             uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
+            noHover
           />
         </div>
         {/* Skills-Grid [Holder] */}

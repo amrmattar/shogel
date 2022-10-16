@@ -27,11 +27,15 @@ const OrderListCardComponent = ({
             عروض
           </p>
         </div> */}
-        <p className={`${cls.title} fs-5`}>{orderTitle}</p>
+        <div className="d-flex align-items-center justify-content-between">
+          <p className={`${cls.title} fs-5`}>{orderTitle}</p>
+          {orderStatus}
+        </div>
+
         <div
           className={`${cls.description} text-muted`}
           dangerouslySetInnerHTML={{ __html: orderDescription }}
-        ></div>
+        />
 
         {amentiesSelector}
       </div>

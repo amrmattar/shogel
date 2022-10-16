@@ -22,22 +22,7 @@ import { useRef } from "react";
 import { API } from "../../../enviroment/enviroment/enviroment";
 import { toast } from "react-toastify";
 
-const getENId = (arId) => {
-  const converter = {
-    "٠": 0,
-    "١": 1,
-    "٢": 2,
-    "٣": 3,
-    "٤": 4,
-    "٥": 5,
-    "٦": 6,
-    "٧": 7,
-    "٨": 8,
-    "٩": 9,
-  };
-
-  return [...arId].map((arNum) => converter[arNum]).join("");
-};
+import arNumberConverter from "../../../utils/arNumberConverter";
 
 const IdPage = () => {
   const [open, setOpen] = useState(true);
@@ -79,7 +64,8 @@ const IdPage = () => {
 
   const getNext = (e) => {
     e.preventDefault();
-    if (getClientData.id) getClientData.id = getENId(getClientData.id);
+    if (getClientData.id)
+      getClientData.id = arNumberConverter(getClientData.id);
 
     value.nextPage();
   };

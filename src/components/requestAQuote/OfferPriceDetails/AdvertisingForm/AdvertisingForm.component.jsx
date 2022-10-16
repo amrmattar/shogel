@@ -18,6 +18,8 @@ import { toast } from "react-toastify";
 import { RegisterServices } from "../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 import { API } from "../../../../enviroment/enviroment/enviroment";
 
+import arNumberConverter from "../../../../utils/arNumberConverter";
+
 const AdvertisingFormComponent = () => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
     state.profileUpdate,
@@ -61,7 +63,12 @@ const AdvertisingFormComponent = () => {
     price: "",
   });
   const handleChange = (e) => {
+    console.log("s");
     const { name, value } = e?.target;
+
+    // only price number
+    if (name === "price" && value && !/^\d+$/.test(value)) return;
+
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
 
@@ -118,7 +125,8 @@ const AdvertisingFormComponent = () => {
 
     media.set("name", formData.name);
     media.set("description", content);
-    Number.isFinite(formData.price) && media.set("price", formData.price);
+    Number.isFinite(+formData.price) &&
+      media.set("price", arNumberConverter(formData.price));
     getAllUserUpdate.category.forEach((cate, idx) => {
       media.append(`category[${idx}]`, cate);
     });
@@ -315,7 +323,8 @@ const AdvertisingFormComponent = () => {
                 name="price"
                 onChange={handleChange}
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
-                type="number"
+                type="text"
+                maxLength={6}
                 placeholder="4 ريال"
               />
               <div>
@@ -362,6 +371,7 @@ const AdvertisingFormComponent = () => {
             fileArr={filenames}
             handleDelete={handleDelete}
             uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
+            noHover
           />
         </div>
         {/* Skills-Grid [Holder] */}

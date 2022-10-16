@@ -253,6 +253,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
   );
 };
 export default SideNavFlancerProfilePages;
+
 const SocialCom = ({ item }) => {
   return (
     <div

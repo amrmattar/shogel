@@ -93,25 +93,12 @@ const AboutUs = ({ data }) => {
               <p
                 className="m-0 LT-about-title fLT-Bold-sD pb-3"
                 dangerouslySetInnerHTML={{ __html: sectionOneData?.title }}
-              ></p>
+              />
               {/* About Us Description */}
               <p
                 className="m-0 fLT-Regular-sD LT-para-holder "
                 dangerouslySetInnerHTML={{ __html: sectionOneData?.decription }}
-              ></p>
-              {/* About Button */}
-              <section className="d-flex justify-content-center align-items-center shadow uLT-f-radius-sB my-3">
-                <NavLink
-                  to={sectionOneData?.link}
-                  className="shadow uLT-f-radius-sB"
-                >
-                  <ButtonShare
-                    btnClasses="cLT-white-bg py-2 uLT-f-radius-sB px-4"
-                    textClasses="cLT-main-text fLT-Regular-sB px-4"
-                    innerText="عن المنصة"
-                  />
-                </NavLink>
-              </section>
+              />
             </section>
             {/* About Us Amenties [Loop] */}
             <section className="LT-card-grid-holder-slider  me-md-3 my-md-3 ">

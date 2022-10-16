@@ -78,9 +78,9 @@ const MasterContainer = () => {
               />
             </Route>
           </Route>
-          {appRoutes.data.map((entry, index) => {
+          {appRoutes.data.map((entry, idx) => {
             return (
-              <Route key={index} element={<PrivateRoutes />}>
+              <Route key={idx} element={<PrivateRoutes />}>
                 <Route path={entry?.path} element={entry?.key} />
               </Route>
             );

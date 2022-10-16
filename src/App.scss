@@ -183,3 +183,7 @@ fieldset:disabled .btn {
     flex-direction: row-reverse !important;
   }
 }
+
+.btn-hover-transparent:hover {
+  background-color: transparent !important;
+}
