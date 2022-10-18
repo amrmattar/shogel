@@ -52,6 +52,13 @@ const FreelancerNavigators = (userID) => {
       to: `account_management/my-favorite/${userID}/page=${1}`,
       name: "my-favo",
     },
+    {
+      iconName: "iLT-my-chat",
+      iconNameMain: "iLT-my-chat-main",
+      innerText: "الشات ",
+      to: `/chat`,
+      name: "my-chat",
+    },
     // {
     //     iconName: 'iLT-my-wallet',
     //     iconNameMain: 'iLT-my-wallet-main',
