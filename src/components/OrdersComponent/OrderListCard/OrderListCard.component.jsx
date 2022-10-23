@@ -28,7 +28,7 @@ const OrderListCardComponent = ({
           </p>
         </div> */}
         <div className="d-flex align-items-center justify-content-between">
-          <p className={`${cls.title} fs-5`}>{orderTitle}</p>
+          <p className={`${cls.title} fs-5 mb-3`}>{orderTitle}</p>
           {orderStatus}
         </div>
 

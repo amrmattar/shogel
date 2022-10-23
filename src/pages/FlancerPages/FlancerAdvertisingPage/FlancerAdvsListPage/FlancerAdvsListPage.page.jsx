@@ -144,6 +144,7 @@ const FlancerAdvsListPage = () => {
   const [categ, setCateg] = useState([]);
   const [rateCount, setRateCount] = useState([]);
   const [location, setLocation] = useState("");
+  console.log(price);
   const categHandler = (id, state) => {
     state
       ? setCateg([...categ, id])

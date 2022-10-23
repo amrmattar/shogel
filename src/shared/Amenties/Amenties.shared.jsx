@@ -16,7 +16,7 @@ const AmentiesShared = ({
   currency,
 }) => {
   return (
-    <div>
+    <div style={{ maxWidth: "calc(100% / 4)" }}>
       {/* Amenties With Icon */}
       {amentiesWithIcon === "orderAmenties" ? (
         <div className="LT-orderAmenties">
@@ -57,16 +57,22 @@ const AmentiesShared = ({
       ) : (
         false
       )}
+
       {/* Amenties With Location */}
       {amentiesWithLocation === "amentiesWithLocation" ? (
-        <div className=" cLT-platinum-bg uLT-f-radius-sB">
-          <p className="mb-0 px-3 px-lg-2 px-xl-3 py-1 cLT-support2-text">
-            {amentiesWithLocationData}{" "}
+        <div className="cLT-platinum-bg uLT-f-radius-sB">
+          <p
+            style={{ maxWidth: "100px" }}
+            title={amentiesWithLocationData}
+            className="one-line-specifc mb-0 px-3 px-lg-2 px-xl-3 py-1 cLT-support2-text"
+          >
+            {amentiesWithLocationData}
           </p>
         </div>
       ) : (
         false
       )}
+
       {/* Offer Icons With Location */}
       {iconWithLocation === "offerIconWithLocation" ? (
         <div className="card-body~  gap-2 d-flex flex-wrap  justify-content-between align-items-center p-0 w-100">
@@ -108,6 +114,7 @@ const AmentiesShared = ({
       ) : (
         false
       )}
+
       {/* Price Icons With Location */}
       {iconWithLocation === "priceIconWithLocation" ? (
         <div className="card-body gap-3 d-flex justify-content-between align-items-center p-0 w-100 flex-wrap">
@@ -146,6 +153,7 @@ const AmentiesShared = ({
       ) : (
         false
       )}
+
       {/* Amenties */}
       {amenties === "amenties" ? (
         <>
@@ -165,6 +173,7 @@ const AmentiesShared = ({
       ) : (
         false
       )}
+
       {/* Freelancer Amenties */}
       {amenties === "areasOfCompetence" ? (
         <div className=" uLT-bd-f-secondary-sA uLT-f-radius-sB">
@@ -175,6 +184,7 @@ const AmentiesShared = ({
       ) : (
         false
       )}
+
       {/* Freelancer Offer Amenties */}
       {offerAmenties === "offerAmenties" ? (
         <>
@@ -188,6 +198,7 @@ const AmentiesShared = ({
       ) : (
         false
       )}
+
       {/* Freelancer [Icon - Name - Flag - Title] */}
       {amenties === "icon" ? (
         <div className="d-flex justify-content-between align-items-center py-3 uLT-bd-t-platinum-sA mt-3">

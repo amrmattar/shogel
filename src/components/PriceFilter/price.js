@@ -10,16 +10,18 @@ function valuetext(value) {
 }
 
 const PriceSlider = ({ changePrice, title, quote }) => {
-  const [value, setValue] = useState([0, 1000]);
-  const handleChange = (event, newValue) => {
+  const [value, setValue] = useState([1, 1000]);
+  const [currentFilter, setCurrentFilter] = useState(false);
+  const handleChange = (_, newValue) => {
     setValue(newValue);
+    setCurrentFilter(true);
   };
 
   useEffect(() => {
-     if (value[1] !== 0) {
+    if (value[1] !== 0 && value[0] && value[1] && currentFilter) {
       changePrice([value[0], value[1]]);
     }
-  }, [ value]);
+  }, [value, changePrice, currentFilter]);
 
   return (
     <div className={classes.mainholder}>

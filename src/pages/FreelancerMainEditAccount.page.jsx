@@ -19,20 +19,24 @@ const FreelancerMainEditAccountPage = () => {
     categorySkills,
     messages,
     site,
-  ] = useSelector((state) => [
-    state.userData.id,
-    state.profileUpdate,
-    state.languageSkills.fAllSkills,
-    state.userFullData,
-    state.registerCategory,
-    state.messages,
-    state.socailMedia,
-  ]);
+    currentSkls,
+  ] = useSelector((state) => {
+    return [
+      state.userData.id,
+      state.profileUpdate,
+      state.languageSkills.fAllSkills,
+      state.userFullData,
+      state.registerCategory,
+      state.messages,
+      state.socailMedia,
+      state?.certificateSkills?.fCertificate,
+    ];
+  });
+
   const dispatch = useDispatch();
 
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateSocail, setUpdateSocail] = useState(false);
-  // console.log(getAllUserUpdate?.updateData);
 
   useEffect(() => {
     if (userID !== 0) {
@@ -61,6 +65,7 @@ const FreelancerMainEditAccountPage = () => {
         newfile.document.push(allFile);
       }
     }
+
     const extension = files[0].name.split(".")[1]?.toLowerCase();
     if (extension !== undefined) {
       const fNames = Object.keys(files).map((name) => {
@@ -85,7 +90,7 @@ const FreelancerMainEditAccountPage = () => {
   };
 
   const postUpdate = () => {
-    setUpdateLoading(true);
+    // setUpdateLoading(true);
     dispatch(
       getMessages({
         messages: "جـارى تحديث البيانات ",
@@ -93,15 +98,12 @@ const FreelancerMainEditAccountPage = () => {
         messageClick: true,
       })
     );
-
     newfile.videos?.forEach((video, idx) => {
       return mySkill.append(`document[${idx}]`, video);
     });
-
     newfile.images?.forEach((image, idx) => {
       return mySkill.append(`document[${idx}]`, image);
     });
-
     newfile.document?.forEach((docx, idx) => {
       return mySkill.append(`document[${idx}]`, docx);
     });
@@ -135,16 +137,27 @@ const FreelancerMainEditAccountPage = () => {
       mySkill.append("state_id", getAllUserUpdate?.updateData.stateID);
     getAllUserUpdate?.updateData?.areaID !== undefined &&
       mySkill.append("area_id", getAllUserUpdate?.updateData.areaID);
+
     categorySkills?.forEach((cate, idx) => {
       mySkill.append(`category[${idx}]`, cate);
     });
-    fAllSkills?.map((skill, idx) => {
+    fAllSkills?.forEach((skill, idx) => {
       mySkill.append(`skill[${idx}][level_id]`, skill.level_id);
     });
-    fAllSkills?.map((skill, idx) => {
+    fAllSkills?.forEach((skill, idx) => {
       mySkill.append(`skill[${idx}][skill]`, skill.skill);
     });
-    fAllSkills?.map((skill, idx) => {
+    fAllSkills?.forEach((skill, idx) => {
+      mySkill.append(`skill[${idx}][type]`, skill.type);
+    });
+
+    currentSkls?.forEach((skill, idx) => {
+      mySkill.append(`skill[${idx}][level_id]`, skill.level_id);
+    });
+    currentSkls?.forEach((skill, idx) => {
+      mySkill.append(`skill[${idx}][skill]`, skill.skill);
+    });
+    currentSkls?.forEach((skill, idx) => {
       mySkill.append(`skill[${idx}][type]`, skill.type);
     });
 

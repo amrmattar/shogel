@@ -51,10 +51,10 @@ const FlancerEmployedListCard = ({ data }) => {
         {/* Card Divied */}
         {/* Card Amenties */}
         <div className="LT-employed-amenties">
-          <div className="card-body amentiesWithLocation p-0 w-100">
+          <div className="row card-body amentiesWithLocation p-0 w-100">
             {/* Amenties Holder */}
-            <div className="LT-amenties-grid">
-              {data?.category?.map((category) => {
+            <div className="col-9 LT-amenties-grid">
+              {data?.category?.slice(0, 4)?.map((category) => {
                 return (
                   <AmentiesShared
                     key={category?.id}
@@ -64,7 +64,8 @@ const FlancerEmployedListCard = ({ data }) => {
                 );
               })}
             </div>
-            <div className="LT-location-grid">
+
+            <div className="col-3 LT-location-grid">
               <i className={`iLT-Listcard-location uLT-img-contain iLT-sA`}></i>
               <p className="mb-0 cLT-support2-text fLT-Bold-sm-sA">
                 {data?.country?.name}, {data?.city?.name}

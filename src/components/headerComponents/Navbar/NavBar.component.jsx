@@ -26,8 +26,6 @@ const Navbar = () => {
   ]);
   const [userID, setuserID] = useState("");
 
-  console.log("userID", userID);
-
   const dispatch = useDispatch();
   const refe = useRef();
   const [anchorElNav, setAnchorElNav] = useState(null);

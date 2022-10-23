@@ -90,3 +90,9 @@ input:checked + .slider:before {
 .css-eglki6-MuiLinearProgress-root {
   background-color: gray;
 }
+
+.one-line-specifc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

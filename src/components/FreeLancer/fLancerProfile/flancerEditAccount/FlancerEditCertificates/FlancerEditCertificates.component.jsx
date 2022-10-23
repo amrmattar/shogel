@@ -114,28 +114,31 @@ const FlancerEditCertificatesComponent = () => {
         )}
         {/* Certificate Show Input Value  [Section] */}
         <div className="d-flex flex-column justify-content-center gap-3 px-0">
-          {certificateData?.fCertificate?.map(({ skill, id, level_id }) => {
-            return (
-              <div
-                className="d-flex align-items-center gap-3 uLT-f-radius "
-                key={id}
-              >
-                <div className="d-flex align-items-center gap-3 uLT-f-radius uLT-bd-f-platinum-sA cLT-secondary-bg p-2">
-                  <p className="mb-0 fLT-Regular-sB cLT-white-text">
-                    {" "}
-                    {skill}{" "}
-                  </p>
-                  <i
-                    className="iLT-Close-button-white iLT-sB uLT-img-contain uLT-click"
-                    onClick={() => {
-                      dispatch(deleteCertificate(id));
-                    }}
-                  ></i>
+          {certificateData?.fCertificate?.map(
+            ({ skill, id, level_id, level }) => {
+              return (
+                <div
+                  className="d-flex align-items-center gap-3 uLT-f-radius "
+                  key={id}
+                >
+                  <div className="d-flex align-items-center gap-3 uLT-f-radius uLT-bd-f-platinum-sA cLT-secondary-bg p-2">
+                    <p className="mb-0 fLT-Regular-sB cLT-white-text">
+                      {skill}{" "}
+                    </p>
+                    <i
+                      className="iLT-Close-button-white iLT-sB uLT-img-contain uLT-click"
+                      onClick={() => {
+                        dispatch(deleteCertificate(id));
+                      }}
+                    ></i>
+                  </div>
+                  <div className="cLT-support2-text">
+                    {level?.level || level_id}
+                  </div>
                 </div>
-                <div className="cLT-support2-text">{level_id}</div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
         {/* Add Certificates Skills [Button] */}
         <div

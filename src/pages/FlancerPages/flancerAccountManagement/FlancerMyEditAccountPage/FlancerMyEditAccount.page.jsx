@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useMemo, useRef, useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import FlancerAboutComponent from "../../../../components/FreeLancer/fLancerProfile/FlancerAbout/FlancerAbout.component";
 import FlancerBusinessPhotosComponent from "../../../../components/FreeLancer/fLancerProfile/FlancerBusinessPhotos/FlancerBusinessPhotos.component";
 import FlancerEditCertificatesComponent from "../../../../components/FreeLancer/fLancerProfile/flancerEditAccount/FlancerEditCertificates/FlancerEditCertificates.component";
@@ -15,6 +15,9 @@ import ButtonShare from "../../../../shared/Button/Button.shared";
 import PageTitle from "../../../../shared/PageTitle/PageTitle.shared";
 import Upload from "../../../../shared/Upload/Upload.shared";
 
+import { setAllCertificate } from "../../../../core/redux/reducers/CertificateSkillsReducer.core";
+import { setAllLanguage } from "../../../../core/redux/reducers/LanguageSkillsReducer.core";
+
 const FlancerMyEditAccountPage = ({
   handleClick,
   personalData,
@@ -24,15 +27,20 @@ const FlancerMyEditAccountPage = ({
   fileUploads,
   Sdelet,
 }) => {
+  const dispatch = useDispatch();
+  const [isSklsAdded, setIsSklsAdded] = useState(false);
+
   //TODO Data from Reducers
   const [coreData, userRole, messages] = useSelector((state) => [
     state.coreData,
     state.userRole.userRole,
     state.messages,
   ]);
+
   useEffect(() => {
     API.get("coredata/category/list").then((res) => {});
   }, []);
+
   const userLocation = useMemo(() => {
     if (personalData) {
       return {
@@ -43,6 +51,28 @@ const FlancerMyEditAccountPage = ({
       };
     }
   }, [personalData]);
+
+  useEffect(() => {
+    if (!isSklsAdded && personalData?.skill?.length) {
+      setIsSklsAdded(true);
+      const skls = personalData.skill.map((skl) => ({
+        skill: skl.skill,
+        id: skl.id,
+        level_id: skl.level.level,
+        type: "skill",
+      }));
+      const langs = personalData?.language.map((lang) => ({
+        skill: lang?.skill,
+        id: lang?.id,
+        level_id: lang?.level_id,
+        type: "language",
+      }));
+
+      dispatch(setAllCertificate(skls));
+      dispatch(setAllLanguage(langs));
+    }
+  }, [personalData?.skill, personalData?.language, isSklsAdded, dispatch]);
+
   return (
     <div className="d-flex flex-column gap-4 px-0">
       <>
@@ -131,6 +161,7 @@ const FlancerMyEditAccountPage = ({
           </>
         </>
       )}
+
       {/* Other Job Sites Save [Button] */}
       <div className="shadow uLT-f-radius-sB pb-4">
         <ButtonShare
