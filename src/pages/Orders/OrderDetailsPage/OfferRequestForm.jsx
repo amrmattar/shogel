@@ -31,12 +31,12 @@ const OfferRequestForm = ({
               <div className="d-flex align-items-center">
                 <Form.Control
                   value={formValue?.offerPrice}
-                  maxLength="6"
                   name="offerPrice"
                   onChange={handleChange}
                   className="uLT-bd-f-platinum-sA uLT-f-radius-sB position-relative"
                   type="text"
-                  placeholder="000"
+                  maxLength={6}
+                  placeholder="4 ريال"
                 />
                 <div
                   className="fLT-Bold-sA cLT-main-text"

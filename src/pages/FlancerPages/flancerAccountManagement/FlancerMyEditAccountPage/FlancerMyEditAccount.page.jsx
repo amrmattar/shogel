@@ -29,6 +29,7 @@ const FlancerMyEditAccountPage = ({
 }) => {
   const dispatch = useDispatch();
   const [isSklsAdded, setIsSklsAdded] = useState(false);
+  const [isLangsAdded, setIsLangsAdded] = useState(false);
 
   //TODO Data from Reducers
   const [coreData, userRole, messages] = useSelector((state) => [
@@ -53,14 +54,8 @@ const FlancerMyEditAccountPage = ({
   }, [personalData]);
 
   useEffect(() => {
-    if (!isSklsAdded && personalData?.skill?.length) {
-      setIsSklsAdded(true);
-      const skls = personalData.skill.map((skl) => ({
-        skill: skl.skill,
-        id: skl.id,
-        level_id: skl.level.level,
-        type: "skill",
-      }));
+    console.log(personalData?.language);
+    if (!isLangsAdded && personalData?.language?.length) {
       const langs = personalData?.language.map((lang) => ({
         skill: lang?.skill,
         id: lang?.id,
@@ -68,10 +63,28 @@ const FlancerMyEditAccountPage = ({
         type: "language",
       }));
 
-      dispatch(setAllCertificate(skls));
+      setIsLangsAdded(true);
       dispatch(setAllLanguage(langs));
     }
-  }, [personalData?.skill, personalData?.language, isSklsAdded, dispatch]);
+
+    if (!isSklsAdded && personalData?.skill?.length) {
+      const skls = personalData.skill.map((skl) => ({
+        skill: skl.skill,
+        id: skl.id,
+        level_id: skl.level.level,
+        type: "skill",
+      }));
+
+      setIsSklsAdded(true);
+      dispatch(setAllCertificate(skls));
+    }
+  }, [
+    personalData?.skill,
+    personalData?.language,
+    isSklsAdded,
+    isLangsAdded,
+    dispatch,
+  ]);
 
   return (
     <div className="d-flex flex-column gap-4 px-0">

@@ -13,6 +13,11 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { getUpdateDataForm } from "../../../../../core/redux/reducers/UpdateProfileReducer/UpdateProfileReducer.core";
 
+import {
+  testNumbers,
+  arNumberConverter,
+} from "../../../../../utils/arNumberConverter";
+
 const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
   const [userRole] = useSelector((state) => [state.userRole.userRole]);
   const userIsData = useMemo(() => {
@@ -56,9 +61,14 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
     nationality_number: "",
   });
   const [updateMobile, setUpdateMobile] = useState();
+
   const nationalIdHandler = useCallback(
     (e) => {
       const { name, value } = e.target;
+
+      // only price number
+      if (name === "nationality_number" && value && testNumbers(value)) return;
+
       return value.length < 36
         ? setFormInput((formInput) => ({ ...formInput, [name]: value }))
         : null;
@@ -101,7 +111,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
           : userProfileData?.fullname,
         email: formInput.email ? formInput.email : userProfileData?.email,
         nationality_number: formInput.nationality_number
-          ? formInput.nationality_number
+          ? arNumberConverter(formInput.nationality_number)
           : userProfileData?.nationality_number,
         nationality_id: nationality?.id
           ? nationality?.id
@@ -161,9 +171,9 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
         options={isProps.isProps.selecName}
         defaultInputValue={
           jobName?.name
-            ? jobName?.name
+            ? jobName?.name || ""
             : isProps.isProps.value
-            ? isProps.isProps.value
+            ? isProps.isProps.value || ""
             : ""
         }
         onChange={fetchJobName}
@@ -312,10 +322,11 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
               <Form.Control
                 name="nationality_number"
                 className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
-                type="number"
+                type="text"
                 placeholder="رقم الهوية"
                 onChange={(e) => nationalIdHandler(e)}
                 defaultValue={userIsData?.nationality_number}
+                value={formInput?.nationality_number}
               />
             </Form.Group>
             {/* Job Title */}
@@ -336,7 +347,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
                   type="text"
                   placeholder="مطور ويب | خبير صيانه"
                   onChange={(e) => descHandler(e)}
-                  defaultValue={userIsData?.description}
+                  defaultValue={userIsData?.description || ""}
                 />
               </Form.Group>
             )}
@@ -412,10 +423,11 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
             <Form.Control
               name="nationality_number"
               className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
-              type="number"
+              type="text"
               placeholder="رقم الهوية"
               onChange={(e) => nationalIdHandler(e)}
               defaultValue={userIsData?.nationality_number}
+              value={formInput?.nationality_number}
             />
           </Form.Group>
           {/* Gender */}

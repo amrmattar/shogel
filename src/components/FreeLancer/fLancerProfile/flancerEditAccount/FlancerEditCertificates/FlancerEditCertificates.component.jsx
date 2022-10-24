@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import PerformanceShared from "../../../../../shared/Performance/Performance.shared";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -140,6 +140,7 @@ const FlancerEditCertificatesComponent = () => {
             }
           )}
         </div>
+
         {/* Add Certificates Skills [Button] */}
         <div
           onClick={(e) => handleClick(e)}
@@ -148,6 +149,7 @@ const FlancerEditCertificatesComponent = () => {
           <div className="uLT-f-radius-sB uLT-bd-f-secondary-sA uLT-click d-flex align-items-center justify-content-center gap-2 px-3 py-1">
             <p className="mb-0 fLT-Bold-sC cLT-secondary-text">+</p>
             <ButtonShare
+              nohover
               innerText="اضف مهارة"
               textClasses="fLT-Regular-sD cLT-secondary-text px-0 py-0"
               btnClasses="px-0"

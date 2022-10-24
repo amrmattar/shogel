@@ -20,7 +20,7 @@ import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/Me
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 
-import arNumberConverter from "../../../../utils/arNumberConverter";
+import { arNumberConverter } from "../../../../utils/arNumberConverter";
 
 const AdvertisingUpdateFormComponent = ({ advsId }) => {
   const [getAllUserUpdate, messages] = useSelector((state) => [

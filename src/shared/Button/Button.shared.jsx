@@ -11,13 +11,16 @@ const ButtonShare = ({
   style,
   onFocus,
   attrName,
+  nohover,
 }) => {
   return (
     <button
       id={ID}
       onClick={onClick}
       onFocus={onFocus}
-      className={`btn w-100 hover  ${btnClasses}`}
+      className={`btn w-100 hover  ${btnClasses} ${
+        nohover ? "btn-hover-transparent" : ""
+      }`}
       disabled={type}
       name={attrName}
     >

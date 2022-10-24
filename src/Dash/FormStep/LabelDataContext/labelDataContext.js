@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { testNumbers } from "../../../utils/arNumberConverter";
 
 export const LabelContext = createContext();
 
@@ -62,25 +63,28 @@ export const LabelProvider = (props) => {
     });
   };
   const setDataDetails = (prop) => (event) => {
-    prop == "id"
-      ? event.target.value.length < 11 &&
+    if (prop == "id") {
+      event.target.value.length < 11 &&
         setlabelInfo({
           ...labelInfo,
           clientView: {
             ...labelInfo.clientView,
-            [prop]: event.target.value.replace(/[^0-9٠-٩]/gi, ""),
+            [prop]: testNumbers(event.target.value) ? "" : event.target.value,
           },
-        })
-      : prop == "nation"
-      ? setlabelInfo({
-          ...labelInfo,
-          clientView: { ...labelInfo.clientView, [prop]: event },
-        })
-      : setlabelInfo({
-          ...labelInfo,
-          clientView: { ...labelInfo.clientView, [prop]: event.target.value },
         });
+    } else if (prop == "nation") {
+      setlabelInfo({
+        ...labelInfo,
+        clientView: { ...labelInfo.clientView, [prop]: event },
+      });
+    } else {
+      setlabelInfo({
+        ...labelInfo,
+        clientView: { ...labelInfo.clientView, [prop]: event.target.value },
+      });
+    }
   };
+
   const setSkills = (skills) => {
     setlabelInfo({
       ...labelInfo,

@@ -21,6 +21,11 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Toast from "react-bootstrap/Toast";
 import { toast } from "react-toastify";
 
+import {
+  arNumberConverter,
+  testNumbers,
+} from "../../../utils/arNumberConverter";
+
 const OrderDetailsPage = () => {
   const dispatch = useDispatch();
   const [userStatus, messages, userRole, userPermission] = useSelector(
@@ -48,6 +53,7 @@ const OrderDetailsPage = () => {
         return err.response;
       });
   }, [param.id]);
+
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -69,12 +75,13 @@ const OrderDetailsPage = () => {
     description: "",
     offerTime: "",
   });
+
   const getOfferDataValue = useMemo(() => {
     return (e) => {
       const { name, value } = e?.target;
 
       // only price number
-      if (name === "offerPrice" && value && !/^\d+$/.test(value)) return;
+      if (name === "offerPrice" && value && testNumbers(value)) return;
 
       setRequestData((getOfferData) => ({
         ...getOfferData,
@@ -95,7 +102,7 @@ const OrderDetailsPage = () => {
       })
     );
     const RequestOfferData = {
-      price: getOfferData.offerPrice,
+      price: arNumberConverter(getOfferData.offerPrice),
       time: getOfferData.offerTime,
       description: getOfferData.description,
       task_id: offerPriceTaskData?.id,
@@ -177,12 +184,14 @@ const OrderDetailsPage = () => {
       }
     });
   }, [offerPriceTaskData, myId]);
+
   const [havePermission, setHavePermission] = useState();
   const offerPermission = useCallback(() => {
     userPermission?.permission?.filter(function (el) {
       return el?.name == "offer-create" && setHavePermission(el?.name);
     });
   }, [userPermission]);
+
   useEffect(() => {
     if (!havePermission) {
       return offerPermission();
@@ -203,7 +212,7 @@ const OrderDetailsPage = () => {
         <div
           className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
           style={{ width: "200px", height: "200px" }}
-        ></div>
+        />
       </div>
     );
   }

@@ -22,7 +22,7 @@ import { useRef } from "react";
 import { API } from "../../../enviroment/enviroment/enviroment";
 import { toast } from "react-toastify";
 
-import arNumberConverter from "../../../utils/arNumberConverter";
+import { arNumberConverter } from "../../../utils/arNumberConverter";
 
 const IdPage = () => {
   const [open, setOpen] = useState(true);

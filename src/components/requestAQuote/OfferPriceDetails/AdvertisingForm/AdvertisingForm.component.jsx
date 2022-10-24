@@ -18,7 +18,10 @@ import { toast } from "react-toastify";
 import { RegisterServices } from "../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 import { API } from "../../../../enviroment/enviroment/enviroment";
 
-import arNumberConverter from "../../../../utils/arNumberConverter";
+import {
+  arNumberConverter,
+  testNumbers,
+} from "../../../../utils/arNumberConverter";
 
 const AdvertisingFormComponent = () => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
@@ -62,12 +65,12 @@ const AdvertisingFormComponent = () => {
     description: "",
     price: "",
   });
+
   const handleChange = (e) => {
-    console.log("s");
     const { name, value } = e?.target;
 
     // only price number
-    if (name === "price" && value && !/^\d+$/.test(value)) return;
+    if (name === "price" && value && testNumbers(value)) return;
 
     setFormData((formData) => ({ ...formData, [name]: value }));
   };

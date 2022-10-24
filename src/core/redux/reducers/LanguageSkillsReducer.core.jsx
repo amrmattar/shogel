@@ -18,6 +18,9 @@ const LanguageSkillsReducer = createSlice({
       state.fAllSkills.push(payload);
     },
     setAllLanguage: (state, { payload }) => {
+      console.log(payload);
+      console.log("================================");
+
       state.fLanguage.push(...payload);
       state.fAllSkills.push(...payload);
     },

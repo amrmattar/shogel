@@ -38,6 +38,7 @@ const FlancerBusinessPhotosComponent = ({
       {/* Upload Files [Holder] */}
       <div className="">
         <Upload
+          noHover
           inputRef={inputRef}
           Sdelet={Sdelet}
           isDrop={handleClick}
