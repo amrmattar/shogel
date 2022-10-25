@@ -35,9 +35,11 @@ function App() {
       dispatch(getCoreDataReducer(res.data.data));
     });
   }, [dispatch, locationID?.countriesID, locationID?.citiesID]);
+
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);
+
   const [data, setData] = useState([]);
   // newMessaging.getToken().then((payload) => {
   //   localStorage.setItem('FCM', payload)

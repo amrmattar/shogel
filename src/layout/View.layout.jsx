@@ -1,5 +1,6 @@
 import "./View.layout.scss";
 import { useLocation } from "react-router";
+import { useParams } from "react-router-dom";
 import Footer from "./Footer/Footer.layout";
 import HeaderHolder from "./Headers/HeaderHolder.layout";
 import MasterContainer from "./Master-Container/MasterContainer.layout";
@@ -10,9 +11,14 @@ import { useSelector } from "react-redux";
 const ViewLayout = () => {
   const location = useLocation();
   const show = useSelector((state) => state.Fotter.visible);
+
+  const { id } = useParams();
+  console.log(id, "===============================================");
   return (
     <div className="d-flex flex-column align-items-between p-0 h-100">
       {location.pathname !== "/offer-price" &&
+      !location.pathname.includes(`/update-offer-price/`) &&
+      !location.pathname.includes(`/advertising-price/`) &&
       location.pathname !== "/freelancer-offer" &&
       !location.pathname.includes("register") &&
       !location.pathname.includes("dev") &&
