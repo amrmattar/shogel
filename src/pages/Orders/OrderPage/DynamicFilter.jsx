@@ -88,6 +88,8 @@ const DynamicFilter = ({
             <PriceSlider
               quote="ريال"
               title="تحديد السعر"
+              range={[0, 0]}
+              max={20000}
               changePrice={setPrice}
             />
           )}
@@ -95,6 +97,8 @@ const DynamicFilter = ({
             <PriceSlider
               quote="مراجعة"
               title="مراجعة"
+              range={[0, 0]}
+              max={100}
               changePrice={setRateCount}
             />
           )}

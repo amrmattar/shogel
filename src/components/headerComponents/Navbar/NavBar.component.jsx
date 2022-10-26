@@ -16,6 +16,8 @@ import { getAuthentication } from "../../../core/redux/reducers/Authentication/A
 import { userProfile } from "../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import { getUserLoginData } from "../../../core/redux/reducers/UserLoginData/UserLoginData.core";
 import { authAction } from "../../../core/services/AuthServices/AuthActions/AuthActions.core";
+
+import { Link } from "react-router-dom";
 import { getUserDataReducer } from "../../../core/redux/reducers/UserDataReducer/UserDataReducer.core";
 
 const Navbar = () => {
@@ -52,6 +54,7 @@ const Navbar = () => {
       route: `employed/page=${1}`,
     },
   ];
+
   const settings = [
     {
       id: 1,
@@ -216,7 +219,41 @@ const Navbar = () => {
               </NavLink>
             ))}
           </Box>
-          <Box sx={{ flexGrow: 0, display: "flex", justifyContent: "end" }}>
+
+          <Box
+            className="align-items-center"
+            sx={{ flexGrow: 0, display: "flex", justifyContent: "end" }}
+          >
+            <Link to="/chat">
+              <Box>
+                <div
+                  style={{ width: 45, height: 45 }}
+                  className="bg-hover-light ms-2 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
+                >
+                  <IconButton>
+                    <img width={20} src="/icons/comment.svg" alt="" />
+                  </IconButton>
+                </div>
+              </Box>
+            </Link>
+
+            <Link to="/account_management/notification">
+              <Box>
+                <div
+                  style={{ width: 45, height: 45 }}
+                  className="bg-hover-light ms-3 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
+                >
+                  <IconButton className="position-relative">
+                    <span
+                      className="bg-warning rounded-circle position-absolute top-0 end-0 me-2 mt-2"
+                      style={{ width: 8, height: 8 }}
+                    />
+                    <img width={20} src="/icons/Notification.svg" alt="" />
+                  </IconButton>
+                </div>
+              </Box>
+            </Link>
+
             {user.loggedIn ? (
               <div className="d-flex align-items-center gap-3">
                 <Tooltip title={userID?.username ? userID?.username : false}>
@@ -244,7 +281,11 @@ const Navbar = () => {
                       <div className="LT-avatar-wire-frame"></div>
                     )}
                     <div
-                      style={{ position: "absolute", top: "0", right: "-10px" }}
+                      style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "-10px",
+                      }}
                     >
                       {userID?.available === 1 ? (
                         <div className="uLT-status-online"></div>

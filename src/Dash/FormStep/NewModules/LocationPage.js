@@ -42,13 +42,14 @@ const IdPage = () => {
     value?.accountType?.userKind === "company"
       ? form.append("role_id", 4)
       : form.append("role_id", 3);
-    form.append("country_id", selectedCountry.id);
-    form.append("city_id", selectedCity.id);
-    form.append("state_id", selectedState.id);
-    form.append("area_id", selectedArea.id);
+    selectedCountry?.id && form.append("country_id", selectedCountry.id);
+    selectedCity?.id && form.append("city_id", selectedCity.id);
+    selectedState?.id && form.append("state_id", selectedState.id);
+    selectedArea?.id && form.append("area_id", selectedArea.id);
     form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
     form.append("gender_id", getClientData.gender);
-    form.append("nationality_id", getClientData.nation.id);
+    getClientData.nation?.id &&
+      form.append("nationality_id", getClientData.nation.id);
     getClientData.id && form.append("nationality_number", getClientData.id);
     form.append("category", skillsIds);
     getClientData.info?.length > 0 && form.append("info", getClientData.info);
@@ -148,7 +149,7 @@ const IdPage = () => {
   const [selectedState, setSelectedState] = useState();
   const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
-  const validation = selectedArea?.id;
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity("");
@@ -210,7 +211,7 @@ const IdPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                الدولة<span className="cLT-danger-text">*</span>
+                الدولة
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -238,7 +239,7 @@ const IdPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المنطقة<span className="cLT-danger-text">*</span>
+                المنطقة
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -267,7 +268,7 @@ const IdPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المدينة<span className="cLT-danger-text">*</span>
+                المدينة
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -287,7 +288,7 @@ const IdPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                الحي<span className="cLT-danger-text">*</span>
+                الحي
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -311,7 +312,6 @@ const IdPage = () => {
         >
           <div className="">
             <ButtonShare
-              type={!validation}
               loading={nextLoading}
               innerText={"تسجيل"}
               btnClasses={"cLT-secondary-bg br14"}

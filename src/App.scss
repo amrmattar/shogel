@@ -1,5 +1,8 @@
 @import "~react-phone-input-2/lib/style.css";
+
 * {
+  font-family: "Cairo-Medium" !important;
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -186,4 +189,10 @@ fieldset:disabled .btn {
 
 .btn-hover-transparent:hover {
   background-color: transparent !important;
+}
+
+.bg-hover-light {
+  &:hover {
+    background-color: rgb(248, 249, 250) !important;
+  }
 }

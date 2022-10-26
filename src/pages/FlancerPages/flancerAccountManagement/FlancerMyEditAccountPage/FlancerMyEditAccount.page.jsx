@@ -54,7 +54,6 @@ const FlancerMyEditAccountPage = ({
   }, [personalData]);
 
   useEffect(() => {
-    console.log(personalData?.language);
     if (!isLangsAdded && personalData?.language?.length) {
       const langs = personalData?.language.map((lang) => ({
         skill: lang?.skill,

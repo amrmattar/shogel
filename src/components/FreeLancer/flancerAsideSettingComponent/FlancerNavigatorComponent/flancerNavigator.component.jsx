@@ -37,13 +37,13 @@ const FreelancerNavigators = (userID) => {
       name: "my-advs",
     },
 
-    // {
-    //     iconName: 'iLT-my-notificate',
-    //     iconNameMain: 'iLT-my-notificate-main',
-    //     innerText: 'الاشعارات',
-    //     to: `account_management/my-notification/${userID}`,
-    //     name: 'my-notificate'
-    // },
+    {
+      iconName: "iLT-my-notificate",
+      iconNameMain: "iLT-my-notificate-main",
+      innerText: "الاشعارات",
+      to: `account_management/my-notification/${userID}`,
+      name: "my-notificate",
+    },
 
     {
       iconName: "iLT-my-favo",
@@ -55,7 +55,7 @@ const FreelancerNavigators = (userID) => {
     {
       iconName: "iLT-my-chat",
       iconNameMain: "iLT-my-chat-main",
-      innerText: "الشات ",
+      innerText: "الدردشه ",
       to: `/chat`,
       name: "my-chat",
     },

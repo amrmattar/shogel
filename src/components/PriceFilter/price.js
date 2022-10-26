@@ -9,8 +9,8 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-const PriceSlider = ({ changePrice, title, quote }) => {
-  const [value, setValue] = useState([1, 1000]);
+const PriceSlider = ({ changePrice, title, quote, range, max }) => {
+  const [value, setValue] = useState(range || [1, 1000]);
   const [currentFilter, setCurrentFilter] = useState(false);
   const handleChange = (_, newValue) => {
     setValue(newValue);
@@ -34,7 +34,7 @@ const PriceSlider = ({ changePrice, title, quote }) => {
           onChange={handleChange}
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
-          max={3000}
+          max={max || 3000}
         />
       </Box>
       <p className={classes.desc}>

@@ -71,7 +71,7 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
             ? countryName
             : isProps.isProps.value
             ? isProps.isProps.value
-            : "loading"
+            : ""
         }
         onChange={fetchCountry}
         getOptionLabel={(country) => country?.name}
@@ -92,7 +92,7 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
             ? cityName
             : isProps.isProps.value
             ? isProps.isProps.value
-            : "loading"
+            : ""
         }
         onChange={fetchCities}
         getOptionLabel={(city) => city?.name}
@@ -113,7 +113,7 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
             ? stateName
             : isProps.isProps.value
             ? isProps.isProps.value
-            : "loading"
+            : ""
         }
         onChange={fetchState}
         getOptionLabel={(state) => state?.name}
@@ -133,7 +133,7 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
           areaName
             ? areaName
             : isProps.isProps.value === null
-            ? "loading"
+            ? ""
             : isProps.isProps.value
         }
         onChange={fetchArea}

@@ -13,7 +13,7 @@ const ViewLayout = () => {
   const show = useSelector((state) => state.Fotter.visible);
 
   const { id } = useParams();
-  console.log(id, "===============================================");
+
   return (
     <div className="d-flex flex-column align-items-between p-0 h-100">
       {location.pathname !== "/offer-price" &&
