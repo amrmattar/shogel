@@ -255,7 +255,7 @@ const OrderDetailsPage = () => {
       >
         <div className="w-100">
           {/* Order Details [Holder] */}
-          <div className="">
+          <div className="bg-white p-4 border rounded-4">
             <OrderListCardComponent
               amentiesSelector={
                 <AmentiesShared
@@ -270,60 +270,62 @@ const OrderDetailsPage = () => {
           </div>
           {userStatus ? (
             <>
-              <PageTitle smallUnderTitle=" " title="الملفات المرفقة" />
-              <div className="d-flex flex-wrap row">
-                {offerPriceTaskData?.document?.length ? (
-                  offerPriceTaskData?.document?.map((file) => {
-                    return (
-                      <div
-                        key={file.id}
-                        style={{ width: "fit-content" }}
-                        className="uLT-click col-md-3 LT-document-grid-holder"
-                        onClick={() => open(file?.file)}
-                      >
-                        {checkIsImg(file?.file) ? (
-                          <div
-                            style={{ maxWidth: "100px" }}
-                            className="flex-center flex-column mb-2"
-                          >
+              <div className="attchment bg-white px-4 pb-5 mt-4 border rounded-4">
+                <PageTitle smallUnderTitle=" " title="الملفات المرفقة" />
+                <div className="d-flex flex-wrap row">
+                  {offerPriceTaskData?.document?.length ? (
+                    offerPriceTaskData?.document?.map((file) => {
+                      return (
+                        <div
+                          key={file.id}
+                          style={{ width: "fit-content" }}
+                          className="uLT-click col-md-3 LT-document-grid-holder"
+                          onClick={() => open(file?.file)}
+                        >
+                          {checkIsImg(file?.file) ? (
                             <div
-                              style={{
-                                width: "100px",
-                                height: "100px",
-                              }}
-                              className="img"
+                              style={{ maxWidth: "100px" }}
+                              className="flex-center flex-column mb-2"
                             >
-                              <img
+                              <div
                                 style={{
-                                  objectFit: "cover",
+                                  width: "100px",
+                                  height: "100px",
                                 }}
-                                className="w-100 h-100 rounded-3"
-                                src={file?.file}
-                                alt=""
-                              />
+                                className="img"
+                              >
+                                <img
+                                  style={{
+                                    objectFit: "cover",
+                                  }}
+                                  className="w-100 h-100 rounded-3"
+                                  src={file?.file}
+                                  alt=""
+                                />
+                              </div>
+                              <p className="mb-0 mt-2 text-center cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
+                                {file?.file.slice(62)}
+                              </p>
                             </div>
-                            <p className="mb-0 mt-2 text-center cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
-                              {file?.file.slice(62)}
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="flex-center flex-column mb-2">
-                            <i
-                              className={`iLT-file-download uLT-img-contain iLT-sA ms-2`}
-                            ></i>
-                            <p className="mb-0 cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
-                              {file?.file.slice(62)}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })
-                ) : (
-                  <p className="mb-0 fLT-Regular-sD w-100 text-center cLT-gray-text">
-                    لا يوجد ملفات مرفقة
-                  </p>
-                )}
+                          ) : (
+                            <div className="flex-center flex-column mb-2">
+                              <i
+                                className={`iLT-file-download uLT-img-contain iLT-sA ms-2`}
+                              ></i>
+                              <p className="mb-0 cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
+                                {file?.file.slice(62)}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p className="mb-0 fLT-Regular-sD w-100 text-center cLT-gray-text">
+                      لا يوجد ملفات مرفقة
+                    </p>
+                  )}
+                </div>
               </div>
 
               {activeUserID ? (
@@ -376,7 +378,7 @@ const OrderDetailsPage = () => {
                 <>
                   {offerPriceTaskData?.offer?.map((offerList, idx) => {
                     return (
-                      <div className="" key={idx}>
+                      <div className="bg-white p-4 border rounded-4" key={idx}>
                         <FlancerEmployedOfferComponent
                           setLoading={refreshTasks}
                           data={offerList}
@@ -409,7 +411,7 @@ const OrderDetailsPage = () => {
                   لا يمكنك ان تقدم عرضا لهذا الطلب تاكد من
                   <button
                     onClick={() => setNextClick(!nextClick)}
-                    className="btn px-0 cLT-secondary-text uLT-click"
+                    className="btn px-0 cLT-secondary-text uLT-click btn-hover-transparent"
                     style={{ color: "#1EAAAD" }}
                   >
                     تسجيل الدخول

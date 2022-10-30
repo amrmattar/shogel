@@ -128,8 +128,8 @@ const AdvertisingFormComponent = () => {
 
     media.set("name", formData.name);
     media.set("description", content);
-    Number.isFinite(+formData.price) &&
-      media.set("price", arNumberConverter(formData.price));
+    Number.isFinite(+arNumberConverter(formData.price)) &&
+      media.set("price", arNumberConverter(formData.price || "0"));
     getAllUserUpdate.category.forEach((cate, idx) => {
       media.append(`category[${idx}]`, cate);
     });

@@ -12,6 +12,7 @@ const FlancerEmployedListCard = ({ data }) => {
     status: data?.available,
     profileComplition: data?.complete_profile,
   };
+
   return (
     <>
       <div className="LT-employed-listCard-grid uLT-bd-f-platinum-sA uLT-f-radius-sB ">
@@ -56,11 +57,14 @@ const FlancerEmployedListCard = ({ data }) => {
             <div className="col-9 LT-amenties-grid">
               {data?.category?.slice(0, 4)?.map((category) => {
                 return (
-                  <AmentiesShared
-                    key={category?.id}
-                    amentiesWithLocation={"amentiesWithLocation"}
-                    amentiesWithLocationData={category?.name}
-                  />
+                  <>
+                    <AmentiesShared
+                      key={category?.id}
+                      amentiesWithLocation={"amentiesWithLocation"}
+                      amentiesWithLocationData={category?.name}
+                      maxWidth
+                    />
+                  </>
                 );
               })}
             </div>

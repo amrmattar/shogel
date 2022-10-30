@@ -35,6 +35,7 @@ const FlancerMyOrderPage = () => {
         setPagination={setMyOfferPagination}
         offerStatus={offerFilter}
         type={tabType}
+        isMyList
       />
     ),
     requestMyJob: (

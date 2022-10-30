@@ -117,6 +117,7 @@ const Employed = () => {
             setCategory={categHandler}
             setActive={setActive}
             setRate={setRate}
+            rate={rate}
             setLocation={setLocation}
             mostUse={mostUse}
             categories={categories}
@@ -130,8 +131,7 @@ const Employed = () => {
                     to={`/employed/freelancer-profile/${list?.id}`}
                     key={idx}
                   >
-                    {" "}
-                    <FlancerEmployedListCard data={list} />{" "}
+                    <FlancerEmployedListCard data={list} />
                   </NavLink>
                 );
               })}

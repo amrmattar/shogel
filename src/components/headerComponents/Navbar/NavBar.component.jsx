@@ -224,35 +224,39 @@ const Navbar = () => {
             className="align-items-center"
             sx={{ flexGrow: 0, display: "flex", justifyContent: "end" }}
           >
-            <Link to="/chat">
-              <Box>
-                <div
-                  style={{ width: 45, height: 45 }}
-                  className="bg-hover-light ms-2 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
-                >
-                  <IconButton>
-                    <img width={20} src="/icons/comment.svg" alt="" />
-                  </IconButton>
-                </div>
-              </Box>
-            </Link>
+            {user.loggedIn && (
+              <>
+                <Link to="/chat">
+                  <Box>
+                    <div
+                      style={{ width: 45, height: 45 }}
+                      className="bg-hover-light ms-2 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
+                    >
+                      <IconButton>
+                        <img width={20} src="/icons/comment.svg" alt="" />
+                      </IconButton>
+                    </div>
+                  </Box>
+                </Link>
 
-            <Link to="/account_management/notification">
-              <Box>
-                <div
-                  style={{ width: 45, height: 45 }}
-                  className="bg-hover-light ms-3 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
-                >
-                  <IconButton className="position-relative">
-                    <span
-                      className="bg-warning rounded-circle position-absolute top-0 end-0 me-2 mt-2"
-                      style={{ width: 8, height: 8 }}
-                    />
-                    <img width={20} src="/icons/Notification.svg" alt="" />
-                  </IconButton>
-                </div>
-              </Box>
-            </Link>
+                <Link to="/account_management/notification">
+                  <Box>
+                    <div
+                      style={{ width: 45, height: 45 }}
+                      className="bg-hover-light ms-3 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
+                    >
+                      <IconButton className="position-relative">
+                        <span
+                          className="bg-warning rounded-circle position-absolute top-0 end-0 me-2 mt-2"
+                          style={{ width: 8, height: 8 }}
+                        />
+                        <img width={20} src="/icons/Notification.svg" alt="" />
+                      </IconButton>
+                    </div>
+                  </Box>
+                </Link>
+              </>
+            )}
 
             {user.loggedIn ? (
               <div className="d-flex align-items-center gap-3">

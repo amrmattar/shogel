@@ -20,7 +20,10 @@ import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/Me
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 
-import { arNumberConverter } from "../../../../utils/arNumberConverter";
+import {
+  arNumberConverter,
+  testNumbers,
+} from "../../../../utils/arNumberConverter";
 
 const AdvertisingUpdateFormComponent = ({ advsId }) => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
@@ -119,12 +122,12 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     description: "",
     price: 0,
   });
-  console.log(formData);
+
   const handleChange = (e) => {
     const { name, value } = e?.target;
 
     // only price number
-    if (name === "price" && value && !/^\d+$/.test(value)) return;
+    if (name === "price" && value && testNumbers(value)) return;
 
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
@@ -324,7 +327,6 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 {" "}
                 السعر
               </Form.Label>
-              {console.log(loadAdvsData?.price)}
               <Form.Control
                 name="price"
                 onChange={handleChange}

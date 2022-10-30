@@ -14,9 +14,10 @@ const AmentiesShared = ({
   time,
   price,
   currency,
+  maxWidth,
 }) => {
   return (
-    <div style={{ maxWidth: "calc(100% / 4)" }}>
+    <div style={maxWidth ? { maxWidth: "calc(100% / 4)" } : {}}>
       {/* Amenties With Icon */}
       {amentiesWithIcon === "orderAmenties" ? (
         <div className="LT-orderAmenties">

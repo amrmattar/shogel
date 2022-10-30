@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getMobileNumber } from "../../../core/redux/reducers/MobileOTP/MobileOTP.core";
 import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
 import { MobileServices } from "../../../core/services/AuthServices/Method_MobileValidation/Method_MobileValidation.core";
@@ -171,21 +172,26 @@ const RegisterMobileStep = () => {
             </p>
           </Row>
 
-          <label className={cls.label}>
-            <input
-              id="acceptTerms"
-              checked={check}
-              type="checkbox"
-              className="green-check"
-              name="radio-button"
-              onChange={() => setCheck(!check)}
-              style={{ width: "24px", height: "24px" }}
-            />
-            <p className="mb-0  LT-agree-condition cLT-support2-text termsText">
-              {" "}
-              اوافق علي الشروط والاحكام{" "}
-            </p>
-          </label>
+          <div className="label d-flex align-items-center">
+            <label className={cls.label}>
+              <input
+                id="acceptTerms"
+                checked={check}
+                type="checkbox"
+                className="green-check"
+                name="radio-button"
+                onChange={() => setCheck(!check)}
+                style={{ width: "24px", height: "24px" }}
+              />
+              <p className="mb-0  LT-agree-condition cLT-support2-text termsText">
+                اوافق علي
+              </p>
+            </label>
+
+            <Link className="text-decoration-none" to="/policies">
+              <span style={{ marginRight: -12 }}>الشروط والاحكام</span>
+            </Link>
+          </div>
 
           <div className="three" dir="">
             <ButtonShare

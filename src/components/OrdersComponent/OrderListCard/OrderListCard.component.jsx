@@ -10,6 +10,7 @@ const OrderListCardComponent = ({
   orderStatus,
   orderStyleHolder,
   roll,
+  isMyList,
 }) => {
   const location = useLocation();
   const param = useParams();
@@ -29,11 +30,11 @@ const OrderListCardComponent = ({
         </div> */}
         <div className="d-flex align-items-center justify-content-between">
           <p className={`${cls.title} fs-5 mb-3`}>{orderTitle}</p>
-          {orderStatus}
+          {isMyList && <span>{orderStatus}</span>}
         </div>
 
         <div
-          className={`${cls.description} text-muted`}
+          className={`${cls.description} text-muted small`}
           dangerouslySetInnerHTML={{ __html: orderDescription }}
         />
 

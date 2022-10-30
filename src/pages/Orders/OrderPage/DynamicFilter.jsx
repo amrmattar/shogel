@@ -19,6 +19,7 @@ const DynamicFilter = ({
   setRateCount,
   query,
   setQuery,
+  rate,
 }) => {
   return (
     <div className={cls.main}>
@@ -33,9 +34,15 @@ const DynamicFilter = ({
       {categories[0] && (
         <div>
           <p className={cls.search}>الاشغال و المجالات</p>
-          {categories.map((ele) => (
-            <CategoryMain setCategory={setCategory} ele={ele} />
-          ))}
+
+          <div
+            style={{ maxHeight: "50vh", overflow: "auto", marginBottom: 10 }}
+            className="skills-overflow"
+          >
+            {categories.map((ele, idx) => (
+              <CategoryMain key={idx} setCategory={setCategory} ele={ele} />
+            ))}
+          </div>
         </div>
       )}
       <div className={cls.location}>
@@ -57,17 +64,30 @@ const DynamicFilter = ({
         <div className={cls.rate}>
           <p className={cls.search}>التقييم</p>
 
-          <Rating
-            dir="ltr"
-            size="large"
-            name="simple-controlled"
-            onChange={(event, newValue) => {
-              setRate(newValue);
-            }}
-            emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-            }
-          />
+          <div className="rate d-flex align-items-center">
+            <Rating
+              value={rate}
+              dir="ltr"
+              size="large"
+              name="simple-controlled"
+              onChange={(_, newValue) => {
+                setRate(newValue);
+              }}
+              emptyIcon={
+                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+              }
+            />
+
+            {rate > 0 && (
+              <p
+                onClick={() => setRate(null)}
+                style={{ cursor: "pointer" }}
+                className="text-primary m-0 me-3"
+              >
+                اعادة تعيين
+              </p>
+            )}
+          </div>
 
           <p className={cls.search}>متصل</p>
           <div className={cls.swich}>

@@ -4,7 +4,12 @@ import { userOfferPrice } from "../../../../../core/services/OfferPriceService/O
 import AmentiesShared from "../../../../../shared/Amenties/Amenties.shared";
 import OrderListCardComponent from "../../../../OrdersComponent/OrderListCard/OrderListCard.component";
 
-const PriceTasksListsComponent = ({ setPagination, offerStatus, type }) => {
+const PriceTasksListsComponent = ({
+  setPagination,
+  offerStatus,
+  type,
+  isMyList,
+}) => {
   const param = useParams();
   const [loading, setloading] = useState(false);
   const [myOfferList, setMyOfferList] = useState();
@@ -24,6 +29,7 @@ const PriceTasksListsComponent = ({ setPagination, offerStatus, type }) => {
         });
     }
   }, [param.num, offerStatus, setPagination, type]);
+
   useEffect(() => {
     getAllOfferTasksList();
   }, [getAllOfferTasksList]);
@@ -56,6 +62,7 @@ const PriceTasksListsComponent = ({ setPagination, offerStatus, type }) => {
                   orderTitle={data?.name}
                   orderStatus={data?.status?.name}
                   orderDescription={data?.description}
+                  isMyList={isMyList}
                   amentiesSelector={
                     <AmentiesShared
                       orderData={data}

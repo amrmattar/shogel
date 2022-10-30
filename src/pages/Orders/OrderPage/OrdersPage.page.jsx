@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import cls from "./OrderPage.module.scss";
 import DynamicFilter from "./DynamicFilter";
 import { API } from "../../../enviroment/enviroment/enviroment";
+
 const categories = [
   {
     id: 1,
@@ -43,6 +44,7 @@ const categories = [
   { id: 13, title: "علوم" },
   { id: 14, title: "شبكات" },
 ];
+
 const mostUse = [
   { id: 1, name: "افراد" },
   { id: 2, name: "شركات" },
@@ -98,7 +100,9 @@ const OrdersPage = () => {
       ? setCateg([...categ, id])
       : setCateg(categ.filter((ele) => ele != id));
   };
+
   const timeRef = useRef(0);
+
   const listOfUsersOrder = useMemo(() => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
@@ -123,6 +127,7 @@ const OrdersPage = () => {
     }, 1000);
     return () => clearTimeout(timeRef.current);
   }, [price, location, categ, key]);
+
   // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -138,9 +143,11 @@ const OrdersPage = () => {
       setCategories(treeToList(res?.data?.data || []));
     } catch (e) {}
   };
+
   useEffect(() => {
     fetchCategories();
   }, []);
+
   // ? ------------------[[[START Block]]]-----------------
   //*TODO GET From API Response ==> Advertising Pagination
   const [pagination, setPagination] = useState();
@@ -156,6 +163,7 @@ const OrdersPage = () => {
     }, 1000);
     return clearTimeout(timeout);
   }, [userOfferDetatils?.pagination, handleAdvsPagination]);
+
   // TODO GET From API Response ==> Advertising Pagination
   // ? ------------------[[[END Block]]]-----------------
 
@@ -213,7 +221,6 @@ const OrdersPage = () => {
                     to={`/orders/order-details/${offer.id}`}
                     key={ix}
                   >
-                    {" "}
                     <OrderListCardComponent
                       roll={vistorUser}
                       offer={offer}
