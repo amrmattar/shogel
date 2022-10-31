@@ -114,13 +114,21 @@ const FlancerMyNotificationPage = () => {
   return (
     <div>
       {notification.isLoading ? (
-        notification.data.map((notification, idx) => {
-          return (
+        notification.length > 0 ? (
+          notification.data.map((notification, idx) => (
             <div className="mt-5" key={idx}>
               <FlancerNotificationComponent notification={notification} />
             </div>
-          );
-        })
+          ))
+        ) : (
+          <div
+            className="not-notification my-3 d-flex justify-content-center align-items-center flex-column"
+            style={{ minHeight: "60vh" }}
+          >
+            <img width={45} src="/icons/noNotf.svg" alt="" />
+            <p className="text-muted fs-4 mt-2">لا توجد اشعارات</p>
+          </div>
+        )
       ) : (
         <div className="loading pt-3">
           <Skeleton className="mt-5" variant="rectangular" height={100} />

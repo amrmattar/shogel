@@ -1,10 +1,17 @@
 import Checkbox from "@mui/material/Checkbox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cls from "./DynamicFilter.module.scss";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 
-const CategoryHandler = ({ ele, changeState, isSub }) => {
+const CategoryHandler = ({ ele, changeState, isSub, isChecked }) => {
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (isChecked !== undefined) {
+      setChecked(isChecked);
+    }
+  }, [isChecked]);
+
   return (
     <div className={!isSub ? cls.checkHolder : cls.subHolder}>
       <Checkbox

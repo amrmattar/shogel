@@ -239,7 +239,9 @@ const Navbar = () => {
                   </Box>
                 </Link>
 
-                <Link to="/account_management/notification">
+                <Link
+                  to={`/account_management/my-notification/${activeUserId}`}
+                >
                   <Box>
                     <div
                       style={{ width: 45, height: 45 }}

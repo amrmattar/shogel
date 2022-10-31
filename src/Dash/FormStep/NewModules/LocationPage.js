@@ -42,10 +42,12 @@ const IdPage = () => {
     value?.accountType?.userKind === "company"
       ? form.append("role_id", 4)
       : form.append("role_id", 3);
+
     selectedCountry?.id && form.append("country_id", selectedCountry.id);
     selectedCity?.id && form.append("city_id", selectedCity.id);
     selectedState?.id && form.append("state_id", selectedState.id);
     selectedArea?.id && form.append("area_id", selectedArea.id);
+
     form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
     form.append("gender_id", getClientData.gender);
     getClientData.nation?.id &&

@@ -92,6 +92,7 @@ const OrdersPage = () => {
   //  Use MEMO Function To Store Whte API Return Advertising List Data
   const [price, setPrice] = useState([]);
   const [categ, setCateg] = useState([]);
+  const [mostUseId, setMostUseId] = useState([]);
   const [location, setLocation] = useState("");
   const [query, setQuery] = useState("");
   const [searchRes, setSearchRes] = useState("");
@@ -99,6 +100,14 @@ const OrdersPage = () => {
     state
       ? setCateg([...categ, id])
       : setCateg(categ.filter((ele) => ele != id));
+  };
+
+  const resetCateg = () => {
+    setCateg([]);
+  };
+
+  const resetMost = () => {
+    setMostUseId([]);
   };
 
   const timeRef = useRef(0);
@@ -204,13 +213,18 @@ const OrdersPage = () => {
         <div className="d-flex"></div>
         <div className={cls.holder}>
           <DynamicFilter
-            setCategory={categHandler}
-            setPrice={setPrice}
-            setLocation={setLocation}
             mostUse={mostUse}
             categories={query ? searchRes : categories}
             query={query}
+            activesId={categ}
+            mostUseId={mostUseId}
+            setCategory={categHandler}
+            setPrice={setPrice}
+            setLocation={setLocation}
             setQuery={setQuery}
+            resetCateg={resetCateg}
+            resetMost={resetMost}
+            setMostUseId={setMostUseId}
           />
           {userOfferDetatils.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">

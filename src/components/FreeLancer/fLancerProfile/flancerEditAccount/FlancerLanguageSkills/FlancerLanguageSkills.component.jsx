@@ -42,6 +42,7 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
 
   const langHandleClick = (e) => {
     e.preventDefault();
+
     if (languageRef.current?.value === "") {
       setRequired(true);
     } else if (lanSkillsData.fLanguageRate === 0) {
@@ -49,6 +50,7 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
     } else {
       setRequired(false);
       setRateRequired(false);
+
       dispatch(
         getLanguage({
           skill: languageVal,
@@ -113,17 +115,14 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
         )}
         {/* Certificate Show Input Value  [Section] */}
         <div className="d-flex flex-column justify-content-center gap-3 px-0">
-          {lanSkillsData?.fLanguage?.map(({ skill, id, level_id }) => {
+          {lanSkillsData?.fLanguage?.map(({ skill, id, level_id, level }) => {
             return (
               <div
                 className="d-flex align-items-center gap-3 uLT-f-radius "
                 key={id}
               >
                 <div className="d-flex align-items-center gap-3 uLT-f-radius uLT-bd-f-platinum-sA cLT-secondary-bg p-2">
-                  <p className="mb-0 fLT-Regular-sB cLT-white-text">
-                    {" "}
-                    {skill}{" "}
-                  </p>
+                  <p className="mb-0 fLT-Regular-sB cLT-white-text">{skill} </p>
                   <i
                     className="iLT-Close-button-white iLT-sB uLT-img-contain uLT-click"
                     onClick={() => {
@@ -131,7 +130,9 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
                     }}
                   ></i>
                 </div>
-                <div className="cLT-support2-text">{level_id}</div>
+                <div className="cLT-support2-text">
+                  {level?.level || level_id}
+                </div>
               </div>
             );
           })}

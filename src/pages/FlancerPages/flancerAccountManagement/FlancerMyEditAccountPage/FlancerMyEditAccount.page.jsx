@@ -58,7 +58,7 @@ const FlancerMyEditAccountPage = ({
       const langs = personalData?.language.map((lang) => ({
         skill: lang?.skill,
         id: lang?.id,
-        level_id: lang?.level_id,
+        level_id: lang?.level_id || lang?.level?.level,
         type: "language",
       }));
 

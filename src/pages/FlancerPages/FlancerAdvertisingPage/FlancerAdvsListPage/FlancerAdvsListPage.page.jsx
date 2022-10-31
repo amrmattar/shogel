@@ -145,11 +145,22 @@ const FlancerAdvsListPage = () => {
   const [rateCount, setRateCount] = useState([]);
   const [location, setLocation] = useState("");
 
+  const [mostUseId, setMostUseId] = useState([]);
+
+  const resetCateg = () => {
+    setCateg([]);
+  };
+
+  const resetMost = () => {
+    setMostUseId([]);
+  };
+
   const categHandler = (id, state) => {
     state
       ? setCateg([...categ, id])
       : setCateg(categ.filter((ele) => ele != id));
   };
+
   const timeRef = useRef(0);
 
   const listOfUsersAdvs = useMemo(() => {
@@ -231,8 +242,14 @@ const FlancerAdvsListPage = () => {
         <div className="d-flex"></div>
         <div className={cls.holder}>
           <DynamicFilter
-            isAdvert={true}
             query={query}
+            mostUse={mostUse}
+            rate={rate}
+            categories={query ? searchResult : categories}
+            activesId={categ}
+            mostUseId={mostUseId}
+            isAdvert={true}
+            resetCateg={resetCateg}
             setQuery={setQuery}
             setCategory={categHandler}
             setPrice={setPrice}
@@ -240,9 +257,8 @@ const FlancerAdvsListPage = () => {
             setRate={setRate}
             setLocation={setLocation}
             setRateCount={setRateCount}
-            mostUse={mostUse}
-            rate={rate}
-            categories={query ? searchResult : categories}
+            resetMost={resetMost}
+            setMostUseId={setMostUseId}
           />
           {userAdvsDetatils?.data?.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">

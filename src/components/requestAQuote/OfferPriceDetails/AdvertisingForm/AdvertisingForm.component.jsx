@@ -149,10 +149,13 @@ const AdvertisingFormComponent = () => {
             messageClick: true,
           })
         );
+
         if (res.data.status === 1) {
-          const timeAdvsOut = setTimeout(() => {
-            navigate(`/advertising/page=${1}`);
-          }, 800);
+          const timeAdvsOut = setTimeout(
+            () => navigate(`/advertising/page=${1}`),
+            800
+          );
+
           return () => clearTimeout(timeAdvsOut);
         }
       })
@@ -547,6 +550,7 @@ const AdvertisingFormComponent = () => {
             </Form.Group>
           </Row>
         )}
+
         <div className="btnsHolder">
           <ButtonShare
             onClick={(e) => handleCLick(e)}

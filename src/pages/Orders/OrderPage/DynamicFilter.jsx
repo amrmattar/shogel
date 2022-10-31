@@ -20,6 +20,11 @@ const DynamicFilter = ({
   query,
   setQuery,
   rate,
+  activesId,
+  resetCateg,
+  resetMost,
+  setMostUseId,
+  mostUseId,
 }) => {
   return (
     <div className={cls.main}>
@@ -33,14 +38,31 @@ const DynamicFilter = ({
       />
       {categories[0] && (
         <div>
-          <p className={cls.search}>الاشغال و المجالات</p>
+          <header className="d-flex justify-content-between align-items-center mb-2">
+            <p className={cls.search + " m-0"}>الاشغال و المجالات</p>
+
+            {activesId?.length > 0 && (
+              <p
+                onClick={resetCateg}
+                style={{ cursor: "pointer" }}
+                className="text-primary small m-0 me-3"
+              >
+                اعادة تعيين
+              </p>
+            )}
+          </header>
 
           <div
             style={{ maxHeight: "50vh", overflow: "auto", marginBottom: 10 }}
             className="skills-overflow"
           >
             {categories.map((ele, idx) => (
-              <CategoryMain key={idx} setCategory={setCategory} ele={ele} />
+              <CategoryMain
+                key={idx}
+                activesId={activesId}
+                setCategory={setCategory}
+                ele={ele}
+              />
             ))}
           </div>
         </div>
@@ -82,7 +104,7 @@ const DynamicFilter = ({
               <p
                 onClick={() => setRate(null)}
                 style={{ cursor: "pointer" }}
-                className="text-primary m-0 me-3"
+                className="text-primary small m-0 me-3"
               >
                 اعادة تعيين
               </p>
@@ -126,9 +148,29 @@ const DynamicFilter = ({
       )}
       {mostUse[0] && (
         <div>
-          <p className={cls.lastC}>الاكثر استخداما</p>
+          <header
+            className={` d-flex border-top border-dark pt-2 justify-content-between align-items-center mb-2`}
+          >
+            <p className={`m-0 ${cls.lastC} p-0 border-0`}>الاكثر استخداما</p>
+
+            {mostUseId?.length > 0 && (
+              <p
+                onClick={resetMost}
+                style={{ cursor: "pointer" }}
+                className="text-primary m-0 me-3"
+              >
+                اعادة تعيين
+              </p>
+            )}
+          </header>
+
           {mostUse.map((ele, idx) => (
-            <CategoryHandler key={idx} ele={ele} />
+            <CategoryHandler
+              isChecked={mostUseId?.includes(ele.id)}
+              changeState={(id) => setMostUseId?.((prev) => [...prev, id])}
+              key={idx}
+              ele={ele}
+            />
           ))}
         </div>
       )}

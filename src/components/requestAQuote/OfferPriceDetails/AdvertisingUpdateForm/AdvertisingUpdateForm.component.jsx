@@ -20,6 +20,8 @@ import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/Me
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 
+import { RegisterServices } from "../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
+
 import {
   arNumberConverter,
   testNumbers,
@@ -170,6 +172,52 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
   // TODO This Function For Post File To API By Drag And Drop  [END]
   // ================[Block END]================ //
 
+  /// LOCATION
+  const [locationState, setLocayionState] = useState(false);
+  const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
+  const [selectedCountry, setSelectedCountry] = useState({});
+  const [selectedCity, setSelectedCity] = useState({});
+  const [selectedState, setSelectedState] = useState({});
+  const [selectedArea, setSelectedArea] = useState({});
+
+  const getCoreData = useMemo(() => {
+    let modal = ["country", "city", "state", "area"];
+    return RegisterServices.GET_RegisterData(
+      modal,
+      selectedCountry?.id,
+      selectedCity?.id,
+      selectedState?.id
+    ).then((res) => {
+      setGetAllCountryFromResponse(res.data.data);
+    });
+  }, [selectedCountry, selectedCity, selectedState]);
+  useEffect(() => {
+    return getCoreData;
+  }, [getCoreData]);
+
+  const showLocation = () => {
+    setLocayionState(!locationState);
+  };
+
+  const fetchCountry = (country) => {
+    setSelectedCountry(country);
+    setSelectedCity({});
+    setSelectedState({});
+    setSelectedArea({});
+  };
+  const fetchCities = (city) => {
+    setSelectedCity(city);
+    setSelectedState({});
+    setSelectedArea({});
+  };
+  const fetchState = (state) => {
+    setSelectedState(state);
+    setSelectedArea({});
+  };
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+  };
+
   // ================================================[Block START]================================================ //
   // TODO Main Function Collect All Data Value And Post To API [START]
   const handleCLick = async (e) => {
@@ -204,6 +252,11 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     loadAdvsData?.category?.forEach((newCate, idx) => {
       media.append(`category[${idx}]`, newCate.id);
     });
+
+    media.set("country_id", selectedCountry?.id || loadAdvsData?.country?.id);
+    media.set("city_id", selectedCity?.id || loadAdvsData?.city?.id);
+    media.set("state_id", selectedState?.id || loadAdvsData?.state?.id);
+    media.set("area_id", selectedArea?.id || loadAdvsData?.area?.id);
 
     // @Param POST Method To API */
     advertisingLists
@@ -292,9 +345,8 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
               controlId="formGridPassword"
               className="position-relative px-0 d-grid gap-2"
             >
-              <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
-                {" "}
-                عنوان الطلب
+              <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
+                عنوان الاعلان
               </Form.Label>
               <Form.Control
                 defaultValue={
@@ -304,7 +356,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 }
                 name="name"
                 onChange={handleChange}
-                className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
+                className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
               />
@@ -323,7 +375,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
               controlId="formGridPassword"
               className="px-0 d-grid gap-2"
             >
-              <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
+              <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
                 {" "}
                 السعر
               </Form.Label>
@@ -336,10 +388,10 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 value={
                   formData?.price === 0 ? loadAdvsData?.price : formData?.price
                 }
-                className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
+                className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 maxLength={6}
-                placeholder="0 ريال"
+                placeholder="4 ريال"
               />
               <div className="">
                 {formData.price < 0 ? (
@@ -443,6 +495,137 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             )}
           </div>
         </div>
+
+        <div className="  position-relative">
+          {/* [Title] */}
+          <p className="m-0 mt-2 fLT-Bold-sA cLT-main-text">
+            <span className="cLT-support1-text"> الموقع</span>
+          </p>
+          <div className="locHandler">
+            <p className="locationArea">
+              حي العلياء , منطقة الرياض , المملكة العربية السعودية{" "}
+              <span
+                onClick={showLocation}
+                className="pointer cLT-support1-text"
+              >
+                {" "}
+                تغيير الموقع
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {locationState && (
+          <Row className="d-flex align-items-center">
+            {/* Country [Section] */}
+            <label className="fLT-Regular-sB cLT-support2-text mb-2">
+              موقعك
+            </label>
+            <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={loadAdvsData?.country || selectedCountry}
+                  placeholder="البلد"
+                  className="uLT-f-radius-sB "
+                  options={getAllCountryFromResponse?.country}
+                  onChange={fetchCountry}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
+                />
+              </div>
+              {/* {errMessage?.country_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.country_id}
+                </p>
+              )} */}
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group as={Col} md={6} className="mb-3 position-relative">
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={loadAdvsData?.city || selectedCity}
+                  placeholder="المدينة"
+                  options={getAllCountryFromResponse?.city}
+                  onChange={fetchCities}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {/* {errMessage?.city_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.city_id}
+                </p>
+              )} */}
+            </Form.Group>
+          </Row>
+        )}
+        {locationState && (
+          <Row className="d-flex align-items-center">
+            {/* Country [Section] */}
+
+            <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+              {/* Country [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={loadAdvsData?.state || selectedState}
+                  placeholder="المنطقة"
+                  className="uLT-f-radius-sB "
+                  options={getAllCountryFromResponse?.state}
+                  onChange={fetchState}
+                  getOptionLabel={(country) => country?.name}
+                  getOptionValue={(country) => country?.id}
+                />
+              </div>
+              {/* {errMessage?.country_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.country_id}
+                </p>
+              )} */}
+            </Form.Group>
+            {/* State [Section] */}
+            <Form.Group as={Col} md={6} className="mb-3 position-relative">
+              {/* State [Option]  */}
+              <div
+                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+              >
+                <Select
+                  value={loadAdvsData?.area || selectedArea}
+                  placeholder="الحي"
+                  options={getAllCountryFromResponse?.area}
+                  onChange={fetchArea}
+                  getOptionLabel={(city) => city?.name}
+                  getOptionValue={(city) => city?.id}
+                />
+              </div>
+              {/* {errMessage?.city_id && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.city_id}
+                </p>
+              )} */}
+            </Form.Group>
+          </Row>
+        )}
+
         <div className="d-flex align-items-center justify-content-between">
           {/* [Back Button */}
           <div className="d-flex justify-content-end  align-items-left">
@@ -474,7 +657,6 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             />
           </div>
         </div>
-
         {/* [Request Button
                 <div className="d-flex justify-content-end  align-items-left">
                     <div className="shadow uLT-f-radius-sB">

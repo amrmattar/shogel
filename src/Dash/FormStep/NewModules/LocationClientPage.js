@@ -34,10 +34,12 @@ const LocationClientPage = () => {
     form.append("password", getClientData.password);
     form.append("nationality_number ", getClientData.id);
     form.append("role_id", 2);
-    form.append("country_id", selectedCountry.id);
-    form.append("city_id", selectedCity.id);
-    form.append("state_id", selectedState.id);
-    form.append("area_id", selectedArea.id);
+
+    selectedCountry?.id && form.append("country_id", selectedCountry.id);
+    selectedCity?.id && form.append("city_id", selectedCity.id);
+    selectedState?.id && form.append("state_id", selectedState.id);
+    selectedArea?.id && form.append("area_id", selectedArea.id);
+
     form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
     getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
@@ -136,7 +138,7 @@ const LocationClientPage = () => {
       })
       .catch((e) => {});
   };
-  const validation = selectedArea?.id && getClientData.nation;
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity("");
@@ -186,7 +188,7 @@ const LocationClientPage = () => {
           <Row className="mb-4 gap-3 two row">
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                الجنسية<span className="cLT-danger-text">*</span>
+                الجنسية
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -214,7 +216,7 @@ const LocationClientPage = () => {
 
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                البلد الاقامه<span className="cLT-danger-text">*</span>
+                البلد الاقامه
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -242,7 +244,7 @@ const LocationClientPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المنطقة الاقامه<span className="cLT-danger-text">*</span>
+                المنطقة الاقامه
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -268,7 +270,7 @@ const LocationClientPage = () => {
             </Form.Group>
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                المدينة<span className="cLT-danger-text">*</span>
+                المدينة
               </Form.Label>
               {/* Country [Option]  */}
               <div
@@ -288,7 +290,7 @@ const LocationClientPage = () => {
             {/* State [Section] */}
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                الحي<span className="cLT-danger-text">*</span>
+                الحي
               </Form.Label>
               {/* State [Option]  */}
               <div
@@ -314,7 +316,6 @@ const LocationClientPage = () => {
           <div className="">
             <ButtonShare
               onClick={(e) => getNext(e)}
-              type={!validation}
               loading={nextLoading}
               innerText={"تسجيل"}
               btnClasses={"cLT-secondary-bg br14"}

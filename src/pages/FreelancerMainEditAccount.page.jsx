@@ -141,24 +141,24 @@ const FreelancerMainEditAccountPage = () => {
     categorySkills?.forEach((cate, idx) => {
       mySkill.append(`category[${idx}]`, cate);
     });
-    fAllSkills?.forEach((skill, idx) => {
-      mySkill.append(`skill[${idx}][level_id]`, skill.level_id);
-    });
-    fAllSkills?.forEach((skill, idx) => {
-      mySkill.append(`skill[${idx}][skill]`, skill.skill);
-    });
-    fAllSkills?.forEach((skill, idx) => {
-      mySkill.append(`skill[${idx}][type]`, skill.type);
+
+    const compainSkls = [
+      ...(fAllSkills?.length ? fAllSkills : []),
+      ...(currentSkls?.length ? currentSkls : []),
+    ];
+
+    const sklsResult = compainSkls.filter((skill, idx, self) => {
+      const isDuplicate =
+        idx ===
+        self.findIndex((skl) => skl.id === skill.id && skl.type === skill.type);
+
+      return isDuplicate;
     });
 
-    currentSkls?.forEach((skill, idx) => {
-      mySkill.append(`skill[${idx}][level_id]`, skill.level_id);
-    });
-    currentSkls?.forEach((skill, idx) => {
+    sklsResult?.forEach((skill, idx) => {
       mySkill.append(`skill[${idx}][skill]`, skill.skill);
-    });
-    currentSkls?.forEach((skill, idx) => {
       mySkill.append(`skill[${idx}][type]`, skill.type);
+      mySkill.append(`skill[${idx}][level_id]`, skill.level_id);
     });
 
     updateProfile
