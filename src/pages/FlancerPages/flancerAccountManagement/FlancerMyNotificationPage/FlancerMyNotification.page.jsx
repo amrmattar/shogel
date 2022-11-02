@@ -5,95 +5,95 @@ import FlancerNotificationComponent from "../../../../components/FreeLancer/fLan
 import { Skeleton } from "@mui/material";
 import { API } from "../../../../enviroment/enviroment/enviroment";
 
-const notifications = [
-  {
-    id: 7,
-    created_at: "23 Minute",
-    title: "There is user need to approve",
-    description: "user 1 need to approve",
-    notifiable_type: "App\\Models\\User",
-    notifiable_id: 2,
-    pusher: null,
-    receiver: {
-      id: 2,
-      username: "heba1222111",
-      fullname: "heba",
-      email: "heba@lun.sa111",
-      mobile: "201115322000",
-      role: "freelancer",
-      available: 1,
-      nationality_number: null,
-      tax_number: null,
-      commercial_number: null,
-      job_name_id: {
-        id: 1,
-        name: "backend",
-      },
-      description: null,
-      info: null,
-      avatar: "http://localhost/shogol-backend/public/images/test.png",
-      gender: {
-        id: 1,
-        name: "ذكر",
-      },
-      nationality: {
-        id: 1,
-        name: "سعودي",
-        logo: "",
-      },
-      category: [],
-      country: {
-        id: 1,
-        name: "السعودية",
-      },
-      city: {
-        id: 1,
-        name: "الرياض",
-        country: {
-          id: 1,
-          name: "السعودية",
-        },
-      },
-      state: {
-        id: 1,
-        name: "منطقه الرياض",
-        country: {
-          id: 1,
-          name: "السعودية",
-        },
-        city: {
-          id: 1,
-          name: "الرياض",
-          country: {
-            id: 1,
-            name: "السعودية",
-          },
-        },
-      },
-      language: [],
-      skill: [],
-      certificate: [],
-      document: [],
-      social: [],
-      complete_profile: 61,
-      profile_validation: 1,
-      reverse: [
-        {
-          title: "email approve",
-          status: 1,
-        },
-        {
-          title: "mobile approve",
-          status: 1,
-        },
-      ],
-      rate: {
-        rate: 2,
-        count: 32,
-      },
-    },
-  },
-];
+// const notifications = [
+//   {
+//     id: 7,
+//     created_at: "23 Minute",
+//     title: "There is user need to approve",
+//     description: "user 1 need to approve",
+//     notifiable_type: "App\\Models\\User",
+//     notifiable_id: 2,
+//     pusher: null,
+//     receiver: {
+//       id: 2,
+//       username: "heba1222111",
+//       fullname: "heba",
+//       email: "heba@lun.sa111",
+//       mobile: "201115322000",
+//       role: "freelancer",
+//       available: 1,
+//       nationality_number: null,
+//       tax_number: null,
+//       commercial_number: null,
+//       job_name_id: {
+//         id: 1,
+//         name: "backend",
+//       },
+//       description: null,
+//       info: null,
+//       avatar: "http://localhost/shogol-backend/public/images/test.png",
+//       gender: {
+//         id: 1,
+//         name: "ذكر",
+//       },
+//       nationality: {
+//         id: 1,
+//         name: "سعودي",
+//         logo: "",
+//       },
+//       category: [],
+//       country: {
+//         id: 1,
+//         name: "السعودية",
+//       },
+//       city: {
+//         id: 1,
+//         name: "الرياض",
+//         country: {
+//           id: 1,
+//           name: "السعودية",
+//         },
+//       },
+//       state: {
+//         id: 1,
+//         name: "منطقه الرياض",
+//         country: {
+//           id: 1,
+//           name: "السعودية",
+//         },
+//         city: {
+//           id: 1,
+//           name: "الرياض",
+//           country: {
+//             id: 1,
+//             name: "السعودية",
+//           },
+//         },
+//       },
+//       language: [],
+//       skill: [],
+//       certificate: [],
+//       document: [],
+//       social: [],
+//       complete_profile: 61,
+//       profile_validation: 1,
+//       reverse: [
+//         {
+//           title: "email approve",
+//           status: 1,
+//         },
+//         {
+//           title: "mobile approve",
+//           status: 1,
+//         },
+//       ],
+//       rate: {
+//         rate: 2,
+//         count: 32,
+//       },
+//     },
+//   },
+// ];
 
 const FlancerMyNotificationPage = () => {
   const [notification, setNotification] = useState({

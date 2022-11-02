@@ -14,7 +14,9 @@ const HistoryMesages = ({ changeSide, search, chunk, user }) => {
     name: hisFirstMsg?.senderName || myFirstMsg?.recevierName,
     role: hisFirstMsg?.senderRole || myFirstMsg?.recevierRole,
   };
+
   const lastmsg = chunk[chunk.length - 1];
+
   return sideData.name.includes(search) ? (
     <div onClick={() => changeSide(sideData)} className={cls.historymessage}>
       <div className={cls.historyComp}>

@@ -8,6 +8,7 @@ const RequestMyJobComponent = ({ setPagination, offerStatus, type }) => {
   const param = useParams();
   const [loading, setloading] = useState(false);
   const [mySpecialLists, setMySpecialLists] = useState();
+
   const myOfferSpecialLists = useCallback(() => {
     if (type === "hireMeRequests") {
       userOfferPrice
@@ -22,8 +23,11 @@ const RequestMyJobComponent = ({ setPagination, offerStatus, type }) => {
           setloading(true);
           setMySpecialLists(res.data.data);
         });
+    } else {
+      setloading(true);
     }
   }, [param.num, offerStatus, setPagination, type]);
+
   useEffect(() => {
     myOfferSpecialLists();
   }, [myOfferSpecialLists]);

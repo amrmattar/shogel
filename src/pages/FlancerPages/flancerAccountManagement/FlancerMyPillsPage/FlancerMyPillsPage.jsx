@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import FlancerTabsControllerShared from "../../../../shared/FlancerController/FlancerTabsController.shared/FlancerTabsController.shared";
+import FlancerTabsControllerShared from "../../../../shared/FlancerController/FlancerTabsControllerPills.shared/FlancerTabsController.shared";
 import { Pagination, Stack } from "@mui/material";
-import PriceTasksListsComponent from "../../../../components/FreeLancer/fLancerProfile/flancerTasksOfferController/PriceTasksLists/PriceTasksLists.component";
-import RequestMyJobComponent from "../../../../components/FreeLancer/fLancerProfile/flancerTasksOfferController/RequestMyJob/RequestMyJob.component";
-import RequestsMadeComponent from "../../../../components/FreeLancer/fLancerProfile/flancerTasksOfferController/RequestsMadeLists/RequestsMade.component";
+import RequestsMade from "./RequestsMade";
+import HireMeRequests from "./HireMeRequests";
 
 const FlancerMyPillsPage = () => {
   const param = useParams();
@@ -13,12 +12,10 @@ const FlancerMyPillsPage = () => {
   const [myOfferListPagination, setMyOfferPagination] = useState();
   const [offerFilter, setOfferFilter] = useState(null);
 
-  const [tabType, setTabType] = useState("priceListOffer");
+  const [tabType, setTabType] = useState("RequestsMade");
 
   const getAllOfferTasksList = useCallback(() => {
-    if (tabsSelected === "priceListOffer") {
-      return setTabType("priceListOffer");
-    } else if (tabsSelected === "hireMeRequests") {
+    if (tabsSelected === "hireMeRequests") {
       return setTabType("hireMeRequests");
     } else if (tabsSelected === "RequestsMade") {
       return setTabType("RequestsMade");
@@ -30,27 +27,8 @@ const FlancerMyPillsPage = () => {
   }, [getAllOfferTasksList]);
 
   const children = {
-    requestOffer: (
-      <PriceTasksListsComponent
-        setPagination={setMyOfferPagination}
-        offerStatus={offerFilter}
-        type={tabType}
-      />
-    ),
-    requestMyJob: (
-      <RequestMyJobComponent
-        setPagination={setMyOfferPagination}
-        offerStatus={offerFilter}
-        type={tabType}
-      />
-    ),
-    requestMade: (
-      <RequestsMadeComponent
-        setPagination={setMyOfferPagination}
-        offerStatus={offerFilter}
-        type={tabType}
-      />
-    ),
+    hireMeRequests: <HireMeRequests />,
+    RequestsMade: <RequestsMade />,
   };
 
   // ? ------------------[[[START Block]]]-----------------
@@ -68,6 +46,7 @@ const FlancerMyPillsPage = () => {
     }, 1200);
     return clearTimeout(timeout);
   }, [myOfferListPagination?.pagination, handleAdvsPagination]);
+
   // TODO GET From API Response ==> Advertising Pagination
   // Todo Set Current Page
   const getPageNumber = (e, value) => {
@@ -85,6 +64,7 @@ const FlancerMyPillsPage = () => {
           children={children}
           Datafilter={setOfferFilter}
           tabSelect={setTabsSelected}
+          selectedTap={tabType}
           isPills
         />
       </div>

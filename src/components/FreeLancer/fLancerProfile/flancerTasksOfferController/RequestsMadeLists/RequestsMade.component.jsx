@@ -8,6 +8,7 @@ const RequestsMadeComponent = ({ setPagination, offerStatus, type }) => {
   const param = useParams();
   const [loading, setloading] = useState(false);
   const [myOfferMadeLists, setMyOfferMadeLists] = useState();
+
   const myTaskOfferMadeLists = useCallback(() => {
     if (type === "RequestsMade") {
       userOfferPrice
@@ -22,8 +23,11 @@ const RequestsMadeComponent = ({ setPagination, offerStatus, type }) => {
           setloading(true);
           setMyOfferMadeLists(res.data.data);
         });
+    } else {
+      setloading(true);
     }
   }, [param.num, offerStatus, setPagination, type]);
+
   useEffect(() => {
     myTaskOfferMadeLists();
   }, [myTaskOfferMadeLists]);

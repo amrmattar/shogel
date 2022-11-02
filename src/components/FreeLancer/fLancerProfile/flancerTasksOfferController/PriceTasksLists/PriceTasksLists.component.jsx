@@ -13,6 +13,7 @@ const PriceTasksListsComponent = ({
   const param = useParams();
   const [loading, setloading] = useState(false);
   const [myOfferList, setMyOfferList] = useState();
+
   const getAllOfferTasksList = useCallback(() => {
     if (type === "priceListOffer") {
       userOfferPrice
@@ -27,6 +28,8 @@ const PriceTasksListsComponent = ({
           setloading(true);
           setMyOfferList(res.data.data);
         });
+    } else {
+      setloading(true);
     }
   }, [param.num, offerStatus, setPagination, type]);
 

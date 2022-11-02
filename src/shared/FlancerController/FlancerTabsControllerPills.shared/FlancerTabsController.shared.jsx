@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "./FlancerTabsController.shared.scss";
-const FlancerTabsControllerShared = ({
+
+const FlancerTabsControllerPills = ({
   children,
   Datafilter,
   tabSelect,
   loading,
   isPills,
+  selectedTap,
 }) => {
   const [statusData, userRole] = useSelector((state) => [
     state.coreData.status,
@@ -159,34 +161,19 @@ const FlancerTabsControllerShared = ({
       </div>
 
       {/* Order Body Component  [Selector] */}
-      <div className="tab-content" id="pills-tabContent">
-        <div
-          className="tab-pane fade show active"
-          id="pills-home"
-          role="tabpanel"
-          aria-labelledby="priceListOffer"
-        >
-          {children?.requestOffer}
-        </div>
-        <div
-          className="tab-pane fade"
-          id="pills-profile"
-          role="tabpanel"
-          aria-labelledby="hireMeRequests"
-        >
-          {/* {children?.requestMyJob} */}
-        </div>
-        <div
-          className="tab-pane fade"
-          id="pills-contact"
-          role="tabpanel"
-          aria-labelledby="RequestsMade"
-        >
-          {children?.requestMade}
-        </div>
+      <div>
+        {selectedTap === "hireMeRequests" ? (
+          <div className="tab-pane show active" id="pills-home">
+            {children?.hireMeRequests}
+          </div>
+        ) : (
+          <div className="tab-pane show active" id="pills-profile">
+            {children?.RequestsMade}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default FlancerTabsControllerShared;
+export default FlancerTabsControllerPills;

@@ -16,6 +16,7 @@ import { FiSend } from "react-icons/fi";
 import HistoryMesages from "./HistoryMessage";
 import { AiOutlineSearch } from "react-icons/ai";
 import TimeDisplayer from "./TimeDisplayer";
+
 firebase.initializeApp({
   apiKey: "AIzaSyCf5qfwF35M7O9fqqi9xtiPcwhkGM6nR78",
   authDomain: "chat-3278d.firebaseapp.com",
@@ -31,7 +32,8 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 const demoIcon =
   "data:image/png;base64,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";
-function Chat() {
+
+const Chat = () => {
   const param = useLocation();
   const otherSideId = param.state?.id;
   const otherSidAvatar = param.state?.avatar;
@@ -46,17 +48,91 @@ function Chat() {
   const changeSide = (data) => {
     setOtherSideData(data);
   };
+  const [isLoading, setIsLoading] = useState(false);
+
   const [sortedMesage, setSortedMessages] = useState([]);
   const [historyMesage, setHistoryMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [file, setFile] = useState({});
+
   const storage = getStorage();
   const storageRef = ref(storage, `images/${Date.now()}`);
-  const [file, setFile] = useState({});
   const messagesRef = firestore.collection("messages");
-  const query = messagesRef.orderBy("createdAt").limit(25);
+  const query = messagesRef.orderBy("createdAt");
+
   const [user] = useSelector((state) => [state.userFullData]);
   const [messages] = useCollectionData(query, { idField: "id" });
   const [formValue, setFormValue] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const sendTextMsg = async (text) => {
+      const msg = {
+        text,
+        senderId: user.id,
+        senderRole: user.role?.name,
+        senderAvatar: user.avatar || demoIcon,
+        senderName: user?.fullname,
+        recevierId: otherSideData.id,
+        recevierName: otherSideData.name,
+        recevierRole: otherSideData.role,
+        recevierAvatar: otherSideData.avatar || demoIcon,
+        createdAt: new Date().toISOString(),
+      };
+
+      setFormValue("");
+      setFile({});
+
+      await messagesRef.add(msg);
+    };
+
+    if (file?.type) {
+      uploadBytes(storageRef, file)
+        .then((snapshot) => {
+          getDownloadURL(storageRef).then(async (url) => {
+            const msg = {
+              file: url,
+              type: file.type,
+              senderId: user.id,
+              senderRole: user.role?.name,
+              senderName: user?.fullname,
+              senderAvatar: user.avatar || demoIcon,
+              recevierId: otherSideData.id,
+              recevierName: otherSideData.name,
+              recevierRole: otherSideData.role,
+              recevierAvatar: otherSideData.avatar || demoIcon,
+              createdAt: new Date().toISOString(),
+            };
+
+            messagesRef.add(msg).then(async () => {
+              if (formValue) await sendTextMsg(formValue);
+
+              setIsLoading(false);
+              setFormValue("");
+              setFile({});
+            });
+          });
+        })
+        .catch((e) => {
+          setIsLoading(false);
+          console.log(e);
+        });
+    } else {
+      try {
+        setIsLoading(false);
+        sendTextMsg(formValue);
+      } catch (err) {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const onFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
   useEffect(() => {
     if (messages?.[0]) {
       let arr = messages.filter(
@@ -70,6 +146,7 @@ function Chat() {
       );
       let sortingarr = [];
       let Mainsortingarr = [];
+
       for (let i = 0; i < arr2.length; i++) {
         const ele = arr2[i];
         let indx = sortingarr.findIndex(
@@ -88,54 +165,12 @@ function Chat() {
           i = -1;
         }
       }
+
       setSortedMessages(arr);
       setHistoryMessages(Mainsortingarr);
     }
   }, [messages, user, otherSideData]);
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    if (file?.type) {
-      uploadBytes(storageRef, file)
-        .then((snapshot) => {
-          getDownloadURL(storageRef).then((url) =>
-            messagesRef.add({
-              file: url,
-              type: file.type,
-              senderId: user.id,
-              senderRole: user.role?.name,
-              senderName: user?.fullname,
-              senderAvatar: user.avatar || demoIcon,
-              recevierId: otherSideData.id,
-              recevierName: otherSideData.name,
-              recevierRole: otherSideData.role,
-              recevierAvatar: otherSideData.avatar || demoIcon,
-              createdAt: new Date().toISOString(),
-            })
-          );
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      messagesRef.add({
-        text: formValue,
-        senderId: user.id,
-        senderRole: user.role?.name,
-        senderAvatar: user.avatar || demoIcon,
-        senderName: user?.fullname,
-        recevierId: otherSideData.id,
-        recevierName: otherSideData.name,
-        recevierRole: otherSideData.role,
-        recevierAvatar: otherSideData.avatar || demoIcon,
-        createdAt: new Date().toISOString(),
-      });
-    }
-    setFormValue("");
-    setFile({});
-  };
-  const onFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
+
   return (
     <div className={cls.chatApp}>
       <div className={cls.grid1}>
@@ -153,8 +188,9 @@ function Chat() {
           <AiOutlineSearch />
         </div>
         <div className={cls.historyHolder}>
-          {historyMesage.map((ele) => (
+          {historyMesage.map((ele, idx) => (
             <HistoryMesages
+              key={idx}
               search={searchQuery}
               changeSide={changeSide}
               user={user}
@@ -171,6 +207,7 @@ function Chat() {
           submit={sendMessage}
           setFormValue={setFormValue}
           disabled={!formValue && !file?.type}
+          loading={isLoading}
           inpValue={formValue}
           fileValue={file}
           otherSideData={otherSideData}
@@ -178,9 +215,9 @@ function Chat() {
       </div>
     </div>
   );
-}
+};
 
-function ChatRoom({
+const ChatRoom = ({
   user,
   disabled,
   submit,
@@ -190,16 +227,19 @@ function ChatRoom({
   inpValue,
   fileValue,
   otherSideData,
-}) {
+  loading,
+}) => {
   const navigate = useNavigate();
   const dummy = useRef();
   const inpRef = useRef();
   const fileHandler = () => {
     inpRef.current.click();
   };
+
   useEffect(() => {
     dummy.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
   return (
     <div className={cls.activeChat}>
       <div className={cls.chatHeader}>
@@ -221,7 +261,9 @@ function ChatRoom({
           </div>
         </div>
         <button
+          hidden={!otherSideData?.id}
           onClick={() =>
+            otherSideData?.id &&
             navigate(`/employed/freelancer-profile/${otherSideData?.id}`)
           }
         >
@@ -230,10 +272,10 @@ function ChatRoom({
       </div>
       <div className={cls.messageHolder}>
         {messages &&
-          messages.map((msg) => (
-            <ChatMessage user={user} key={msg.id} message={msg} />
+          messages.map((msg, idx) => (
+            <ChatMessage user={user} key={idx} message={msg} />
           ))}
-        <span ref={dummy}></span>
+        <span ref={dummy} />
       </div>
 
       <form className={cls.form} onSubmit={submit}>
@@ -242,6 +284,7 @@ function ChatRoom({
           className={cls.txtInput}
           onChange={(e) => setFormValue(e.target.value)}
           placeholder=" إرسال رسالة ...."
+          disabled={loading}
         />
         <div className={cls.fileHolder}>
           <input
@@ -249,6 +292,7 @@ function ChatRoom({
             ref={inpRef}
             type="file"
             onChange={fileUpload}
+            disabled={loading}
           />
           <BsCloudUpload onClick={fileHandler} className={cls.formUploader} />
           <p>{fileValue?.name}</p>
@@ -257,16 +301,16 @@ function ChatRoom({
         <button
           className={cls.btn}
           type="submit"
-          disabled={disabled || !otherSideData?.id}
+          disabled={disabled || !otherSideData?.id || loading}
         >
           <FiSend />
         </button>
       </form>
     </div>
   );
-}
+};
 
-function ChatMessage(props) {
+const ChatMessage = (props) => {
   const { text, senderId, senderAvatar, file, type, createdAt } = props.message;
   const isImage = type?.includes("image");
   const openInNewTab = (url) => {
@@ -322,6 +366,6 @@ function ChatMessage(props) {
       </div>
     </>
   );
-}
+};
 
 export default Chat;
