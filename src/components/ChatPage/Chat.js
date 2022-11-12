@@ -18,18 +18,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import TimeDisplayer from "./TimeDisplayer";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCf5qfwF35M7O9fqqi9xtiPcwhkGM6nR78",
-  authDomain: "chat-3278d.firebaseapp.com",
-  projectId: "chat-3278d",
-  storageBucket: "chat-3278d.appspot.com",
-  messagingSenderId: "976904855249",
-  appId: "1:976904855249:web:96a605d5d8f148f9a7eff0",
-  measurementId: "G-HD8BKD9NGS",
+  apiKey: "AIzaSyAMj1LZ0s4PfZlXcq-DdRWSyxdYHrX9Emg",
+  authDomain: "sho8l-96261.firebaseapp.com",
+  databaseURL: "https://sho8l-96261-default-rtdb.firebaseio.com",
+  projectId: "sho8l-96261",
+  storageBucket: "sho8l-96261.appspot.com",
+  messagingSenderId: "879215757540",
+  appId: "1:879215757540:web:8d79b23a2afd3b87e244f1",
+  measurementId: "G-V5294RZD1R",
 });
 
 const auth = firebase.auth();
-const firestore = firebase.firestore();
 const analytics = firebase.analytics();
+const firestore = firebase.firestore();
 const demoIcon =
   "data:image/png;base64,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";
 

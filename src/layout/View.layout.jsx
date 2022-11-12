@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 const ViewLayout = () => {
   const location = useLocation();
   const show = useSelector((state) => state.Fotter.visible);
-
   const { id } = useParams();
 
   return (
@@ -39,6 +38,7 @@ const ViewLayout = () => {
         </div>
       )}
       <main
+        style={{ minHeight: "80vh" }}
         className={
           location.pathname.includes("/account_management")
             ? "d-flex gap-3 flex-column flex-lg-row px-3 container-lg px-lg-0"

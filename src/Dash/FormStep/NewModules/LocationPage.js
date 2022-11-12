@@ -29,10 +29,12 @@ const IdPage = () => {
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const messages = useSelector((state) => state.messages);
   const [nextLoading, setNextLoadiing] = useState(false);
+  const { FCMToken } = useSelector(({ userData }) => userData);
 
   const getNext = (e) => {
     e.preventDefault();
     setNextLoadiing(true);
+
     let skillsIds = value.labelInfo.skills.map((ele) => ele.id);
     const form = new FormData();
     form.append("fullname", getClientData.fullName);
@@ -58,6 +60,7 @@ const IdPage = () => {
     form.append("description", getClientData.description);
     form.append("media", getClientData.files);
     getClientData.img?.type && form.append("avatar", getClientData.img);
+    form.append("device_token", FCMToken);
 
     RegisterServices.POST_RegisterData(form)
       .then((res) => {
@@ -206,7 +209,11 @@ const IdPage = () => {
             style={{ textAlign: "center" }}
             className=" LT-account-logo d-flex flex-column p-3"
           >
-            <p className="regiTitle"> معلومات الموقع </p>
+            <p className="regiTitle"> تم تسجيل حسابك </p>
+            <p className="text-muted m-0">
+              شكرا لتسجيلك يمكنك في هذه الاثناء تعبئة الحقول الاختيارية لنتمكن
+              من خدمتك بشكل افضل
+            </p>
           </div>
           <Row className="mb-4 gap-3 two row">
             {/* Country [Section] */}

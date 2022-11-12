@@ -36,12 +36,32 @@ const OrderDetailsPage = () => {
       state.userData,
     ]
   );
-  const errMessage = messages[0]?.messages;
-  const param = useParams();
-  const navigate = useNavigate();
+
+  // TODO  Get All Lists Of Offer Fro This Task
+  const [taskOfferData, setTaskOfferData] = useState();
+  const [taskBoolenOfferData, setTaskBoolenOfferData] = useState(false);
+  const [myOfferStatus, setmyOfferStatus] = useState();
+  const [activeUserID, setActiveUserID] = useState(Boolean);
+  const [havePermission, setHavePermission] = useState();
+  const [offerRequest, setOfferRequest] = useState(false);
+
+  const [nextClick, setNextClick] = useState(false);
+  const [mobileCopy, setCopyMobile] = useState(false);
+  const [urlCopy, setCopyUrl] = useState(false);
+
   //  Use MEMO Function To Store Whte API Return Advertising List Data
   const [offerPriceTaskData, setOfferPriceTaskData] = useState();
   const [refreshTasks, setRefreshTasks] = useState(false);
+  const [getOfferData, setRequestData] = useState({
+    offerPrice: "",
+    description: "",
+    offerTime: "",
+  });
+
+  const myId = JSON.parse(localStorage.getItem("usID"));
+  const errMessage = messages[0]?.messages;
+  const param = useParams();
+  const navigate = useNavigate();
 
   const offerDataById = useCallback(() => {
     return userOfferPrice
@@ -53,28 +73,6 @@ const OrderDetailsPage = () => {
         return err.response;
       });
   }, [param.id]);
-
-  // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!offerPriceTaskData) {
-        return offerDataById();
-      } else if (refreshTasks) {
-        return offerDataById() && setRefreshTasks(false);
-      }
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [offerDataById, refreshTasks]);
-
-  const open = (url) => {
-    window.open(url, "_blank").focus();
-  };
-
-  const [getOfferData, setRequestData] = useState({
-    offerPrice: "",
-    description: "",
-    offerTime: "",
-  });
 
   const getOfferDataValue = useMemo(() => {
     return (e) => {
@@ -89,8 +87,12 @@ const OrderDetailsPage = () => {
       }));
     };
   }, []);
+
+  const open = (url) => {
+    window.open(url, "_blank").focus();
+  };
+
   // TODO  Send My Offer To This Task
-  const [offerRequest, setOfferRequest] = useState(false);
   const sendOffer = (e) => {
     e.preventDefault();
     setOfferRequest(true);
@@ -141,13 +143,6 @@ const OrderDetailsPage = () => {
       });
   };
 
-  // TODO  Get All Lists Of Offer Fro This Task
-  const [taskOfferData, setTaskOfferData] = useState();
-  const [taskBoolenOfferData, setTaskBoolenOfferData] = useState(false);
-  const [myOfferStatus, setmyOfferStatus] = useState();
-  const [activeUserID, setActiveUserID] = useState(Boolean);
-  const myId = JSON.parse(localStorage.getItem("usID"));
-
   const checkIsImg = (url) => {
     const ext = url?.split(".")?.at(-1);
 
@@ -168,54 +163,11 @@ const OrderDetailsPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (myId == offerPriceTaskData?.user?.id) {
-      setActiveUserID(true);
-    }
-  }, [offerPriceTaskData, myId]);
-
-  useEffect(() => {
-    const myofferId = JSON.parse(localStorage.getItem("usID"));
-    offerPriceTaskData?.offer?.map((element) => {
-      setmyOfferStatus(element.status);
-      if (myofferId == element?.user?.id) {
-        setTaskOfferData(element?.user?.id);
-        setTaskBoolenOfferData(true);
-      }
-    });
-  }, [offerPriceTaskData, myId]);
-
-  const [havePermission, setHavePermission] = useState();
   const offerPermission = useCallback(() => {
     userPermission?.permission?.filter(function (el) {
       return el?.name == "offer-create" && setHavePermission(el?.name);
     });
   }, [userPermission]);
-
-  useEffect(() => {
-    if (!havePermission) {
-      return offerPermission();
-    }
-  }, [offerPermission, havePermission]);
-
-  const [nextClick, setNextClick] = useState(false);
-  const [mobileCopy, setCopyMobile] = useState(false);
-  const [urlCopy, setCopyUrl] = useState(false);
-
-  // Condition For Show Loading Style Untill Data Return From API
-  if (!offerPriceTaskData) {
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center w-100 "
-        style={{ height: "100vh" }}
-      >
-        <div
-          className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-          style={{ width: "200px", height: "200px" }}
-        />
-      </div>
-    );
-  }
 
   // helper
   const sendEmail = () => {
@@ -240,6 +192,67 @@ const OrderDetailsPage = () => {
   const startShare = () => {
     setCopyUrl(true);
   };
+
+  useEffect(() => {
+    if (myId == offerPriceTaskData?.user?.id) {
+      setActiveUserID(true);
+    }
+  }, [offerPriceTaskData, myId]);
+
+  useEffect(() => {
+    const myofferId = JSON.parse(localStorage.getItem("usID"));
+    offerPriceTaskData?.offer?.map((element) => {
+      setmyOfferStatus(element.status);
+      if (myofferId == element?.user?.id) {
+        setTaskOfferData(element?.user?.id);
+        setTaskBoolenOfferData(true);
+      }
+    });
+  }, [offerPriceTaskData, myId]);
+
+  useEffect(() => {
+    const offerStatusId = offerPriceTaskData?.status?.id;
+    const currentClient = userPermission.id;
+    const offerPuplsherUserId = offerPriceTaskData?.user?.id;
+    if (!offerStatusId || !currentClient || !offerPuplsherUserId) return;
+
+    if (offerStatusId !== 3 && currentClient !== offerPuplsherUserId) {
+      navigate("/orders/page=1");
+    }
+  }, [userPermission, offerPriceTaskData, navigate]);
+
+  useEffect(() => {
+    if (!havePermission) {
+      return offerPermission();
+    }
+  }, [offerPermission, havePermission]);
+
+  // Fire UseMemo Function One Time And Listen To State Value If Change So Fire Again And Get New Response
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!offerPriceTaskData) {
+        return offerDataById();
+      } else if (refreshTasks) {
+        return offerDataById() && setRefreshTasks(false);
+      }
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [offerDataById, refreshTasks]);
+
+  // Condition For Show Loading Style Untill Data Return From API
+  if (!offerPriceTaskData) {
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center w-100 "
+        style={{ height: "100vh" }}
+      >
+        <div
+          className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
+          style={{ width: "200px", height: "200px" }}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -303,9 +316,9 @@ const OrderDetailsPage = () => {
                                   alt=""
                                 />
                               </div>
-                              <p className="mb-0 mt-2 text-center cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
+                              {/* <p className="mb-0 mt-2 text-center cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
                                 {file?.file.slice(62)}
-                              </p>
+                              </p> */}
                             </div>
                           ) : (
                             <div className="flex-center flex-column mb-2">
@@ -329,20 +342,7 @@ const OrderDetailsPage = () => {
               </div>
 
               {activeUserID ? (
-                <div
-                  style={{
-                    border: "1px solid gray",
-                    borderRight: "none",
-                    borderLeft: "none",
-                    padding: "1rem 0 1rem 0",
-                    margin: "1rem 0 1rem 0",
-                  }}
-                >
-                  <h3 className="fs-4">لا يمكنك أضافة عرض</h3>
-                  <p className="small text-muted">
-                    لا يمكن اضفة عرض سعر علي طلباتك
-                  </p>
-                </div>
+                <></>
               ) : havePermission &&
                 !taskBoolenOfferData &&
                 offerPriceTaskData?.status?.name !== "in progress" ? (

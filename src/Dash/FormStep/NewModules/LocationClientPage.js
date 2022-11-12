@@ -19,6 +19,8 @@ import { toast } from "react-toastify";
 const LocationClientPage = () => {
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
+  const { FCMToken } = useSelector(({ userData }) => userData);
+
   const getClientData = value.labelInfo.clientView;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,6 +46,7 @@ const LocationClientPage = () => {
     getClientData.info?.length > 2 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
     form.append("document", getClientData.files);
+    form.append("device_token", FCMToken);
     getClientData.img?.type && form.append("avatar", getClientData.img);
 
     RegisterServices.POST_RegisterData(form)
@@ -183,7 +186,11 @@ const LocationClientPage = () => {
             style={{ textAlign: "center" }}
             className=" LT-account-logo d-flex flex-column p-3"
           >
-            <p className="regiTitle"> معلومات الموقع </p>
+            <p className="regiTitle"> تم تسجيل حسابك </p>
+            <p className="text-muted m-0">
+              شكرا لتسجيلك يمكنك في هذه الاثناء تعبئة الحقول الاختيارية لنتمكن
+              من خدمتك بشكل افضل
+            </p>
           </div>
           <Row className="mb-4 gap-3 two row">
             <Form.Group>

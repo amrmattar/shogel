@@ -23,15 +23,17 @@ const AmentiesShared = ({
         <div className="LT-orderAmenties">
           {/* Amenties Holder */}
           <div className="d-flex LT-orderCount gap-3 flex-wrap w-100 justify-content-start align-items-center">
-            {orderData?.category?.map((amentiesOfCategory, idx) => {
-              return (
-                <div key={idx} className="cLT-platinum-bg uLT-f-radius-sB">
-                  <p className="mb-0 px-3 py-1 cLT-support2-text fLT-Regular-sA">
-                    {amentiesOfCategory?.name}
-                  </p>
-                </div>
-              );
-            })}
+            {orderData?.category
+              ?.slice(0, 4)
+              ?.map((amentiesOfCategory, idx) => {
+                return (
+                  <div key={idx} className="cLT-platinum-bg uLT-f-radius-sB">
+                    <p className="mb-0 px-3 py-1 cLT-support2-text fLT-Regular-sA">
+                      {amentiesOfCategory?.name}
+                    </p>
+                  </div>
+                );
+              })}
           </div>
           {/* Amenties Icon */}
           <div className="d-flex w-100 gap-2 flex-wrap align-items-center">
@@ -56,7 +58,7 @@ const AmentiesShared = ({
           </div>
         </div>
       ) : (
-        false
+        <></>
       )}
 
       {/* Amenties With Location */}
@@ -160,15 +162,17 @@ const AmentiesShared = ({
         <>
           {/* Amenties Holder */}
           <div className="d-flex gap-3 flex-wrap w-100 justify-content-start align-items-center">
-            {orderData?.category?.map((amentiesOfCategory, idx) => {
-              return (
-                <div key={idx} className="cLT-platinum-bg uLT-f-radius-sB">
-                  <p className="mb-0 px-3 py-1 cLT-support2-text fLT-Regular-sA">
-                    {amentiesOfCategory?.name}
-                  </p>
-                </div>
-              );
-            })}
+            {orderData?.category
+              ?.slice(0, 4)
+              ?.map((amentiesOfCategory, idx) => {
+                return (
+                  <div key={idx} className="cLT-platinum-bg uLT-f-radius-sB">
+                    <p className="mb-0 px-3 py-1 cLT-support2-text fLT-Regular-sA">
+                      {amentiesOfCategory?.name}
+                    </p>
+                  </div>
+                );
+              })}
           </div>
         </>
       ) : (

@@ -16,6 +16,8 @@ const PriceTasksListsComponent = ({
 
   const getAllOfferTasksList = useCallback(() => {
     if (type === "priceListOffer") {
+      setloading(false);
+
       userOfferPrice
         ._GET_MyOfferGeneralLists(
           10,
@@ -27,6 +29,9 @@ const PriceTasksListsComponent = ({
           setPagination(res.data);
           setloading(true);
           setMyOfferList(res.data.data);
+        })
+        .catch(() => {
+          setloading(true);
         });
     } else {
       setloading(true);

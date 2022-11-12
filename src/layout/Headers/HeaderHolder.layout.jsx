@@ -12,6 +12,7 @@ const HeaderHolder = () => {
   const location = useLocation();
   const mediaMD = useMediaQuery({ query: `(max-width: 992px)` });
   const checkLogin = useSelector((state) => state.authentication.loggedIn);
+
   return (
     <div className="container-md-fluid bg-white padd mxFull">
       {/* Navbar Selector */}

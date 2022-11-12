@@ -226,6 +226,7 @@ const OrdersPage = () => {
             resetMost={resetMost}
             setMostUseId={setMostUseId}
           />
+
           {userOfferDetatils.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">
               {userOfferDetatils?.map((offer, ix) => {
@@ -238,6 +239,7 @@ const OrdersPage = () => {
                     <OrderListCardComponent
                       roll={vistorUser}
                       offer={offer}
+                      isOrder
                       amentiesSelector={
                         <AmentiesShared
                           orderData={offer}

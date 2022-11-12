@@ -11,7 +11,9 @@ export const userOfferPrice = {
   _UPDATE_TaskByID,
   _DELETE_TaskByID,
   _POST_AllOrderListV2,
+  _GET_ListSpecialLists,
 };
+
 // _POST_RequestOffer
 function _POST_RequestOffer(data) {
   const userToken = localStorage.getItem("userTK");
@@ -38,7 +40,7 @@ function _GET_AllOrderList(page, pagination, pageNum, searchType, keyName) {
   );
 }
 function _POST_AllOrderListV2(body) {
-  return API.post("task/list", body );
+  return API.post("task/list", body);
 }
 
 // _GET_AllOrderList
@@ -75,6 +77,20 @@ function _GET_MyOfferSpecialLists(page, pagination, pageNum, status) {
     requestOption
   );
 }
+
+// _GET_ListSpecialLists
+function _GET_ListSpecialLists(page, pagination, pageNum, status) {
+  const userToken = localStorage.getItem("userTK");
+  const requestOption = {
+    method: "GET",
+    headers: { Authorization: "Bearer " + JSON.parse(userToken) },
+  };
+  return API.get(
+    `task/list_special?perPage=${page}&pagination=${pagination}&page=${pageNum}&status_id=${status}`,
+    requestOption
+  );
+}
+
 // _GET_MyOfferGeneralLists
 function _GET_MyOfferGeneralLists(page, pagination, pageNum, status) {
   const userToken = localStorage.getItem("userTK");

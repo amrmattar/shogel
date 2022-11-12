@@ -122,7 +122,6 @@ const FlancerTabsControllerShared = ({
           {/* Order Status [Select Option] */}
           <div className="w-100 d-flex flex-column">
             <label htmlFor="" className="cLT-main-text fLT-Bold-sm-sB mb-3">
-              {" "}
               حالة الطلب{" "}
             </label>
             <div className="uLT-bd-f-platinum-sA uLT-f-radius-sB px-2">
@@ -168,14 +167,16 @@ const FlancerTabsControllerShared = ({
         >
           {children?.requestOffer}
         </div>
+
         <div
           className="tab-pane fade"
           id="pills-profile"
           role="tabpanel"
           aria-labelledby="hireMeRequests"
         >
-          {/* {children?.requestMyJob} */}
+          {children?.requestMyJob}
         </div>
+
         <div
           className="tab-pane fade"
           id="pills-contact"

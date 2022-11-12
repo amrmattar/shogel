@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { arNumberConverter } from "../../../utils/arNumberConverter";
 import cls from "./OrderListCard.component.module.scss";
+
 const OrderListCardComponent = ({
   amentiesSelector,
   orderDescription,
@@ -11,6 +13,7 @@ const OrderListCardComponent = ({
   orderStyleHolder,
   roll,
   isMyList,
+  isOrder,
 }) => {
   const location = useLocation();
   const param = useParams();
@@ -30,7 +33,22 @@ const OrderListCardComponent = ({
         </div> */}
         <div className="d-flex align-items-center justify-content-between">
           <p className={`${cls.title} fs-5 mb-3`}>{orderTitle}</p>
-          {isMyList && <span>{orderStatus}</span>}
+          {isMyList ? (
+            <span>{orderStatus}</span>
+          ) : isOrder ? (
+            <>
+              {offer?.offerCount ? (
+                <span className="text-dark">
+                  عدد العروض:{" "}
+                  <span className="text-primary">{offer.offerCount}</span>
+                </span>
+              ) : (
+                <span>كن اول من يقدم عرض !</span>
+              )}
+            </>
+          ) : (
+            <></>
+          )}
         </div>
 
         <div

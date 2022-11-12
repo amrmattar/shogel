@@ -16,6 +16,7 @@ const AuthComponent = ({ clickMe, clickStatus }) => {
   const [mobileOTPOpen, setMobileOTPOpen] = useState(false);
   const [swearing, setSwearing] = useState(false);
   const location = useLocation();
+
   const handleLogin = () => {
     setLoginOpen(true);
     setMobileOpen(false);

@@ -27,8 +27,18 @@ const FlancerMyPillsPage = () => {
   }, [getAllOfferTasksList]);
 
   const children = {
-    hireMeRequests: <HireMeRequests />,
-    RequestsMade: <RequestsMade />,
+    hireMeRequests: (
+      <HireMeRequests
+        offerStatus={offerFilter}
+        setPagination={setMyOfferPagination}
+      />
+    ),
+    RequestsMade: (
+      <RequestsMade
+        offerStatus={offerFilter}
+        setPagination={setMyOfferPagination}
+      />
+    ),
   };
 
   // ? ------------------[[[START Block]]]-----------------

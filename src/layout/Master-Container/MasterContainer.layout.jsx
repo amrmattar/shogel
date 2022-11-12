@@ -21,7 +21,7 @@ const MasterContainer = () => {
 
   return (
     <>
-      <div className="overflow-hidden w-100 ">
+      <div className="overflow-hidden w-100">
         <Routes>
           <Route
             path={`/advertising-price/:id`}

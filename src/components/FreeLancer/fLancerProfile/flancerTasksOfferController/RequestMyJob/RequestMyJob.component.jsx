@@ -11,6 +11,8 @@ const RequestMyJobComponent = ({ setPagination, offerStatus, type }) => {
 
   const myOfferSpecialLists = useCallback(() => {
     if (type === "hireMeRequests") {
+      setloading(false);
+
       userOfferPrice
         ._GET_MyOfferSpecialLists(
           10,
@@ -22,6 +24,9 @@ const RequestMyJobComponent = ({ setPagination, offerStatus, type }) => {
           setPagination(res.data);
           setloading(true);
           setMySpecialLists(res.data.data);
+        })
+        .catch(() => {
+          setloading(true);
         });
     } else {
       setloading(true);

@@ -45,13 +45,16 @@ const FlancerMyOrderPage = () => {
         type={tabType}
       />
     ),
-    requestMade: (
-      <RequestsMadeComponent
-        setPagination={setMyOfferPagination}
-        offerStatus={offerFilter}
-        type={tabType}
-      />
-    ),
+    // requestMade: (
+    //   <>
+    //     0000000000000000
+    //     <RequestsMadeComponent
+    //       setPagination={setMyOfferPagination}
+    //       offerStatus={offerFilter}
+    //       type={tabType}
+    //     />
+    //   </>
+    // ),
   };
 
   // ? ------------------[[[START Block]]]-----------------
@@ -86,6 +89,7 @@ const FlancerMyOrderPage = () => {
           children={children}
           Datafilter={setOfferFilter}
           tabSelect={setTabsSelected}
+          selectedTap={tabType}
         />
       </div>
       {pagination !== 0 && (

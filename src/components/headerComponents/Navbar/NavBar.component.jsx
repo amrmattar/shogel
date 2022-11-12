@@ -71,9 +71,11 @@ const Navbar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event?.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+
   const handleCloseNavMenu = (e) => {
     if (e.target.innerHTML === "تسجيل خروج") {
       const FBToken = localStorage.getItem("FCM");
@@ -110,6 +112,7 @@ const Navbar = () => {
         });
     }
   }, [dispatch, user.loggedIn]);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userID) {

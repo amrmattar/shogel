@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "/node_modules/bootstrap/dist/js/bootstrap.bundle.min";
 import "/node_modules/bootstrap/dist/js/bootstrap.min.js";
-import "/node_modules/jquery/dist/jquery.min.js"
+import "/node_modules/jquery/dist/jquery.min.js";
 import "./utility/bootstrapEdit.scss";
 import "./utility/colors.sass";
 import "./utility/vars.sass";
@@ -15,8 +15,8 @@ import "./utility/fonts.sass";
 import "./utility/utilities.sass";
 import "./utility/icons.sass";
 import "./utility/images.sass";
-import { Provider } from 'react-redux'
-import { store } from './core/redux/Store/Store.core'
+import { Provider } from "react-redux";
+import { store } from "./core/redux/Store/Store.core";
 
 ReactDOM.render(
   // <React.StrictMode>
