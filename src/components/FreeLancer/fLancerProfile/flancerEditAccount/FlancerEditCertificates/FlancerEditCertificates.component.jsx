@@ -113,16 +113,32 @@ const FlancerEditCertificatesComponent = () => {
           </div>
         )}
         {/* Certificate Show Input Value  [Section] */}
-        <div className="d-flex flex-column justify-content-center gap-3 px-0">
+        <div className="d-flex align-items-center gap-3 px-0 pb-2 overflow-auto">
           {certificateData?.fCertificate?.map(
-            ({ skill, id, level_id, level }) => {
+            ({ skill, id, level_id, level }, idx) => {
               return (
                 <div
-                  className="d-flex align-items-center gap-3 uLT-f-radius "
+                  className={`d-flex align-items-center gap-3 uLT-f-radius`}
                   key={id}
                 >
+                  <span
+                    style={{
+                      width: 3,
+                      height: 40,
+                    }}
+                    className={`${
+                      idx ? "border-end border-dark border-2" : ""
+                    } d-block`}
+                  />
+                  <div className="cLT-support2-text">
+                    {level?.level || level_id}
+                  </div>
+
                   <div className="d-flex align-items-center gap-3 uLT-f-radius uLT-bd-f-platinum-sA cLT-secondary-bg p-2">
-                    <p className="mb-0 fLT-Regular-sB cLT-white-text">
+                    <p
+                      className="mb-0 fLT-Regular-sB cLT-white-text"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
                       {skill}{" "}
                     </p>
                     <i
@@ -131,9 +147,6 @@ const FlancerEditCertificatesComponent = () => {
                         dispatch(deleteCertificate(id));
                       }}
                     ></i>
-                  </div>
-                  <div className="cLT-support2-text">
-                    {level?.level || level_id}
                   </div>
                 </div>
               );

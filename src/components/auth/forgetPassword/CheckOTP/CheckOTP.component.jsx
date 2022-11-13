@@ -92,12 +92,14 @@ const CheckOTPComponent = ({ nextFn }) => {
   return (
     <div className="d-flex justify-content-center ">
       <div className="LT-checkOTP-holder gap-3 ">
-        <div className="LT-otp">
+        <div dir="ltr" className="LT-otp">
           <OtpInput
             hasErrored={true}
+            shouldAutoFocus={true}
             numInputs={4}
             value={code}
             onChange={handleChange}
+            placeholder={"____"}
           />
         </div>
         <div className="d-flex align-items-center justify-content-between gap-2 gap-sm-3 LT-resend-otp flex~-wrap ">

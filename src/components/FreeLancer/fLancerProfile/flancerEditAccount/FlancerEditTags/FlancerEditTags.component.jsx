@@ -122,16 +122,20 @@ const FlancerEditTagsComponent = ({
             </p>
           )}
         />
-        <div className="d-flex gap-3 ">
-          {profileTags?.map((tag, ix) => {
+        <div className="d-flex gap-3 mt-3 pb-3 overflow-auto">
+          {profileTags?.map((tag, idx) => {
             return (
               <div
                 key={tag?.id}
                 id={tag?.id}
                 className="css-4vit6s-multiValue d-flex"
-                style={{ width: "max-content" }}
+                style={{ width: "fit-content", height: "fit-content" }}
               >
-                <div className="css-12jo7m5">{tag?.name}</div>
+                <div className="css-12jo7m5 d-flex justify-content-center align-items-center">
+                  <p className="m-0" style={{ whiteSpace: "nowrap" }}>
+                    {tag?.name}
+                  </p>
+                </div>
                 <div
                   style={{ cursor: "pointer" }}
                   className="css-o833bd"

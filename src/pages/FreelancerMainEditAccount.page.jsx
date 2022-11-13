@@ -173,6 +173,7 @@ const FreelancerMainEditAccountPage = () => {
         );
 
         setUpdateLoading(false);
+        window.location.reload(false);
       })
       .catch((err) => {
         const errorMsg =

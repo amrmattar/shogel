@@ -123,7 +123,9 @@ const NotificationToast = ({ notification, setNotification }) => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        icon: () => <img src={notificationData.sender.avatar} alt="" />,
+        icon: () => (
+          <img width={60} src={notificationData.sender.avatar} alt="" />
+        ),
       });
     }
 

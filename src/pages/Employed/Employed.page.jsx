@@ -42,7 +42,7 @@ const Employed = () => {
     setCurrentPage(param.num);
     navigate(`/employed/page=${value}`);
     window.scrollTo({
-      top: 250,
+      top: 0,
       behavior: "smooth",
     });
   };
@@ -72,7 +72,7 @@ const Employed = () => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
       const body = new FormData();
-      body.set("perPage", 20);
+      body.set("perPage", 10);
       body.set("pagination", true);
       body.set("search", true);
       body.set("fullname", key);
@@ -92,7 +92,35 @@ const Employed = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [rate, active, location, categ, , key]);
+  }, [rate, active, location, categ, key]);
+
+  useEffect(() => {
+    const fetchAds = async () => {
+      const body = new FormData();
+      body.set("perPage", 10);
+      body.set("pagination", true);
+      body.set("page", currentPage || 1);
+      body.set("search", true);
+      body.set("fullname", key);
+
+      body.set("category", categ);
+      body.set("rate", rate == 0 ? null : rate);
+      body.set("available", active);
+      body.set("location", location);
+      freelancersListProfile
+        ._POST_FreelancersListProfileV2(body)
+        .then((res) => {
+          key?.searchKey && setFlancersList(res.data);
+          setFlancersList(res.data);
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    };
+
+    fetchAds();
+  }, [currentPage, rate, active, location, categ, key]);
+
   // Condition For Show Loading Style Untill Data Return From API
   if (!flancersList?.data)
     return (

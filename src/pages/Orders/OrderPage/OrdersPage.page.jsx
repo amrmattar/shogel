@@ -116,7 +116,7 @@ const OrdersPage = () => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
       const body = new FormData();
-      body.set("perPage", 20);
+      body.set("perPage", 10);
       body.set("pagination", true);
       body.set("search", true);
       body.set("name", key);
@@ -181,7 +181,7 @@ const OrdersPage = () => {
     setCurrentPage(param.num);
     navigate(`/orders/page=${value}`);
     window.scrollTo({
-      top: 250,
+      top: 0,
       behavior: "smooth",
     });
   };
@@ -192,6 +192,32 @@ const OrdersPage = () => {
       return categories.filter((categ) => categ.name.includes(query));
     });
   }, [query, categories]);
+
+  useEffect(() => {
+    const fetchAds = async () => {
+      const body = new FormData();
+      body.set("perPage", 10);
+      body.set("pagination", true);
+      body.set("page", currentPage || 1);
+      body.set("search", true);
+      body.set("name", key);
+
+      body.set("category", categ);
+      body.set("price", price);
+      body.set("location", location);
+
+      return userOfferPrice
+        ._POST_AllOrderListV2(body)
+        .then((res) => {
+          setUserOfferDetatils(res.data.data);
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    };
+
+    fetchAds();
+  }, [categ, key, location, price, currentPage]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!userOfferDetatils)

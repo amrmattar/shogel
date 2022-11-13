@@ -26,7 +26,7 @@ const FlancerNotificationComponent = ({ notification }) => {
       <div className="d-flex justify-content-center align-items-center">
         <i
           className={`iLT-notification-calendar uLT-img-contain iLT-sA ms-2`}
-        ></i>
+        />
         <p className="mb-0 cLT-smoke-text fLT-Regular-sA text-nowrap">
           {notification?.created_at}
         </p>

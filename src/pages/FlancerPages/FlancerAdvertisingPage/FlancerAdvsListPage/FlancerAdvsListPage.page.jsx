@@ -167,7 +167,8 @@ const FlancerAdvsListPage = () => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
       const body = new FormData();
-      body.set("perPage", 20);
+      body.set("perPage", 10);
+      body.set("page", currentPage || 1);
       body.set("pagination", true);
       body.set("search", true);
       body.set("name", key);
@@ -178,17 +179,21 @@ const FlancerAdvsListPage = () => {
       body.set("rate", rate);
       body.set("available", active);
       body.set("location", location);
+
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
+          console.log(res.data);
+
           setUserAdvsDetatils(res.data);
         })
         .catch((err) => {
           return err.response;
         });
     }, 1000);
+
     return () => clearTimeout(timeRef.current);
-  }, [price, location, categ, key, rate, rateCount, active]);
+  }, [price, location, categ, key, rate, rateCount, active, currentPage]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -203,10 +208,11 @@ const FlancerAdvsListPage = () => {
 
   // Todo Set Current Page
   const getPageNumber = (e, value) => {
-    setCurrentPage(param.num);
+    setCurrentPage(value);
     navigate(`/advertising/page=${value}`);
+
     window.scrollTo({
-      top: 250,
+      top: 0,
       behavior: "smooth",
     });
   };
@@ -217,8 +223,40 @@ const FlancerAdvsListPage = () => {
         return listOfUsersAdvs;
       }
     }, 1200);
+
     return () => clearTimeout(timeout);
   }, [userAdvsDetatils?.data, listOfUsersAdvs]);
+
+  useEffect(() => {
+    const fetchAds = async () => {
+      const body = new FormData();
+      body.set("perPage", 10);
+      body.set("page", currentPage || 1);
+      body.set("pagination", true);
+      body.set("search", true);
+      body.set("name", key);
+
+      body.set("category", categ);
+      body.set("price", price);
+      body.set("rate_count", rateCount);
+      body.set("rate", rate);
+      body.set("available", active);
+      body.set("location", location);
+
+      return advertisingLists
+        ._POST_AllAdvsOfferV2(body)
+        .then((res) => {
+          console.log(res.data);
+
+          setUserAdvsDetatils(res.data);
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    };
+
+    fetchAds();
+  }, [currentPage, price, location, categ, key, rate, rateCount, active]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!userAdvsDetatils?.data)
@@ -294,21 +332,19 @@ const FlancerAdvsListPage = () => {
           )}
         </div>
         {/* Pagination [Holder] */}
-        {userAdvsDetatils?.data?.length === 9 && (
-          <div className="container d-flex justify-content-center pt-4 mt-auto">
-            <Stack>
-              <Pagination
-                dir="rtl"
-                showFirstButton={true}
-                showLastButton={true}
-                count={pagination}
-                page={parseInt(param?.num)}
-                onChange={getPageNumber}
-                size="large"
-              />
-            </Stack>
-          </div>
-        )}
+        <div className="container d-flex justify-content-center pt-4 mt-auto">
+          <Stack my={3}>
+            <Pagination
+              dir="rtl"
+              showFirstButton={true}
+              showLastButton={true}
+              count={pagination}
+              page={parseInt(param?.num)}
+              onChange={getPageNumber}
+              size="large"
+            />
+          </Stack>
+        </div>
       </div>
     </>
   );

@@ -31,8 +31,8 @@ const FlancerMyNotificationPage = () => {
           ))
         ) : (
           <div
-            className="not-notification my-3 d-flex justify-content-center align-items-center flex-column"
             style={{ minHeight: "60vh" }}
+            className="not-notification my-3 d-flex justify-content-center align-items-center flex-column"
           >
             <img width={45} src="/icons/noNotf.svg" alt="" />
             <p className="text-muted fs-4 mt-2">لا توجد اشعارات</p>
