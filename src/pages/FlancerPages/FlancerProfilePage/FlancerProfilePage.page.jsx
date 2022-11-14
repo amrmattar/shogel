@@ -35,7 +35,7 @@ const FlancerProfilePage = ({ data }) => {
       {/* User Rating */}
       <div className="">
         <PageTitle title="التقيمات" />
-        <FlancerRate rate={data?.rate} />
+        <FlancerRate rate={data?.rate || 0} />
       </div>
       {/* User Reviews */}
       <div className=" ">
@@ -48,7 +48,9 @@ const FlancerProfilePage = ({ data }) => {
                 return (
                   <div className="" key={ix}>
                     {" "}
-                    <FlancerCommentAndReviews reviews={data?.rate?.rate} />{" "}
+                    <FlancerCommentAndReviews
+                      reviews={data?.rate?.rate || 0}
+                    />{" "}
                   </div>
                 );
               })}

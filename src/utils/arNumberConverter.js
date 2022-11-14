@@ -1,18 +1,13 @@
 const arNumberConverter = (arId) => {
-  const converter = {
-    "٠": 0,
-    "١": 1,
-    "٢": 2,
-    "٣": 3,
-    "٤": 4,
-    "٥": 5,
-    "٦": 6,
-    "٧": 7,
-    "٨": 8,
-    "٩": 9,
-  };
+  const enNumber = [...String(arId)]
+    .map((num) => {
+      const number = "۰۱۲۳٤۵٦۷۸۹".indexOf(num);
 
-  return [...arId].map((arNum) => converter[arNum] || arNum).join("");
+      return number >= 0 ? number : num;
+    })
+    .join("");
+
+  return enNumber;
 };
 
 const testNumbers = (chr) => {

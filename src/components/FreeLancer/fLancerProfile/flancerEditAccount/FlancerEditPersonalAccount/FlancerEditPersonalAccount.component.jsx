@@ -270,14 +270,13 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
               رقم الجوال
             </Form.Label>
             <div dir="ltr">
-              <ReactPhoneInput
-                disableDropdown
-                inputProps={{ readOnly: true }}
-                value={userIsData?.mobile}
+              <Form.Control
+                readOnly
+                name="mobile"
+                className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
+                type="text"
                 placeholder="0000"
-                defaultCountry="no"
-                excludeCountries={["us", "ca"]}
-                onChange={(mobile) => setUpdateMobile(mobile)}
+                value={userIsData?.mobile}
               />
             </div>
           </Form.Group>

@@ -279,23 +279,28 @@ const FlancerAdvsDetailsPage = () => {
         <div className="p-4">
           <PageTitle title="تفاصيل الاعلان" />
           <div className="d-flex">
-            <div className="">
+            <div className="w-100">
               <p
-                className={`m-0 fLT-Regular-sB cLT-smoke-text ${
-                  showDescription === true ? "" : "text-ellipsis3"
+                className={`m-0 fLT-Regular-sB cLT-smoke-text d-block ${
+                  showDescription ? "word-break-all" : "text-ellipsis3"
                 }  ${
                   location.pathname ===
                   `/advertising/advertise-details/${param?.id}`
                     ? ""
                     : "text-ellipsis3"
                 }`}
-                dangerouslySetInnerHTML={{
-                  __html:
-                    advsDataById?.description !== "undefined"
-                      ? advsDataById?.description
-                      : "لايوجد وصف للإعلان",
-                }}
-              ></p>
+              >
+                {advsDataById?.description !== "undefined"
+                  ? advsDataById?.description
+                  : "لايوجد وصف للإعلان"}{" "}
+                <span
+                  className="text-primary"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowDescription((prev) => !prev)}
+                >
+                  {showDescription ? "عرض اقل" : "عرض المزيد"}
+                </span>
+              </p>
             </div>
             {/* <div className="d-flex align-items-end p-0">
             {location.pathname ===

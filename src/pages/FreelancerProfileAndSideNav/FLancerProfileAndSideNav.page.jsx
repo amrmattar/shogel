@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { userProfile } from "../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import AsideFreelancerPage from "../AsideFreelancerPage/AsideFreelancerPage.pages";
@@ -8,25 +9,31 @@ import "./FLancerProfileAndSideNav.page.scss";
 const FLancerProfileAndSideNavPage = () => {
   const navigate = useNavigate();
   const param = useParams();
+
   // Get User Profile By Param ID
-  const [isResult, setResult] = useState("");
-  const getCoreData = useMemo(async () => {
-    if (isResult === "") {
-      try {
-        const response = await userProfile._GET_ProfileData(param.id);
-        setResult(response.data.data);
-      } catch (error) {
-        navigate("*");
-      }
-    }
-  }, [isResult, param?.id, navigate]);
+  const [isResult, setResult] = useState({});
+
   useEffect(() => {
-    if (isResult === "") {
-      return getCoreData;
-    }
-  }, [isResult, getCoreData]);
+    if (Object.keys(isResult).length) return;
+
+    userProfile
+      ._GET_ProfileData(param.id)
+      .then(({ data }) => {
+        setResult(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // navigate("/");
+      });
+
+    // fetchResult();
+
+    // cleanup effect
+    return () => {};
+  }, [isResult, param?.id, navigate]);
   // Navigate If Data Not Found
-  if (!isResult)
+
+  if (!Object.keys(isResult).length)
     return (
       <div
         style={{ transform: "scale(3)" }}
@@ -35,6 +42,7 @@ const FLancerProfileAndSideNavPage = () => {
         <div className="fs-5 spinner"></div>
       </div>
     );
+
   return (
     <>
       <Outlet />

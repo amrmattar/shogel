@@ -24,7 +24,7 @@ const AmentiesShared = ({
           {/* Amenties Holder */}
           <div className="d-flex LT-orderCount gap-3 flex-wrap w-100 justify-content-start align-items-center">
             {orderData?.category
-              ?.slice(0, 4)
+              ?.slice(0, 3)
               ?.map((amentiesOfCategory, idx) => {
                 return (
                   <div key={idx} className="cLT-platinum-bg uLT-f-radius-sB">

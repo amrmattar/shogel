@@ -37,10 +37,12 @@ const OrderListCardComponent = ({
             <span>{orderStatus}</span>
           ) : isOrder ? (
             <>
-              {offer?.offerCount ? (
+              {Number(arNumberConverter(offer?.offerCount || 0)) ? (
                 <span className="text-dark">
                   عدد العروض:{" "}
-                  <span className="text-primary">{offer.offerCount}</span>
+                  <span className="text-primary">
+                    {Number(arNumberConverter(offer?.offerCount || 0))}
+                  </span>
                 </span>
               ) : (
                 <span>كن اول من يقدم عرض !</span>
