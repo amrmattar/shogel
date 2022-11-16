@@ -15,6 +15,7 @@ const FlancerAdvertisingOfferPage = () => {
   const fotterStateHandler = () => {
     dispatch(ChangeFotterState(false));
   };
+
   useEffect(() => {
     fotterStateHandler();
   }, []);

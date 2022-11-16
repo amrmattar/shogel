@@ -84,6 +84,7 @@ const IdPage = () => {
 
   const fileHandler = (files) => {
     const extention = files;
+
     for (let allFile of extention) {
       // if (allFile.type.match("video/")) {
       file.push(allFile);
@@ -114,11 +115,30 @@ const IdPage = () => {
 
   // TODO Function Execute To Remove Upload Files
   const handleDelete = (e, fileNewName, i) => {
-    const newfileImage = file.filter((element) => element.name !== fileNewName);
+    const newfileImage = file.filter(
+      (element) => element.name.toLowerCase() !== fileNewName.toLowerCase()
+    );
 
     setFiles(newfileImage);
+    value.setFiles(newfileImage);
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
+
+  useEffect(() => {
+    if (!getClientData?.files?.length || file.length) return;
+
+    const files = getClientData.files;
+    setFiles(files);
+
+    files.forEach((file) => {
+      const data = {
+        name: file.name.toLowerCase(),
+        icon: file.name.split(".").at(-1)?.toLowerCase(),
+      };
+
+      setNames((prev) => [...prev, data].flat());
+    });
+  }, [getClientData.files, file]);
 
   return (
     <div className="DialogSim2">

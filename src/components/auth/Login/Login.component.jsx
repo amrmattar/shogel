@@ -47,7 +47,7 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
       <div className="imLT-main-logo uLT-img-contain one img" />
 
       <Row className="mb-4 gap-3 two row">
-        <Form.Group>
+        <Form.Group autoComplete="off">
           <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
             الجوال أو البريد الإلكتروني{" "}
           </Form.Label>

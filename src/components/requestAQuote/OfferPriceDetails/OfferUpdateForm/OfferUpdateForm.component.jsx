@@ -190,7 +190,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
     name: "",
     description: "",
     time: "",
-    type_work: loadTaskData?.type_work,
+    type_work: loadTaskData?.type_work || "online",
     address: "",
   });
   const handleChange = (e) => {
@@ -236,46 +236,44 @@ const OfferUpdateFormComponent = ({ taskId }) => {
   // TODO Function Execute To Remove Upload Files ** [Start] **
   const handleDelete = (e, fileNewName, i) => {
     setRefreshDelete(true);
-    if (
-      e.nativeEvent.path[4].id === "responseUploadData" ||
-      e.nativeEvent.path[5].id === "responseUploadData"
-    ) {
-      dispatch(
-        getMessages({
-          messages: "جاري إرســـال طلبك",
-          messageType: "warning",
-          messageClick: true,
-        })
-      );
-      deleteBasicData
-        ._Delete_Data(i)
-        .then((res) => {
-          dispatch(
-            getMessages({
-              messages: res.data.message,
-              messageType: "success",
+
+    dispatch(
+      getMessages({
+        messages: "جاري إرســـال طلبك",
+        messageType: "warning",
+        messageClick: true,
+      })
+    );
+    deleteBasicData
+      ._Delete_Data(e)
+      .then((res) => {
+        dispatch(
+          getMessages({
+            messages: res.data.message,
+            messageType: "success",
+            messageClick: true,
+          })
+        );
+      })
+      .catch((err) => {
+        dispatch(
+          getMessages([
+            {
+              messages: err.response.data.message,
+              messageType: "error",
               messageClick: true,
-            })
-          );
-        })
-        .catch((err) => {
-          dispatch(
-            getMessages([
-              {
-                messages: err.response.data.message,
-                messageType: "error",
-                messageClick: true,
-              },
-            ])
-          );
-        });
-    }
+            },
+          ])
+        );
+      });
+
     const newfileImage = newfile.images.filter(
       (element) => element.name !== fileNewName
     );
     const newfileVideo = newfile.videos.filter(
       (element) => element.name !== fileNewName
     );
+
     setFiles({ images: newfileImage, videos: newfileVideo });
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
@@ -376,6 +374,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         );
       });
   };
+
   const handleGoBack = (e) => {
     e.preventDefault();
     navigate(-1);

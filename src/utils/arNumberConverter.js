@@ -1,9 +1,15 @@
 const arNumberConverter = (arId) => {
+  const checkSecNumbers = (num) => {
+    const number = "٠١٢٣٤٥٦٧٨٩".indexOf(num);
+
+    return number >= 0 ? number : num;
+  };
+
   const enNumber = [...String(arId)]
     .map((num) => {
       const number = "۰۱۲۳٤۵٦۷۸۹".indexOf(num);
 
-      return number >= 0 ? number : num;
+      return number >= 0 ? number : checkSecNumbers(num);
     })
     .join("");
 

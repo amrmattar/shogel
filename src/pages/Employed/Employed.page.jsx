@@ -39,7 +39,7 @@ const Employed = () => {
   }, [flancersList?.pagination, handleAdvsPagination]);
 
   const getPageNumber = (e, value) => {
-    setCurrentPage(param.num);
+    setCurrentPage(param?.num || 1);
     navigate(`/employed/page=${value}`);
     window.scrollTo({
       top: 0,
@@ -73,6 +73,7 @@ const Employed = () => {
     timeRef.current = setTimeout(() => {
       const body = new FormData();
       body.set("perPage", 10);
+      body.set("page", param?.num || 1);
       body.set("pagination", true);
       body.set("search", true);
       body.set("fullname", key);
@@ -99,7 +100,7 @@ const Employed = () => {
       const body = new FormData();
       body.set("perPage", 10);
       body.set("pagination", true);
-      body.set("page", currentPage || 1);
+      body.set("page", param?.num || 1);
       body.set("search", true);
       body.set("fullname", key);
 

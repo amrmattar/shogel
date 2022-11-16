@@ -39,11 +39,11 @@ const ViewLayout = () => {
       )}
       <main
         style={{ minHeight: "80vh" }}
-        className={
+        className={`${
           location.pathname.includes("/account_management")
             ? "d-flex gap-3 flex-column flex-lg-row px-3 container-lg px-lg-0"
             : ""
-        }
+        } pt-4`}
       >
         <SideNav />
         <MasterContainer />

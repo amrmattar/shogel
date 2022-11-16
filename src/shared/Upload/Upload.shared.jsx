@@ -82,7 +82,7 @@ const Upload = ({
                 id="responseUploadData"
                 className="uLT-click"
                 key={idx}
-                onClick={(e) => handleDelete(oldFile?.id)}
+                onClick={(e) => handleDelete(oldFile?.id, oldFile?.name, idx)}
               >
                 <Progress
                   name={oldFile.file.slice(62)}
@@ -110,7 +110,10 @@ const Upload = ({
             >
               <IoIosClose
                 style={{ cursor: "pointer" }}
-                onClick={(e) => Sdelet(e, file?.name, idx)}
+                onClick={(e) =>
+                  Sdelet?.(e, file?.name, idx) ||
+                  handleDelete?.(e, file?.name, idx)
+                }
               />
               <p style={{ margin: "0" }}>{file.name}</p>
               {/* <Progress

@@ -168,6 +168,11 @@ const Chat = () => {
       }
 
       setSortedMessages(arr);
+
+      Mainsortingarr.sort((a, b) => {
+        return new Date(b?.at(-1)?.createdAt) - new Date(a?.at(-1)?.createdAt);
+      });
+
       setHistoryMessages(Mainsortingarr);
     }
   }, [messages, user, otherSideData]);
@@ -200,6 +205,7 @@ const Chat = () => {
           ))}
         </div>
       </div>
+
       <div className={cls.grid2}>
         <ChatRoom
           user={user}

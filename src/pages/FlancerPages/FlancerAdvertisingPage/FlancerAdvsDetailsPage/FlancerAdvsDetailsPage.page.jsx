@@ -44,6 +44,14 @@ const CircularProgressWithLabel = (props) => {
   );
 };
 
+const sliceText = (txt, length) => {
+  if (txt?.length > length) {
+    return txt.slice(0, length) + "...";
+  }
+
+  return txt;
+};
+
 const FlancerAdvsDetailsPage = () => {
   const navigate = useNavigate();
   const [vistorUser, messages] = useSelector((state) => [
@@ -280,26 +288,27 @@ const FlancerAdvsDetailsPage = () => {
           <PageTitle title="تفاصيل الاعلان" />
           <div className="d-flex">
             <div className="w-100">
-              <p
-                className={`m-0 fLT-Regular-sB cLT-smoke-text d-block ${
-                  showDescription ? "word-break-all" : "text-ellipsis3"
-                }  ${
-                  location.pathname ===
-                  `/advertising/advertise-details/${param?.id}`
-                    ? ""
-                    : "text-ellipsis3"
-                }`}
-              >
-                {advsDataById?.description !== "undefined"
-                  ? advsDataById?.description
-                  : "لايوجد وصف للإعلان"}{" "}
-                <span
-                  className="text-primary"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setShowDescription((prev) => !prev)}
-                >
-                  {showDescription ? "عرض اقل" : "عرض المزيد"}
-                </span>
+              <p className="m-0 fLT-Regular-sB cLT-smoke-text d-block">
+                {advsDataById?.description !== "undefined" ? (
+                  advsDataById?.description?.length > 200 &&
+                  !showDescription ? (
+                    advsDataById?.description?.slice(0, 200) + " ..."
+                  ) : (
+                    advsDataById?.description
+                  )
+                ) : (
+                  <span>لايوجد وصف للإعلان</span>
+                )}{" "}
+                {console.log(advsDataById?.description?.length)}
+                {advsDataById?.description?.length > 200 && (
+                  <span
+                    className="text-primary"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setShowDescription((prev) => !prev)}
+                  >
+                    {showDescription ? "عرض اقل" : "عرض المزيد"}
+                  </span>
+                )}
               </p>
             </div>
             {/* <div className="d-flex align-items-end p-0">
