@@ -43,7 +43,7 @@ const ViewLayout = () => {
           location.pathname.includes("/account_management")
             ? "d-flex gap-3 flex-column flex-lg-row px-3 container-lg px-lg-0"
             : ""
-        } pt-4`}
+        } ${location.pathname !== "/" ? "pt-4" : ""}`}
       >
         <SideNav />
         <MasterContainer />

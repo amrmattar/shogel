@@ -207,7 +207,7 @@ const FlancerAdvsDetailsPage = () => {
         clickMe={messages?.messageClick}
       />
 
-      <div className="mb-3  mDefault">
+      <div className="mb-3 mDefault">
         <div className="d-flex my-3 "></div>
         {/* List Card Row [Holder] */}
         <div className="LT-advsDetails-grid cLT-white-bg uLT-f-radius-sB p-4">
@@ -360,7 +360,7 @@ const FlancerAdvsDetailsPage = () => {
               className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
             >
               <i className={`iLT-flancer-email uLT-img-contain iLT-sC`}></i>
-              <p>رسالة</p>
+              <p>الدردشه</p>
             </div>
             <div
               onClick={() => copyPhoneNumber(advsDataById?.user?.mobile)}

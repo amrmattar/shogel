@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import defautFlag from "../../../../assets/icons/Advs-flag.svg";
 const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
   const location = useLocation();
+
   return (
     <div>
       {/*  User [Icon - Name - Flag - Title] */}
@@ -25,7 +26,7 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
                 location.pathname === "/" ? "" : "text-nowrap"
               }`}
             >
-              {myData?.fullname || myData?.username || myData?.name}{" "}
+              {myData?.fullname}{" "}
             </p>
             <img
               src={

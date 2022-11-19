@@ -171,9 +171,14 @@ const OrderDetailsPage = () => {
 
   // helper
   const sendEmail = () => {
-    window.open(
-      `https://mail.google.com/mail/mu/mp/159/#co/to=${offerPriceTaskData?.user?.email}`
-    );
+    navigate("/chat", {
+      state: {
+        id: offerPriceTaskData.user.id,
+        avatar: offerPriceTaskData.user.avatar,
+        name: offerPriceTaskData.user.username,
+        role: offerPriceTaskData.user.role?.name,
+      },
+    });
   };
 
   const copyPhoneNumber = (num) => {
@@ -357,20 +362,7 @@ const OrderDetailsPage = () => {
                   />
                 </>
               ) : (
-                <div
-                  style={{
-                    border: "1px solid gray",
-                    borderRight: "none",
-                    borderLeft: "none",
-                    padding: "1rem 0 1rem 0",
-                    margin: "1rem 0 1rem 0",
-                  }}
-                >
-                  <h3 className="fs-4">لا يمكنك أضافة عرض</h3>
-                  <p className="small text-muted">
-                    يجب ان تكون مشتغل لتضيف عرض سعر
-                  </p>
-                </div>
+                <></>
               )}
               {/*  All freelancer offers */}
               <PageTitle smallUnderTitle=" " title="العروض المقدمة" />
@@ -440,7 +432,7 @@ const OrderDetailsPage = () => {
                 className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
               >
                 <i className={`iLT-flancer-email uLT-img-contain iLT-sC`} />
-                <p>رسالة</p>
+                <p>الدردشه</p>
               </div>
               <div
                 onClick={() =>

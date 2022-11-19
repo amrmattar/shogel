@@ -193,6 +193,7 @@ const Chat = () => {
           />
           <AiOutlineSearch />
         </div>
+
         <div className={cls.historyHolder}>
           {historyMesage.map((ele, idx) => (
             <HistoryMesages
@@ -318,7 +319,12 @@ const ChatRoom = ({
 };
 
 const ChatMessage = (props) => {
-  const { text, senderId, senderAvatar, file, type, createdAt } = props.message;
+  const param = useLocation();
+  const otherSideId = param.state?.id;
+  const otherSidAvatar = param.state?.avatar;
+  const [user] = useSelector((state) => [state.userFullData]);
+
+  const { text, senderId, file, type, createdAt } = props.message;
   const isImage = type?.includes("image");
   const openInNewTab = (url) => {
     window.open(url, "_blank", "noopener,noreferrer");
@@ -333,7 +339,13 @@ const ChatMessage = (props) => {
       >
         <img
           alt="userImg"
-          src={senderAvatar}
+          src={
+            senderId === otherSideId
+              ? otherSidAvatar
+              : senderId === user.id
+              ? user.avatar
+              : ""
+          }
           style={{
             width: "40px",
             height: "40px",
