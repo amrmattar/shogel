@@ -25,6 +25,11 @@ import {
 } from "../../../../core/redux/reducers/RegisterReducer/RegisterLocationID.core";
 import { deleteBasicData } from "../../../../core/services/MethodDeleteGlobal/MethodDeleteGlobal.core";
 import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
+import LocationHandler from "../OfferPriceForm/LocationHandler";
+import {
+  arNumberConverter,
+  testNumbers,
+} from "../../../../utils/arNumberConverter";
 
 const OfferUpdateFormComponent = ({ taskId }) => {
   // Get Data From Redux Store By UseSelector
@@ -75,87 +80,43 @@ const OfferUpdateFormComponent = ({ taskId }) => {
   const [selectedCountry, setSelectedCountry] = useState(1);
   const [selectedCity, setSelectedCity] = useState(1);
   const [selectedState, setSelectedState] = useState();
+  const [selectedArea, setSelectedArea] = useState();
   const [selectedCountryName, setSelectedCountryName] = useState();
   const [selectedCityName, setSelectedCityName] = useState();
   const [selectedStateName, setSelectedStateName] = useState();
+  const [locationState, setLocationState] = useState(false);
+
   const getCoreData = useMemo(() => {
-    let modal = ["country", "city", "state"];
+    let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
       modal,
-      selectedCountry,
-      selectedCity
+      selectedCountry?.id,
+      selectedCity?.id,
+      selectedState?.id
     ).then((res) => {
       setGetAllCountryFromResponse(res.data.data);
     });
-  }, [selectedCountry, selectedCity]);
+  }, [selectedCountry, selectedCity, selectedState]);
+
   const fetchCountry = (country) => {
+    setSelectedCountry(country);
     dispatch(getCountryID(country?.id));
-    setSelectedCountry(country.id);
     setSelectedCountryName(country?.name);
   };
   const fetchCities = (city) => {
-    setSelectedCity(city.id);
+    setSelectedCity(city);
     setSelectedCityName(city.name);
     dispatch(getcitiesID(city?.id));
   };
   const fetchState = (state) => {
-    setSelectedState(state.id);
+    setSelectedState(state);
     setSelectedStateName(state.name);
     dispatch(getStateID(state?.id));
   };
-  // Function Get Country Lists
-  CountrySelect = React.forwardRef(CountrySelect);
-  function CountrySelect(isProps = {}, ref) {
-    return (
-      <Select
-        placeholder="البلد"
-        ref={refe}
-        options={isProps.isProps.location}
-        defaultInputValue={
-          loadTaskData?.country?.name
-            ? loadTaskData?.country?.name
-            : isProps.isProps.value
-        }
-        onChange={fetchCountry}
-        getOptionLabel={(country) => country?.name}
-        getOptionValue={(country) => country?.id}
-      />
-    );
-  }
-  // Function Get City Lists
-  CitySelect = React.forwardRef(CitySelect);
-  function CitySelect(isProps = {}, ref) {
-    return (
-      <Select
-        placeholder="المنطقة"
-        ref={refe}
-        options={isProps.isProps.location}
-        defaultInputValue={
-          selectedCityName ? selectedCityName : loadTaskData?.city?.name
-        }
-        onChange={fetchCities}
-        getOptionLabel={(city) => city?.name}
-        getOptionValue={(city) => city?.id}
-      />
-    );
-  }
-  // Function Get State Lists
-  StateSelect = React.forwardRef(StateSelect);
-  function StateSelect(isProps = {}, ref) {
-    return (
-      <Select
-        placeholder="المدينة"
-        ref={refe}
-        options={isProps.isProps.location}
-        defaultInputValue={
-          selectedStateName ? selectedStateName : loadTaskData?.state?.name
-        }
-        onChange={fetchState}
-        getOptionLabel={(state) => state?.name}
-        getOptionValue={(state) => state?.id}
-      />
-    );
-  }
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+  };
+
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);
@@ -195,11 +156,15 @@ const OfferUpdateFormComponent = ({ taskId }) => {
   });
   const handleChange = (e) => {
     const { name, value } = e?.target;
+
+    // only time number
+    if (name === "time" && value && testNumbers(value)) return;
+
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
 
   // TODO Function Execute To Definition Files Before Uploading By Choose Or Drag And Drop
-  const [newfile, setFiles] = useState({ images: [], videos: [] });
+  const [newfile, setFiles] = useState({ images: [], videos: [], any: [] });
   const [filenames, setNames] = useState([]);
   const fileHandler = (files) => {
     const extention = files;
@@ -208,6 +173,8 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         newfile.videos.push(allFile);
       } else if (allFile.type.match("image/")) {
         newfile.images.push(allFile);
+      } else {
+        newfile.any.push(allFile);
       }
     }
     const extension = files[0].name.split(".")[1]?.toLowerCase();
@@ -297,39 +264,42 @@ const OfferUpdateFormComponent = ({ taskId }) => {
     );
     setTaskCheck(true);
     // Get Data Like [//TODO ==>  Images - Videos - Name - Description - Time - Type Of Work - Country - City  ]
-    newfile.videos?.map((video, idx) => {
+    newfile.videos?.forEach((video, idx) => {
       return offerPrice.append(`videos[${idx}]`, video);
     });
     newfile.images?.forEach((image, idx) => {
       return offerPrice.append(`images[${idx}]`, image);
     });
+    newfile.any?.forEach((file, idx) => {
+      return offerPrice.append(`document[${idx}]`, file);
+    });
+
     offerPrice.set("name", formData.name ? formData.name : loadTaskData.name);
     offerPrice.set(
       "description",
       content?.value ? content?.value : loadTaskData.description
     );
-    offerPrice.set("time", formData.time ? formData.time : loadTaskData.time);
+    offerPrice.set(
+      "time",
+      arNumberConverter(formData.time ? formData.time : loadTaskData.time)
+    );
     offerPrice.set(
       "type_work",
       formData.type_work ? formData.type_work : loadTaskData?.type_work
     );
     offerPrice.set(
       "country_id",
-      selectedCountry ? selectedCountry : loadTaskData?.country.id
+      selectedCountry?.id || loadTaskData?.country.id
     );
-    offerPrice.set(
-      "city_id",
-      selectedCity ? selectedCity : loadTaskData?.city.id
-    );
+    offerPrice.set("city_id", selectedCity?.id || loadTaskData?.city.id);
+    offerPrice.set("area_id", selectedArea?.id || loadTaskData?.area?.id);
+    offerPrice.set("state_id", selectedState?.id || loadTaskData?.state?.id);
+
     //  If Case ==> The Work Type Offline Get Extra Data Like [//TODO ==> State - Address //]
     if (formData.type_work === "offline") {
       offerPrice.set(
         "address",
         formData.address ? formData.address : loadTaskData.address
-      );
-      offerPrice.set(
-        "state_id",
-        selectedState ? selectedState : loadTaskData?.state?.id
       );
     }
     // If Case ==> Check Catgeory If User Update Or Add New Or Not
@@ -342,6 +312,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         offerPrice.append(`category[${idx}]`, cate.id);
       });
     }
+
     // TODO ==>  Send Our Collect Data To This [API]
     userOfferPrice
       ._UPDATE_TaskByID(loadTaskData?.id, offerPrice)
@@ -546,65 +517,11 @@ const OfferUpdateFormComponent = ({ taskId }) => {
             </Form.Group>
           </div>
         </Row>
-        {/* Location [Section] */}
-        <Row className="d-flex align-items-center">
-          <label className="fLT-Regular-sB cLT-support2-text mb-2">موقعك</label>
-          <Form.Group as={Col} md={6} className="mb-4 ">
-            {/* Country [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <CountrySelect
-                isProps={{
-                  value: getAllCountryFromResponse?.country[0]?.name,
-                  location: getAllCountryFromResponse?.country,
-                }}
-                ref={refe}
-              />
-            </div>
-            {/* {!location?.countriesID && messages?.country_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{messages?.country_id}</p>} */}
-          </Form.Group>
-          {/* City [Section] */}
-          <Form.Group as={Col} md={6} className="mb-4">
-            {/* City [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
-            >
-              <CitySelect
-                isProps={{
-                  value: getAllCountryFromResponse?.city[0]?.name,
-                  location: getAllCountryFromResponse?.city,
-                }}
-                ref={refe}
-              />
-            </div>
-            {/* {!location?.citiesID && messages?.city_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{messages?.city_id}</p>} */}
-          </Form.Group>
-        </Row>
+
         {/* State Of Location Show Only Type Of Work === Offline */}
         {formData.type_work === "offline" && (
           <Row>
-            {/* State [Section] */}
-            <Form.Group as={Col} md={6} className="mb-3">
-              <Form.Label className="fLT-Regular-sB cLT-support2-text ">
-                {" "}
-                المنطقة{" "}
-              </Form.Label>
-              {/* State [Option]  */}
-              <div
-                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
-              >
-                <StateSelect
-                  isProps={{
-                    value: getAllCountryFromResponse?.state[0]?.name,
-                    location: getAllCountryFromResponse?.state,
-                  }}
-                  ref={refe}
-                />
-              </div>
-              {/* {!location?.citiesID && messages?.city_id && <p className='mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2'>{messages?.city_id}</p>} */}
-            </Form.Group>
-            <Form.Group as={Col} md={6} className="mb-3">
+            <Form.Group as={Col} md={12} className="mb-3">
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
                 العنوان بالتفصيل
               </Form.Label>
@@ -657,6 +574,122 @@ const OfferUpdateFormComponent = ({ taskId }) => {
             </p>
           )}
         </div>
+
+        <article className="mb-4">
+          <LocationHandler
+            country={selectedCountry?.name}
+            city={selectedCity?.name}
+            state={selectedState?.name}
+            area={selectedArea?.name}
+            setState={() => setLocationState(!locationState)}
+          />
+
+          {locationState && (
+            <div>
+              <Row className="d-flex align-items-center">
+                {/* Country [Section] */}
+                <label className="fLT-Regular-sB cLT-support2-text mb-2">
+                  موقعك
+                </label>
+                <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+                  {/* Country [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedCountry}
+                      placeholder="البلد"
+                      className="uLT-f-radius-sB "
+                      options={getAllCountryFromResponse?.country}
+                      onChange={fetchCountry}
+                      getOptionLabel={(country) => country?.name}
+                      getOptionValue={(country) => country?.id}
+                    />
+                  </div>
+                  {errMessage?.country_id && (
+                    <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
+                      {errMessage?.country_id}
+                    </p>
+                  )}
+                </Form.Group>
+                {/* State [Section] */}
+                <Form.Group as={Col} md={6} className="mb-3 position-relative">
+                  {/* State [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedCity}
+                      placeholder="المدينة"
+                      options={getAllCountryFromResponse?.city}
+                      onChange={fetchCities}
+                      getOptionLabel={(city) => city?.name}
+                      getOptionValue={(city) => city?.id}
+                    />
+                  </div>
+                  {errMessage?.city_id && (
+                    <p
+                      className="mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                      style={{ bottom: "-27px" }}
+                    >
+                      {errMessage?.city_id}
+                    </p>
+                  )}
+                </Form.Group>
+              </Row>
+              <Row className="d-flex align-items-center">
+                {/* Country [Section] */}
+
+                <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+                  {/* Country [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedState}
+                      placeholder="المنطقة"
+                      className="uLT-f-radius-sB "
+                      options={getAllCountryFromResponse?.state}
+                      onChange={fetchState}
+                      getOptionLabel={(country) => country?.name}
+                      getOptionValue={(country) => country?.id}
+                    />
+                  </div>
+                  {errMessage?.country_id && (
+                    <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
+                      {errMessage?.country_id}
+                    </p>
+                  )}
+                </Form.Group>
+                {/* State [Section] */}
+                <Form.Group as={Col} md={6} className="mb-3 position-relative">
+                  {/* State [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedArea}
+                      placeholder="الحي"
+                      options={getAllCountryFromResponse?.area}
+                      onChange={fetchArea}
+                      getOptionLabel={(city) => city?.name}
+                      getOptionValue={(city) => city?.id}
+                    />
+                  </div>
+                  {errMessage?.city_id && (
+                    <p
+                      className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                      style={{ bottom: "27px" }}
+                    >
+                      {errMessage?.city_id}
+                    </p>
+                  )}
+                </Form.Group>
+              </Row>
+            </div>
+          )}
+        </article>
+
         <div className="d-flex align-items-center justify-content-between">
           {/* [Back Button */}
           <div className="d-flex justify-content-end  align-items-left">

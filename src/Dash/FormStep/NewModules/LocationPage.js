@@ -58,7 +58,11 @@ const IdPage = () => {
     form.append("category", skillsIds);
     getClientData.info?.length > 0 && form.append("info", getClientData.info);
     form.append("description", getClientData.description);
-    form.append("media", getClientData.files);
+    // form.append("media", getClientData.files);
+    getClientData.files?.forEach((file, idx) => {
+      form.append(`document[${idx}]`, file);
+    });
+
     getClientData.img?.type && form.append("avatar", getClientData.img);
     form.append("device_token", FCMToken);
 

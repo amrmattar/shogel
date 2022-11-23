@@ -14,13 +14,16 @@ const ClientOfferPricePage = () => {
   const fotterStateHandler = () => {
     dispatch(ChangeFotterState(false));
   };
+
   useEffect(() => {
     fotterStateHandler();
   }, []);
+
   return (
     <div className={cls.main}>
       <div className={cls.Titlecontainer}>
         <OfferPriceTitle
+          noWrap
           title={"   اخبرنا عن اي شغل تريد انجازه"}
           description={
             "انت علي بعد خطوة من كشف سعر السوق والوصول للمشتغلين المستعدين لخدمتك"

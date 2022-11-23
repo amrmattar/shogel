@@ -14,6 +14,7 @@ const OrderListCardComponent = ({
   roll,
   isMyList,
   isOrder,
+  allText,
 }) => {
   const location = useLocation();
   const param = useParams();
@@ -52,11 +53,17 @@ const OrderListCardComponent = ({
             <></>
           )}
         </div>
-
-        <div
-          className={`${cls.description} text-muted small`}
-          dangerouslySetInnerHTML={{ __html: orderDescription }}
-        />
+        {allText ? (
+          <div
+            className={`${cls.description} text-muted small mb-3`}
+            dangerouslySetInnerHTML={{ __html: orderDescription }}
+          />
+        ) : (
+          <div
+            className={`${cls.description} ${cls.description_cut} text-muted small`}
+            dangerouslySetInnerHTML={{ __html: orderDescription }}
+          />
+        )}
 
         {amentiesSelector}
       </div>

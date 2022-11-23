@@ -1,15 +1,15 @@
-import Ai from './Ai';
-import Check from './Check';
-import Close from './Close';
-import Doc from './Doc';
-import Jpg from './Jpg';
-import Pdf from './Pdf';
-import Png from './Png';
-import Psd from './Psd';
-import Xls from './Xls';
-import Unknown from './Unknown';
+import Ai from "./Ai";
+import Check from "./Check";
+import Close from "./Close";
+import Doc from "./Doc";
+import Jpg from "./Jpg";
+import Pdf from "./Pdf";
+import Png from "./Png";
+import Psd from "./Psd";
+import Xls from "./Xls";
+import Unknown from "./Unknown";
 
-import React from 'react';
+import React from "react";
 
 export default function Icon({ name, ...rest }) {
   switch (name) {
@@ -44,6 +44,12 @@ export default function Icon({ name, ...rest }) {
       return <Psd {...rest} />;
 
     case "XLS":
+      return <Xls {...rest} />;
+
+    case "EXCEL":
+      return <Xls {...rest} />;
+
+    case "XLSX":
       return <Xls {...rest} />;
 
     default:

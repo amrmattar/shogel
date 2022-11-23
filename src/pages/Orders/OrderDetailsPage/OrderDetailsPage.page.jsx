@@ -25,6 +25,7 @@ import {
   arNumberConverter,
   testNumbers,
 } from "../../../utils/arNumberConverter";
+import Progress from "../../../shared/Upload/Progress/Progress";
 
 const OrderDetailsPage = () => {
   const dispatch = useDispatch();
@@ -275,6 +276,7 @@ const OrderDetailsPage = () => {
           {/* Order Details [Holder] */}
           <div className="bg-white p-4 border rounded-4">
             <OrderListCardComponent
+              allText
               amentiesSelector={
                 <AmentiesShared
                   amenties="amenties"
@@ -290,54 +292,78 @@ const OrderDetailsPage = () => {
             <>
               <div className="attchment bg-white px-4 pb-5 mt-4 border rounded-4">
                 <PageTitle smallUnderTitle=" " title="الملفات المرفقة" />
-                <div className="d-flex flex-wrap row">
+                <div className="d-flex align-items-center flex-wrap row">
                   {offerPriceTaskData?.document?.length ? (
-                    offerPriceTaskData?.document?.map((file) => {
-                      return (
+                    offerPriceTaskData?.document?.map((file, idx) =>
+                      checkIsImg(file?.file) ? (
                         <div
-                          key={file.id}
-                          style={{ width: "fit-content" }}
-                          className="uLT-click col-md-3 LT-document-grid-holder"
-                          onClick={() => open(file?.file)}
+                          key={idx}
+                          style={{ maxWidth: "100px" }}
+                          className="flex-center flex-column mb-2 cu-pointer"
                         >
-                          {checkIsImg(file?.file) ? (
+                          <a target="_blanc" href={file?.file}>
                             <div
-                              style={{ maxWidth: "100px" }}
-                              className="flex-center flex-column mb-2"
+                              style={{
+                                width: "100px",
+                                height: "100px",
+                              }}
+                              className="img"
                             >
-                              <div
+                              <img
                                 style={{
-                                  width: "100px",
-                                  height: "100px",
+                                  objectFit: "cover",
                                 }}
-                                className="img"
-                              >
-                                <img
-                                  style={{
-                                    objectFit: "cover",
-                                  }}
-                                  className="w-100 h-100 rounded-3"
-                                  src={file?.file}
-                                  alt=""
-                                />
-                              </div>
-                              {/* <p className="mb-0 mt-2 text-center cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
-                                {file?.file.slice(62)}
-                              </p> */}
+                                className="w-100 h-100 rounded-3"
+                                src={file?.file}
+                                alt=""
+                              />
                             </div>
-                          ) : (
-                            <div className="flex-center flex-column mb-2">
-                              <i
-                                className={`iLT-file-download uLT-img-contain iLT-sA ms-2`}
-                              ></i>
-                              <p className="mb-0 cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
-                                {file?.file.slice(62)}
-                              </p>
-                            </div>
-                          )}
+                          </a>
+
+                          {/* <p className="mb-0 mt-2 text-center cLT-support2-text LT-document-ellipsis fLT-Regular-sB">
+                          {file?.file.slice(62)}
+                        </p> */}
                         </div>
-                      );
-                    })
+                      ) : (
+                        <div
+                          id="staticDataUpload"
+                          key={idx}
+                          className="cu-pointer"
+                          style={{
+                            width: "fit-content",
+                            height: "fit-content",
+                            padding: "0rem 2px 0 2px",
+                            display: "flex",
+                            borderRadius: "10px",
+                            border: "1px solid gray",
+                            justifyContent: "space-around",
+                            alignItems: "center",
+                            textAlign: "center",
+                            margin: "5px",
+                          }}
+                        >
+                          <a
+                            className="text-dark text-decoration-none"
+                            key={idx}
+                            href={file?.file}
+                            download
+                            target="_blanc"
+                          >
+                            <Progress
+                              noload
+                              noCloseBtn
+                              name={
+                                file.name?.slice(62) || file?.file?.slice(62)
+                              }
+                              icon={
+                                file.icon ||
+                                file?.file?.split(".")[3]?.toUpperCase().trim()
+                              }
+                            />
+                          </a>
+                        </div>
+                      )
+                    )
                   ) : (
                     <p className="mb-0 fLT-Regular-sD w-100 text-center cLT-gray-text">
                       لا يوجد ملفات مرفقة

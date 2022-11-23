@@ -1,9 +1,40 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const FlancerNotificationComponent = ({ notification }) => {
+  const navigate = useNavigate();
+
+  const clickNotificationHandelar = () => {
+    if (
+      notification?.notifiable_type === "task" ||
+      notification?.notifiable_type === "offer"
+    ) {
+      return navigate(`/orders/order-details/${notification?.notifiable_id}`);
+    }
+
+    if (
+      notification?.notifiable_type === "adv" ||
+      notification?.notifiable_type === "advertising"
+    ) {
+      return navigate(
+        `/advertising/advertise-details/${notification?.notifiable_id}`
+      );
+    }
+
+    if (notification?.notifiable_type === "user") {
+      return navigate(
+        `/employed/freelancer-profile/${notification?.notifiable_id}`
+      );
+    }
+  };
   return (
     // { Notification Section [Holder] }
-    <div className="border rounded-3 px-3 py-4 d-flex flex-column d-md-flex flex-md-row justify-content-md-between align-items-md-center gap-3 p-0 mb-4">
+    <div
+      onClick={clickNotificationHandelar}
+      className={`${
+        notification.notifiable_type !== "system" ? "cu-pointer" : ""
+      } border rounded-3 px-3 py-4 d-flex flex-column d-md-flex flex-md-row justify-content-md-between align-items-md-center gap-3 p-0 mb-4`}
+    >
       {/* Notification Info [Holder] */}
       <div className="pt-2 pb-0 d-flex flex-column align-items-center d-md-flex flex-md-row align-items-md-start  gap-3">
         {/* Notification [Icon] */}

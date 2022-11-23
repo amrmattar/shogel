@@ -260,7 +260,7 @@ const SocialCom = ({ item }) => {
       onClick={() => window.open(item.value)}
       style={{ cursor: "pointer", margin: "auto" }}
     >
-      <img width={70} height={70} src={item.logo} />
+      <img width={70} height={70} src={item.logo} alt="err" />
     </div>
   );
 };

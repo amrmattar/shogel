@@ -41,7 +41,13 @@
     font-weight: 600;
     width: 80%;
     line-height: 1.5rem;
-    height: 3rem;
+    white-space: break-spaces;
+  }
+
+  .description_cut {
     overflow: hidden;
+    height: 3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

@@ -26,7 +26,7 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
                 location.pathname === "/" ? "" : "text-nowrap"
               }`}
             >
-              {myData?.fullname}{" "}
+              {myData?.fullname || myData?.name}{" "}
             </p>
             <img
               src={
@@ -41,7 +41,7 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
           </div>
           <p className="m-0 cLT-support2-text fLT-Regular-sB">
             {" "}
-            {myData?.jobName || myData?.job_name_id?.name}
+            {myData?.jobName || myData?.job_name_id?.name || "freelancer"}
           </p>
         </div>
       </div>

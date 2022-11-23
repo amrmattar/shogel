@@ -8,15 +8,7 @@ import { userProfile } from "../../../core/services/userProfile/FreelancerProfil
 const FlancerOfferPage = () => {
   const [flancersData, setFlancersData] = useState();
   const param = useParams();
-  useEffect(() => {
-    
-    if (!flancersData) {
-      userProfile
-        ._GET_ProfileData(param?.id)
-        .then((res) => setFlancersData(res.data.data))
-        .catch((err) => err.response);
-    }
-  }, [param?.id, flancersData]);
+
   const myPersonData = {
     id: flancersData?.id,
     category: flancersData?.category,
@@ -28,6 +20,16 @@ const FlancerOfferPage = () => {
     rate: flancersData?.rate,
     performance: flancersData?.complete_profile,
   };
+
+  useEffect(() => {
+    if (!flancersData) {
+      userProfile
+        ._GET_ProfileData(param?.id)
+        .then((res) => setFlancersData(res.data.data))
+        .catch((err) => err.response);
+    }
+  }, [param?.id, flancersData]);
+
   return (
     <div className="h-100 position-relative">
       <div className="container-fluid py-5 px-4 cLT-main-bg">

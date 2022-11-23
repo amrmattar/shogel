@@ -12,6 +12,7 @@ export const userOfferPrice = {
   _DELETE_TaskByID,
   _POST_AllOrderListV2,
   _GET_ListSpecialLists,
+  _GET_CopyList,
 };
 
 // _POST_RequestOffer
@@ -89,6 +90,17 @@ function _GET_ListSpecialLists(page, pagination, pageNum, status) {
     `task/list_special?perPage=${page}&pagination=${pagination}&page=${pageNum}&status_id=${status}`,
     requestOption
   );
+}
+
+// _GET_CopyList
+function _GET_CopyList(page, pagination, pageNum, status) {
+  const userToken = localStorage.getItem("userTK");
+  const requestOption = {
+    method: "GET",
+    headers: { Authorization: "Bearer " + JSON.parse(userToken) },
+  };
+
+  return API.get(`task/list_copy`, requestOption);
 }
 
 // _GET_MyOfferGeneralLists

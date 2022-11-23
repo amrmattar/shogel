@@ -64,7 +64,7 @@ const Upload = ({
           </div>
         )}
         <input
-          accept=".xlsx,.xls,.doc,.csv,,.word,.gif,.pdf, image/*,video/mp4,video/x-m4v,video/*"
+          accept=".xlsx,.xls,.excel,.doc,.csv,,.word,.gif,.pdf, image/*,video/mp4,video/x-m4v,video/*"
           value=""
           style={{ visibility: "hidden", opacity: 0, width: "0px" }}
           ref={inputRef}
@@ -85,19 +85,31 @@ const Upload = ({
                 onClick={(e) => handleDelete(oldFile?.id, oldFile?.name, idx)}
               >
                 <Progress
-                  name={oldFile.file.slice(62)}
-                  icon={oldFile.file.split(".")[3]?.toUpperCase().trim()}
+                  name={(oldFile?.file).slice(62)}
+                  icon={(oldFile?.file).split(".")[3]?.toUpperCase().trim()}
                 />
               </div>
             );
           })}
         {fileArr &&
           fileArr?.map((file, idx) => (
+            // <div
+            //   id="responseUploadData"
+            //   className="uLT-click"
+            //   key={idx}
+            //   onClick={(e) => handleDelete(file?.id, file?.name, idx)}
+            // >
+            //   <Progress
+            //     noload
+            //     name={(file?.name).slice(62)}
+            //     icon={file?.icon?.toUpperCase().trim()}
+            //   />
+            // </div>
+
             <div
               id="staticDataUpload"
               key={idx}
               style={{
-                height: "2rem",
                 width: "fit-content",
                 padding: "0rem 2px 0 2px",
                 display: "flex",
@@ -108,21 +120,29 @@ const Upload = ({
                 margin: "5px",
               }}
             >
-              <IoIosClose
+              {/* <Progress
+                name={(file?.name).slice(62)}
+                icon={file?.icon?.toUpperCase().trim()}
+              /> */}
+              {/* <IoIosClose
                 style={{ cursor: "pointer" }}
                 onClick={(e) =>
                   Sdelet?.(e, file?.name, idx) ||
                   handleDelete?.(e, file?.name, idx)
                 }
               />
-              <p style={{ margin: "0" }}>{file.name}</p>
-              {/* <Progress
+              <p style={{ margin: "0" }}>{file.name}</p> */}
+              <Progress
+                closeOnClick={(e) => {
+                  Sdelet?.(e, file?.name, idx) ||
+                    handleDelete?.(e, file?.name, idx);
+                }}
                 name={file.name || file?.file}
-                // icon={
-                //   file.icon || file?.file?.split(".")[3]?.toUpperCase().trim()
-                // }
+                icon={
+                  file.icon || file?.file?.split(".")[3]?.toUpperCase().trim()
+                }
                 handleClick={(e) => handleOpen(e, file.file)}
-              /> */}
+              />
             </div>
           ))}
       </div>

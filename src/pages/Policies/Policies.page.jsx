@@ -18,12 +18,12 @@ const PoliciesPage = () => {
   }, []);
 
   return (
-    <div className={`${cls.policesHolder} vh-100`}>
+    <div className="px-4 pb-3" style={{ minHeight: "100vh" }}>
       <h3>شروط الأستخدام</h3>
 
       {policies?.description ? (
         <div
-          className="policies"
+          className="policies container-fluid"
           dangerouslySetInnerHTML={{ __html: policies?.description }}
         />
       ) : (

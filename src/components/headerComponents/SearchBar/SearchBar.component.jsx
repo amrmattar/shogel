@@ -19,20 +19,36 @@ const SearchBar = () => {
     selectRef.current?.value
   );
 
-  const handleSearch = () => {
-    switch (selectRef.current?.value) {
+  // const handleSearch = () => {
+  //   switch (selectRef.current?.value) {
+  //     case "الاعلانات":
+  //       return navigate("/advertising/page=1");
+
+  //     case "الطلبات":
+  //       return navigate("/orders/page=1");
+
+  //     case "المشتغلين":
+  //       return navigate("/employed/page=1");
+
+  //     default:
+  //       navigate("/");
+  //       break;
+  //   }
+  // };
+
+  const getRoute = (name) => {
+    switch (name) {
       case "الاعلانات":
-        return navigate("/advertising/page=1");
+        return "/advertising/page=1";
 
       case "الطلبات":
-        return navigate("/orders/page=1");
+        return "/orders/page=1";
 
       case "المشتغلين":
-        return navigate("/employed/page=1");
+        return "/employed/page=1";
 
       default:
-        navigate("/");
-        break;
+        return "/";
     }
   };
 
@@ -48,20 +64,35 @@ const SearchBar = () => {
         return setDevaultSelectValue("الاعلانات");
     }
   }, [location.pathname]);
+
+  const onSelect = (e) => {
+    setDevaultSelectValue(e.target.value);
+  };
+
   useEffect(() => {
     handleDefaultValueScreen();
   }, [handleDefaultValueScreen, location.pathname]);
+
   const handleInput = (v) => {
     dispatch(getSearchKey(v));
   };
+
   const anyTwo = (e) => {
     setLoggin(false);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const route = getRoute(devaultSelectValue);
+    navigate(`${route}?searchKey=${key}`);
   };
   return (
     <div className={cls.main}>
       {/* SearchBar & Drop menu Holder  */}
       <div className="w-100">
         <form
+          onSubmit={onSubmit}
           className="d-flex justify-content-center align-items-center hSearch"
           autoComplete="false"
         >
@@ -107,7 +138,7 @@ const SearchBar = () => {
                   <select
                     id="select"
                     ref={selectRef}
-                    onChange={handleSearch}
+                    onChange={onSelect}
                     style={{ background: "transparent" }}
                     className={`${
                       loggin ? "minimal" : "xsxs"
@@ -124,7 +155,7 @@ const SearchBar = () => {
                 <select
                   ref={selectRef}
                   id="select"
-                  onChange={handleSearch}
+                  onChange={onSelect}
                   value={devaultSelectValue}
                   style={{ background: "transparent" }}
                   className={` mini cLT-main-text fLT-Regular-sB uLT-click`}

@@ -1,6 +1,7 @@
 import axios from "axios";
 const token = localStorage.getItem("userTK");
 const tk = `Bearer ${token}`;
+
 export const API = axios.create({
   // baseURL: `http://192.168.6.28/shogol-backend/api/`,
   // baseURL: `https://dev-shogol.lundev.online/Admin/api/`,

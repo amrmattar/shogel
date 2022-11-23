@@ -16,6 +16,10 @@ import TextEditorShared from "../../../../shared/TextEditor/TextEditor.shared";
 import { toast } from "react-toastify";
 import { userProfile } from "../../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import LocationHandler from "./LocationHandler";
+import {
+  arNumberConverter,
+  testNumbers,
+} from "../../../../utils/arNumberConverter";
 
 const OfferPriceForm = () => {
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
@@ -23,6 +27,9 @@ const OfferPriceForm = () => {
     state.profileUpdate,
     state.messages,
   ]);
+
+  const onLineWorkType = useRef();
+  const offLineWorkType = useRef();
 
   const userLoginData = useMemo(async () => {
     try {
@@ -96,17 +103,21 @@ const OfferPriceForm = () => {
     name: recivedData?.title ? recivedData?.title : "",
     description: recivedData?.description ? recivedData?.description : "",
     time: "",
-    type_work: "",
+    type_work: "online",
     address: "",
   });
   const handleChange = (e) => {
     const { name, value } = e?.target;
+
+    // only time number
+    if (name === "time" && value && testNumbers(value)) return;
+
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
 
   const inputRef = useRef();
   const backButton = useRef();
-  const [newfile, setFiles] = useState({ images: [], videos: [] });
+  const [newfile, setFiles] = useState({ images: [], videos: [], any: [] });
   const [filenames, setNames] = useState([]);
   const [locationState, setLocationState] = useState(false);
   const fileHandler = (files) => {
@@ -116,6 +127,8 @@ const OfferPriceForm = () => {
         newfile.videos.push(allFile);
       } else if (allFile.type.match("image/")) {
         newfile.images.push(allFile);
+      } else {
+        newfile.any.push(allFile);
       }
     }
     const extension = files[0].name.split(".")[1]?.toLowerCase();
@@ -148,8 +161,10 @@ const OfferPriceForm = () => {
   };
 
   const [advsCheck, setAdvsCheck] = useState(false);
+
   const handleCLick = async (e) => {
     e.preventDefault();
+
     dispatch(
       getMessages({
         messages: "جاري إرســـال طلبك",
@@ -157,7 +172,7 @@ const OfferPriceForm = () => {
         messageClick: true,
       })
     );
-    console.log(content);
+
     setAdvsCheck(true);
     newfile.videos?.forEach((video, idx) => {
       return offerPrice.append(`videos[${idx}]`, video);
@@ -165,28 +180,26 @@ const OfferPriceForm = () => {
     newfile.images?.forEach((image, idx) => {
       return offerPrice.append(`images[${idx}]`, image);
     });
+    newfile.any?.forEach((file, idx) => {
+      return offerPrice.append(`document[${idx}]`, file);
+    });
+
     offerPrice.set("name", formData.name);
     offerPrice.set("description", content);
-    // offerPrice.set(
-    //   "description",
-    //   content
-    //     ? content
-    //     : recivedData?.description
-    //     ? recivedData.description
-    //     : ""
-    // );
-    // offerPrice.set("time", formData.time);
-    // offerPrice.set("type_work", formData.type_work);
+    offerPrice.set("type_work", formData.type_work);
     offerPrice.set("country_id", selectedCountry?.id);
     offerPrice.set("city_id", selectedCity?.id);
-    // if (formData.type_work === "offline") {
-    // offerPrice.set("address", formData.address);
+    offerPrice.set("time", arNumberConverter(formData.time));
+    if (formData.type_work === "offline") {
+      offerPrice.set("address", formData.address);
+    }
+
     offerPrice.set("state_id", selectedState?.id);
     offerPrice.set("area_id", selectedArea?.id);
-    // }
     getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
     });
+
     userOfferPrice
       ._POST_RequestOffer(offerPrice)
       .then((res) => {
@@ -226,12 +239,16 @@ const OfferPriceForm = () => {
   };
   const [disable, setDisable] = useState(false);
   useEffect(() => {
-    if (getAllUserUpdate.category?.length > 0 && selectedArea?.id) {
+    if (
+      getAllUserUpdate.category?.length > 0 &&
+      selectedArea?.id &&
+      !(formData.type_work === "offline" && !formData.address)
+    ) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-  }, [getAllUserUpdate, selectedArea]);
+  }, [getAllUserUpdate, selectedArea, formData.type_work, formData.address]);
 
   const [anyJob, setAnyJob] = useState(false);
   return (
@@ -295,6 +312,117 @@ const OfferPriceForm = () => {
             </p>
           )}
         </div>
+        <Row className="mb-3 flex-column m-0 pt-3">
+          <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row p-0">
+            <Form.Group
+              as={Col}
+              sm={12}
+              md={6}
+              controlId="formGridTime"
+              className="position-relative px-0 d-grid gap-2"
+            >
+              <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
+                مدة الشغل{" "}
+                <span className="fLT-Regular-sB cLT-smoke-text">اختياري </span>
+              </Form.Label>
+              <Form.Control
+                maxLength={6}
+                name="time"
+                onChange={handleChange}
+                value={formData?.time || ""}
+                className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
+                type="text"
+                placeholder="30 يوم"
+              />
+              {errMessage?.time && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.time}
+                </p>
+              )}
+            </Form.Group>
+            <Form.Group
+              as={Col}
+              sm={12}
+              md={6}
+              controlId="formGridTypeWork"
+              className="position-relative px-0 pt-3 pt-md-0 d-grid gap-2"
+            >
+              <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
+                {" "}
+                نوع الشغل
+              </Form.Label>
+              <div
+                className="d-flex justify-content-around align-items-center uLT-bd-f-platinum-sA fLT-Regular-sB uLT-f-radius-sB cLT-main-text"
+                onChange={handleChange}
+              >
+                <div className="fLT-Regular-sC  cLT-main-text text-center ">
+                  <label id="showCompo" className="uLT-click">
+                    <input
+                      type="radio"
+                      name="type_work"
+                      value="online"
+                      datatype="anuone"
+                      alt="true"
+                      ref={onLineWorkType}
+                      defaultChecked
+                    />
+                    <span> عن بعد</span>
+                  </label>
+                </div>
+                <div
+                  className=""
+                  style={{
+                    width: "1px",
+                    height: "56px",
+                    backgroundColor: "#E9E9E9",
+                  }}
+                ></div>
+                <div className="fLT-Regular-sC  text-center ">
+                  <label id="offlineWork" className="uLT-click">
+                    <input
+                      type="radio"
+                      name="type_work"
+                      value="offline"
+                      datatype="anuone"
+                      ref={offLineWorkType}
+                      alt="true"
+                    />
+                    <span> بالحضور </span>
+                  </label>
+                </div>
+              </div>
+              {errMessage?.type_work && (
+                <p
+                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  style={{ bottom: "-27px" }}
+                >
+                  {errMessage?.type_work}
+                </p>
+              )}
+            </Form.Group>
+          </div>
+
+          {formData.type_work === "offline" && (
+            <Row className="mt-4">
+              <Form.Group as={Col} md={12} className="mb-3">
+                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
+                  العنوان بالتفصيل <span className="cLT-danger-text">*</span>{" "}
+                </Form.Label>
+                <Form.Control
+                  onChange={handleChange}
+                  name="address"
+                  className="uLT-f-radius-sB uLT-bd-f-platinum-sA cLT-main-text"
+                  type="text"
+                  value={formData?.address}
+                  placeholder="العنوان بالتفصيل"
+                />
+              </Form.Group>
+            </Row>
+          )}
+        </Row>
         {/* Time And Type Of Work [Section] */}
         {/* <Row className="mb-1 flex-column m-0 pt-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row p-0">

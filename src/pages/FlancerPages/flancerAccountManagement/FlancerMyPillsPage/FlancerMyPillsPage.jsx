@@ -4,6 +4,7 @@ import FlancerTabsControllerShared from "../../../../shared/FlancerController/Fl
 import { Pagination, Stack } from "@mui/material";
 import RequestsMade from "./RequestsMade";
 import HireMeRequests from "./HireMeRequests";
+import MyFieldSpecialization from "./MyFieldSpecialization";
 
 const FlancerMyPillsPage = () => {
   const param = useParams();
@@ -19,6 +20,8 @@ const FlancerMyPillsPage = () => {
       return setTabType("hireMeRequests");
     } else if (tabsSelected === "RequestsMade") {
       return setTabType("RequestsMade");
+    } else if (tabsSelected === "MyFieldSpecialization") {
+      return setTabType("MyFieldSpecialization");
     }
   }, [tabsSelected]);
 
@@ -39,14 +42,21 @@ const FlancerMyPillsPage = () => {
         setPagination={setMyOfferPagination}
       />
     ),
+    MyFieldSpecialization: (
+      <MyFieldSpecialization
+        offerStatus={offerFilter}
+        setPagination={setMyOfferPagination}
+      />
+    ),
   };
 
   // ? ------------------[[[START Block]]]-----------------
   //*TODO GET From API Response ==> Advertising Pagination
   const [pagination, setPagination] = useState();
+
   const handleAdvsPagination = useCallback(() => {
     setPagination(myOfferListPagination?.pagination?.total_pages);
-  }, [myOfferListPagination?.pagination]);
+  }, [myOfferListPagination?.pagination?.total_pages]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -78,26 +88,29 @@ const FlancerMyPillsPage = () => {
           isPills
         />
       </div>
-      {pagination !== 0 && (
-        <div className="container d-flex justify-content-center align-items-center ">
-          <>
-            {/* Pagination [Number Navigate Holder] */}
-            <Stack>
-              <Pagination
-                dir="rtl"
-                showFirstButton={true}
-                showLastButton={true}
-                count={pagination}
-                page={parseInt(param?.num)}
-                onChange={getPageNumber}
-                size="large"
-              />
-            </Stack>
-          </>
-        </div>
-      )}
     </div>
   );
 };
 
 export default FlancerMyPillsPage;
+
+// <>
+// {pagination !== 0 && (
+//   <div className="container d-flex justify-content-center align-items-center ">
+//     <>
+//       {/* Pagination [Number Navigate Holder] */}
+//       <Stack>
+//         <Pagination
+//           dir="rtl"
+//           showFirstButton={true}
+//           showLastButton={true}
+//           count={pagination}
+//           page={parseInt(param?.num)}
+//           onChange={getPageNumber}
+//           size="large"
+//         />
+//       </Stack>
+//     </>
+//   </div>
+// )}
+// </>

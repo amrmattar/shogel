@@ -26,6 +26,8 @@ const FlancerMyEditAccountPage = ({
   onClick,
   fileUploads,
   Sdelet,
+  setSocialData,
+  socialLoading,
 }) => {
   const dispatch = useDispatch();
   const [isSklsAdded, setIsSklsAdded] = useState(false);
@@ -168,7 +170,8 @@ const FlancerMyEditAccountPage = ({
             <FlancerOtherJobSitesComponent
               socialSite={coreData?.social}
               data={personalData?.social}
-              checkupdate={setCheck}
+              setSocialData={setSocialData}
+              socialLoading={socialLoading}
             />
           </>
         </>

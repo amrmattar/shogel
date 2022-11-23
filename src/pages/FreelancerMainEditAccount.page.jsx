@@ -20,6 +20,7 @@ const FreelancerMainEditAccountPage = () => {
     messages,
     site,
     currentSkls,
+    coreData,
   ] = useSelector((state) => {
     return [
       state.userData.id,
@@ -30,6 +31,7 @@ const FreelancerMainEditAccountPage = () => {
       state.messages,
       state.socailMedia,
       state?.certificateSkills?.fCertificate,
+      state.coreData,
     ];
   });
 
@@ -38,6 +40,48 @@ const FreelancerMainEditAccountPage = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateSocail, setUpdateSocail] = useState(false);
 
+  const [socialData, setSocialData] = useState([]);
+  const [socialLoading, setSocialLoading] = useState([]);
+
+  const handleSocial = async () => {
+    const social = new FormData();
+
+    dispatch(
+      getMessages({
+        messages: "جارى التحديث",
+        messageType: "info",
+        messageClick: true,
+      })
+    );
+    socialData.forEach(({ social_id, idx, value }) => {
+      social.append(`social[${idx}][social_id]`, social_id);
+      social.append(`social[${idx}][value]`, value || socialLoading?.value);
+    });
+
+    updateProfile
+      ._POST_UpdateProfile(userID, social)
+      .then((res) => {
+        dispatch(
+          getMessages({
+            messages: res?.data?.message,
+            messageType: "success",
+            messageClick: true,
+          })
+        );
+        setUpdateSocail(false);
+      })
+      .catch((err) => {
+        dispatch(
+          getMessages({
+            messages: err?.response?.data?.message,
+            messageType: "error",
+            messageClick: true,
+          })
+        );
+        return err.response;
+      });
+  };
+
   useEffect(() => {
     if (userID !== 0) {
       return userProfile._GET_ProfileData(userID).then((res) => {
@@ -45,6 +89,29 @@ const FreelancerMainEditAccountPage = () => {
       });
     }
   }, [dispatch, userID, updateSocail]);
+
+  useEffect(() => {
+    if (socialLoading.length) return;
+
+    userData?.social?.forEach((el) => {
+      const currentSite = coreData?.social.find(
+        (site) => site.name === el.title
+      );
+      setSocialLoading((prev) => [
+        ...prev,
+        {
+          ...el,
+          social_id: currentSite.id,
+          idx: currentSite.id - 1,
+        },
+      ]);
+    });
+  }, [userData?.social, coreData?.social, socialLoading]);
+
+  useEffect(() => {
+    if (!socialLoading.length) return;
+    setSocialData(socialLoading);
+  }, [socialLoading]);
 
   const [newfile, setFiles] = useState({
     images: [],
@@ -89,8 +156,10 @@ const FreelancerMainEditAccountPage = () => {
     setFiles({ images: imgs, videos: vids, document: docs });
   };
 
-  const postUpdate = () => {
+  const postUpdate = async () => {
     // setUpdateLoading(true);
+    await handleSocial();
+
     dispatch(
       getMessages({
         messages: "جـارى تحديث البيانات ",
@@ -213,6 +282,8 @@ const FreelancerMainEditAccountPage = () => {
         handleClick={postUpdate}
         personalData={userData}
         Sdelet={deleteFiles}
+        setSocialData={setSocialData}
+        socialLoading={socialLoading}
       />
     </div>
   );

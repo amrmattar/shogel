@@ -46,40 +46,73 @@ const FlancerTabsControllerPills = ({
             {isPills ? (
               <>
                 {/* Request I Made [Holder] */}
-                {userRole !== "2" && (
+                {userRole !== "2" ? (
+                  <>
+                    <li className="nav-item" role="presentation">
+                      <button
+                        style={{ border: "1px solid transparent" }}
+                        className="nav-link active px-2 py-1"
+                        id="RequestsMade"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-contact"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-contact"
+                        aria-selected="false"
+                      >
+                        طلبات قدمت عليها
+                      </button>
+                    </li>
+                    {/* Request My Job [Holder] */}
+                    <li className="nav-item" role="presentation">
+                      <button
+                        style={{ border: "1px solid transparent" }}
+                        className="nav-link  px-2 py-1"
+                        id="hireMeRequests"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-profile"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-profile"
+                        aria-selected="false"
+                      >
+                        طلبات شغلني
+                      </button>
+                    </li>
+
+                    <li className="nav-item" role="presentation">
+                      <button
+                        style={{ border: "1px solid transparent" }}
+                        className="nav-link  px-2 py-1"
+                        id="MyFieldSpecialization"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-profile"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-profile"
+                        aria-selected="false"
+                      >
+                        طلبات في مجال تخصصي
+                      </button>
+                    </li>
+                  </>
+                ) : (
                   <li className="nav-item" role="presentation">
                     <button
                       style={{ border: "1px solid transparent" }}
-                      className="nav-link active px-2 py-1"
-                      id="RequestsMade"
+                      className="nav-link  px-2 py-1"
+                      id="hireMeRequests"
                       data-bs-toggle="pill"
-                      data-bs-target="#pills-contact"
+                      data-bs-target="#pills-profile"
                       type="button"
                       role="tab"
-                      aria-controls="pills-contact"
+                      aria-controls="pills-profile"
                       aria-selected="false"
                     >
-                      طلبات قدمت عليها
+                      طلبات شغلني
                     </button>
                   </li>
                 )}
-
-                {/* Request My Job [Holder] */}
-                <li className="nav-item" role="presentation">
-                  <button
-                    style={{ border: "1px solid transparent" }}
-                    className="nav-link  px-2 py-1"
-                    id="hireMeRequests"
-                    data-bs-toggle="pill"
-                    data-bs-target="#pills-profile"
-                    type="button"
-                    role="tab"
-                    aria-controls="pills-profile"
-                    aria-selected="false"
-                  >
-                    طلبات شغلني
-                  </button>
-                </li>
               </>
             ) : (
               <>
@@ -165,6 +198,10 @@ const FlancerTabsControllerPills = ({
         {selectedTap === "hireMeRequests" ? (
           <div className="tab-pane show active" id="pills-home">
             {children?.hireMeRequests}
+          </div>
+        ) : selectedTap === "MyFieldSpecialization" ? (
+          <div className="tab-pane show active" id="pills-profile">
+            {children?.MyFieldSpecialization}
           </div>
         ) : (
           <div className="tab-pane show active" id="pills-profile">
