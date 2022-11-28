@@ -134,19 +134,21 @@ const SideNavFlancerProfilePages = ({ data }) => {
               );
             })}
 
-            <NavLink
-              to={`/freelancer-offer/${data?.id}`}
-              className={"uLT-list-style"}
-            >
-              <div className="shadow  uLT-f-radius-sB">
-                <ButtonShare
-                  btnClasses="cLT-secondary-bg py-2 px-4  d-flex align-items-center gap-2 uLT-f-radius-sB"
-                  textClasses={`fLT-Regular-sB px-1 cLT-white-text `}
-                  innerText="شغلني"
-                  iconName={"iLT-work-case-white"}
-                />
-              </div>
-            </NavLink>
+            {data?.role?.name === "freelancer" && (
+              <NavLink
+                to={`/freelancer-offer/${data?.id}`}
+                className={"uLT-list-style"}
+              >
+                <div className="shadow  uLT-f-radius-sB">
+                  <ButtonShare
+                    btnClasses="cLT-secondary-bg py-2 px-4  d-flex align-items-center gap-2 uLT-f-radius-sB"
+                    textClasses={`fLT-Regular-sB px-1 cLT-white-text `}
+                    innerText="شغلني"
+                    iconName={"iLT-work-case-white"}
+                  />
+                </div>
+              </NavLink>
+            )}
           </div>
         </div>
       )}
@@ -169,28 +171,31 @@ const SideNavFlancerProfilePages = ({ data }) => {
         </div>
       </div>
       {/* Flancer Courses [Holder] */}
-      <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
-        <p className="mb-0 fLT-Bold-sA text-nowrap">الشهادات والدورات </p>
-        {data?.skill?.length !== 0 ? (
-          <Fragment>
-            {data?.skill?.map((skill, ix) => {
-              return (
-                <div key={ix} className="d-flex justify-content-between">
-                  <FlancerCoursesComponent innerText={skill.skill} />
-                  <PerformanceShared
-                    defaultNumber={skill.level.level}
-                    status={true}
-                  />
-                </div>
-              );
-            })}
-          </Fragment>
-        ) : (
-          <p className="mb-0 fLT-Bold-sA cLT-gray-text">
-            لا يوجد شهادات ودورات
-          </p>
-        )}
-      </div>
+      {data?.role?.name === "freelancer" && (
+        <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
+          <p className="mb-0 fLT-Bold-sA text-nowrap">الشهادات والدورات </p>
+          {data?.skill?.length !== 0 ? (
+            <Fragment>
+              {data?.skill?.map((skill, ix) => {
+                return (
+                  <div key={ix} className="d-flex justify-content-between">
+                    <FlancerCoursesComponent innerText={skill.skill} />
+                    <PerformanceShared
+                      defaultNumber={skill.level.level}
+                      status={true}
+                    />
+                  </div>
+                );
+              })}
+            </Fragment>
+          ) : (
+            <p className="mb-0 fLT-Bold-sA cLT-gray-text">
+              لا يوجد شهادات ودورات
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Flancer Language [Holder] */}
       <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
         <p className="mb-0 fLT-Bold-sA text-nowrap">اللغات </p>
@@ -257,7 +262,7 @@ export default SideNavFlancerProfilePages;
 const SocialCom = ({ item }) => {
   return (
     <div
-      onClick={() => window.open(item.value)}
+      onClick={() => window.open(item.value, "_blank")}
       style={{ cursor: "pointer", margin: "auto" }}
     >
       <img width={70} height={70} src={item.logo} alt="err" />

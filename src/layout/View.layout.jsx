@@ -29,7 +29,7 @@ const ViewLayout = () => {
           <HeaderHolder />
         </header>
       ) : (
-        false
+        <></>
       )}
       {/* Main Content  [Holder] */}
       {location.pathname.includes("/account_management") && (
@@ -37,6 +37,7 @@ const ViewLayout = () => {
           <PageHeader />
         </div>
       )}
+
       <main
         style={{ minHeight: "80vh" }}
         className={`${

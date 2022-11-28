@@ -9,6 +9,8 @@ import UserFeedBackShared from "../../shared/UserFeedBack/UserFeedBack.shared";
 import { BsTelephoneFill } from "react-icons/bs";
 import { MdEmail, MdLocationOn } from "react-icons/md";
 import CompletionChart from "../../components/FreeLancer/FlancerEmployedComponent/CompletionChart";
+import axios from "axios";
+import { API } from "../../enviroment/enviroment/enviroment";
 
 const AsideFreelancerPage = ({
   selector,
@@ -28,6 +30,8 @@ const AsideFreelancerPage = ({
   ]);
   // Get User Edit Profile Data By ID
   const [userProfileData, setEditProfileData] = useState();
+  const [changeStatusLoading, setChangeStatusLoading] = useState(false);
+  const [status, setStatus] = useState(false);
 
   // TODO  Get Edit Profile Data After Check Location By ID
   const getEditProfileData = useMemo(() => {
@@ -109,6 +113,59 @@ const AsideFreelancerPage = ({
       subTitle: isUserData?.city?.name,
     },
   ];
+
+  const changeStatus = (e) => {
+    setChangeStatusLoading(true);
+    dispatch(
+      getMessages({
+        messages: "جـارى تحديث الحاله",
+        messageType: "warning",
+        messageClick: true,
+      })
+    );
+
+    API.post("/user/convert/status")
+      .then(() => {
+        API.get(`/user/profile?id=${isUserData.id}`)
+          .then(({ data }) => {
+            setStatus(data.data.available ? true : false);
+            setChangeStatusLoading(false);
+            dispatch(
+              getMessages({
+                messages: "تم تعديل الحاله",
+                messageType: "success",
+                messageClick: true,
+              })
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+            setChangeStatusLoading(false);
+            dispatch(
+              getMessages({
+                messages: "حدث خطأ غير متوقع",
+                messageType: "error",
+                messageClick: true,
+              })
+            );
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        setChangeStatusLoading(false);
+        dispatch(
+          getMessages({
+            messages: "حدث خطأ غير متوقع",
+            messageType: "error",
+            messageClick: true,
+          })
+        );
+      });
+  };
+
+  useEffect(() => {
+    setStatus(isUserData?.available === 1);
+  }, [isUserData?.available]);
 
   //  console.log(userProfileData, "waae");
   //  console.log(userData, "wde");
@@ -275,6 +332,28 @@ const AsideFreelancerPage = ({
               );
             })}
           {/* Profile Performance */}
+
+          {isUserData?.id === userData?.id && (
+            <div className="status d-flex justify-content-between align-items-center w-100">
+              <p className="m-0">الحاله</p>
+              <div className="form-check form-switch">
+                <input
+                  disabled={changeStatusLoading}
+                  className="form-check-input"
+                  type="checkbox"
+                  id="flexSwitchCheckChecked"
+                  checked={status}
+                  onChange={changeStatus}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="flexSwitchCheckChecked"
+                >
+                  {status ? "متاح" : "غير متاح"}
+                </label>
+              </div>
+            </div>
+          )}
 
           <CompletionChart value={isUserData?.complete_profile} />
         </div>

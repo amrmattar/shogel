@@ -1,9 +1,10 @@
 import "./FlancerEmployedListCard.component.scss";
 
-function CompletionChart({ value }) {
-  function convertIndx(indx, param) {
+const CompletionChart = ({ value }) => {
+  const convertIndx = (indx, param) => {
     return (indx + param) * 10;
-  }
+  };
+
   return (
     <div className="containo32">
       <p>{value}%</p>
@@ -26,5 +27,5 @@ function CompletionChart({ value }) {
         ))}
     </div>
   );
-}
+};
 export default CompletionChart;

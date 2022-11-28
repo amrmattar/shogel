@@ -62,6 +62,7 @@ const LoginPage = ({
             profileValidation: res?.data?.data?.profile_validation,
             userRole: res?.data?.data?.role,
           };
+
           dispatch(getUserLoginData(data));
           const userToken = res?.data?.data.token;
           localStorage.setItem("userTK", JSON.stringify(userToken));

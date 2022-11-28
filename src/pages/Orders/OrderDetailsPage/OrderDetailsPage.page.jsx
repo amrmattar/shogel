@@ -165,7 +165,9 @@ const OrderDetailsPage = () => {
   };
 
   const offerPermission = useCallback(() => {
-    userPermission?.permission?.filter(function (el) {
+    // console.log(userPermission?.permission);
+
+    userPermission?.permission?.filter((el) => {
       return el?.name == "offer-create" && setHavePermission(el?.name);
     });
   }, [userPermission]);
@@ -218,11 +220,19 @@ const OrderDetailsPage = () => {
 
   useEffect(() => {
     const offerStatusId = offerPriceTaskData?.status?.id;
-    const currentClient = userPermission.id;
+    const currentClient = userPermission?.id;
     const offerPuplsherUserId = offerPriceTaskData?.user?.id;
-    if (!offerStatusId || !currentClient || !offerPuplsherUserId) return;
+    const freelancerId = offerPriceTaskData?.freelancer?.id;
 
-    if (offerStatusId !== 3 && currentClient !== offerPuplsherUserId) {
+    if (!offerStatusId || currentClient === undefined || !offerPuplsherUserId) {
+      return;
+    }
+
+    if (
+      offerStatusId !== 3 &&
+      currentClient !== offerPuplsherUserId &&
+      currentClient !== freelancerId
+    ) {
       navigate("/orders/page=1");
     }
   }, [userPermission, offerPriceTaskData, navigate]);
@@ -390,6 +400,7 @@ const OrderDetailsPage = () => {
               ) : (
                 <></>
               )}
+
               {/*  All freelancer offers */}
               <PageTitle smallUnderTitle=" " title="العروض المقدمة" />
               {offerPriceTaskData?.offer?.length !== 0 ? (

@@ -274,6 +274,7 @@ const FreelancerMainEditAccountPage = () => {
         type={messages?.messageType}
         clickMe={messages?.messageClick}
       />
+
       <FlancerMyEditAccountPage
         setCheck={setUpdateSocail}
         fileUploads={filenames}
