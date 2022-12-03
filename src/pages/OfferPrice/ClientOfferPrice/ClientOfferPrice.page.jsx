@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import OfferPriceForm from "../../../components/requestAQuote/OfferPriceDetails/OfferPriceForm/OfferPriceForm.component";
 import OfferPriceTitle from "../../../components/requestAQuote/OfferPriceDetails/OfferPriceTitle/OfferPriceTitle.component";

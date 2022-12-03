@@ -153,12 +153,12 @@ const SideNavFlancerProfilePages = ({ data }) => {
         </div>
       )}
       {/* Flancer Areas Of Competence [Holder] */}
-      <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
+      <div
+        style={{ maxHeight: 200, overflow: "auto" }}
+        className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4"
+      >
         <p className="mb-0 fLT-Bold-sA text-nowrap">مجالات الاختصاص </p>
-        <div
-          className="d-flex gap-3 flex-wrap"
-          style={{ maxHeight: "235px", overflow: "auto" }}
-        >
+        <div className="d-flex gap-3 flex-wrap">
           {data?.category?.map((category) => {
             return (
               <AmentiesShared
@@ -172,7 +172,10 @@ const SideNavFlancerProfilePages = ({ data }) => {
       </div>
       {/* Flancer Courses [Holder] */}
       {data?.role?.name === "freelancer" && (
-        <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
+        <div
+          style={{ maxHeight: 200, overflow: "auto" }}
+          className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4 ps-3"
+        >
           <p className="mb-0 fLT-Bold-sA text-nowrap">الشهادات والدورات </p>
           {data?.skill?.length !== 0 ? (
             <Fragment>
@@ -197,7 +200,10 @@ const SideNavFlancerProfilePages = ({ data }) => {
       )}
 
       {/* Flancer Language [Holder] */}
-      <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
+      <div
+        style={{ maxHeight: 200, overflow: "auto" }}
+        className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4 ps-3"
+      >
         <p className="mb-0 fLT-Bold-sA text-nowrap">اللغات </p>
         {data?.language?.length !== 0 ? (
           <Fragment>
@@ -217,6 +223,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
           <p className="mb-0 fLT-Bold-sA cLT-gray-text">لا يوجد لغات</p>
         )}
       </div>
+
       {/* Flancer Documentation */}
       <div className="uLT-bd-b-platinum-sA pb-4">
         <p className="fLT-Bold-sA text-nowrap">توثيقات </p>

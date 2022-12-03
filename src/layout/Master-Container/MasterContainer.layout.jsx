@@ -22,85 +22,73 @@ const MasterContainer = () => {
   return (
     <>
       <div className="overflow-hidden w-100">
-        {userID ? (
-          <Routes>
-            <Route
-              path={`/advertising-price/:id`}
-              element={<FlancerAdvertisingOfferPage />}
-            />
-            <Route
-              path={`/update-offer-price/:id`}
-              element={<ClientOfferPricePage />}
-            />
+        <Routes>
+          <Route
+            path={`/advertising-price/:id`}
+            element={<FlancerAdvertisingOfferPage />}
+          />
+          <Route
+            path={`/update-offer-price/:id`}
+            element={<ClientOfferPricePage />}
+          />
 
-            <Route element={<UserValidta />}>
-              <Route
-                path={`account_management/*`}
-                element={<FlancreAccountManagementPage />}
-              >
-                <>
+          <Route element={<UserValidta />}>
+            <Route
+              path={`account_management/*`}
+              element={<FlancreAccountManagementPage />}
+            >
+              <>
+                <Route
+                  path={`my-edit-account/${userID}`}
+                  element={<FreelancerMainEditAccountPage />}
+                />
+                <Route element={<PrivateRoutes />}>
                   <Route
-                    path={`my-edit-account/${userID}`}
-                    element={<FreelancerMainEditAccountPage />}
+                    path={`my-order/${userID}/page=:num`}
+                    element={<FlancerMyOrderPage />}
                   />
-                  <Route element={<PrivateRoutes />}>
-                    <Route
-                      path={`my-order/${userID}/page=:num`}
-                      element={<FlancerMyOrderPage />}
-                    />
-                    <Route
-                      path={`my-pills/${userID}/page=:num`}
-                      element={<FlancerMyPillsPage />}
-                    />
-                    <Route
-                      path={`my-advertising/${userID}/page=:num`}
-                      element={<FlancerMyAdvsPage />}
-                    />
+                  <Route
+                    path={`my-pills/${userID}/page=:num`}
+                    element={<FlancerMyPillsPage />}
+                  />
+                  <Route
+                    path={`my-advertising/${userID}/page=:num`}
+                    element={<FlancerMyAdvsPage />}
+                  />
 
-                    <Route
-                      path={`my-notification/${userID}`}
-                      element={<FlancerMyNotificationPage />}
-                    />
-                    <Route
-                      path={`my-favorite/${userID}/page=:num`}
-                      element={<FlancerMyFavoritePage />}
-                    />
-                    <Route
-                      path={`my-wallet/${userID}`}
-                      element={<FlancerMyWalletPage />}
-                    />
-                    <Route
-                      path={`my-setting/${userID}`}
-                      element={<FlancerMySettingPage />}
-                    />
-                    <Route
-                      path={"my-logout"}
-                      element={<FlancerMyLogoutPage />}
-                    />
-                  </Route>
                   <Route
-                    path={"*"}
-                    element={<Navigate to={`my-edit-account/${userID}`} />}
+                    path={`my-notification/:id`}
+                    element={<FlancerMyNotificationPage />}
                   />
-                </>
-              </Route>
-            </Route>
-            {appRoutes.data.map((entry, idx) => {
-              return (
-                <Route key={idx} element={<PrivateRoutes />}>
-                  <Route path={entry?.path} element={entry?.key} />
+                  <Route
+                    path={`my-favorite/${userID}/page=:num`}
+                    element={<FlancerMyFavoritePage />}
+                  />
+                  <Route
+                    path={`my-wallet/${userID}`}
+                    element={<FlancerMyWalletPage />}
+                  />
+                  <Route
+                    path={`my-setting/${userID}`}
+                    element={<FlancerMySettingPage />}
+                  />
+                  <Route path={"my-logout"} element={<FlancerMyLogoutPage />} />
                 </Route>
-              );
-            })}
-          </Routes>
-        ) : (
-          <p className="fs-5 d-flex justify-content-center align-items-center text-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden" />
-            </div>
-            <p className="m-0 me-2">جاري التحميل</p>
-          </p>
-        )}
+                <Route
+                  path={"*"}
+                  element={<Navigate to={`my-edit-account/${userID}`} />}
+                />
+              </>
+            </Route>
+          </Route>
+          {appRoutes.data.map((entry, idx) => {
+            return (
+              <Route key={idx} element={<PrivateRoutes />}>
+                <Route path={entry?.path} element={entry?.key} />
+              </Route>
+            );
+          })}
+        </Routes>
       </div>
     </>
   );

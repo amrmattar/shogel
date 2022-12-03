@@ -101,6 +101,7 @@ const OfferPriceInfo = ({ data }) => {
             على العمل
           </p>
         </div>
+
         {/* Offer Price Info [Holder] */}
         <div className="col-12 col-lg-6 d-flex flex-column justify-content-center cLT-secondary-opacity-3 uLT-f-radius-sB p-3 p-md-4">
           {/* Offer Price Address Info */}
@@ -123,7 +124,7 @@ const OfferPriceInfo = ({ data }) => {
               {" "}
               اكتب تفاصيل الطلب
             </Form.Label>
-            <div style={{ background: "#fff" }}>
+            <div>
               <TextEditorShared
                 setDescription={setContent}
                 setMaxLength={setGetDescriptionLength}

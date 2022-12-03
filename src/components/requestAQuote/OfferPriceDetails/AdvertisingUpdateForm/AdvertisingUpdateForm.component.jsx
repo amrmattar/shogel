@@ -334,7 +334,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
         clickMe={messages?.messageClick}
       />
       {/* LT-request-form [Holder] */}
-      <Form onSubmit={handleCLick} className="LT-advs-form-grid py-4 mt-4 px-4">
+      <Form onSubmit={handleCLick} className="LT-advs-form-grid py-4 mt-5 px-4">
         {/* Address Request [Section] */}
         <Row className="mb-3 gap-3 flex-column m-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">

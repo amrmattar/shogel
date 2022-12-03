@@ -9,6 +9,18 @@ import { Form, Row } from "react-bootstrap";
 
 import "./FlancerOtherJobSites.component.scss";
 
+const socialLinks = {
+  facebook: "https://www.facebook.com/...",
+  حراج: "https://haraj.com.sa/...",
+  مستقل: "https://mostaql.com/...",
+  بحر: "https://bahr.910ths.sa/...",
+  "فرى لانسر": "https://www.freelancer.com/...",
+  "اب ورك": "https://www.upwork.com/...",
+  انستجرام: "https://mostaql.com/...",
+  تويتر: "https://www.instagram.com/...",
+  اخرى: "https://sitename.com/...",
+};
+
 const FlancerOtherJobSitesComponent = ({
   socialSite,
   setSocialData,
@@ -80,7 +92,7 @@ const FlancerOtherJobSitesComponent = ({
               }
               className="uLT-bd-f-platinum-sA  uLT-f-radius-sB"
               dir="ltr"
-              placeholder="رابط الموقع"
+              placeholder={socialLinks[site.name] || "الرابط"}
             />
           </div>
         </Row>

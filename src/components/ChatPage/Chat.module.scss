@@ -7,10 +7,10 @@
   .grid1 {
     padding-left: 16px;
     .historyHolder {
-      height: calc(100% - 104px);
-      overflow: hidden;
-      overflow-y: auto;
+      height: calc(100vh - 278px);
+      overflow: auto;
       background-color: white;
+      margin-bottom: 100px;
     }
     .grid1Header {
       background-color: white;

@@ -69,7 +69,6 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
         );
       });
   };
-
   // TODO Function Execute Check If Freelancer On Task Is Login Or Not  ** [ON Component Rendring] **
   const [myJob, setIsMyJob] = useState(false);
   useEffect(() => {
@@ -78,7 +77,6 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
       return setIsMyJob(true);
     }
   }, [data?.freelancer?.id]);
-
   // TODO Function Execute  View Is Owner For This Task OR Not ====> [Start] <====
   const HandleOwnerOfTaskView = useCallback(() => {
     const ownerTaskId = JSON.parse(localStorage.getItem("usID"));
@@ -97,6 +95,8 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
         );
     }
   }, [data?.user?.id]);
+  // ====> [End] <====
+
   useEffect(() => {
     HandleOwnerOfTaskView();
   }, [HandleOwnerOfTaskView]);
@@ -129,11 +129,11 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
 
   // TODO Function Execute View This Controller Buton TO [Owner The Task] ====> [Start] <====
   const HandleControllerView = useCallback(() => {
-    switch (data?.status?.name) {
-      case "active":
-      case "new":
-      case "open":
-      case "time out":
+    switch (data?.status?.id) {
+      case 3:
+      case 1:
+      case 2:
+      case 9:
         return (
           <div className="">
             <TaskButtonControllerFilterComponent
@@ -148,7 +148,7 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
       default:
         return false;
     }
-  }, [data?.status?.name]);
+  }, [data?.status?.id]);
   useEffect(() => {
     HandleControllerView();
   }, [HandleControllerView]);
@@ -157,28 +157,29 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
   // TODO Function Execute View Is Owner For This Task OR Not
   const HandleFreelancerJobView = useCallback(() => {
     const ownerTaskId = JSON.parse(localStorage.getItem("usID"));
-    switch (data?.freelancer?.id && data?.status?.name) {
+
+    switch (data?.freelancer?.id && data?.status?.id) {
       case ownerTaskId:
-      case "in progress":
+      case 4:
       case true:
         return <FreelancerTaskView setLoading={offerRefresh} data={data} />;
       default:
         return false;
     }
-  }, [data?.freelancer?.id, data?.status?.name]);
+  }, [data?.freelancer?.id, data?.status?.id]);
   useEffect(() => {
     HandleFreelancerJobView();
   }, [HandleFreelancerJobView]);
 
   // TODO Switch View Is Owner For This Task OR Not
   const HandleJobViewToClient = useCallback(() => {
-    switch (data?.status?.name) {
-      case "done by freelancer":
+    switch (data?.status?.id) {
+      case 12:
         return <ClientTaskView refresIfDone={offerRefresh} data={data} />;
       default:
         return false;
     }
-  }, [data?.status?.name]);
+  }, [data?.status?.id]);
   useEffect(() => {
     HandleJobViewToClient();
   }, [HandleJobViewToClient]);

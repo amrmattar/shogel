@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import FlancerAdvsGridCards from "../../../components/FreeLancer/FlancerAdvertisingComponent/FlancerAdvsGridCard/FlancerAdvsGridCard.component";
 import FlancerAboutComponent from "../../../components/FreeLancer/fLancerProfile/FlancerAbout/FlancerAbout.component";
 import FlancerAdvertise from "../../../components/FreeLancer/fLancerProfile/FlancerAdvertise/FlancerAdvertise.component";
 import FlancerCertificatesComponent from "../../../components/FreeLancer/fLancerProfile/FlancerCertificates/FlancerCertificates.component";
@@ -101,7 +102,7 @@ const FlancerProfilePage = ({ data }) => {
                         to={`/advertising/advertise-details/${advs.id}`}
                         key={idx}
                       >
-                        <FlancerAdvertise data={advs} />
+                        <FlancerAdvsGridCards data={advs} />
                       </NavLink>
                     );
                   })}

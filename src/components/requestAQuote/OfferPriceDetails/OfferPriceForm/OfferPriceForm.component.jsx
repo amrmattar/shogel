@@ -60,6 +60,7 @@ const OfferPriceForm = () => {
   const [selectedState, setSelectedState] = useState();
   const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity({});
@@ -259,7 +260,7 @@ const OfferPriceForm = () => {
         clickMe={messages?.messageClick}
       />
       {/* LT-request-form [Holder] */}
-      <Form className="LT-request-form-grid h100 pt-3 mt-4 px-4 uLT-f-radius-sB ">
+      <Form className="LT-request-form-grid h100 pt-3 mt-5 px-4 uLT-f-radius-sB ">
         {/* Address Request [Section] */}
         <Row className="m-0 flex-column m-0">
           <div className="d-flex gap-3 ps-0 ps-md-3 pe-0 mx-0 flex-column flex-md-row">
@@ -576,6 +577,7 @@ const OfferPriceForm = () => {
             <FlancerEditTagsComponent
               tags={offerCategory}
               anyJob={anyJob}
+              nobottomMargin
               // tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
               //             `}
             />
@@ -585,7 +587,7 @@ const OfferPriceForm = () => {
               </p>
             )}
 
-            <p>
+            <p style={{ marginTop: -40 }}>
               اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
               <span
                 onClick={() => setAnyJob(true)}

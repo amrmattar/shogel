@@ -30,6 +30,7 @@ import {
   arNumberConverter,
   testNumbers,
 } from "../../../../utils/arNumberConverter";
+import { userProfile } from "../../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 
 const OfferUpdateFormComponent = ({ taskId }) => {
   // Get Data From Redux Store By UseSelector
@@ -74,6 +75,14 @@ const OfferUpdateFormComponent = ({ taskId }) => {
     return () => clearTimeout(timeout);
   }, [loadTaskData, advsupdateform]);
   // TODO Get Advertising Data By ID [END]
+  useEffect(() => {
+    if (loadTaskData) {
+      setSelectedCountry(loadTaskData?.country);
+      setSelectedCity(loadTaskData?.city);
+      setSelectedState(loadTaskData?.state);
+      setSelectedArea(loadTaskData?.area);
+    }
+  }, [loadTaskData]);
 
   //TODO Get Location Input Value [Country-City-State] [START]
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
@@ -360,7 +369,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
       {/* LT-Update-request-form [Holder] */}
       <Form
         onSubmit={(e) => handleCLick(e)}
-        className="LT-request-form-grid py-4 mt-4 px-4 uLT-f-radius-sB"
+        className="LT-request-form-grid py-4 mt-5 px-4 uLT-f-radius-sB"
       >
         {/* Address Request [Section] */}
         <Row className="mb-3 flex-column m-0">

@@ -50,16 +50,9 @@ const CategoryTitleComponent = ({ data }) => {
     <>
       {/* Title Holder */}
       <div className={cls.main}>
-        <p className={cls.title1}>بعض مهام شغل</p>
-        <p className={cls.title2}>تعرف اكثر علي اشغال موقع شغل</p>
         {/* Title line */}
         <div className={cls.iconSec}>
-          {images.map((ele) => (
-            <div className={cls.iconHolder}>
-              <img src={ele.file} />
-              <p>{ele.title}</p>
-            </div>
-          ))}
+          <img src="/MicrosoftTeams-image.png" alt="" />
         </div>
       </div>
     </>

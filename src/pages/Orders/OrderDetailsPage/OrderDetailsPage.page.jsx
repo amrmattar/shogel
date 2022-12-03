@@ -80,7 +80,12 @@ const OrderDetailsPage = () => {
       const { name, value } = e?.target;
 
       // only price number
-      if (name === "offerPrice" && value && testNumbers(value)) return;
+      if (
+        (name === "offerPrice" || name === "offerTime") &&
+        value &&
+        testNumbers(value)
+      )
+        return;
 
       setRequestData((getOfferData) => ({
         ...getOfferData,
@@ -106,7 +111,7 @@ const OrderDetailsPage = () => {
     );
     const RequestOfferData = {
       price: arNumberConverter(getOfferData.offerPrice),
-      time: getOfferData.offerTime,
+      time: arNumberConverter(getOfferData.offerTime),
       description: getOfferData.description,
       task_id: offerPriceTaskData?.id,
     };
@@ -391,6 +396,7 @@ const OrderDetailsPage = () => {
                   <PageTitle smallUnderTitle=" " title="أضف عرضك الآن" />
                   <OfferRequestForm
                     errMessage={errMessage}
+                    maxLength={100}
                     handleCLick={sendOffer}
                     handleChange={getOfferDataValue}
                     offerIsRequest={offerRequest}

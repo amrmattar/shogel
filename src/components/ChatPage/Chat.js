@@ -339,13 +339,7 @@ const ChatMessage = (props) => {
       >
         <img
           alt="userImg"
-          src={
-            senderId === otherSideId
-              ? otherSidAvatar
-              : senderId === user.id
-              ? user.avatar
-              : ""
-          }
+          src={senderId === otherSideId ? otherSidAvatar : user.avatar}
           style={{
             width: "40px",
             height: "40px",

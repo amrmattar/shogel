@@ -16,7 +16,12 @@ import { RegisterServices } from "../../../core/services/AuthServices/Method_Reg
 import { userOfferPrice } from "../../../core/services/OfferPriceService/OfferPriceService.core";
 import FlancerEditTagsComponent from "../fLancerProfile/flancerEditAccount/FlancerEditTags/FlancerEditTags.component";
 import TextEditorShared from "../../../shared/TextEditor/TextEditor.shared";
-import { arNumberConverter } from "../../../utils/arNumberConverter";
+import {
+  arNumberConverter,
+  testNumbers,
+} from "../../../utils/arNumberConverter";
+import LocationHandler from "../../requestAQuote/OfferPriceDetails/OfferPriceForm/LocationHandler";
+import { userProfile } from "../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 
 const FlancerOfferPriceForm = ({ data }) => {
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
@@ -33,45 +38,93 @@ const FlancerOfferPriceForm = ({ data }) => {
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
   const [selectedCountry, setSelectedCountry] = useState();
   const [selectedState, setSelectedState] = useState();
+  const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
+  const [locationState, setLocationState] = useState(false);
+
   const fetchCountry = (country) => {
-    setSelectedCountry(country.id);
+    setSelectedCountry(country);
+    setSelectedCity({});
+    setSelectedState({});
+    setSelectedArea({});
   };
   const fetchCities = (city) => {
-    setSelectedState(city.id);
+    setSelectedCity(city);
+    setSelectedState({});
+    setSelectedArea({});
   };
   const fetchState = (state) => {
-    setSelectedCity(state.id);
+    setSelectedState(state);
+    setSelectedArea({});
   };
-  const getCoreData = useMemo(() => {
-    let modal = ["country", "city", "state"];
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+  };
+
+  const presetLocation = (data) => {
+    setSelectedCountry(data?.country);
+    setSelectedCity(data?.city);
+    setSelectedState(data?.state);
+    setSelectedArea(data?.area);
+  };
+
+  const getCoreData = useMemo(async () => {
+    let modal = ["country", "city", "state", "area"];
+
     return RegisterServices.GET_RegisterData(
       modal,
-      selectedCountry,
-      selectedState
+      selectedCountry?.id,
+      selectedCity?.id,
+      selectedState?.id
     ).then((res) => {
       setGetAllCountryFromResponse(res.data.data);
     });
-  }, [selectedCountry, selectedState]);
+  }, [selectedCountry, selectedState, selectedCity]);
+
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);
+
+  const userLoginData = useMemo(async () => {
+    try {
+      const res = await userProfile._GET_ProfileByToken(
+        localStorage.getItem("userTK")
+      );
+
+      const res2 = await userProfile._GET_ProfileData(res.data.data?.id);
+      presetLocation(res2.data.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [localStorage]);
+  useEffect(() => {
+    return userLoginData;
+  }, []);
+
   const [taskDescription, setTaskDescription] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     time: "",
-    type_work: "",
+    type_work: "online",
     address: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e?.target;
+
+    // only time number
+    if (name === "time" && value && testNumbers(value)) return;
+
     setFormData((formData) => ({ ...formData, [name]: value }));
   };
+
   const inputRef = useRef();
 
-  const [newfile, setFiles] = useState({ images: [], videos: [] });
+  const [newfile, setFiles] = useState({ images: [], any: [], videos: [] });
   const [filenames, setNames] = useState([]);
+  const [advsCheck, setAdvsCheck] = useState(false);
+
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
@@ -79,6 +132,8 @@ const FlancerOfferPriceForm = ({ data }) => {
         newfile.videos.push(allFile);
       } else if (allFile.type.match("image/")) {
         newfile.images.push(allFile);
+      } else {
+        newfile.any.push(allFile);
       }
     }
     const extension = files[0].name.split(".")[1]?.toLowerCase();
@@ -104,12 +159,10 @@ const FlancerOfferPriceForm = ({ data }) => {
     setFiles({ images: newfileImage, videos: newfileVideo });
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
-
   const filePicker = (e) => {
     inputRef.current.click();
     offerPrice.append("images", e.target?.files);
   };
-  const [advsCheck, setAdvsCheck] = useState(false);
 
   const handleCLickFreelancerForm = async (e) => {
     e.preventDefault();
@@ -120,27 +173,35 @@ const FlancerOfferPriceForm = ({ data }) => {
         messageClick: true,
       })
     );
-    setAdvsCheck(true);
+
+    // setAdvsCheck(true);
     newfile.videos?.map((video, idx) => {
       return offerPrice.append(`videos[${idx}]`, video);
     });
     newfile.images?.forEach((image, idx) => {
       return offerPrice.append(`images[${idx}]`, image);
     });
+    newfile.any?.forEach((file, idx) => {
+      return offerPrice.append(`document[${idx}]`, file);
+    });
+
     offerPrice.set("name", formData.name);
     offerPrice.set("freelancer_id", data?.id);
-    offerPrice.set("description", taskDescription?.value);
-    offerPrice.set("time", formData.time);
+    offerPrice.set("description", formData?.description);
+    offerPrice.set("time", arNumberConverter(formData.time));
     offerPrice.set("type_work", formData.type_work);
-    offerPrice.set("country_id", selectedCountry);
-    offerPrice.set("city_id", selectedState);
+    offerPrice.set("country_id", selectedCountry?.id);
+    offerPrice.set("city_id", selectedCity?.id);
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
-      offerPrice.set("state_id", selectedCity);
     }
+    offerPrice.set("state_id", selectedState?.id);
+    offerPrice.set("area_id", selectedArea?.id);
+
     getAllUserUpdate.category.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
     });
+
     userOfferPrice
       ._POST_RequestOffer(offerPrice)
       .then((res) => {
@@ -174,6 +235,19 @@ const FlancerOfferPriceForm = ({ data }) => {
   };
 
   const maxCharacters = 5000;
+
+  const [disable, setDisable] = useState(false);
+  useEffect(() => {
+    if (
+      getAllUserUpdate.category?.length > 0 &&
+      selectedArea?.id &&
+      !(formData.type_work === "offline" && !formData.address)
+    ) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [getAllUserUpdate, selectedArea, formData.type_work, formData.address]);
 
   return (
     <>
@@ -335,6 +409,7 @@ const FlancerOfferPriceForm = ({ data }) => {
                       value="online"
                       datatype="anuone"
                       alt="true"
+                      defaultChecked
                     />
                     <span> عن بعد</span>
                   </label>
@@ -371,80 +446,10 @@ const FlancerOfferPriceForm = ({ data }) => {
             </Form.Group>
           </div>
         </Row>
-        {/* Location [Section] */}
-        <Row className="d-flex align-items-center">
-          {/* Country [Section] */}
-          <label className="fLT-Regular-sB cLT-support2-text mb-2">موقعك</label>
-          <Form.Group as={Col} md={6} className="mb-3 position-relative ">
-            {/* Country [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <Select
-                placeholder="البلد"
-                className="uLT-f-radius-sB"
-                options={getAllCountryFromResponse?.country}
-                onChange={fetchCountry}
-                getOptionLabel={(country) => country?.name}
-                getOptionValue={(country) => country?.id}
-              />
-            </div>
-            {errMessage?.country_id && (
-              <p
-                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                style={{ bottom: "-27px" }}
-              >
-                {errMessage?.country_id}
-              </p>
-            )}
-          </Form.Group>
-          {/* State [Section] */}
-          <Form.Group as={Col} md={6} className="mb-3 position-relative">
-            {/* State [Option]  */}
-            <div
-              className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-            >
-              <Select
-                placeholder="المدينة"
-                options={getAllCountryFromResponse?.city}
-                onChange={fetchCities}
-                getOptionLabel={(city) => city?.name}
-                getOptionValue={(city) => city?.id}
-              />
-            </div>
-            {errMessage?.city_id && (
-              <p
-                className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                style={{ bottom: "-27px" }}
-              >
-                {errMessage?.city_id}
-              </p>
-            )}
-          </Form.Group>
-        </Row>
         {/* State Of Location Show Only Type Of Work === Offline */}
         {formData.type_work === "offline" && (
           <Row>
-            {/* City [Section] */}
-            <Form.Group as={Col} md={6} className="mb-3">
-              {/* City [Option]  */}
-              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
-                {" "}
-                المنطقة{" "}
-              </Form.Label>
-              <div
-                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
-              >
-                <Select
-                  placeholder="المنطقة"
-                  options={getAllCountryFromResponse?.state}
-                  onChange={fetchState}
-                  getOptionLabel={(state) => state?.name}
-                  getOptionValue={(state) => state?.id}
-                />
-              </div>
-            </Form.Group>
-            <Form.Group as={Col} md={6} className="mb-3 ">
+            <Form.Group as={Col} className="mb-3 ">
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
                 العنوان بالتفصيل
               </Form.Label>
@@ -493,6 +498,121 @@ const FlancerOfferPriceForm = ({ data }) => {
             </p>
           )}
         </div>
+
+        <div className="location">
+          <LocationHandler
+            country={selectedCountry?.name}
+            city={selectedCity?.name}
+            state={selectedState?.name}
+            area={selectedArea?.name}
+            setState={() => setLocationState(!locationState)}
+          />
+
+          {locationState && (
+            <div>
+              <Row className="d-flex align-items-center">
+                {/* Country [Section] */}
+                <label className="fLT-Regular-sB cLT-support2-text mb-2">
+                  موقعك
+                </label>
+                <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+                  {/* Country [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedCountry}
+                      placeholder="البلد"
+                      className="uLT-f-radius-sB "
+                      options={getAllCountryFromResponse?.country}
+                      onChange={fetchCountry}
+                      getOptionLabel={(country) => country?.name}
+                      getOptionValue={(country) => country?.id}
+                    />
+                  </div>
+                  {errMessage?.country_id && (
+                    <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
+                      {errMessage?.country_id}
+                    </p>
+                  )}
+                </Form.Group>
+                {/* State [Section] */}
+                <Form.Group as={Col} md={6} className="mb-3 position-relative">
+                  {/* State [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedCity}
+                      placeholder="المدينة"
+                      options={getAllCountryFromResponse?.city}
+                      onChange={fetchCities}
+                      getOptionLabel={(city) => city?.name}
+                      getOptionValue={(city) => city?.id}
+                    />
+                  </div>
+                  {errMessage?.city_id && (
+                    <p
+                      className="mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                      style={{ bottom: "-27px" }}
+                    >
+                      {errMessage?.city_id}
+                    </p>
+                  )}
+                </Form.Group>
+              </Row>
+              <Row className="d-flex align-items-center">
+                {/* Country [Section] */}
+
+                <Form.Group as={Col} md={6} className="mb-3 position-relative ">
+                  {/* Country [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedState}
+                      placeholder="المنطقة"
+                      className="uLT-f-radius-sB "
+                      options={getAllCountryFromResponse?.state}
+                      onChange={fetchState}
+                      getOptionLabel={(country) => country?.name}
+                      getOptionValue={(country) => country?.id}
+                    />
+                  </div>
+                  {errMessage?.country_id && (
+                    <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
+                      {errMessage?.country_id}
+                    </p>
+                  )}
+                </Form.Group>
+                {/* State [Section] */}
+                <Form.Group as={Col} md={6} className="mb-3 position-relative">
+                  {/* State [Option]  */}
+                  <div
+                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  >
+                    <Select
+                      value={selectedArea}
+                      placeholder="الحي"
+                      options={getAllCountryFromResponse?.area}
+                      onChange={fetchArea}
+                      getOptionLabel={(city) => city?.name}
+                      getOptionValue={(city) => city?.id}
+                    />
+                  </div>
+                  {errMessage?.city_id && (
+                    <p
+                      className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                      style={{ bottom: "27px" }}
+                    >
+                      {errMessage?.city_id}
+                    </p>
+                  )}
+                </Form.Group>
+              </Row>
+            </div>
+          )}
+        </div>
         {/* [Request Button */}
         <div className="d-flex justify-content-end  align-items-left">
           <div className="shadow uLT-f-radius-sB">
@@ -501,6 +621,7 @@ const FlancerOfferPriceForm = ({ data }) => {
               btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
               textClasses="px-4 cLT-white-text fLT-Regular-sC"
               innerText=" إرسال"
+              disable={disable}
             />
           </div>
         </div>

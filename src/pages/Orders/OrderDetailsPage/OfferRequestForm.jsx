@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import ButtonShare from "../../../shared/Button/Button.shared";
 
@@ -8,7 +8,10 @@ const OfferRequestForm = ({
   formValue,
   handleCLick,
   offerIsRequest,
+  maxLength,
 }) => {
+  const [currentLength, setCurrentLength] = useState(0);
+
   return (
     <>
       <Form
@@ -103,10 +106,18 @@ const OfferRequestForm = ({
             rows="3"
             placeholder="تفاصيل العرض"
             name="description"
-            onChange={handleChange}
+            onChange={(e) => {
+              setCurrentLength(e.currentTarget?.value?.length);
+              handleChange(e);
+            }}
             value={formValue?.description}
-            maxLength={100}
+            maxLength={maxLength}
           ></textarea>
+          {maxLength && (
+            <p className="m-0 mt-1 text-start ps-2">
+              {currentLength}/{maxLength}
+            </p>
+          )}
           {errMessage?.description && (
             <p
               className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
