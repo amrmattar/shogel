@@ -51,8 +51,8 @@ const CategoryTitleComponent = ({ data }) => {
       {/* Title Holder */}
       <div className={cls.main}>
         {/* Title line */}
-        <div className={cls.iconSec}>
-          <img src="/MicrosoftTeams-image.png" alt="" />
+        <div className={cls.iconSec + " w-100"}>
+          <img src="/MicrosoftTeams-image.png" className="w-100 h-100" alt="" />
         </div>
       </div>
     </>

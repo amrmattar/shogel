@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const RegistrationCycelComponent = () => {
-  return (
-    <div>RegistrationCycelComponent</div>
-  )
-}
+  return <div>RegistrationCycelComponent</div>;
+};
 
-export default RegistrationCycelComponent
+export default RegistrationCycelComponent;

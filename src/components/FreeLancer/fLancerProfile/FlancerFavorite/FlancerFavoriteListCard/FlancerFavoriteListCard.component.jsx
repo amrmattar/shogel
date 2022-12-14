@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const FlancerFavoriteListCardComponent = () => {
-    return (
-        <div>
+  return <div></div>;
+};
 
-        </div>
-    )
-}
-
-export default FlancerFavoriteListCardComponent
+export default FlancerFavoriteListCardComponent;

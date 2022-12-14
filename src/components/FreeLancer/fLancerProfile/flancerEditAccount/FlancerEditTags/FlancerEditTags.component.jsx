@@ -122,43 +122,45 @@ const FlancerEditTagsComponent = ({
             </p>
           )}
         />
-        <div className="d-flex gap-3 mt-3 pb-3 overflow-auto">
-          {profileTags?.map((tag, idx) => {
-            return (
-              <div
-                key={tag?.id}
-                id={tag?.id}
-                className="css-4vit6s-multiValue d-flex"
-                style={{ width: "fit-content", height: "fit-content" }}
-              >
-                <div className="css-12jo7m5 d-flex justify-content-center align-items-center">
-                  <p className="m-0" style={{ whiteSpace: "nowrap" }}>
-                    {tag?.name}
-                  </p>
-                </div>
+        {profileTags?.length > 0 && (
+          <div className="d-flex gap-3 mt-3 pb-3 overflow-auto">
+            {profileTags?.map((tag, idx) => {
+              return (
                 <div
-                  style={{ cursor: "pointer" }}
-                  className="css-o833bd"
-                  onClick={(e) => handleDelete(tag?.id)}
+                  key={tag?.id}
+                  id={tag?.id}
+                  className="css-4vit6s-multiValue d-flex"
+                  style={{ width: "fit-content", height: "fit-content" }}
                 >
-                  <svg
-                    height="14"
-                    width="14"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                    focusable="false"
-                    className="LT-close-hover-red css-tj5bde-Svg"
+                  <div className="css-12jo7m5 d-flex justify-content-center align-items-center">
+                    <p className="m-0" style={{ whiteSpace: "nowrap" }}>
+                      {tag?.name}
+                    </p>
+                  </div>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    className="css-o833bd"
+                    onClick={(e) => handleDelete(tag?.id)}
                   >
-                    <path
-                      className=""
-                      d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
-                    ></path>
-                  </svg>
+                    <svg
+                      height="14"
+                      width="14"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                      focusable="false"
+                      className="LT-close-hover-red css-tj5bde-Svg"
+                    >
+                      <path
+                        className=""
+                        d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z"
+                      ></path>
+                    </svg>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

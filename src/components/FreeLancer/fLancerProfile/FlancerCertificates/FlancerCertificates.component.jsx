@@ -1,10 +1,20 @@
+import React, { useEffect, useState } from "react";
 import cls from "./FlancerCertificates.component.module.scss";
-import React, { useState } from "react";
 
+import ImgsViewer from "./ImgsViewer";
+import { useMemo } from "react";
 
-
-function Slide({ slide, offset }) {
+const Slide = ({ slide, offset, clickable, setSelectedImg }) => {
   const active = offset === 0 ? true : null;
+
+  const openImg = () => {
+    const ext = slide.file.split(".").at(-1).toLowerCase();
+
+    if (ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "gif") {
+      setSelectedImg(slide.file);
+    }
+  };
+
   return (
     <div
       className={cls.slide}
@@ -13,37 +23,104 @@ function Slide({ slide, offset }) {
         "--offset": offset * 1.05 - 0.3,
         "--dir": 0,
         backgroundImage: `url('${slide.file}')`,
+        cursor: clickable ? "pointer" : "",
       }}
-    ></div>
+      onClick={clickable ? openImg : () => {}}
+    />
   );
-}
+};
 
-function FlancerCertificatesComponent({ certificatesData }) {
+function FlancerCertificatesComponent({ certificatesData, clickable }) {
   const [state, setState] = useState(0);
+  const [selectedImg, setSelectedImg] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const selectImgHandelar = (img) => {
+    setIsOpen(true);
+    setSelectedImg(img);
+  };
+
+  const Imgs = useMemo(
+    () =>
+      certificatesData.map((certificate) => {
+        return { src: certificate.file };
+      }),
+    [certificatesData]
+  );
+
+  const nextImg = () => {
+    const currentImgIdx = Imgs.findIndex((img) => {
+      console.log(img.src, selectedImg);
+
+      return img.src === selectedImg;
+    });
+
+    if (Imgs[currentImgIdx + 1]) {
+      setSelectedImg(Imgs[currentImgIdx + 1]?.src);
+    }
+  };
+
+  const prevImg = () => {
+    const currentImgIdx = Imgs.findIndex((img) => img.src === selectedImg);
+
+    if (Imgs[currentImgIdx - 1]) {
+      setSelectedImg(Imgs[currentImgIdx - 1]?.src);
+    }
+  };
+
+  useEffect(() => {
+    if (clickable && isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [clickable, isOpen]);
 
   return (
-    <div className={cls.main}>
-      <div className={cls.slides}>
-        {certificatesData.map((slide, i) => {
-          let offset = state - i;
-          return <Slide slide={slide} offset={offset} key={i} />;
-        })}
+    <>
+      {clickable && (
+        <ImgsViewer
+          imgs={Imgs}
+          currImg={selectedImg}
+          isOpen={isOpen}
+          onClickPrev={prevImg}
+          onClickNext={nextImg}
+          onClose={() => setIsOpen(false)}
+          backdropCloseable={true}
+        />
+      )}
+
+      <div className={cls.main}>
+        <div className={cls.slides}>
+          {certificatesData.map((slide, i) => {
+            let offset = state - i;
+            return (
+              <Slide
+                clickable
+                setSelectedImg={selectImgHandelar}
+                slide={slide}
+                offset={offset}
+                key={i}
+              />
+            );
+          })}
+        </div>
+        <button
+          onClick={() => setState((state + 1) % certificatesData.length)}
+          className={cls.next}
+        >
+          ›
+        </button>
+        <button
+          className={cls.prev}
+          onClick={() =>
+            setState(state === 0 ? certificatesData.length - 1 : state - 1)
+          }
+        >
+          ‹
+        </button>
       </div>
-      <button
-        onClick={() => setState((state + 1) % certificatesData.length)}
-        className={cls.next}
-      >
-        ›
-      </button>
-      <button
-        className={cls.prev}
-        onClick={() =>
-          setState(state === 0 ? certificatesData.length - 1 : state - 1)
-        }
-      >
-        ‹
-      </button>
-    </div>
+    </>
   );
 }
 

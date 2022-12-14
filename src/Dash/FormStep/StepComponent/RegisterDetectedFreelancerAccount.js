@@ -56,9 +56,10 @@ const RegisterDetectedFreelancerAccount = () => {
         </div>
         <div
           style={{ margin: "1rem 0 2rem 0", justifyContent: "space-between" }}
-          className="d-flex"
+          className="d-flex flex-column flex-md-row align-items-center"
         >
           <button
+            className="mb-4 mb-md-0"
             style={{
               backgroundColor: "#F8FAFC",
               height: "8rem",
@@ -113,14 +114,15 @@ const RegisterDetectedFreelancerAccount = () => {
             </p>
           </button>
         </div>
-        <div style={{ width: "30%" }}>
+        <div>
           <ButtonShare
             // type={!validation}
             // loading={nextLoading}
             onClick={value.prevPage}
             innerText={"رجوع"}
             btnClasses={"three cLT-secondary-bg"}
-            textClasses={"py-1 px-4 cLT-white-text fLT-Regular-sB"}
+            textClasses={"py-1 px-4"}
+            smBtn
           />
         </div>
       </div>

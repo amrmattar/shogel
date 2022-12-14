@@ -3,6 +3,10 @@
 * {
   font-family: "Cairo-Medium" !important;
 
+  @media (max-width: 768px) {
+    font-family: "Cairo-Bold" !important;
+  }
+
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -132,6 +136,14 @@
   width: 430px;
 }
 
+.main-bg-color {
+  background-color: #177a7c !important;
+}
+
+.main-bg-lighter {
+  background-color: #1eabad79 !important;
+}
+
 .btn.disabled,
 .btn:disabled,
 fieldset:disabled .btn {
@@ -207,4 +219,56 @@ fieldset:disabled .btn {
 
 .cu-pointer {
   cursor: pointer;
+}
+
+/*  responsev */
+@media (max-width: 768px) {
+  .btn_small_screen {
+    background-color: #e9e9e9 !important;
+    color: #000 !important;
+    width: 80% !important;
+    margin: auto;
+    display: block;
+  }
+
+  .btn-hover-gray:hover {
+    background-color: #e9e9e9 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .darken_sm_btn {
+    color: #fff !important;
+  }
+}
+
+.handelCardSize {
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.transparent-hover:hover,
+.transparent-hover:focus,
+.transparent-hover:active {
+  background-color: transparent !important;
+}
+
+.nav-small-screen-75 {
+  @media (max-width: 768px) {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.w-25-in-phone {
+  @media (max-width: 768px) {
+    width: 25% !important;
+  }
 }

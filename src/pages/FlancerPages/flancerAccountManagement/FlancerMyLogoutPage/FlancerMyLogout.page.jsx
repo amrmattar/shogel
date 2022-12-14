@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const FlancerMyLogoutPage = () => {
-    return (
-        <div>
-            <p>FlancerMyLogoutPage</p>
-        </div>
-    )
-}
+  return (
+    <div>
+      <p>FlancerMyLogoutPage</p>
+    </div>
+  );
+};
 
-export default FlancerMyLogoutPage
+export default FlancerMyLogoutPage;

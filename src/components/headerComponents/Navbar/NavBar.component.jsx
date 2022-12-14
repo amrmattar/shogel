@@ -145,14 +145,17 @@ const Navbar = () => {
               to="/"
               className="imLT-main-logo  uLT-img-position-contain col mx-0 px-0"
               aria-label="main-logo"
-            ></NavLink>
+            />
           </Typography>
           <Box
             sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none", color: "#02385A" },
+              display: {
+                xs: "flex",
+                md: "none",
+                color: "#02385A",
+              },
             }}
-            className="LT-nav-indicator"
+            className="LT-nav-indicator nav-small-screen-75"
           >
             <IconButton
               size="large"
@@ -162,7 +165,10 @@ const Navbar = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon
+                sx={{ width: 40, height: 40 }}
+                className="main-bg-color px-2 py-1 rounded-3 text-light"
+              />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -197,6 +203,18 @@ const Navbar = () => {
                 </NavLink>
               ))}
             </Menu>
+
+            <div className="d-md-none">
+              <NavLink
+                style={{
+                  width: 170,
+                  height: 50,
+                }}
+                to="/"
+                className="imLT-main-logo me-4 d-block uLT-img-position-contain col mx-0 px-0"
+                aria-label="main-logo"
+              />
+            </div>
           </Box>
 
           <Box
@@ -318,7 +336,7 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="LT-nav-login-button d-flex justify-content-end align-items-left">
-                <div className="uLT-f-radius-sB">
+                <div className="uLT-f-radius-sB w-25-in-phone">
                   <AuthComponent />
                 </div>
               </div>

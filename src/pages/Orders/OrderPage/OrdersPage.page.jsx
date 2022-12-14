@@ -96,10 +96,15 @@ const OrdersPage = () => {
   const [location, setLocation] = useState("");
   const [query, setQuery] = useState("");
   const [searchRes, setSearchRes] = useState("");
+
   const categHandler = (id, state) => {
-    state
-      ? setCateg([...categ, id])
-      : setCateg(categ.filter((ele) => ele != id));
+    setCateg((prev) => {
+      const newData = prev.find((ele) => ele == id)
+        ? prev.filter((ele) => ele !== id)
+        : [...prev, id];
+
+      return newData;
+    });
   };
 
   const resetCateg = () => {
@@ -149,7 +154,7 @@ const OrdersPage = () => {
   const fetchCategories = async () => {
     try {
       const res = await API.get("coredata/category/list");
-      setCategories(treeToList(res?.data?.data || []));
+      setCategories(res?.data?.data || []);
     } catch (e) {}
   };
 

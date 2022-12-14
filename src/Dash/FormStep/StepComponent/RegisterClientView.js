@@ -90,12 +90,12 @@ const RegisterClientView = () => {
   }, [validation, getClientData]);
 
   return (
-    <div className="DialogSim2">
+    <div className="DialogSim2 handelCardSize">
       <form
         onSubmit={(e) => getNext(e)}
         className="container px-0 my-4 d-flex flex-column"
         dir="rtl"
-        style={{ width: "30rem" }}
+        style={{ maxWidth: "30rem" }}
       >
         <div className="LT-login-holder">
           <div className="imLT-main-logo uLT-img-contain one img"> </div>
@@ -110,7 +110,7 @@ const RegisterClientView = () => {
                 autoComplete="off"
                 maxLength={25}
                 minLength={3}
-                className="uLT-bd-f-platinum-sA inpBG inp"
+                className="uLT-bd-f-platinum-sA inpBG inp border"
                 type="text"
                 value={getClientData.fullName}
                 onChange={value.setDataDetails("fullName")}
@@ -193,28 +193,27 @@ const RegisterClientView = () => {
                 {"كلمة المرور يجب ان تكون 8 خانات علي الاقل"}
               </p>
             )}
+
+            <div className="d-flex align-items-center justify-content-around gap-2 mb-3">
+              <div>
+                <ButtonShare
+                  type={!validation || !nameValid || !emailValid}
+                  innerText={"التـــالى"}
+                  btnClasses={"cLT-secondary-bg br14"}
+                  textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+                />
+              </div>
+              <div>
+                <ButtonShare
+                  smBtn
+                  onClick={getBack}
+                  innerText={"رجــــوع"}
+                  btnClasses={"three cLT-secondary-bg"}
+                  textClasses={"py-1 px-3 px-md-5 rounded-5"}
+                />
+              </div>
+            </div>
           </Row>
-        </div>
-        <div
-          style={{ direction: "ltr" }}
-          className="d-flex align-items-center justify-content-around gap-4 mb-3"
-        >
-          <div className="">
-            <ButtonShare
-              type={!validation || !nameValid || !emailValid}
-              innerText={"التـــالى"}
-              btnClasses={"cLT-secondary-bg br14"}
-              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
-          <div className="">
-            <ButtonShare
-              onClick={getBack}
-              innerText={"رجــــوع"}
-              btnClasses={"cLT-secondary-bg br14"}
-              textClasses={" py-1  px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
         </div>
       </form>
     </div>

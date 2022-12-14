@@ -190,6 +190,41 @@ const FlancerAdvsDetailsPage = () => {
     });
   };
 
+  const Description = () => {
+    return (
+      <>
+        <div
+          style={{
+            fontSize: "0.9rem",
+            fontWeight: 600,
+            width: "80%",
+            lineHeight: "1.5rem",
+            whiteSpace: "break-spaces",
+          }}
+          className={`text-muted small mb-3`}
+          dangerouslySetInnerHTML={{
+            __html:
+              advsDataById?.description !== "undefined"
+                ? advsDataById?.description?.length > 820 && !showDescription
+                  ? advsDataById?.description?.slice(0, 820) + " ..."
+                  : advsDataById?.description
+                : "لايوجد وصف للإعلان",
+          }}
+        />
+
+        {advsDataById?.description?.length > 820 && (
+          <span
+            className="text-primary"
+            style={{ cursor: "pointer" }}
+            onClick={() => setShowDescription((prev) => !prev)}
+          >
+            {showDescription ? "عرض اقل" : "عرض المزيد"}
+          </span>
+        )}
+      </>
+    );
+  };
+
   // ** User Feedback Loading UI Untill Response Return Data
   if (!advsDataById) {
     return (
@@ -288,28 +323,7 @@ const FlancerAdvsDetailsPage = () => {
           <PageTitle title="تفاصيل الاعلان" />
           <div className="d-flex">
             <div className="w-100">
-              <p className="m-0 fLT-Regular-sB cLT-smoke-text d-block">
-                {advsDataById?.description !== "undefined" ? (
-                  advsDataById?.description?.length > 200 &&
-                  !showDescription ? (
-                    advsDataById?.description?.slice(0, 200) + " ..."
-                  ) : (
-                    advsDataById?.description
-                  )
-                ) : (
-                  <span>لايوجد وصف للإعلان</span>
-                )}{" "}
-                {console.log(advsDataById?.description?.length)}
-                {advsDataById?.description?.length > 200 && (
-                  <span
-                    className="text-primary"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => setShowDescription((prev) => !prev)}
-                  >
-                    {showDescription ? "عرض اقل" : "عرض المزيد"}
-                  </span>
-                )}
-              </p>
+              <Description />
             </div>
             {/* <div className="d-flex align-items-end p-0">
             {location.pathname ===
@@ -348,6 +362,7 @@ const FlancerAdvsDetailsPage = () => {
         </div>
         <div style={{ overflow: "hidden", margin: "auto" }}>
           <FlancerCertificatesComponent
+            clickable
             certificatesData={advsDataById?.document}
           />
         </div>

@@ -547,22 +547,8 @@ const OfferUpdateFormComponent = ({ taskId }) => {
             </Form.Group>
           </Row>
         )}
-        {/* Upload Files [Holder] */}
-        <div className="LT-upload-request">
-          <Upload
-            inputRef={inputRef}
-            isDrop={fileHandler}
-            targetClick={filePicker}
-            fileArr={filenames}
-            handleDelete={handleDelete}
-            isHaveData={loadTaskData?.document}
-            uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
-            noHover
-          />
-        </div>
-
         {/* Skills-Grid [Holder] */}
-        <div className="LT-skills-request~ d-grid gap-3 pb-4 h-100 position-relative">
+        <div className="LT-skills-request~ d-grid gap-3 h-100 position-relative">
           {/* [Title] */}
           <p className="m-0 fLT-Bold-sA cLT-main-text">
             ما هي المهارات <span className="cLT-support1-text">و المجالات</span>{" "}
@@ -582,6 +568,20 @@ const OfferUpdateFormComponent = ({ taskId }) => {
               {errMessage?.category}
             </p>
           )}
+        </div>
+
+        {/* Upload Files [Holder] */}
+        <div className="LT-upload-request pb-4">
+          <Upload
+            inputRef={inputRef}
+            isDrop={fileHandler}
+            targetClick={filePicker}
+            fileArr={filenames}
+            handleDelete={handleDelete}
+            isHaveData={loadTaskData?.document}
+            uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
+            noHover
+          />
         </div>
 
         <article className="mb-4">

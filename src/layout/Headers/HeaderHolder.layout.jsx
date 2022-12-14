@@ -41,7 +41,7 @@ const HeaderHolder = () => {
                 <NavLink to="/offer-price">
                   <div className="shadow uLT-f-radius-sB">
                     <ButtonShare
-                      btnClasses="cLT-secondary-bg p-1 h40  uLT-f-radius-sB"
+                      btnClasses="cLT-secondary-bg p-1 h40  uLT-f-radius-sB d-none d-md-block"
                       textClasses={`px-md-4 cLT-white-text ${
                         mediaMD ? "fLT-Regular-sA" : "fLT-Regular-sC"
                       } `}

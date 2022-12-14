@@ -18,6 +18,7 @@ import IdPage from "./NewModules/IdPage";
 import LocationPage from "./NewModules/LocationPage";
 import LocationClientPage from "./NewModules/LocationClientPage";
 import StepperComp from "./StepComponent/StepperComp";
+import PhoneNavbar from "./PhoneNavbar";
 
 const MasterRegistrationComponent = () => {
   const value = useContext(LabelContext);
@@ -37,10 +38,11 @@ const MasterRegistrationComponent = () => {
 
   return (
     <div className="LT-stepper-style" dir="ltr">
-      {value.page > 2 && value?.accountType?.userKind !== "freelancer" && (
-        <StepperComp steps={first} activeStep={value?.page} />
-      )}
+      <PhoneNavbar steps={first} activeStep={value?.page} />
 
+      {value.page > 2 && value?.accountType?.userKind !== "freelancer" && (
+        <StepperComp hideInSm steps={first} activeStep={value?.page} />
+      )}
       {/* <StepperComp steps={first} activeStep={value?.page} /> */}
       {value.page === 0 && <RegisterMobileStep />}
       {value.page === 1 && <RegisterOTPStep />}
@@ -65,7 +67,6 @@ const MasterRegistrationComponent = () => {
       {value.page === 5 && value?.accountType?.userKind !== "client" && (
         <DescriptionPage />
       )}
-
       {value.page === 6 && <IdPage />}
       {value.page === 7 && value?.accountType?.userKind !== "client" && (
         <LocationPage />

@@ -48,9 +48,13 @@ const Employed = () => {
   };
   ///////////////////
   const categHandler = (id, state) => {
-    state
-      ? setCateg([...categ, id])
-      : setCateg(categ.filter((ele) => ele != id));
+    setCateg((prev) => {
+      const newData = prev.find((ele) => ele == id)
+        ? prev.filter((ele) => ele !== id)
+        : [...prev, id];
+
+      return newData;
+    });
   };
   const [active, setActive] = useState(null);
   const [rate, setRate] = useState(0);
@@ -66,8 +70,13 @@ const Employed = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  const resetCateg = () => {
+    setCateg([]);
+  };
   ////////////////////////////////////////
   const timeRef = useRef(0);
+
   useEffect(() => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
@@ -146,10 +155,12 @@ const Employed = () => {
             setCategory={categHandler}
             setActive={setActive}
             setRate={setRate}
+            resetCateg={resetCateg}
             rate={rate}
             setLocation={setLocation}
             mostUse={mostUse}
             categories={categories}
+            activesId={categ}
           />
           {flancersList?.data.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">

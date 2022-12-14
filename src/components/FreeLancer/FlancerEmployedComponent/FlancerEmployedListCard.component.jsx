@@ -7,10 +7,12 @@ const FlancerEmployedListCard = ({ data }) => {
   const myPersonData = {
     avatar: data?.avatar,
     fullname: data?.fullname,
-    jobName: data?.job_name_id?.name,
+    jobName: data?.role?.name,
     myFlag: data?.nationality?.logo,
     status: data?.available,
     profileComplition: data?.complete_profile,
+    info: data?.info,
+    description: data?.description,
   };
 
   return (
@@ -45,9 +47,7 @@ const FlancerEmployedListCard = ({ data }) => {
         </div>
         <div className="LT-employed-description">
           {/* Card title */}
-          <p className="m-0 fLT-Regular-sB cLT-smoke-text">
-            {data?.description && data?.description}
-          </p>
+          <p className="m-0 fLT-Regular-sB text-dark">{data?.info}</p>
         </div>
         {/* Card Divied */}
         {/* Card Amenties */}

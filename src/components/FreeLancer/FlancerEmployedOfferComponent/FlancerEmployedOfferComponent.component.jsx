@@ -398,14 +398,14 @@ const FlancerEmployedOfferComponent = ({
                 )}
               </div>
             </div>
-            {data?.status?.name == "unApprove" && (
+            {data?.status?.id == 10 && (
               <div className=" d-flex justify-content-center justify-content-md-end align-items-center cLT-support-text ">
                 <p className="fLT-Regular-sD m-0  uLT-f-radius-sB uLT-bd-f-gray-sA px-4 py-2">
                   تم الرفــــــض
                 </p>
               </div>
             )}
-            {data?.status?.name == "in progress" ? (
+            {data?.status?.id == 4 ? (
               <div className=" d-flex justify-content-center justify-content-md-end align-items-center cLT-support-text ">
                 <p className="fLT-Regular-sD m-0  uLT-f-radius-sB uLT-bd-f-gray-sA px-4 py-2">
                   تم التعــــاقد
@@ -414,8 +414,8 @@ const FlancerEmployedOfferComponent = ({
             ) : (
               <>
                 {isMyTask &&
-                  data?.status?.name !== "unApprove" &&
-                  data?.status?.name !== "in proggress" && (
+                  data?.status?.id !== 10 &&
+                  data?.status?.id !== 4 && (
                     <div className="LT-Button-style d-flex justify-content-center align-items-center gap-2 ">
                       <ButtonShare
                         loading={checkRejectLoading}
@@ -447,18 +447,17 @@ const FlancerEmployedOfferComponent = ({
                   )}
                 {data?.user?.id == isMyOffer && (
                   <div className="LT-Button-style d-flex justify-content-center align-items-center gap-2">
-                    {data?.status?.name !== "unApprove" &&
-                      data?.status?.name !== "in proggress" && (
-                        <div className=" w-100">
-                          <ButtonShare
-                            onClick={handleDeleteMyOffer}
-                            innerText="حذف"
-                            textClasses="fLT-Regular-sD"
-                            iconName={"LT-task-deleteIcon iLT-sA"}
-                            btnClasses="p-2 d-flex justify-content-center align-items-center gap-2 uLT-f-radius-sB LT-task-deleteButton cLT-support-text"
-                          />
-                        </div>
-                      )}
+                    {data?.status?.id !== 10 && data?.status?.id !== 4 && (
+                      <div className=" w-100">
+                        <ButtonShare
+                          onClick={handleDeleteMyOffer}
+                          innerText="حذف"
+                          textClasses="fLT-Regular-sD"
+                          iconName={"LT-task-deleteIcon iLT-sA"}
+                          btnClasses="p-2 d-flex justify-content-center align-items-center gap-2 uLT-f-radius-sB LT-task-deleteButton cLT-support-text"
+                        />
+                      </div>
+                    )}
                     {data?.status?.id === 11 && (
                       <>
                         {checkEdit === false ? (
@@ -517,22 +516,21 @@ const FlancerEmployedOfferComponent = ({
                   offerAmenties={"offerAmenties"}
                   offerAmentiesData={data?.created_at_value}
                 />
-                {data?.status?.name !== "unApprove" &&
-                  data?.status?.name !== "in progress" && (
-                    <div
-                      className="uLT-click"
-                      onClick={() => setOpen(!open)}
-                      aria-controls="example-collapse-text"
-                      aria-expanded={open}
+                {data?.status?.id !== 10 && data?.status?.id !== 4 && (
+                  <div
+                    className="uLT-click"
+                    onClick={() => setOpen(!open)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={open}
+                  >
+                    <p
+                      id="commentButton"
+                      className="mb-0 fLT-Regular-sA cLT-secondary-text"
                     >
-                      <p
-                        id="commentButton"
-                        className="mb-0 fLT-Regular-sA cLT-secondary-text"
-                      >
-                        اكتب تعليقك
-                      </p>
-                    </div>
-                  )}
+                      اكتب تعليقك
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
             <div
@@ -595,8 +593,8 @@ const FlancerEmployedOfferComponent = ({
                     <div
                       id="commentHolder"
                       className={` uLT-bd-r-secondary-sA  d-flex align-items-center justify-content-center gap-2 ${
-                        data?.status?.name !== "unApprove" &&
-                        data?.status?.name !== "in proggress" &&
+                        data?.status?.id !== 10 &&
+                        data?.status?.id !== 4 &&
                         "uLT-click"
                       }`}
                     >

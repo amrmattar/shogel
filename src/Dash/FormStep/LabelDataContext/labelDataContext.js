@@ -43,10 +43,10 @@ export const LabelProvider = (props) => {
   const prevPage = () => {
     setPage(page - 1);
   };
-  const handleChange = (prop) => (event) => {
+  const handleChange = (prop) => (event, value) => {
     setlabelInfo({
       ...labelInfo,
-      [prop]: event?.target?.attributes?.name?.value,
+      [prop]: value || event?.target?.attributes?.name?.value,
     });
     jumpPage(3);
   };

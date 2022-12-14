@@ -40,8 +40,7 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
             {/* <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i> */}
           </div>
           <p className="m-0 cLT-support2-text fLT-Regular-sB">
-            {" "}
-            {myData?.jobName || myData?.job_name_id?.name || "freelancer"}
+            {myData?.description}
           </p>
         </div>
       </div>

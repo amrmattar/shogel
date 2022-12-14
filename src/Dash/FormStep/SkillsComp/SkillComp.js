@@ -2,8 +2,34 @@ import cls from "./SkillComp.module.scss";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import Checkbox from "@mui/material/Checkbox";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const SkillComp = ({ skill, clicked, dropClicked, open, noArrow }) => {
+const SkillComp = ({
+  skill,
+  checkedSkls,
+  customTree,
+  clicked,
+  dropClicked,
+  open,
+  noArrow,
+  isActiveDebnd,
+}) => {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (!checkedSkls?.length) return setIsActive(false);
+
+    const currentCheckbox = checkedSkls?.find(
+      (skl) => (skl.id || skl) === skill.id
+    );
+    if (currentCheckbox) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [checkedSkls, skill.id]);
+
   return (
     <div className={cls.main}>
       <div className={cls.nameH}>
@@ -12,16 +38,29 @@ const SkillComp = ({ skill, clicked, dropClicked, open, noArrow }) => {
             width: "3rem",
           }}
         >
-          <Checkbox
-            onClick={() => clicked(skill.id)}
-            checked={skill.active}
-            sx={{
-              color: "#1EAAAD",
-              "&.Mui-checked": {
+          {customTree ? (
+            <Checkbox
+              onClick={() => clicked(skill.id)}
+              checked={isActive}
+              sx={{
                 color: "#1EAAAD",
-              },
-            }}
-          />
+                "&.Mui-checked": {
+                  color: "#1EAAAD",
+                },
+              }}
+            />
+          ) : (
+            <Checkbox
+              onClick={() => clicked(skill.id)}
+              checked={isActiveDebnd ? isActive : skill.active}
+              sx={{
+                color: "#1EAAAD",
+                "&.Mui-checked": {
+                  color: "#1EAAAD",
+                },
+              }}
+            />
+          )}
         </div>
         <div
           style={{
@@ -45,4 +84,5 @@ const SkillComp = ({ skill, clicked, dropClicked, open, noArrow }) => {
     </div>
   );
 };
+
 export default SkillComp;

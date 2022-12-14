@@ -7,6 +7,8 @@ import cls from "./Skills.module.scss";
 import SkillTree from "./SkillTree";
 
 import LTT from "list-to-tree";
+import DrawerSkls from "./DrawerSkls";
+import ButtonShare from "../../../shared/Button/Button.shared";
 
 const listToTree = (items) => {
   const validateParendId = (items) => {
@@ -59,6 +61,7 @@ const SkillsStep = () => {
   const value = useContext(LabelContext);
 
   const [skills, setSkills] = useState([]);
+  const [isOpenSklsPopup, setIsOpenSklsPopup] = useState(false);
   const [chosedSkills, setChosedSkills] = useState([]);
   const [inpV, setInpV] = useState("");
   const [searchRes, setSearchRes] = useState([]);
@@ -111,6 +114,10 @@ const SkillsStep = () => {
 
       return listToTree(listOfSkls);
     });
+  };
+
+  const openSklsPopup = () => {
+    setIsOpenSklsPopup(true);
   };
 
   const getChildFromList = (currentSkls, listSkls) => {
@@ -175,6 +182,14 @@ const SkillsStep = () => {
 
   return (
     <div className={cls.main}>
+      <DrawerSkls
+        handleRemoveChosedSkills={handleRemoveChosedSkills}
+        setChosedSkills={setChosedSkills}
+        chosedSkills={chosedSkills}
+        setIsOpenSklsPopup={setIsOpenSklsPopup}
+        isOpenSklsPopup={isOpenSklsPopup}
+      />
+
       <p className={cls.title}>اخبرنا عن مهاراتك</p>
       <div className={cls.head}>
         <input
@@ -189,9 +204,22 @@ const SkillsStep = () => {
       </div>
       <div className={cls.contain}>
         <div className={cls.gride}>
-          <p className={cls.skillTitle}>اختيار التصنيف</p>
+          <div
+            className={`${cls.skillTitle} d-flex justify-content-between align-items-center`}
+          >
+            <p className="m-0">اختيار التصنيف</p>
+            <button
+              onClick={openSklsPopup}
+              style={{ cursor: "pointer", color: "#1eaaad" }}
+              className="m-0 btn btn-link text-decoration-none fw-bold d-md-none transparent-hover"
+            >
+              {chosedSkills?.length || 0} مهارات
+            </button>
+          </div>
           {skills.length ? (
             <SkillTree
+              isActiveDebnd
+              checkedSkls={chosedSkills}
               addChosedSkils={addChosedSkils}
               skills={inpV ? searchRes : skills}
             />
@@ -200,7 +228,7 @@ const SkillsStep = () => {
           )}
         </div>
 
-        <div className={cls.grid}>
+        <div className={cls.grid + " d-none d-md-grid"}>
           <div className={cls.messageH}>
             <p className={cls.h}>{chosedSkills.length} مهارات</p>
             <p className={cls.p}>
@@ -220,16 +248,28 @@ const SkillsStep = () => {
           </div>
         </div>
       </div>
-      <button onClick={getBack} className={cls.back}>
-        رجوع
-      </button>
-      <button
-        onClick={getNext}
-        disabled={!chosedSkills.length}
-        className={cls.next}
+      <div
+        className={`${cls.handelBtns} d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
       >
-        التالي
-      </button>
+        <div className="">
+          <ButtonShare
+            type={!chosedSkills.length}
+            onClick={getNext}
+            innerText={"التـــالى"}
+            btnClasses={"cLT-secondary-bg br14"}
+            textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+          />
+        </div>
+        <div className="">
+          <ButtonShare
+            smBtn
+            onClick={getBack}
+            innerText={"رجــــوع"}
+            btnClasses={"three cLT-secondary-bg"}
+            textClasses={"py-1 px-3 px-md-5 rounded-5"}
+          />
+        </div>
+      </div>
     </div>
   );
 };

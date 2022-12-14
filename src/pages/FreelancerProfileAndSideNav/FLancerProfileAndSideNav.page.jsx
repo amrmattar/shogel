@@ -57,6 +57,7 @@ const FLancerProfileAndSideNavPage = () => {
             {/* <SideNav User Personal Data /> */}{" "}
             {/* <SideNav User Skills Data /> */}
             <AsideFreelancerPage
+              fullnameShowen
               userDataByParam={isResult}
               setMarginTop={-70}
               setMarginBottom={10}

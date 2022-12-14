@@ -395,7 +395,7 @@ const AdvertisingFormComponent = () => {
           </p>
           {!showSkills && (
             <FlancerEditTagsComponent
-              categoryClass={"pb-0 "}
+              categoryClass={"pb-0"}
               tags={userCategory}
             />
           )}

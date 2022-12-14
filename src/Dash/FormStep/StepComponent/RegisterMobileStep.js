@@ -150,7 +150,7 @@ const RegisterMobileStep = () => {
           <Row className="gap-3 two">
             {/* Mobile Number */}
             <Form.Group md="12" controlId="formGridMobile" className=" ">
-              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 text-end text-md-center d-block">
                 رقم الجوال
               </Form.Label>
               <div dir="ltr" onChange={handleChange}>
@@ -189,7 +189,7 @@ const RegisterMobileStep = () => {
             </label>
 
             <Link className="text-decoration-none" to="/policies">
-              <span style={{ marginRight: -12 }}>الشروط والاحكام</span>
+              <span>الشروط والاحكام</span>
             </Link>
           </div>
 
@@ -206,7 +206,7 @@ const RegisterMobileStep = () => {
         </div>
       </div>
       <div
-        className="d-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
+        className="d-md-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
         style={{
           paddingBottom: "3rem",
           width: "90%",

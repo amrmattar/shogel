@@ -5,7 +5,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useState } from "react";
 
-const SkillTree = ({ skills, addChosedSkils }) => {
+const SkillTree = ({
+  skills,
+  addChosedSkils,
+  customTree,
+  checkedSkls,
+  isActiveDebnd,
+}) => {
   const [data, setData] = useState({
     id: "root",
     name: "التصنيفات",
@@ -27,7 +33,13 @@ const SkillTree = ({ skills, addChosedSkils }) => {
       defaultExpanded={["root"]}
       defaultExpandIcon={<ChevronRightIcon />}
     >
-      <RenderTree addChosedSkils={addChosedSkils} nodes={data} />
+      <RenderTree
+        isActiveDebnd={isActiveDebnd}
+        checkedSkls={checkedSkls}
+        customTree={customTree}
+        addChosedSkils={addChosedSkils}
+        nodes={data}
+      />
     </TreeView>
   ) : (
     <></>

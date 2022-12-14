@@ -125,7 +125,10 @@ const ContactUs = ({ data }) => {
   }, [handleSectionOne]);
   return (
     <>
-      <section id="contactSec" className="row m-0 d-flex justify-content-center w-100 align-items-center">
+      <section
+        id="contactSec"
+        className="row m-0 d-flex justify-content-center w-100 align-items-center"
+      >
         {/* Contact Us Image [Holder] */}
         <picture
           className="col-12 col-lg px-0 uLT-f-radius-sB LT-contact-image "
@@ -279,7 +282,6 @@ const ContactUs = ({ data }) => {
                   onChange={handleChange}
                   required
                   value={contactForm.message}
-            
                   style={{ resize: "none" }}
                   className="form-control uLT-f-radius-sB uLT-outline-0"
                   rows="6"

@@ -1,12 +1,12 @@
-import React from 'react'
-import FlancerWalletComponent from '../../../../components/FreeLancer/fLancerProfile/FlancerWallet/FlancerWallet.component'
+import React from "react";
+import FlancerWalletComponent from "../../../../components/FreeLancer/fLancerProfile/FlancerWallet/FlancerWallet.component";
 
 const FlancerMyWalletPage = () => {
-    return (
-        <div>
-            <FlancerWalletComponent />
-        </div>
-    )
-}
+  return (
+    <div>
+      <FlancerWalletComponent />
+    </div>
+  );
+};
 
-export default FlancerMyWalletPage
+export default FlancerMyWalletPage;

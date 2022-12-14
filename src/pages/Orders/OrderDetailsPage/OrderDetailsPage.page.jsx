@@ -391,7 +391,7 @@ const OrderDetailsPage = () => {
                 <></>
               ) : havePermission &&
                 !taskBoolenOfferData &&
-                offerPriceTaskData?.status?.name !== "in progress" ? (
+                offerPriceTaskData?.status?.id !== 4 ? (
                 <>
                   <PageTitle smallUnderTitle=" " title="أضف عرضك الآن" />
                   <OfferRequestForm

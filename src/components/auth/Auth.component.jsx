@@ -6,6 +6,8 @@ import MobilePage from "../../pages/authPage/mobilePage/Mobile/Mobile.page";
 import MobileOTPPage from "../../pages/authPage/mobilePage/MobileOTP/MobileOTP.page";
 // import RegistrationPage from '../../pages/authPage/RegistrationPage/RegistrationPage.pages'
 import SwearingShared from "../../shared/Swearing/Swearing.shared";
+import { NavLink } from "react-router-dom";
+import { Box, IconButton } from "@mui/material";
 
 const AuthComponent = ({ clickMe, clickStatus }) => {
   const elementRef = useRef();
@@ -39,36 +41,50 @@ const AuthComponent = ({ clickMe, clickStatus }) => {
   }, [location]);
 
   return (
-    <div className="">
-      <button
-        ref={elementRef}
-        onClick={() => navigate("/register")}
-        type="button"
-        style={{
-          border: "0",
-          height: "40px",
-          width: "130px",
-          borderRadius: "9px",
-          margin: "0 0 0 1rem",
-          backgroundColor: "#1EAAAD",
-        }}
-      >
-        <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">كن مشتغل </p>
-      </button>
-      <button
-        ref={elementRef}
-        onClick={() => handleLogin()}
-        type="button"
-        className=" uLT-f-radius-sB"
-        style={{
-          height: "40px",
-          border: "0",
-          color: "#1EAAAD",
-          backgroundColor: "#fff",
-        }}
-      >
-        <p className="mb-0  px-2  fLT-Regular-sC">تسجيل الدخول</p>
-      </button>
+    <div>
+      <div className="lg-screen d-none d-md-block">
+        <button
+          ref={elementRef}
+          onClick={() => navigate("/register")}
+          type="button"
+          style={{
+            border: "0",
+            height: "40px",
+            width: "130px",
+            borderRadius: "9px",
+            margin: "0 0 0 1rem",
+            backgroundColor: "#1EAAAD",
+          }}
+        >
+          <p className="mb-0  px-4 cLT-white-text fLT-Regular-sC">كن مشتغل </p>
+        </button>
+        <button
+          ref={elementRef}
+          onClick={() => handleLogin()}
+          type="button"
+          className=" uLT-f-radius-sB"
+          style={{
+            height: "40px",
+            border: "0",
+            color: "#1EAAAD",
+            backgroundColor: "#fff",
+          }}
+        >
+          <p className="mb-0  px-2  fLT-Regular-sC">تسجيل الدخول</p>
+        </button>
+      </div>
+
+      <div className="d-md-none">
+        <IconButton className="d-flex justify-content-center align-items-center">
+          <div
+            className="icon px-2 d-flex justify-content-center align-items-center py-1 rounded-3 main-bg-lighter"
+            style={{ width: 40, height: 40, cursor: "pointer" }}
+          >
+            <img className="w-100 h-100" src="/icons/user (3).svg" alt="" />
+          </div>
+        </IconButton>
+      </div>
+
       {loginOpen && (
         <LoginPage
           open={loginOpen}

@@ -85,6 +85,7 @@ const OfferPriceForm = () => {
     setSelectedState(data?.state);
     setSelectedArea(data?.area);
   };
+
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
@@ -190,7 +191,7 @@ const OfferPriceForm = () => {
     offerPrice.set("type_work", formData.type_work);
     offerPrice.set("country_id", selectedCountry?.id);
     offerPrice.set("city_id", selectedCity?.id);
-    offerPrice.set("time", arNumberConverter(formData.time));
+    offerPrice.set("time", arNumberConverter(formData.time || 0));
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
     }
@@ -553,21 +554,10 @@ const OfferPriceForm = () => {
             </Form.Group>
           </Row>
    */}
-        {/* Upload Files [Holder] */}
-        <div className="LT-upload-request">
-          <Upload
-            inputRef={inputRef}
-            isDrop={fileHandler}
-            targetClick={filePicker}
-            fileArr={filenames}
-            handleDelete={handleDelete}
-            uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
-            noHover
-          />
-        </div>
+
         <div className="finalH">
           {/* Skills-Grid [Holder] */}
-          <div className="LT-skills-request~ d-grid gap-3 pb-4 w60 position-relative">
+          <div className="LT-skills-request~ d-grid gap-3 w60 position-relative">
             {/* [Title] */}
             <p className="m-0 fLT-Bold-sA cLT-main-text">
               ما هي المهارات{" "}
@@ -587,7 +577,7 @@ const OfferPriceForm = () => {
               </p>
             )}
 
-            <p style={{ marginTop: -40 }}>
+            <p>
               اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
               <span
                 onClick={() => setAnyJob(true)}
@@ -615,6 +605,19 @@ const OfferPriceForm = () => {
           {/* [Request Button */}
 
           {/* </div> */}
+        </div>
+
+        {/* Upload Files [Holder] */}
+        <div className="pb-4">
+          <Upload
+            inputRef={inputRef}
+            isDrop={fileHandler}
+            targetClick={filePicker}
+            fileArr={filenames}
+            handleDelete={handleDelete}
+            uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
+            noHover
+          />
         </div>
 
         <LocationHandler

@@ -12,8 +12,10 @@ const RegisterDetectedAccount = (props) => {
   const value = useContext(LabelContext);
   const navigate = useNavigate();
 
-  const handleChangeScreen = () => {
-    switch (value?.accountType?.userKind) {
+  const handleChangeScreen = (event) => {
+    value.handleChange("user")(event, event?.currentTarget?.name);
+
+    switch (event?.currentTarget?.name) {
       case "client":
         return value.jumpPage(3);
       case "freelancer":
@@ -51,11 +53,11 @@ const RegisterDetectedAccount = (props) => {
         </div>
         <div
           style={{ margin: "1rem 0 2rem 0", justifyContent: "space-between" }}
-          className="d-flex"
+          className="d-flex flex-column flex-md-row align-items-center"
         >
           <button
-            onClick={() => handleChangeScreen()}
-            onFocus={value.handleChange("user")}
+            className="mb-4 mb-md-0"
+            onClick={handleChangeScreen}
             id={3}
             name="freelancer"
             style={{
@@ -68,8 +70,8 @@ const RegisterDetectedAccount = (props) => {
             <i
               className={` LT-freelancer-icon iLT-freelancer-icon uLT-img-contain `}
               name="freelancer"
-            ></i>
-            <img src={Logo} />
+            />
+            <img src={Logo} alt="" />
             <p
               className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-freelancer-title"
               name="freelancer"
@@ -78,6 +80,7 @@ const RegisterDetectedAccount = (props) => {
               حســاب مشتغل
             </p>
           </button>
+
           <button
             style={{
               backgroundColor: "#F8FAFC",
@@ -85,8 +88,7 @@ const RegisterDetectedAccount = (props) => {
               width: "9rem",
               border: "0",
             }}
-            onClick={() => handleChangeScreen()}
-            onFocus={value.handleChange("user")}
+            onClick={handleChangeScreen}
             id={2}
             name="client"
           >
@@ -102,7 +104,7 @@ const RegisterDetectedAccount = (props) => {
                 {" "}
               </div>
             </i>
-            <img src={Logo2} />
+            <img src={Logo2} alt="" />
             <p
               className="m-0 mb-2 fLT-Bold-sA cLT-main-text LT-account-title"
               name="client"
@@ -112,14 +114,15 @@ const RegisterDetectedAccount = (props) => {
             </p>
           </button>
         </div>
-        <div style={{ width: "30%" }}>
+        <div>
           <ButtonShare
             // type={!validation}
             // loading={nextLoading}
+            smBtn
             onClick={value.prevPage}
             innerText={"رجوع"}
             btnClasses={"three cLT-secondary-bg"}
-            textClasses={"py-1 px-4 cLT-white-text fLT-Regular-sB"}
+            textClasses={"py-1 px-4"}
           />
         </div>
       </div>

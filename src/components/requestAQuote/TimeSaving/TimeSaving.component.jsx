@@ -47,7 +47,7 @@ const TimeSaving = ({ data }) => {
     if (sectionTwoData?.video) {
       let str = sectionTwoData.video.replace("watch?v=", "embed/");
       let str2 = str.replace("&t=150s", "");
-   
+
       setVideo(str2);
     }
   }, [sectionTwoData]);
@@ -56,7 +56,6 @@ const TimeSaving = ({ data }) => {
     <div className="p-3 p-sm-4 LT-time-save-grid-holder">
       {/* Time Saving Section [Video] */}
       <div style={{ backgroundColor: "gray" }} className="LT-video-grid w-100 ">
-      
         <iframe
           style={{
             width: "100%",

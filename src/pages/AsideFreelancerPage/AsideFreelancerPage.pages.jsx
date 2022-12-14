@@ -18,6 +18,7 @@ const AsideFreelancerPage = ({
   isHandleChange,
   setMarginTop,
   setMarginBottom,
+  fullnameShowen,
 }) => {
   const param = useParams();
   // const userID =  useSelector((state) => state.userData.id)
@@ -252,7 +253,9 @@ const AsideFreelancerPage = ({
         <div className="d-flex flex-column justify-content-center align-items-center gap-2">
           <div className="d-flex justify-content-between align-items-center">
             <p className="m-0 ps-3 card-text fLT-Bold-sA cLT-support2-text">
-              {userProfileData?.username}{" "}
+              {fullnameShowen
+                ? userProfileData?.fullname
+                : userProfileData?.username}{" "}
             </p>
             <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i>
           </div>

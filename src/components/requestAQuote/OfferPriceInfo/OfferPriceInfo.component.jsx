@@ -26,6 +26,7 @@ const OfferPriceInfo = ({ data }) => {
   const maxLengthCharacter = 5000;
   const [content, setContent] = useState("");
   const [getDescriptionLength, setGetDescriptionLength] = useState(0);
+  const [secTwoData, setSecTwoData] = useState("");
   const handleClick = () => {
     const formData = {
       title: taskFormData.title,
@@ -70,6 +71,15 @@ const OfferPriceInfo = ({ data }) => {
     };
   }, [handleSectionOne]);
 
+  useEffect(() => {
+    setSecTwoData(() => {
+      const sectionData = data?.find(
+        (homeData) => homeData.key === "home_section_2_description"
+      )?.value;
+      return sectionData;
+    });
+  }, [data]);
+
   return (
     <>
       <UserFeedBackShared
@@ -88,8 +98,13 @@ const OfferPriceInfo = ({ data }) => {
         </div>
         {/* Offer Price [Sub Title Content] */}
         <div className="col-12 col-lg-6 px-0 d-flex flex-column justify-content-center align-items-start gap-3 py-3 ps-md-4">
-          <p className={cls.title1}>معلومات</p>
-          <p className={cls.title2}>طلب عرض سعر</p>
+          {/* <p className={cls.title1}>معلومات</p> */}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: secTwoData || "<span>جاري تحميل البيانات...</span>",
+            }}
+          />
+          {/* <p className={cls.title2}>طلب عرض سعر</p>
           <i className="iLT-contacUs-two-line iLT-sD uLT-img-contain py-4 px-5"></i>
 
           <p className={cls.title3}>
@@ -99,7 +114,7 @@ const OfferPriceInfo = ({ data }) => {
             مشروعك في غضون دقائق بحث عن المستقل المناسب لبدء العمل على مشروعك في
             غضون دقائق عرف دائمًا ما ستدفعه مقدمًا. لن يتم تحرير دفعتك حتى توافق
             على العمل
-          </p>
+          </p> */}
         </div>
 
         {/* Offer Price Info [Holder] */}

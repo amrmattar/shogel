@@ -124,7 +124,7 @@ const FreelancerMainEditAccountPage = () => {
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
-      if (allFile.type.match("video/")) {
+      if (allFile.type.startsWith("video/")) {
         newfile.videos.push(allFile);
       } else if (allFile.type.match("image/")) {
         newfile.images.push(allFile);
@@ -157,7 +157,9 @@ const FreelancerMainEditAccountPage = () => {
   };
 
   const postUpdate = async () => {
-    // setUpdateLoading(true);
+    if (updateLoading) return;
+
+    setUpdateLoading(true);
     await handleSocial();
 
     dispatch(

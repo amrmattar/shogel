@@ -5,6 +5,8 @@ import cls from "./DynamicFilter.module.scss";
 import { BiCurrentLocation } from "react-icons/bi";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
+import SkillTree from "../../../Dash/FormStep/SkillsComp/SkillTree";
+import { useEffect, useState } from "react";
 
 const DynamicFilter = ({
   mostUse,
@@ -25,7 +27,21 @@ const DynamicFilter = ({
   resetMost,
   setMostUseId,
   mostUseId,
+  checkedSkls,
 }) => {
+  const [searchRes, setSearchRes] = useState([]);
+
+  useEffect(() => {
+    if (query) {
+      const newCategories = categories.filter((categorie) =>
+        categorie.name.startsWith(query)
+      );
+      setSearchRes(newCategories);
+    } else {
+      setSearchRes([]);
+    }
+  }, [query, categories]);
+
   return (
     <div className={cls.main}>
       <p className={cls.search}>البحث</p>
@@ -56,14 +72,24 @@ const DynamicFilter = ({
             style={{ maxHeight: "50vh", overflow: "auto", marginBottom: 10 }}
             className="skills-overflow"
           >
-            {categories.map((ele, idx) => (
+            {categories.length ? (
+              <SkillTree
+                customTree
+                checkedSkls={activesId}
+                addChosedSkils={setCategory}
+                skills={query ? searchRes : categories}
+              />
+            ) : (
+              <p className="text-center">جاري التحميل...</p>
+            )}
+            {/* {categories.map((ele, idx) => (
               <CategoryMain
                 key={idx}
                 activesId={activesId}
                 setCategory={setCategory}
                 ele={ele}
               />
-            ))}
+            ))} */}
           </div>
         </div>
       )}

@@ -151,7 +151,7 @@ const RegisterOTPStep = (props) => {
         />
       </div>
       <div
-        className="d-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
+        className="d-md-flex align-items-cente justify-content-center py-3 mt-3 gap-1 bT"
         style={{
           paddingBottom: "3rem",
           width: "85%",

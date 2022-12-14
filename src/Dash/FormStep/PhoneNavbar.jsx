@@ -1,12 +1,14 @@
-import cls from "./Stepper.module.scss";
-import { NavLink } from "react-router-dom";
-import Typography from "@mui/material/Typography";
+import React from "react";
 
-const StepperComp = ({ activeStep, steps, hideInSm }) => {
+import cls from "./StepComponent/Stepper.module.scss";
+import Typography from "@mui/material/Typography";
+import { NavLink } from "react-router-dom";
+
+const PhoneNavbar = ({ steps, activeStep }) => {
   const widthRatio = ((activeStep - 2) / steps) * 100;
 
   return (
-    <div className={`${hideInSm ? "d-none d-md-block" : ""}`}>
+    <div className="mb-4 d-md-none">
       <div
         style={{
           backgroundColor: "white",
@@ -15,25 +17,18 @@ const StepperComp = ({ activeStep, steps, hideInSm }) => {
           borderTop: "6px solid #6B79B9",
         }}
       >
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          style={{ marginLeft: "auto", marginRight: "15rem" }}
-          sx={{
-            display: { xs: "none", md: "flex" },
-            width: "116px",
-            height: "47px",
-          }}
-        >
+        <Typography variant="h6" noWrap component="div">
           {/* Main Logo [Shoghl] */}
           <NavLink
+            style={{ height: 35 }}
             to="/"
-            className="imLT-main-logo  uLT-img-position-contain col"
+            className="imLT-main-logo ms-auto d-block col uLT-img-position-contain"
             aria-label="main-logo"
-          ></NavLink>
+          />
         </Typography>
       </div>
+
+      {/* Line Process Width */}
       <div
         style={{
           width: `${
@@ -41,8 +36,9 @@ const StepperComp = ({ activeStep, steps, hideInSm }) => {
           }%`,
         }}
         className={cls.Stepper}
-      ></div>
+      />
     </div>
   );
 };
-export default StepperComp;
+
+export default PhoneNavbar;

@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import "./OrderDetailsFilterComponent.scss";
+
 const OrderDetailsFilterComponent = ({ detailsData }) => {
+  console.log(detailsData);
+
   return (
     <>
       <div className="order-filter  d-flex flex-column gap-3">
@@ -9,7 +12,7 @@ const OrderDetailsFilterComponent = ({ detailsData }) => {
             تفاصيل حالة الطلب
           </p>
           <p className="m-0 cLT-support2-text fLT-Regular-sB text-nowrap">
-            {detailsData?.status?.name ? detailsData?.status?.name : "لايوجد"}
+            {detailsData?.status?.name || "لا يوجد"}
           </p>
         </div>
         <div className="d-flex align-items-center justify-content-between gap-2">
