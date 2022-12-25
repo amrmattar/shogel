@@ -9,10 +9,12 @@ import TextEditorShared from "../../shared/TextEditor/TextEditor.shared";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../core/redux/reducers/Messages/Messages.core";
 import { useNavigate } from "react-router-dom";
+
 const ContactUs = ({ data }) => {
   const messages = useSelector((state) => state.messages);
   const dispatch = useDispatch();
   const [mobileUpdate, setMobileupdate] = useState(false);
+
   // TODO Function Set Maxlength To Mobile Input
   useEffect(() => {
     const attrTimeOut = setTimeout(() => {
@@ -24,6 +26,7 @@ const ContactUs = ({ data }) => {
     }, 400);
     return () => clearTimeout(attrTimeOut);
   }, [mobileUpdate]);
+
   //** Input On Change */
   const [contactForm, setContactForm] = useState({
     email: "",
@@ -32,16 +35,19 @@ const ContactUs = ({ data }) => {
     message: "التفــاصيل :",
     mobile: "",
   });
+
   function handleChange(e) {
     const { name, value } = e.target;
     setContactForm((contactForm) => ({ ...contactForm, [name]: value }));
   }
+
   //? Var State
   const [formMessages, setMessages] = useState();
   const [isLoading, setLoading] = useState(false);
   const [desc, setDesc] = useState("");
   const navigate = useNavigate();
   const inputIsref = useRef();
+
   //** Send Messages */
   function handleSubmit(e) {
     e.preventDefault();
@@ -95,6 +101,7 @@ const ContactUs = ({ data }) => {
     title: "",
     image: "",
   });
+
   const handleSectionOne = useCallback(() => {
     data?.map((homeData) => {
       if (homeData?.section === "5") {
@@ -123,6 +130,7 @@ const ContactUs = ({ data }) => {
       cancel = true;
     };
   }, [handleSectionOne]);
+
   return (
     <>
       <section

@@ -699,30 +699,27 @@ const OfferUpdateFormComponent = ({ taskId }) => {
           )}
         </article>
 
-        <div className="d-flex align-items-center justify-content-between">
-          {/* [Back Button */}
-          <div className="d-flex justify-content-end  align-items-left">
-            <div className="shadow uLT-f-radius-sB" ref={backButton}>
-              <ButtonShare
-                onClick={(e) => handleGoBack(e)}
-                btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-                textClasses="px-4 cLT-white-text fLT-Regular-sC"
-                innerText=" رجــوع"
-              />
-            </div>
+        <div
+          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+        >
+          <div className="">
+            <ButtonShare
+              ID={"send"}
+              loading={TaskCheck}
+              onClick={(e) => handleCLick(e)}
+              innerText={"إرسال"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
           </div>
-
-          {/* [Request Button */}
-          <div className="d-flex justify-content-end  align-items-left">
-            <div className="shadow uLT-f-radius-sB">
-              <ButtonShare
-                ID={"send"}
-                loading={TaskCheck}
-                btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-                textClasses="px-4 cLT-white-text fLT-Regular-sC"
-                innerText=" إرسال"
-              />
-            </div>
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
           </div>
         </div>
       </Form>

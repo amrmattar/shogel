@@ -1,9 +1,38 @@
+import { Box, CircularProgress, Typography } from "@mui/material";
 import AmentiesShared from "../../../shared/Amenties/Amenties.shared";
+import { arNumberConverter } from "../../../utils/arNumberConverter";
 import FlancerPersonalInformationComponent from "../fLancerProfile/FlancerPersonalInformation/FlancerPersonalInformation.component";
 import CompletionChart from "./CompletionChart";
 import "./FlancerEmployedListCard.component.scss";
 
-const FlancerEmployedListCard = ({ data }) => {
+const CircularProgressWithLabel = ({ parentClassName, ...props }) => {
+  return (
+    <Box
+      className={parentClassName}
+      sx={{ position: "relative", display: "inline-flex" }}
+    >
+      <CircularProgress variant="determinate" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+const FlancerEmployedListCard = ({ data, small }) => {
   const myPersonData = {
     avatar: data?.avatar,
     fullname: data?.fullname,
@@ -41,13 +70,25 @@ const FlancerEmployedListCard = ({ data }) => {
             <div className="d-flex justify-content-between w-100 align-items-start">
               {/* User Info [Holder] */}
 
-              <CompletionChart value={myPersonData.profileComplition} />
+              <CompletionChart
+                className="d-none d-md-flex"
+                value={myPersonData.profileComplition}
+              />
+
+              <CircularProgressWithLabel
+                parentClassName="d-md-none"
+                value={arNumberConverter(myPersonData.profileComplition || 0)}
+              />
             </div>
           </div>
         </div>
         <div className="LT-employed-description">
           {/* Card title */}
-          <p className="m-0 fLT-Regular-sB text-dark">{data?.info}</p>
+          <p className="m-0 fLT-Regular-sB text-dark">
+            {data?.info?.length > 40
+              ? data?.info.slice(0, 40) + "..."
+              : data?.info}
+          </p>
         </div>
         {/* Card Divied */}
         {/* Card Amenties */}
@@ -71,7 +112,11 @@ const FlancerEmployedListCard = ({ data }) => {
 
             <div className="col-3 LT-location-grid">
               <i className={`iLT-Listcard-location uLT-img-contain iLT-sA`}></i>
-              <p className="mb-0 cLT-support2-text fLT-Bold-sm-sA">
+              <p
+                className={`mb-0 cLT-support2-text fLT-Bold-sm-sA ${
+                  small ? "main-color-in-sm" : ""
+                }`}
+              >
                 {data?.country?.name}, {data?.city?.name}
               </p>
             </div>

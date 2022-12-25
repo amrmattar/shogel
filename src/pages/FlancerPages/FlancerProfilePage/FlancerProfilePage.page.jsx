@@ -65,7 +65,10 @@ const FlancerProfilePage = ({ data }) => {
           <PageTitle title="صور الاعمال والشهادات" />
           {data?.document?.length !== 0 ? (
             <div className="py-4  ">
-              <FlancerCertificatesComponent certificatesData={data?.document} />
+              <FlancerCertificatesComponent
+                clickable
+                certificatesData={data?.document}
+              />
             </div>
           ) : (
             <div
@@ -113,7 +116,7 @@ const FlancerProfilePage = ({ data }) => {
                 <div
                   className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
                   style={{ width: "120px", height: "65px" }}
-                ></div>
+                />
                 <p className="mb-0 fLT-Bold-sC cLT-gray-text">
                   لا يوجد اعلانــــات
                 </p>

@@ -12,7 +12,7 @@ const FlancerAdvsListCardComponent = ({ data, roll }) => {
         {/* Advs Image [Section] */}
         {!data?.document[0]?.file.match(".mp4") ? (
           data?.document[0]?.file ? (
-            <picture className="LT-advsListCard-img">
+            <picture className="LT-advsListCard-img d-none d-md-block">
               <img
                 src={data?.document[0]?.file}
                 alt=""
@@ -22,7 +22,7 @@ const FlancerAdvsListCardComponent = ({ data, roll }) => {
             </picture>
           ) : (
             <picture
-              className="LT-advsListCard-img"
+              className="LT-advsListCard-img d-none d-md-block"
               style={{ width: "216px", height: "177px" }}
             >
               <div className="imLT-main-logo-finacer uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB w-100 h-100"></div>
@@ -82,15 +82,30 @@ const FlancerAdvsListCardComponent = ({ data, roll }) => {
           </div>
           {/* Card Amenties */}
           <div className="LT-advsListCard-amenties">
-            {roll && (
-              <AmentiesShared
-                iconWithLocation={"priceIconWithLocation"}
-                time={data?.created_at_value}
-                currency={data?.currency?.name}
-                price={data?.price}
-                locationName={`${data?.user?.country?.name}, ${data?.user?.city?.name}`}
-              />
-            )}
+            <div className="d-none d-md-block">
+              {roll && (
+                <AmentiesShared
+                  iconWithLocation={"priceIconWithLocation"}
+                  time={data?.created_at_value}
+                  currency={data?.currency?.name}
+                  price={data?.price}
+                  locationName={`${data?.user?.country?.name}, ${data?.user?.city?.name}`}
+                />
+              )}
+            </div>
+
+            <div className="d-md-none">
+              {roll && (
+                <AmentiesShared
+                  iconWithLocation={"priceIconWithLocation"}
+                  phoneView
+                  time={data?.created_at_value}
+                  currency={data?.currency?.name}
+                  price={data?.price}
+                  locationName={`${data?.user?.country?.name}, ${data?.user?.city?.name}`}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

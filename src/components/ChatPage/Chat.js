@@ -17,6 +17,9 @@ import HistoryMesages from "./HistoryMessage";
 import { AiOutlineSearch } from "react-icons/ai";
 import TimeDisplayer from "./TimeDisplayer";
 
+import { FaUserCircle } from "react-icons/fa";
+import { AiOutlineRight } from "react-icons/ai";
+
 firebase.initializeApp({
   apiKey: "AIzaSyAMj1LZ0s4PfZlXcq-DdRWSyxdYHrX9Emg",
   authDomain: "sho8l-96261.firebaseapp.com",
@@ -35,6 +38,8 @@ const demoIcon =
   "data:image/png;base64,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";
 
 const Chat = () => {
+  const [isCurrentChatOpen, setIsCurrentChatOpen] = useState(false);
+
   const param = useLocation();
   const otherSideId = param.state?.id;
   const otherSidAvatar = param.state?.avatar;
@@ -46,9 +51,12 @@ const Chat = () => {
     id: otherSideId,
     role: otherSidٌRole,
   });
+
   const changeSide = (data) => {
     setOtherSideData(data);
+    setIsCurrentChatOpen(true);
   };
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [sortedMesage, setSortedMessages] = useState([]);
@@ -178,8 +186,12 @@ const Chat = () => {
   }, [messages, user, otherSideData]);
 
   return (
-    <div className={cls.chatApp}>
-      <div className={cls.grid1}>
+    <div className={cls.chatApp + " d-block d-md-grid mx-3 m-md-3 "}>
+      <div
+        className={`${cls.grid1} ${cls.chats} p-0 p-md-3 ${
+          isCurrentChatOpen ? "d-none d-md-block" : ""
+        }`}
+      >
         <div className={cls.grid1Header}>
           <div style={{ justifyContent: "space-between", display: "flex" }}>
             <h3>جميع الرسائل</h3>
@@ -194,7 +206,7 @@ const Chat = () => {
           <AiOutlineSearch />
         </div>
 
-        <div className={cls.historyHolder}>
+        <div style={{ overflow: "hidden" }} className={cls.historyHolder}>
           {historyMesage.map((ele, idx) => (
             <HistoryMesages
               key={idx}
@@ -207,7 +219,18 @@ const Chat = () => {
         </div>
       </div>
 
-      <div className={cls.grid2}>
+      <div
+        className={`${cls.grid2} ${cls["current-chat"]} ${
+          isCurrentChatOpen ? cls["active"] : ""
+        }`}
+      >
+        <p
+          className="bg-white py-3 mb-0 d-md-none"
+          onClick={() => setIsCurrentChatOpen(false)}
+        >
+          <AiOutlineRight className="text-muted ms-2" size={26} />
+          جميع الرسائل
+        </p>
         <ChatRoom
           user={user}
           messages={sortedMesage}
@@ -269,6 +292,7 @@ const ChatRoom = ({
           </div>
         </div>
         <button
+          className="d-none d-md-block"
           hidden={!otherSideData?.id}
           onClick={() =>
             otherSideData?.id &&
@@ -276,6 +300,17 @@ const ChatRoom = ({
           }
         >
           تصفح الملف الشخصي
+        </button>
+
+        <button
+          className="d-md-none"
+          hidden={!otherSideData?.id}
+          onClick={() =>
+            otherSideData?.id &&
+            navigate(`/employed/freelancer-profile/${otherSideData?.id}`)
+          }
+        >
+          <FaUserCircle size={22} />
         </button>
       </div>
       <div className={cls.messageHolder}>
@@ -348,7 +383,7 @@ const ChatMessage = (props) => {
         />
         {text ? (
           <div className={cls.chatFrame}>
-            <p className={cls.chatActual}>{text}</p>
+            <p className={cls.chatActual + " allowed-wrap"}>{text}</p>
             <TimeDisplayer time={createdAt} />
           </div>
         ) : isImage ? (

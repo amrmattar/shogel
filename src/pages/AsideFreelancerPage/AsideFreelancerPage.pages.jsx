@@ -249,6 +249,7 @@ const AsideFreelancerPage = ({
             </div>
           )}
         </div>
+
         {/* Profile Info Holder */}
         <div className="d-flex flex-column justify-content-center align-items-center gap-2">
           <div className="d-flex justify-content-between align-items-center">

@@ -16,6 +16,7 @@ const SideNav = () => {
     <>
       {location.pathname.includes("/account_management/") && (
         <AsideFreelancerPage
+          fullnameShowen
           isHandleChange={(e) => handleChange(e)}
           setMarginTop={-70}
           setMarginBottom={10}

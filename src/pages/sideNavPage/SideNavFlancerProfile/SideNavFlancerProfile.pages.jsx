@@ -104,7 +104,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
         </div>
         <div className={cls.grid}>
           <GrStatusGood />
-          <p>الشغل المنجز</p>
+          <p>المنجز</p>
           <span>{data?.task_count}</span>
         </div>
         <div className={cls.grid}>
@@ -114,7 +114,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
         </div>
         <div className={cls.grid}>
           <BsPeopleFill />
-          <p>عدد العملاء</p>
+          <p>العملاء</p>
           <span>{data?.client_count}</span>
         </div>
       </div>

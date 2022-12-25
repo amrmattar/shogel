@@ -136,6 +136,21 @@
   width: 430px;
 }
 
+.main-color {
+  color: #177a7c !important;
+}
+
+.main-color-in-sm {
+  @media (max-width: 767px) {
+    color: #177a7c !important;
+  }
+}
+
+.allowed-wrap {
+  word-break: break-all;
+  white-space: normal;
+}
+
 .main-bg-color {
   background-color: #177a7c !important;
 }

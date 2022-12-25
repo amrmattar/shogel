@@ -9,6 +9,9 @@ import { useSelector } from "react-redux";
 import cls from "./OrderPage.module.scss";
 import DynamicFilter from "./DynamicFilter";
 import { API } from "../../../enviroment/enviroment/enviroment";
+import { IconButton } from "@mui/material";
+
+import TuneIcon from "@mui/icons-material/Tune";
 
 const categories = [
   {
@@ -78,6 +81,8 @@ const treeToList = (arr) => {
 };
 
 const OrdersPage = () => {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
   const param = useParams();
   const navigate = useNavigate();
   // Todo Block Of Get All Advertising Form
@@ -242,8 +247,19 @@ const OrdersPage = () => {
     <>
       <div className={cls.container}>
         <div className="d-flex"></div>
-        <div className={cls.holder}>
+        <header className="d-flex justify-content-between align-items-center d-md-none container mb-3">
+          <p className="m-0">جميع الطلبات</p>
+
+          <IconButton onClick={() => setIsFilterOpen(true)} className="p-0">
+            <article className="main-bg-color border px-2 py-1 rounded-2">
+              <TuneIcon className="text-light" />
+            </article>
+          </IconButton>
+        </header>
+        <div className={cls.holder + " d-block d-md-grid"}>
           <DynamicFilter
+            isFilterOpen={isFilterOpen}
+            setIsFilterOpen={setIsFilterOpen}
             mostUse={mostUse}
             categories={query ? searchRes : categories}
             query={query}

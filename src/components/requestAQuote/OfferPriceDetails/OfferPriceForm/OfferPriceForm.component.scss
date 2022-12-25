@@ -34,6 +34,13 @@
     grid-template-rows: 1fr auto;
   }
 }
+
+.small-font {
+  @media (max-width: 768px) {
+    color: #6c757d !important;
+    font-size: 0.875em !important;
+  }
+}
 .inpBG {
   background-color: rgb(248, 250, 252) !important;
 }
@@ -74,11 +81,10 @@
     border-bottom: 1px solid blue;
   }
 }
-.btnsHolder{
+.btnsHolder {
   display: flex;
   direction: ltr;
-  button{
-   
+  button {
     width: 8rem !important;
     margin: 0 0 0 10px;
   }

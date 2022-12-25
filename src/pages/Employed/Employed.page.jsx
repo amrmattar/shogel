@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import cls from "./Employee.module.scss";
 import DynamicFilter from "../Orders/OrderPage/DynamicFilter";
 import { API } from "../../enviroment/enviroment/enviroment";
+import { IconButton } from "@mui/material";
+import TuneIcon from "@mui/icons-material/Tune";
 
 const mostUse = [
   { id: 1, name: "افراد" },
@@ -16,6 +18,8 @@ const mostUse = [
   { id: 4, name: "الاكثر رد علي الطلبات" },
 ];
 const Employed = () => {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
   const param = useParams();
   const navigate = useNavigate();
   const key = useSelector((state) => state.search.searchKey);
@@ -149,8 +153,20 @@ const Employed = () => {
     <>
       <div className={cls.container}>
         <div className="d-flex"></div>
-        <div className={cls.holder}>
+        <header className="d-flex justify-content-between align-items-center d-md-none container mb-3">
+          <p className="m-0">جميع المشتغلين</p>
+
+          <IconButton onClick={() => setIsFilterOpen(true)} className="p-0">
+            <article className="main-bg-color border px-2 py-1 rounded-2">
+              <TuneIcon className="text-light" />
+            </article>
+          </IconButton>
+        </header>
+
+        <div className={cls.holder + " d-block d-md-grid"}>
           <DynamicFilter
+            isFilterOpen={isFilterOpen}
+            setIsFilterOpen={setIsFilterOpen}
             isEmployee={true}
             setCategory={categHandler}
             setActive={setActive}
@@ -171,7 +187,7 @@ const Employed = () => {
                     to={`/employed/freelancer-profile/${list?.id}`}
                     key={idx}
                   >
-                    <FlancerEmployedListCard data={list} />
+                    <FlancerEmployedListCard small data={list} />
                   </NavLink>
                 );
               })}

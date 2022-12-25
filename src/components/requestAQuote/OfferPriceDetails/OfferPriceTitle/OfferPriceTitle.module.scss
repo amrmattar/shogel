@@ -3,6 +3,18 @@
   padding: 2vh 0vw;
   width: 60%;
 
+  @media (max-width: 768px) {
+    .smallTitle {
+      color: #fff !important;
+      font-size: 1.6rem !important;
+      margin-bottom: 10px !important;
+    }
+
+    .sm_description {
+      font-size: 0.7rem !important;
+    }
+  }
+
   .title {
     color: rgb(39, 180, 187);
     font-size: 30px;

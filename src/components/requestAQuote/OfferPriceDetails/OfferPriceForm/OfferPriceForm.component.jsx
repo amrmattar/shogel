@@ -577,7 +577,7 @@ const OfferPriceForm = () => {
               </p>
             )}
 
-            <p>
+            <p className="small-font">
               اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
               <span
                 onClick={() => setAnyJob(true)}
@@ -731,22 +731,28 @@ const OfferPriceForm = () => {
             </Row>
           </div>
         )}
-        <div className="btnsHolder">
-          <ButtonShare
-            onClick={(e) => handleCLick(e)}
-            type={disable}
-            loading={advsCheck}
-            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-            textClasses="px-4 cLT-white-text fLT-Regular-sC"
-            innerText=" إرسال"
-          />
-
-          <ButtonShare
-            onClick={() => navigate("/")}
-            btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-            textClasses="px-4 cLT-white-text fLT-Regular-sC"
-            innerText=" رجوع"
-          />
+        <div
+          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+        >
+          <div className="">
+            <ButtonShare
+              type={disable}
+              onClick={(e) => handleCLick(e)}
+              innerText={"إرسال"}
+              loading={advsCheck}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
+          </div>
         </div>
       </Form>
     </>

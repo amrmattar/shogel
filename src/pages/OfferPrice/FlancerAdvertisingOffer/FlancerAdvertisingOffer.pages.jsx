@@ -24,6 +24,7 @@ const FlancerAdvertisingOfferPage = () => {
     <div className={cls.main}>
       <div className={cls.Titlecontainer}>
         <OfferPriceTitle
+          smWhite
           title={"ندعمك لنشر اعلاناتك"}
           description={
             "نربط اعلانك بمحركات البحث و نساعدك فى الظهور والوصول لعملائك"

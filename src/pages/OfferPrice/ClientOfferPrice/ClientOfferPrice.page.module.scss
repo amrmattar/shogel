@@ -3,34 +3,24 @@
   left: 0;
 }
 .main {
-  height:auto;
+  height: auto;
   .Titlecontainer {
-     background-image: linear-gradient(
+    background-image: linear-gradient(
       to top right,
       rgb(109, 200, 202),
       rgb(2, 56, 90)
     );
     height: 15vh;
   }
-   .formContainer {
+  .formContainer {
     width: 70%;
-    margin: 0vh 15vw;
+    margin: 0 15vw;
     position: absolute;
     top: 10vh;
-  }
-}
 
-@media only screen and (max-width: 450px) {
-  .main{
-    .Titlecontainer {
-      height: 30vh;
-    }
-    .formContainer {
+    @media (max-width: 767px) {
       width: 90%;
       margin: 0 5vw;
-      top: 23vh;
-    
-     
     }
   }
 }

@@ -8,13 +8,19 @@ const no_wrap_style = {
   overflow: "hidden",
 };
 
-const OfferPriceTitle = ({ title, description, noWrap }) => {
+const OfferPriceTitle = ({ title, description, noWrap, smWhite }) => {
   return (
     <div className={cls.container}>
-      <p style={noWrap ? no_wrap_style : {}} className={cls.title}>
+      <p
+        style={noWrap ? no_wrap_style : {}}
+        className={`${smWhite ? cls.smallTitle : ""} ${cls.title}`}
+      >
         {title}
       </p>
-      <p style={noWrap ? no_wrap_style : {}} className={cls.description}>
+      <p
+        style={noWrap ? no_wrap_style : {}}
+        className={`${smWhite ? cls.sm_description : ""} ${cls.description}`}
+      >
         {description}
       </p>
     </div>

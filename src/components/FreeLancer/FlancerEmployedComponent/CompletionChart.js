@@ -1,12 +1,12 @@
 import "./FlancerEmployedListCard.component.scss";
 
-const CompletionChart = ({ value }) => {
+const CompletionChart = ({ value, className = "" }) => {
   const convertIndx = (indx, param) => {
     return (indx + param) * 10;
   };
 
   return (
-    <div className="containo32">
+    <div className={`containo32 ${className}`}>
       <p>{value}%</p>
       {Array(10)
         .fill(true)

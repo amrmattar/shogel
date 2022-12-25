@@ -33,20 +33,20 @@ const OrderListCardComponent = ({
           </p>
         </div> */}
         <div className="d-flex align-items-center justify-content-between">
-          <p className={`${cls.title} fs-5 mb-3`}>{orderTitle}</p>
+          <p className={`${cls.title} fs-5 mb-3 allowed-wrap`}>{orderTitle}</p>
           {isMyList ? (
             <span>{orderStatus}</span>
           ) : isOrder ? (
             <>
               {Number(arNumberConverter(offer?.offerCount || 0)) ? (
-                <span className="text-dark">
+                <span className="text-dark d-none d-md-block">
                   عدد العروض:{" "}
                   <span className="text-primary">
                     {Number(arNumberConverter(offer?.offerCount || 0))}
                   </span>
                 </span>
               ) : (
-                <span>كن اول من يقدم عرض !</span>
+                <span className="d-none d-md-block">كن اول من يقدم عرض !</span>
               )}
             </>
           ) : (
@@ -55,12 +55,12 @@ const OrderListCardComponent = ({
         </div>
         {allText ? (
           <div
-            className={`${cls.description} text-muted small mb-3`}
+            className={`${cls.description} text-muted small mb-3 allowed-wrap`}
             dangerouslySetInnerHTML={{ __html: orderDescription }}
           />
         ) : (
           <div
-            className={`${cls.description} ${cls.description_cut} text-muted small`}
+            className={`${cls.description} ${cls.description_cut} text-muted small allowed-wrap`}
             dangerouslySetInnerHTML={{ __html: orderDescription }}
           />
         )}

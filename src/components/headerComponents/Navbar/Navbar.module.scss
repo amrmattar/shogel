@@ -1,0 +1,15 @@
+.mopile_navigate {
+  width: 100%;
+  position: fixed;
+  height: 100vh;
+  inset: 0;
+  background-color: #02385a;
+  z-index: 999;
+  color: #fff;
+  transform: translateX(100%);
+  transition: 0.3s;
+
+  &.active {
+    transform: translateX(0);
+  }
+}

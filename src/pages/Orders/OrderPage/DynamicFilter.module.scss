@@ -111,3 +111,94 @@
     margin: 10px 5px 10px 5px;
   }
 }
+
+.phone_view {
+  position: fixed;
+  transform: translateY(-50%) translateX(-100%);
+  left: 0;
+  top: 50%;
+  transition: 0.6s;
+  z-index: 999;
+  width: 600px;
+  max-width: 90%;
+
+  &.active {
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+  }
+
+  .handelBtns {
+    direction: ltr;
+  }
+
+  .location {
+    padding: 1rem 0;
+    .relative {
+      position: relative;
+      .locatIcon {
+        background-color: rgb(2, 56, 90);
+        color: white;
+        position: absolute;
+        height: 100%;
+        width: 3.5rem;
+        font-size: 2.5rem;
+        top: 0;
+        left: 0;
+        border-radius: 10px 0 0 10px;
+        svg {
+          margin: 0 !important;
+          height: 28px;
+          vertical-align: top;
+          margin: 10% 15% 0 0 !important ;
+        }
+      }
+    }
+  }
+  .rate {
+    border-top: 1px solid gray;
+    padding: 5% 0 5% 0;
+  }
+  .swich {
+    display: flex;
+    p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgb(144, 146, 150);
+      margin: 3px 1rem 0 0;
+    }
+  }
+  .priceHold {
+    border-top: 1px solid gray;
+    padding: 5% 0;
+  }
+  .search {
+    font-size: 16px;
+    font-weight: 800;
+    color: black;
+    margin: 0 0 0.4rem 0;
+  }
+  .lastC {
+    font-size: 16px;
+    font-weight: 800;
+    color: black;
+    margin: 0 0 0.4rem 0;
+    border-top: 1px solid gray;
+    padding-top: 1rem;
+  }
+  .inp {
+    width: 100%;
+    height: 3rem;
+    border-radius: 10px;
+    border: 0.1px solid gray;
+    padding: 0 10px 0 40px;
+    margin-bottom: 1rem;
+  }
+  input.inp {
+    display: block;
+    height: 40px;
+    border: 1px solid #bec0c2;
+    background: transparent
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
+      no-repeat 13px center;
+  }
+}

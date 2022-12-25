@@ -8,8 +8,9 @@ import MobileOTPPage from "../../pages/authPage/mobilePage/MobileOTP/MobileOTP.p
 import SwearingShared from "../../shared/Swearing/Swearing.shared";
 import { NavLink } from "react-router-dom";
 import { Box, IconButton } from "@mui/material";
+import MopileUserSettings from "./MopileUserSettings";
 
-const AuthComponent = ({ clickMe, clickStatus }) => {
+const AuthComponent = ({ clickMe, clickStatus, onClick }) => {
   const elementRef = useRef();
   const navigate = useNavigate();
   const [loginOpen, setLoginOpen] = useState(false);
@@ -74,16 +75,7 @@ const AuthComponent = ({ clickMe, clickStatus }) => {
         </button>
       </div>
 
-      <div className="d-md-none">
-        <IconButton className="d-flex justify-content-center align-items-center">
-          <div
-            className="icon px-2 d-flex justify-content-center align-items-center py-1 rounded-3 main-bg-lighter"
-            style={{ width: 40, height: 40, cursor: "pointer" }}
-          >
-            <img className="w-100 h-100" src="/icons/user (3).svg" alt="" />
-          </div>
-        </IconButton>
-      </div>
+      <MopileUserSettings onClick={onClick} />
 
       {loginOpen && (
         <LoginPage

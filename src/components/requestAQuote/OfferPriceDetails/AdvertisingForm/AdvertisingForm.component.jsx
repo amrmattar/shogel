@@ -294,10 +294,9 @@ const AdvertisingFormComponent = () => {
           <div className="d-flex ps-0  ps-md-3 pe-0 mx-0 flex-column flex-md-row">
             <Form.Group
               as={Col}
-              sm={6}
               md={6}
               controlId="formGridPassword"
-              className=" position-relative px-0 "
+              className=" position-relative px-0 ps-md-3"
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
                 {" "}
@@ -320,9 +319,7 @@ const AdvertisingFormComponent = () => {
             </Form.Group>
             <Form.Group
               as={Col}
-              sm={4}
-              md={4}
-              style={{ marginRight: "auto" }}
+              md={6}
               controlId="formGridPassword"
               className=" position-relative px-0 "
             >
@@ -389,7 +386,7 @@ const AdvertisingFormComponent = () => {
         {/* Skills-Grid [Holder] */}
         <div className="d-grid  position-relative">
           {/* [Title] */}
-          <p className="m-0  mt-3 fLT-Bold-sA">
+          <p className="m-0  mt-3 mt-4 mb-md-3 fLT-Bold-sA small text-muted">
             اختر <span className="cLT-support1-text"> المهارات</span> المناسبة
             لاعلانك<span className="cLT-danger-text">*</span>{" "}
           </p>
@@ -557,7 +554,7 @@ const AdvertisingFormComponent = () => {
           </Row>
         )}
 
-        <div className="btnsHolder">
+        {/* <div className="btnsHolder">
           <ButtonShare
             onClick={(e) => handleCLick(e)}
             type={disabled}
@@ -573,6 +570,29 @@ const AdvertisingFormComponent = () => {
             textClasses="px-4 cLT-white-text fLT-Regular-sC"
             innerText=" رجوع"
           />
+        </div> */}
+
+        <div
+          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+        >
+          <div className="">
+            <ButtonShare
+              type={disabled}
+              onClick={(e) => handleCLick(e)}
+              innerText={"إرسال"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
+          </div>
         </div>
       </Form>
     </>

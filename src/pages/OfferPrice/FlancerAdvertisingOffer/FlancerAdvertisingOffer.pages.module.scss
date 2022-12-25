@@ -14,22 +14,13 @@
   }
   .formContainer {
     width: 70%;
-    margin: 0vh 15vw;
+    margin: 0 15vw;
     position: absolute;
     top: 10vh;
- 
-  }
-}
 
-@media only screen and (max-width: 450px) {
-  .main {
-    .Titlecontainer {
-      height: 30vh;
-    }
-    .formContainer {
+    @media (max-width: 767px) {
       width: 90%;
       margin: 0 5vw;
-      top: 23vh;
     }
   }
 }

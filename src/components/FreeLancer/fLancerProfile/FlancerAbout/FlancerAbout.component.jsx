@@ -19,9 +19,16 @@ const FlancerAboutComponent = ({ about, data }) => {
     <div>
       {/* Freelancer About [Section] */}
       {about === "about" && (
-        <p className="m-0 fLT-Regular-sB cLT-smoke-text ">
-          {data ? data : "لا يوجد وصف"}
-        </p>
+        <article
+          style={{
+            wordWrap: "break-word",
+            whiteSpace: "pre-wrap",
+          }}
+          dangerouslySetInnerHTML={{
+            __html: data || "<span>لا يوجد وصف</span>",
+          }}
+          className="m-0 fLT-Regular-sB cLT-smoke-text "
+        />
       )}
       {/* Freelancer About Edit  [Section] */}
       {about === "editAbout" && (

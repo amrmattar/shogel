@@ -20,10 +20,21 @@ import CircularProgress, {
 } from "@mui/material/CircularProgress";
 import { Box, Typography } from "@mui/material";
 
-const CircularProgressWithLabel = (props) => {
+const CircularProgressWithLabel = ({
+  className = "",
+  isParentClass,
+  ...props
+}) => {
   return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress variant="determinate" {...props} />
+    <Box
+      className={`${isParentClass ? className : ""}`}
+      sx={{ position: "relative", display: "inline-flex" }}
+    >
+      <CircularProgress
+        variant="determinate"
+        {...props}
+        className={!isParentClass ? className : ""}
+      />
       <Box
         sx={{
           top: 0,
@@ -242,12 +253,12 @@ const FlancerAdvsDetailsPage = () => {
         clickMe={messages?.messageClick}
       />
 
-      <div className="mb-3 mDefault">
+      <div className="mDefault">
         <div className="d-flex my-3 "></div>
         {/* List Card Row [Holder] */}
         <div className="LT-advsDetails-grid cLT-white-bg uLT-f-radius-sB p-4">
           {/* List Card [Image] */}
-          <div className="LT-advsDetails-image position-relative">
+          <div className="LT-advsDetails-image position-relative ms-2 ms-md-0">
             <img
               src={advsDataById?.user?.avatar}
               alt="myPic"
@@ -281,7 +292,11 @@ const FlancerAdvsDetailsPage = () => {
               <div className="d-flex justify-content-between align-items-start">
                 {/* User Info [Holder] */}
                 <div className="LT-performance-rate-holder">
-                  <CircularProgressWithLabel value={80} />
+                  <CircularProgressWithLabel
+                    isParentClass
+                    className="d-none d-md-flex"
+                    value={80}
+                  />
 
                   {/* User Rate */}
                   <div className="d-flex align-items-center LT-rate-font-size">
@@ -306,7 +321,7 @@ const FlancerAdvsDetailsPage = () => {
             </div>
           </div>
           {/* Card Amenties */}
-          <div className="LT-advsDetails-amenties">
+          <div className="d-none d-md-block LT-advsDetails-amenties">
             <AmentiesShared
               iconWithLocation={"priceIconWithLocation"}
               locationName={`${advsDataById?.user?.country?.name} , ${advsDataById?.user?.city?.name}`}
@@ -315,6 +330,27 @@ const FlancerAdvsDetailsPage = () => {
               time={advsDataById?.created_at_value}
             />
           </div>
+        </div>
+
+        <div
+          style={{ backgroundColor: "#fff", textAlign: "end" }}
+          className="d-md-none container-fluid"
+        >
+          <AmentiesShared
+            iconWithLocation={"priceIconWithLocation"}
+            phoneView
+            time={advsDataById?.created_at_value}
+            currency={advsDataById?.currency?.name}
+            price={advsDataById?.price}
+            locationName={`${advsDataById?.user?.country?.name}, ${advsDataById?.user?.city?.name}`}
+          />
+        </div>
+
+        <div
+          style={{ backgroundColor: "#fff", textAlign: "end" }}
+          className="mb-3 pb-4 d-md-none"
+        >
+          <CircularProgressWithLabel value={80} />
         </div>
       </div>
 
@@ -369,7 +405,7 @@ const FlancerAdvsDetailsPage = () => {
       </div>
       {vistorUser && (
         <div className="container-md px-4 mt-5">
-          <div className="d-flex align-items-center marginC gap-3 flex-wrap  ">
+          <div className="d-flex align-items-center justify-content-center marginC gap-3 flex-wrap m-0 m-md-auto">
             <div
               onClick={handleChat}
               className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"

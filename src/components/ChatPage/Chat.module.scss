@@ -227,3 +227,24 @@
     font-size: 12px !important;
   }
 }
+
+@media (max-width: 767px) {
+  .current-chat {
+    position: absolute;
+    width: 100%;
+    right: 0;
+    transition: 0.6s;
+    transform: translateX(100%);
+    top: 6vh;
+
+    &.active {
+      transform: translateX(0);
+    }
+  }
+
+  .chats {
+    width: 100%;
+    overflow: hidden;
+    right: 15px;
+  }
+}

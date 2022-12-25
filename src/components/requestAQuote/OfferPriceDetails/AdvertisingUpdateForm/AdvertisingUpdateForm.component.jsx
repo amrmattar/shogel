@@ -640,21 +640,29 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
           </div>
 
           {/* [Request Button */}
-          <div className="btnsHolder">
-            <ButtonShare
-              ID={"send"}
-              loading={isLoading}
-              btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-              textClasses="px-4 cLT-white-text fLT-Regular-sC"
-              innerText=" إرسال"
-            />
 
-            <ButtonShare
-              onClick={() => navigate("/")}
-              btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"
-              textClasses="px-4 cLT-white-text fLT-Regular-sC"
-              innerText=" رجوع"
-            />
+          <div
+            className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+          >
+            <div className="">
+              <ButtonShare
+                loading={isLoading}
+                ID={"send"}
+                onClick={(e) => handleCLick(e)}
+                innerText={"إرسال"}
+                btnClasses={"cLT-secondary-bg br14"}
+                textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+              />
+            </div>
+            <div className="">
+              <ButtonShare
+                smBtn
+                onClick={() => navigate("/")}
+                innerText={"رجوع"}
+                btnClasses={"three cLT-secondary-bg"}
+                textClasses={"py-1 px-3 px-md-5 rounded-5"}
+              />
+            </div>
           </div>
         </div>
         {/* [Request Button

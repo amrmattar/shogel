@@ -287,7 +287,71 @@ const OrderDetailsPage = () => {
         className="d-flex flex-column flex-lg-row px-3 gap-3 px-lg-0 pt-5 container-lg"
         style={{ minHeight: "100vh" }}
       >
-        <div className="w-100">
+        <div className="order-details d-md-none">
+          <SideOrderDetailsPage
+            offerRefresh={setRefreshTasks}
+            data={offerPriceTaskData}
+            isUser={activeUserID}
+          />
+
+          <div className="bg-white pb-3 pt-2">
+            <div className="d-flex align-items-center marginC p-0 m-0 justify-content-center gap-3 flex-wrap">
+              <div
+                onClick={() => sendEmail()}
+                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+              >
+                <i className={`iLT-flancer-email uLT-img-contain iLT-sC`} />
+                <p>الدردشه</p>
+              </div>
+              <div
+                onClick={() =>
+                  copyPhoneNumber(offerPriceTaskData?.user?.mobile)
+                }
+                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+              >
+                <i className={`iLT-flancer-mobile uLT-img-contain iLT-sC`}></i>
+                <p>اتصال</p>
+              </div>
+              <Toast
+                onClose={() => setCopyMobile(false)}
+                show={mobileCopy}
+                delay={2000}
+                autohide
+              >
+                <Toast.Body>The Phone Number Is copied</Toast.Body>
+              </Toast>
+              <div
+                onClick={() => startChat()}
+                className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+              >
+                <i
+                  className={`iLT-flancer-whatsApp uLT-img-contain iLT-sC`}
+                ></i>
+                <p>واتساب</p>
+              </div>
+              <CopyToClipboard text={`${window.location.href}`}>
+                <div
+                  onClick={() => startShare()}
+                  className="uLT-advs-contact uLT-click hova  d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
+                >
+                  <i className={`iLT-flancer-share uLT-img-contain iLT-sC`}></i>
+                  <p>مشاركة</p>
+                </div>
+              </CopyToClipboard>
+              <Toast
+                className="s"
+                onClose={() => setCopyUrl(false)}
+                show={urlCopy}
+                delay={2000}
+                autohide
+              >
+                <Toast.Body>The Link Is copied</Toast.Body>
+              </Toast>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-100 mb-4">
           {/* Order Details [Holder] */}
           <div className="bg-white p-4 border rounded-4">
             <OrderListCardComponent
@@ -461,14 +525,14 @@ const OrderDetailsPage = () => {
           )}
         </div>
 
-        <div>
+        <div className="d-none d-md-block">
           <SideOrderDetailsPage
             offerRefresh={setRefreshTasks}
             data={offerPriceTaskData}
             isUser={activeUserID}
           />
 
-          <div className="mt-5">
+          <div className="mt-5 mb-4">
             <div className="d-flex align-items-center marginC p-0 m-0 justify-content-center gap-3 flex-wrap">
               <div
                 onClick={() => sendEmail()}

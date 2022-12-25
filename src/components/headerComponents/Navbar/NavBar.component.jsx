@@ -1,6 +1,6 @@
 import "./Navbar.component.scss";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AuthComponent from "../../auth/Auth.component";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -19,17 +19,36 @@ import { authAction } from "../../../core/services/AuthServices/AuthActions/Auth
 
 import { Link } from "react-router-dom";
 import { getUserDataReducer } from "../../../core/redux/reducers/UserDataReducer/UserDataReducer.core";
+import MopileUserSettings from "../../auth/MopileUserSettings";
+import MopileNavigate from "./MopileNavigate";
+import LoginComponent from "../../auth/Login/Login.component";
+import { Dialog } from "@mui/material";
+import { LoginServices } from "../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core";
+import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
+import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
+import { Form } from "react-bootstrap";
 
 const Navbar = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [loginCheck, setLoginCheck] = useState(false);
+
   const [user, activeUserId, userUpdateAvatar] = useSelector((state) => [
     state.authentication,
     state.userData.id,
     state.userFullData.state,
   ]);
+
+  const [stateLoginData, messages] = useSelector((state) => [
+    state.login,
+    state.messages,
+  ]);
+
   const [userID, setuserID] = useState("");
 
   const dispatch = useDispatch();
   const refe = useRef();
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const pages = [
@@ -122,6 +141,91 @@ const Navbar = () => {
     return () => clearTimeout(timeout);
   }, [userID, userLoginData]);
 
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    setLoginCheck(true);
+    const dataWithToken = {
+      ...stateLoginData,
+    };
+
+    LoginServices._POST_LoginData(dataWithToken)
+      .then((res) => {
+        if (res?.data?.status === 1) {
+          setLoginCheck(false);
+          dispatch(
+            getMessages({
+              messages: res?.data?.message,
+              messageType: "success",
+              messageClick: true,
+            })
+          );
+          localStorage.setItem("UI", res?.data?.data?.id);
+          const data = {
+            avatar: res?.data?.data?.avatar,
+            id: res?.data?.data?.id,
+            username: res?.data?.data?.username,
+            profileValidation: res?.data?.data?.profile_validation,
+            userRole: res?.data?.data?.role,
+          };
+
+          dispatch(getUserLoginData(data));
+          const userToken = res?.data?.data.token;
+          localStorage.setItem("userTK", JSON.stringify(userToken));
+          dispatch(getAuthentication(true));
+          localStorage.setItem("usID", res?.data?.data?.id);
+          localStorage.setItem("userRL", res?.data?.data?.role?.id);
+          localStorage.setItem("valid", res?.data?.data?.profile_validation);
+          dispatch(getRoleUser(true));
+          if (res?.data?.data?.role.id == 3 || res?.data?.data?.role?.id == 4) {
+            const routTimeOut = setTimeout(() => {
+              navigate(`/account_management/my-edit-account/${data?.id}`);
+              setIsLoginOpen(false);
+            }, 800);
+
+            return () => clearTimeout(routTimeOut);
+          }
+        } else {
+          setLoginCheck(false);
+        }
+      })
+      .catch((err) => {
+        setLoginCheck(false);
+        if (stateLoginData?.email !== "" && stateLoginData?.password !== "") {
+          dispatch(
+            getMessages({
+              messages: err?.response?.data?.message,
+              messageType: "error",
+              messageClick: true,
+            })
+          );
+        } else if (stateLoginData?.password === "") {
+          dispatch(
+            getMessages({
+              messages: err.response.data.message.password[0],
+              messageType: "error",
+              messageClick: true,
+            })
+          );
+        } else if (stateLoginData?.email === "") {
+          dispatch(
+            getMessages({
+              messages: err?.response?.data?.message,
+              messageType: "error",
+              messageClick: true,
+            })
+          );
+        } else {
+          dispatch(
+            getMessages({
+              messages: err?.response?.data?.message,
+              messageType: "error",
+              messageClick: true,
+            })
+          );
+        }
+      });
+  };
+
   return (
     <AppBar
       position="static"
@@ -129,7 +233,10 @@ const Navbar = () => {
       sx={{ background: "none", boxShadow: "none" }}
     >
       <Container maxWidth="100%" className="LT-nav-container">
-        <Toolbar disableGutters className="LT-navbar-sm-holder">
+        <Toolbar
+          disableGutters
+          className="LT-navbar-sm-holder justify-content-between d-flex"
+        >
           <Typography
             variant="h6"
             noWrap
@@ -170,7 +277,15 @@ const Navbar = () => {
                 className="main-bg-color px-2 py-1 rounded-3 text-light"
               />
             </IconButton>
-            <Menu
+
+            <MopileNavigate
+              userID={userID}
+              pages={pages}
+              isOpen={anchorElNav}
+              setIsOpen={setAnchorElNav}
+            />
+
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -202,7 +317,7 @@ const Navbar = () => {
                   {page.name}
                 </NavLink>
               ))}
-            </Menu>
+            </Menu> */}
 
             <div className="d-md-none">
               <NavLink
@@ -246,7 +361,7 @@ const Navbar = () => {
             sx={{ flexGrow: 0, display: "flex", justifyContent: "end" }}
           >
             {user.loggedIn && (
-              <>
+              <article className="d-none d-md-flex">
                 <Link to="/chat">
                   <Box>
                     <div
@@ -278,66 +393,103 @@ const Navbar = () => {
                     </div>
                   </Box>
                 </Link>
-              </>
+              </article>
             )}
 
             {user.loggedIn ? (
-              <div className="d-flex align-items-center gap-3">
-                <Tooltip title={userID?.username ? userID?.username : false}>
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0 }}
-                    className="position-relative"
-                  >
-                    {/* <Avatar alt="Remy Sharp" src={userID.avatar} /> */}
-                    {userID?.avatar ? (
-                      <img
-                        alt=""
-                        src={
-                          localStorage.getItem("avatar")
-                            ? localStorage.getItem("avatar")
-                            : userID?.avatar
-                        }
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          borderRadius: "50%",
-                        }}
-                      />
-                    ) : (
-                      <div className="LT-avatar-wire-frame"></div>
-                    )}
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "0",
-                        right: "-10px",
-                      }}
+              <>
+                <div className="d-flex align-items-center gap-3 d-none d-md-block">
+                  <Tooltip title={userID?.username ? userID?.username : false}>
+                    <IconButton
+                      onClick={handleOpenUserMenu}
+                      sx={{ p: 0 }}
+                      className="position-relative"
                     >
-                      {userID?.available === 1 ? (
-                        <div className="uLT-status-online"></div>
+                      {/* <Avatar alt="Remy Sharp" src={userID.avatar} /> */}
+                      {userID?.avatar ? (
+                        <img
+                          className="ms-md-3"
+                          alt=""
+                          src={
+                            localStorage.getItem("avatar")
+                              ? localStorage.getItem("avatar")
+                              : userID?.avatar
+                          }
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                          }}
+                        />
                       ) : (
-                        <div className="uLT-status-offline"></div>
+                        <div className="LT-avatar-wire-frame"></div>
                       )}
-                    </div>
-                  </IconButton>
-                </Tooltip>
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "-10px",
+                        }}
+                      >
+                        {userID?.available === 1 ? (
+                          <div className="uLT-status-online"></div>
+                        ) : (
+                          <div className="uLT-status-offline"></div>
+                        )}
+                      </div>
+                    </IconButton>
+                  </Tooltip>
 
-                {(userID?.role?.id == 3) | (userID?.role?.id == 4) && (
-                  <NavLink
-                    to="/advertising-price"
-                    className="btn cLT-main-bg py-2 px-0 uLT-f-radius-sB"
-                  >
-                    <p className="mb-0 px-4 cLT-white-text fLT-Regular-sC">
-                      اضف اعلان
-                    </p>
-                  </NavLink>
-                )}
-              </div>
+                  {(userID?.role?.id == 3) | (userID?.role?.id == 4) && (
+                    <NavLink
+                      to="/advertising-price"
+                      className="btn cLT-main-bg py-2 px-0 uLT-f-radius-sB"
+                    >
+                      <p className="mb-0 px-4 cLT-white-text fLT-Regular-sC">
+                        اضف اعلان
+                      </p>
+                    </NavLink>
+                  )}
+                </div>
+
+                <MopileUserSettings isLogin activeUserId={activeUserId} />
+              </>
             ) : (
               <div className="LT-nav-login-button d-flex justify-content-end align-items-left">
                 <div className="uLT-f-radius-sB w-25-in-phone">
-                  <AuthComponent />
+                  <AuthComponent onClick={() => setIsLoginOpen(true)} />
+
+                  <Dialog
+                    aria-labelledby="simple-dialog-title1"
+                    open={isLoginOpen}
+                    onClose={() => setIsLoginOpen(false)}
+                  >
+                    <Form onSubmit={(e) => formSubmit(e)}>
+                      <LoginComponent
+                        loginCheck={loginCheck}
+                        forgetPassword={() => setIsLoginOpen(false)}
+                      />
+                      <div
+                        className="d-flex align-items-center justify-content-center py-3 gap-1"
+                        style={{ paddingBottom: "3rem" }}
+                      >
+                        <p className="m-0 fLT-Bold-sm-sA cLT-main-text">
+                          {" "}
+                          ليس لديك حساب{" "}
+                        </p>
+                        {/* <Button onClick={switchSignup} className='px-0'>
+                            <p className='uLT-list-style fLT-Bold-sm-sA cLT-secondary-text '>إنشاء حساب جديد</p>
+                        </Button> */}
+                        <NavLink
+                          to={"/register"}
+                          onClick={() => setIsLoginOpen(false)}
+                          className="uLT-list-style fLT-Bold-sm-sA cLT-secondary-text"
+                        >
+                          إنشاء حساب جديد
+                        </NavLink>
+                      </div>
+                    </Form>
+                  </Dialog>
                 </div>
               </div>
             )}
