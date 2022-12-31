@@ -97,7 +97,7 @@ const appRoutes = {
     {
       path: `advertising/page=:num`,
       key: (
-        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3  px-lg-0 mDefault">
+        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3 px-lg-0 mDefault mx-2 mx-md-5">
           <SideNavPage />
           <FlancerAdvsListPageLoadable />
         </div>
@@ -118,7 +118,7 @@ const appRoutes = {
     {
       path: "employed/page=:num/*",
       key: (
-        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3  px-lg-0 mDefault">
+        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3 px-lg-0 mDefault mx-2 mx-md-5">
           <SideNavPage />
           <EmployedLoadable />
         </div>
@@ -127,7 +127,7 @@ const appRoutes = {
     {
       path: "orders/page=:num",
       key: (
-        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3  px-lg-0 mDefault">
+        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3 px-lg-0 mDefault mx-2 mx-md-5">
           <SideNavPage />
           <OrdersPageLoadable />
         </div>
@@ -136,7 +136,7 @@ const appRoutes = {
     {
       path: "orders/order-details/:id",
       key: (
-        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3  px-lg-0 mDefault">
+        <div className="d-flex flex-column flex-lg-row px-0 px-sm-3 px-lg-0 mDefault mx-2 mx-md-5">
           {/* <SideOrderDetailsPage /> */}
           <OrderDetailsPageLoadable />
         </div>

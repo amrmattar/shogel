@@ -322,8 +322,10 @@ const Navbar = () => {
             <div className="d-md-none">
               <NavLink
                 style={{
-                  width: 170,
+                  width: 145,
                   height: 50,
+                  padding: "0 !important",
+                  margin: "0 !important",
                 }}
                 to="/"
                 className="imLT-main-logo me-4 d-block uLT-img-position-contain col mx-0 px-0"
@@ -452,11 +454,15 @@ const Navbar = () => {
                   )}
                 </div>
 
-                <MopileUserSettings isLogin activeUserId={activeUserId} />
+                <MopileUserSettings
+                  avatar={userID?.avatar}
+                  isLogin
+                  activeUserId={activeUserId}
+                />
               </>
             ) : (
               <div className="LT-nav-login-button d-flex justify-content-end align-items-left">
-                <div className="uLT-f-radius-sB w-25-in-phone">
+                <div className="uLT-f-radius-sB w-25-in-phone w-100">
                   <AuthComponent onClick={() => setIsLoginOpen(true)} />
 
                   <Dialog

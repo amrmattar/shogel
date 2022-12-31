@@ -46,3 +46,9 @@
 .css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop {
   background-color: #f8fafc !important;
 }
+
+.three {
+  @media (max-width: 767px) {
+    width: 100% !important;
+  }
+}

@@ -43,7 +43,7 @@ const AmentiesShared = ({
           </div>
           {/* Amenties Icon */}
           <div className={`row w-100 mt-4 mt-md-0`}>
-            <div className="col-5 col-md-6">
+            <div className="col-5 col-md-6 d-none d-md-block">
               <div className="d-flex gap-3 align-items-center">
                 <div className="d-flex justify-content-center aling-items-center">
                   <i
@@ -56,14 +56,19 @@ const AmentiesShared = ({
               </div>
             </div>
 
-            <div className="col-5 col-md-6">
-              <div className="d-flex justify-content-center align-items-center">
-                <i
-                  className={`iLT-Advs-calendar uLT-img-contain iLT-sA ms-2`}
-                />
-                <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA text-nowrap">
-                  قبل {orderData?.created_at_value}
-                </p>
+            <div className="col-5 mt-2 d-md-none mb-3 ms-1">
+              <div className="d-flex  gap-3 align-items-center">
+                <div className="d-flex justify-content-center aling-items-center">
+                  <i
+                    className={`iLT-Advs-calendar uLT-img-contain iLT-sA ms-2 main-color`}
+                  />
+                  <p
+                    style={{ whiteSpace: "nowrap" }}
+                    className="mb-0 cLT-secondary-text fLT-Bold-sm-sA"
+                  >
+                    قبل {orderData?.created_at_value}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -73,6 +78,22 @@ const AmentiesShared = ({
                   <AiOutlineFileDone className="ms-2 main-color" />
                   <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA">
                     {Number(arNumberConverter(orderData?.offerCount || 0))} عروض
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-5 col-md-6 d-md-none">
+              <div className="d-flex gap-3 align-items-center">
+                <div className="d-flex justify-content-center aling-items-center">
+                  <i
+                    className={`iLT-Listcard-location uLT-img-contain iLT-sA ms-2 main-color`}
+                  />
+                  <p
+                    style={{ whiteSpace: "nowrap" }}
+                    className="mb-0 cLT-secondary-text fLT-Bold-sm-sA"
+                  >
+                    {orderData?.country?.name}, {orderData?.city?.name}
                   </p>
                 </div>
               </div>

@@ -494,7 +494,10 @@ const FlancerEmployedOfferComponent = ({
         )}
         <div className="LT-employed-offer-description">
           {/* Card title */}
-          <p className="m-0 fLT-Regular-sB cLT-smoke-text">
+          <p
+            style={{ wordBreak: "break-word" }}
+            className="m-0 fLT-Regular-sB cLT-smoke-text"
+          >
             {data?.description ? data?.description : "لا يوجد وصف للعرض"}
           </p>
         </div>
@@ -550,6 +553,7 @@ const FlancerEmployedOfferComponent = ({
                       style={{ width: "42px", height: "42px" }}
                     >
                       <FlancerPersonalInformationComponent
+                        nowrap
                         myData={newComment.done_by}
                         statusIcon={
                           newComment.done_by?.available === 1 ? (
@@ -562,7 +566,10 @@ const FlancerEmployedOfferComponent = ({
                     </div>
                     <div className="LT-employed-offer-description">
                       {/* Card title */}
-                      <p className="m-0 fLT-Regular-sB cLT-smoke-text">
+                      <p
+                        style={{ wordBreak: "break-word" }}
+                        className="m-0 fLT-Regular-sB cLT-smoke-text"
+                      >
                         {newComment?.comment && newComment?.comment}
                       </p>
                     </div>

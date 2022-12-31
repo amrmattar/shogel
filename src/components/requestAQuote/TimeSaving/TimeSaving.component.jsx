@@ -6,16 +6,15 @@ const TimeSaving = ({ data }) => {
   const times = [
     {
       iconName: deadLine,
-      timeDescription: `لتبسيط نجاحك في العمل والحياة
-      الأفضل لكل ميزانية ابحث عن خدمات عالية الجودة في كل نقطة
-      `,
+      name: "نثمن وقتك",
+      timeDescription: `كمشتغل :  نجعل وقت فراغك يعود عليك بثمن
+      كمستخدم : نوفر وقتك من خلال انجاز اشغالك بآسرع الطرق`,
     },
     {
       iconName: deadLine,
-      timeDescription: `
-      لتبسيط نجاحك في العمل والحياة
-الأفضل لكل ميزانية ابحث عن خدمات عالية الجودة في كل نقطة
-`,
+      name: "شمولية الخدمات",
+      timeDescription: `كمشتغل : تشغيل جميع مهاراتك وخبراتك على منصه
+      كمستخدم : كل الاشغال التي تريد انجازها في مكان واحد`,
     },
   ];
   const [sectionTwoData, setSectionTwoData] = useState({ video: "" });
@@ -77,17 +76,22 @@ const TimeSaving = ({ data }) => {
               className="LT-time-box uLT-f-radius-sB uLT-bd-f-platinum-sB"
             >
               {/* Time Icon */}
-              <picture className="d-flex flex-column align-items-center gap-2">
+              <picture
+                style={{ width: 120, maxWidth: "100%" }}
+                className="d-flex flex-column align-items-center gap-2"
+              >
                 <img src={time.iconName} alt="" width={50} height={50} />
                 <p className="m-0 cLT-main-text fLT-Bold-sB text-nowrap">
-                  توفير الوقت
+                  {time.name}
                 </p>
               </picture>
               <div className="LT-time-line cLT-platinum-bg uLT-f-radius-sB "></div>
               {/* Time Name */}
-              <span className="LT-description-time-grid cLT-gray-text fLT-Bold-sB">
-                {time.timeDescription}
-              </span>
+              <span
+                style={{ whiteSpace: "pre-line" }}
+                dangerouslySetInnerHTML={{ __html: time.timeDescription }}
+                className="LT-description-time-grid cLT-gray-text fLT-Bold-sB fw-bold text-dark"
+              />
             </div>
           );
         })}

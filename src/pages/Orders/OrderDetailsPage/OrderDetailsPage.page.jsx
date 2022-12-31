@@ -284,7 +284,7 @@ const OrderDetailsPage = () => {
       />
 
       <div
-        className="d-flex flex-column flex-lg-row px-3 gap-3 px-lg-0 pt-5 container-lg"
+        className="d-flex flex-column flex-lg-row px-3 gap-3 px-lg-0 pt-md-5 container-lg"
         style={{ minHeight: "100vh" }}
       >
         <div className="order-details d-md-none">

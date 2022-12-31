@@ -1,7 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import defautFlag from "../../../../assets/icons/Advs-flag.svg";
-const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
+const FlancerPersonalInformationComponent = ({
+  statusIcon,
+  myData,
+  rate,
+  nowrap,
+}) => {
   const location = useLocation();
 
   return (
@@ -22,6 +27,16 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
         <div className="d-flex flex-column justify-content-start">
           <div className="d-flex gap-2 gap-md-3 justify-content-between">
             <p
+              style={
+                nowrap
+                  ? {
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      width: "70%",
+                    }
+                  : {}
+              }
               className={`m-0 card-text fLT-Bold-sm-sA cLT-support2-text text-end ${
                 location.pathname === "/" ? "" : "text-nowrap"
               }`}
@@ -39,7 +54,19 @@ const FlancerPersonalInformationComponent = ({ statusIcon, myData, rate }) => {
             />
             {/* <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i> */}
           </div>
-          <p className="m-0 cLT-support2-text fLT-Regular-sB">
+          <p
+            style={
+              nowrap
+                ? {
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    width: "70%",
+                  }
+                : {}
+            }
+            className="m-0 cLT-support2-text fLT-Regular-sB"
+          >
             {myData?.description}
           </p>
         </div>

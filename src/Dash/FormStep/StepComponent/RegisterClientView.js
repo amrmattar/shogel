@@ -99,7 +99,7 @@ const RegisterClientView = () => {
       >
         <div className="LT-login-holder">
           <div className="imLT-main-logo uLT-img-contain one img"> </div>
-          <Row className="mb-4 gap-3 two row">
+          <Row className="mb-4 gap-3 two row w-100-in-phone">
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
                 اسم الفرد بالكامل
@@ -194,7 +194,7 @@ const RegisterClientView = () => {
               </p>
             )}
 
-            <div className="d-flex align-items-center justify-content-around gap-2 mb-3">
+            <div className="w-100-in-phone p-0 d-flex align-items-center justify-content-around gap-2 mb-3">
               <div>
                 <ButtonShare
                   type={!validation || !nameValid || !emailValid}

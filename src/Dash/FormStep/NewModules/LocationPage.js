@@ -208,7 +208,7 @@ const IdPage = () => {
         dir="rtl"
         style={{ maxWidth: "30rem" }}
       >
-        <div className="LT-login-holder">
+        <div className="LT-login-holder p-0">
           <div
             style={{ textAlign: "center" }}
             className=" LT-account-logo d-flex flex-column p-3"
@@ -219,7 +219,7 @@ const IdPage = () => {
               من خدمتك بشكل افضل
             </p>
           </div>
-          <Row className="mb-4 gap-3 two row">
+          <Row className="mb-4 gap-3 two row w-100-in-phone">
             {/* Country [Section] */}
 
             <Form.Group>
@@ -319,7 +319,7 @@ const IdPage = () => {
             </Form.Group>
 
             <div
-              className={`d-flex align-items-center justify-content-around gap-2 mb-3`}
+              className={`d-flex align-items-center justify-content-around gap-2 mb-3 w-100-in-phone p-0`}
             >
               <div>
                 <ButtonShare

@@ -14,7 +14,7 @@ const HeaderHolder = () => {
   const checkLogin = useSelector((state) => state.authentication.loggedIn);
 
   return (
-    <div className="container-md-fluid bg-white padd mxFull">
+    <div className="container-fluid container-md bg-white padd mxFull px-md-0 px-3">
       {/* Navbar Selector */}
       <div className=" px-0 ">
         <Navbar />

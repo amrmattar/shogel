@@ -43,11 +43,11 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
   }, [loginFormData]);
 
   return (
-    <div className="LT-login-holder">
+    <div className="LT-login-holder px-0">
       <div className="imLT-main-logo uLT-img-contain one img" />
 
-      <Row className="mb-4 gap-3 two row">
-        <Form.Group autoComplete="off">
+      <Row className="mb-4 gap-3 two row w-100">
+        <Form.Group autoComplete="off" className="p-0 px-md-5">
           <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
             الجوال أو البريد الإلكتروني{" "}
           </Form.Label>
@@ -61,7 +61,7 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
             placeholder="الجوال أو البريد الإلكتروني  "
           />
         </Form.Group>
-        <Form.Group as={Col} className={"position-relative"}>
+        <Form.Group as={Col} className={"position-relative p-0 px-md-5"}>
           <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
             كلمة المرور
           </Form.Label>

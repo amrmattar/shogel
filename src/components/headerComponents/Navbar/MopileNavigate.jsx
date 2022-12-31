@@ -14,9 +14,9 @@ const MopileNavigate = ({ isOpen, setIsOpen, pages, userID }) => {
       className={`${style.mopile_navigate} ${isOpen ? style.active : ""}`}
     >
       <div className="container py-3">
-        <header className="d-flex justify-content-between">
+        <header>
           <IconButton
-            className="text-light"
+            className="text-light py-0"
             style={{ height: "fit-content" }}
             onClick={() => setIsOpen(false)}
           >
@@ -31,12 +31,10 @@ const MopileNavigate = ({ isOpen, setIsOpen, pages, userID }) => {
                 height: 100,
               }}
               to="/"
-              className="imLT-main-logo uLT-img-position-contain col mx-0 px-0"
+              className="imLT-main-logo uLT-img-position-contain col mx-auto px-0"
               aria-label="main-logo"
             />
           </div>
-
-          <div />
         </header>
 
         <div className="body mt-3">

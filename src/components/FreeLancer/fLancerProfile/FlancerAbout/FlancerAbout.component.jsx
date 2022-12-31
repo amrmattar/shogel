@@ -27,7 +27,7 @@ const FlancerAboutComponent = ({ about, data }) => {
           dangerouslySetInnerHTML={{
             __html: data || "<span>لا يوجد وصف</span>",
           }}
-          className="m-0 fLT-Regular-sB cLT-smoke-text "
+          className="m-0 fLT-Regular-sB cLT-smoke-text fs-in-phone-big"
         />
       )}
       {/* Freelancer About Edit  [Section] */}

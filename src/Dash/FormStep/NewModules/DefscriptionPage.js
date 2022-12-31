@@ -72,7 +72,7 @@ const DersciptionPage = () => {
             upload={imgHandler}
           />
         </div>
-        <div style={{ paddingTop: "0" }} className="LT-login-holder">
+        <div style={{ paddingTop: "0" }} className="LT-login-holder p-0">
           <div
             style={{ textAlign: "center" }}
             className=" LT-account-logo d-flex flex-column "
@@ -84,7 +84,7 @@ const DersciptionPage = () => {
             </p>
           </div>
 
-          <Row className="mb-4 gap-3 two row">
+          <Row className="mb-4 gap-3 two row w-100-in-phone">
             <Form.Group>
               {value?.accountType?.userKind !== "company" ? (
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
@@ -160,7 +160,7 @@ const DersciptionPage = () => {
             </Form.Group>
 
             <div
-              className={`d-flex align-items-center justify-content-around gap-2 mb-3`}
+              className={`d-flex align-items-center justify-content-around gap-2 mb-3 w-100-in-phone p-0`}
             >
               <div>
                 <ButtonShare
