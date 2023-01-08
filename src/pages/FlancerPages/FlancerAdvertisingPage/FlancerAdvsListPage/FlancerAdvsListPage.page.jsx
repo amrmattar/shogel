@@ -94,6 +94,7 @@ const treeToList = (arr) => {
 
 const FlancerAdvsListPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [attendeesStatus, setAttendeesStatus] = useState("all");
 
   const param = useParams();
   const navigate = useNavigate();
@@ -249,6 +250,7 @@ const FlancerAdvsListPage = () => {
       body.set("rate", rate);
       body.set("available", active);
       body.set("location", location);
+      body.set("attendeesStatus", attendeesStatus);
 
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)
@@ -261,7 +263,17 @@ const FlancerAdvsListPage = () => {
     };
 
     fetchAds();
-  }, [currentPage, price, location, categ, key, rate, rateCount, active]);
+  }, [
+    currentPage,
+    price,
+    location,
+    categ,
+    key,
+    rate,
+    rateCount,
+    active,
+    attendeesStatus,
+  ]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!userAdvsDetatils?.data)
@@ -295,6 +307,8 @@ const FlancerAdvsListPage = () => {
 
         <div className={cls.holder + " d-block d-md-grid"}>
           <DynamicFilter
+            setAttendeesStatus={setAttendeesStatus}
+            attendeesStatus={attendeesStatus}
             isFilterOpen={isFilterOpen}
             setIsFilterOpen={setIsFilterOpen}
             query={query}

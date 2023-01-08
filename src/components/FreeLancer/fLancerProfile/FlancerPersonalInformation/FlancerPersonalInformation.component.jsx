@@ -6,6 +6,7 @@ const FlancerPersonalInformationComponent = ({
   myData,
   rate,
   nowrap,
+  nowraps,
 }) => {
   const location = useLocation();
 
@@ -62,6 +63,10 @@ const FlancerPersonalInformationComponent = ({
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     width: "70%",
+                  }
+                : nowraps
+                ? {
+                    whiteSpace: "nowrap",
                   }
                 : {}
             }

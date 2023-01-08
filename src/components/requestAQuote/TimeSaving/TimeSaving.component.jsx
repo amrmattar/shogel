@@ -1,24 +1,29 @@
-import "./TimeSaving.component.scss";
+/* eslint-disable jsx-a11y/iframe-has-title */
+import { useCallback, useEffect, useState } from "react";
 import deadLine from "../../../assets/images/deadline.svg";
 import workVid from "../../../assets/icons/workSite.mp4";
-import { useCallback, useEffect, useState } from "react";
+
+import "./TimeSaving.component.scss";
+
 const TimeSaving = ({ data }) => {
   const times = [
     {
       iconName: deadLine,
       name: "نثمن وقتك",
-      timeDescription: `كمشتغل :  نجعل وقت فراغك يعود عليك بثمن
-      كمستخدم : نوفر وقتك من خلال انجاز اشغالك بآسرع الطرق`,
+      timeDescription: `كمشتغل : نجعل وقت فراغك يعود عليك بثمن
+      كمستخدم : نوفر وقتك من خلال انجازك بآسرع الطرق`,
     },
     {
       iconName: deadLine,
       name: "شمولية الخدمات",
       timeDescription: `كمشتغل : تشغيل جميع مهاراتك وخبراتك على منصه
-      كمستخدم : كل الاشغال التي تريد انجازها في مكان واحد`,
+      كمستخدم : اشغالك التي تريد انجازها في مكان واحد`,
     },
   ];
+
   const [sectionTwoData, setSectionTwoData] = useState({ video: "" });
   const [video, setVideo] = useState("");
+
   const handleSectionOne = useCallback(() => {
     data?.map((homeData) => {
       if (homeData?.section === "2") {
@@ -34,6 +39,7 @@ const TimeSaving = ({ data }) => {
       }
     });
   }, [data]);
+
   useEffect(() => {
     let cancel = false;
     if (cancel) return;
@@ -50,6 +56,7 @@ const TimeSaving = ({ data }) => {
       setVideo(str2);
     }
   }, [sectionTwoData]);
+
   return (
     // Time Saving [Holder]
     <div className="p-3 p-sm-4 LT-time-save-grid-holder">
@@ -64,7 +71,7 @@ const TimeSaving = ({ data }) => {
           frameborder="0"
           type="video/mp4"
           allowfullscreen
-        ></iframe>
+        />
       </div>
       {/* Time Saving Section [List] */}
       <div className="w-100 LT-time ">
@@ -90,7 +97,7 @@ const TimeSaving = ({ data }) => {
               <span
                 style={{ whiteSpace: "pre-line" }}
                 dangerouslySetInnerHTML={{ __html: time.timeDescription }}
-                className="LT-description-time-grid cLT-gray-text fLT-Bold-sB fw-bold text-dark"
+                className="text-muted LT-description-time-grid cLT-gray-text fLT-Bold-sB fw-bold text-dark fs_in_laptop_small"
               />
             </div>
           );

@@ -128,6 +128,7 @@ const FlancerMyEditAccountPage = ({
           <PageTitle title={" مجالات الاختصاص"} />
           {/* My Tags [Component] */}
           <FlancerEditTagsComponent
+            hideInSm
             type={"Register"}
             tags={coreData?.category}
             userProfileTags={personalData?.category}

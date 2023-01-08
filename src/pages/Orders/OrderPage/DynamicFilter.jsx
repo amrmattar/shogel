@@ -9,6 +9,12 @@ import SkillTree from "../../../Dash/FormStep/SkillsComp/SkillTree";
 import { useEffect, useState } from "react";
 import FilterPhoneView from "./FilterPhoneView";
 
+const attendees = [
+  { key: "offline", name: "بالحضور" },
+  { key: "online", name: "عن بعد" },
+  { key: "all", name: "الجميع" },
+];
+
 const DynamicFilter = ({
   mostUse,
   categories,
@@ -31,6 +37,8 @@ const DynamicFilter = ({
   checkedSkls,
   isFilterOpen,
   setIsFilterOpen,
+  setAttendeesStatus,
+  attendeesStatus,
 }) => {
   const [searchRes, setSearchRes] = useState([]);
 
@@ -203,6 +211,41 @@ const DynamicFilter = ({
               />
             ))}
           </div>
+        )}
+
+        {!isEmployee && (
+          <article className="online-offline">
+            <div>
+              <header
+                className={` d-flex border-top border-dark pt-2 justify-content-between align-items-center mb-2`}
+              >
+                <p className={`m-0 ${cls.lastC} p-0 border-0`}>حالة الحضور</p>
+              </header>
+
+              <div className="radios">
+                {attendees.map((ele, idx) => (
+                  <article className="mb-2 d-flex justify-content-start align-items-center">
+                    <input
+                      id={ele.key}
+                      value={ele.key}
+                      onChange={(e) => {
+                        setAttendeesStatus(e.target.value);
+                      }}
+                      defaultChecked={ele.key === attendeesStatus}
+                      type={"radio"}
+                      name="attendees-status"
+                      key={idx}
+                      className="ms-2"
+                    />
+
+                    <label className="text-muted m-0" htmlFor={ele.key}>
+                      {ele.name}
+                    </label>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </article>
         )}
       </div>
 

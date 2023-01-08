@@ -6,6 +6,13 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 1300px) {
+  .fs_in_laptop_small {
+    font-size: 0.9rem !important;
+  }
+}
+
 .LT-time-save-grid-holder {
   width: 100%;
   display: grid;

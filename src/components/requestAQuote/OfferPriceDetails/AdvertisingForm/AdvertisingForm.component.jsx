@@ -32,6 +32,10 @@ const AdvertisingFormComponent = () => {
   const navigate = useNavigate();
   const errMessage = messages[0]?.messages;
   const [userCategory, setUserCategory] = useState();
+  const [selectedAreName, setSelectedAreName] = useState("");
+  const offLineWorkType = useRef();
+  const onLineWorkType = useRef();
+
   const [user, setUser] = useState({});
   const userLoginData = useMemo(async () => {
     try {
@@ -142,6 +146,11 @@ const AdvertisingFormComponent = () => {
     media.set("city_id", selectedCity?.id);
     media.set("state_id", selectedState?.id);
     media.set("area_id", selectedArea?.id);
+    selectedArea?.id === "1212" && media.set("area_name", selectedAreName);
+    media.set("type_work", formData.type_work);
+    if (formData.type_work === "offline") {
+      media.set("address", formData.address);
+    }
 
     advertisingLists
       ._POST_AdvertisingOffer(media)
@@ -249,7 +258,18 @@ const AdvertisingFormComponent = () => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [selectedCountry, selectedCity, selectedState]);
   useEffect(() => {
@@ -259,12 +279,16 @@ const AdvertisingFormComponent = () => {
   const advsMaxCharacters = 5000;
 
   useEffect(() => {
-    if (getAllUserUpdate.category?.length > 0 && selectedArea?.id) {
+    if (
+      getAllUserUpdate.category?.length > 0 &&
+      selectedArea?.id &&
+      !(formData.type_work === "offline" && !formData.address)
+    ) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-  }, [getAllUserUpdate, selectedArea]);
+  }, [getAllUserUpdate, selectedArea, formData.type_work, formData.address]);
   const [showSkills, setShowSkills] = useState(false);
   const [allSkills, setAllSkills] = useState(false);
   const fetchAllSkills = async () => {
@@ -383,6 +407,82 @@ const AdvertisingFormComponent = () => {
             noHover
           />
         </div>
+        <Form.Group
+          as={Col}
+          sm={12}
+          controlId="formGridTypeWork"
+          className="position-relative px-0 pt-3 pt-md-0 d-grid gap-2"
+        >
+          <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
+            {" "}
+            نوع الشغل
+          </Form.Label>
+          <div
+            className="d-flex justify-content-around align-items-center uLT-bd-f-platinum-sA fLT-Regular-sB uLT-f-radius-sB cLT-main-text"
+            onChange={handleChange}
+          >
+            <div className="fLT-Regular-sC  cLT-main-text text-center ">
+              <label id="showCompo" className="uLT-click">
+                <input
+                  type="radio"
+                  name="type_work"
+                  value="online"
+                  datatype="anuone"
+                  alt="true"
+                  ref={onLineWorkType}
+                  defaultChecked
+                />
+                <span> عن بعد</span>
+              </label>
+            </div>
+            <div
+              className=""
+              style={{
+                width: "1px",
+                height: "56px",
+                backgroundColor: "#E9E9E9",
+              }}
+            ></div>
+            <div className="fLT-Regular-sC  text-center ">
+              <label id="offlineWork" className="uLT-click">
+                <input
+                  type="radio"
+                  name="type_work"
+                  value="offline"
+                  datatype="anuone"
+                  ref={offLineWorkType}
+                  alt="true"
+                />
+                <span> بالحضور </span>
+              </label>
+            </div>
+          </div>
+          {errMessage?.type_work && (
+            <p
+              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+              style={{ bottom: "-27px" }}
+            >
+              {errMessage?.type_work}
+            </p>
+          )}
+        </Form.Group>
+        {formData.type_work === "offline" && (
+          <Row className="mt-4">
+            <Form.Group as={Col} md={12} className="mb-3">
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
+                العنوان بالتفصيل <span className="cLT-danger-text">*</span>{" "}
+              </Form.Label>
+              <Form.Control
+                onChange={handleChange}
+                name="address"
+                className="uLT-f-radius-sB uLT-bd-f-platinum-sA cLT-main-text"
+                type="text"
+                value={formData?.address}
+                placeholder="العنوان بالتفصيل"
+              />
+            </Form.Group>
+          </Row>
+        )}
         {/* Skills-Grid [Holder] */}
         <div className="d-grid  position-relative">
           {/* [Title] */}
@@ -542,6 +642,7 @@ const AdvertisingFormComponent = () => {
                   getOptionValue={(city) => city?.id}
                 />
               </div>
+
               {/* {errMessage?.city_id && (
                 <p
                   className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
@@ -551,6 +652,17 @@ const AdvertisingFormComponent = () => {
                 </p>
               )} */}
             </Form.Group>
+
+            <Form.Control
+              hidden={selectedArea?.id !== "1212"}
+              name="area_name"
+              required
+              style={{ width: "48%" }}
+              className="uLT-bd-f-platinum-sA inpBG inp my-3 me-3"
+              type="text"
+              placeholder="ادخل اسم الحي"
+              onChange={(e) => setSelectedAreName(e.target.value)}
+            />
           </Row>
         )}
 

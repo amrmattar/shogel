@@ -54,6 +54,7 @@ const FlancerEmployedListCard = ({ data, small }) => {
         >
           <FlancerPersonalInformationComponent
             rate={data.rate}
+            nowraps
             myData={myPersonData}
             statusIcon={
               data?.available === 1 ? (

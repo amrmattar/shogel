@@ -22,6 +22,8 @@ import {
 } from "../../../../utils/arNumberConverter";
 
 const OfferPriceForm = () => {
+  const [selectedAreName, setSelectedAreName] = useState("");
+
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
     state.coreData.category,
     state.profileUpdate,
@@ -94,7 +96,18 @@ const OfferPriceForm = () => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [selectedCountry, selectedState, selectedCity]);
   useEffect(() => {
@@ -198,6 +211,7 @@ const OfferPriceForm = () => {
 
     offerPrice.set("state_id", selectedState?.id);
     offerPrice.set("area_id", selectedArea?.id);
+    selectedArea?.id === "1212" && offerPrice.set("area_name", selectedAreName);
     getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
     });
@@ -577,7 +591,7 @@ const OfferPriceForm = () => {
               </p>
             )}
 
-            <p className="small-font">
+            <p className="small-font d-none d-md-block">
               اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
               <span
                 onClick={() => setAnyJob(true)}
@@ -728,6 +742,16 @@ const OfferPriceForm = () => {
                   </p>
                 )}
               </Form.Group>
+              <Form.Control
+                hidden={selectedArea?.id !== "1212"}
+                name="area_name"
+                required
+                style={{ width: "48%" }}
+                className="uLT-bd-f-platinum-sA inpBG inp my-3 me-3"
+                type="text"
+                placeholder="ادخل اسم الحي"
+                onChange={(e) => setSelectedAreName(e.target.value)}
+              />
             </Row>
           </div>
         )}

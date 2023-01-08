@@ -15,6 +15,7 @@ const FlancerEditTagsComponent = ({
   handleClicks,
   type,
   placeholder,
+  hideInSm,
   anyJob,
 }) => {
   const dispatch = useDispatch();
@@ -90,7 +91,11 @@ const FlancerEditTagsComponent = ({
       {/* Tags [Holder] */}
       <div className={`d-grid   ${categoryClass} `}>
         {/* [Description] */}
-        <p className="m-0 mb-0 w-75 fLT-Regular-sB cLT-smoke-text">
+        <p
+          className={`m-0 mb-0 w-75 fLT-Regular-sB cLT-smoke-text ${
+            hideInSm ? "d-none d-md-block" : ""
+          }`}
+        >
           {" "}
           {tagDescription}{" "}
         </p>

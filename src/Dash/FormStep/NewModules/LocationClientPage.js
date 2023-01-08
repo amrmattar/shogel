@@ -26,97 +26,121 @@ const LocationClientPage = () => {
   const dispatch = useDispatch();
   const [getMobileNumber] = useSelector((state) => [state.mobileOTP]);
   const [nextLoading, setNextLoadiing] = useState(false);
-  const getNext = (e) => {
+  const getNext = async (e) => {
     e.preventDefault();
     setNextLoadiing(true);
+
     const form = new FormData();
-    form.append("fullname", getClientData.fullName);
-    form.append("username", getClientData.username);
-    form.append("email", getClientData.email);
-    form.append("password", getClientData.password);
-    form.append("nationality_number ", getClientData.id);
-    form.append("role_id", 2);
 
-    selectedCountry?.id && form.append("country_id", selectedCountry.id);
-    selectedCity?.id && form.append("city_id", selectedCity.id);
-    selectedState?.id && form.append("state_id", selectedState.id);
-    selectedArea?.id && form.append("area_id", selectedArea.id);
+    const getCoords = async () => {
+      const pos = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
 
-    form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
-    getClientData.info?.length > 2 && form.append("info", getClientData.info);
-    form.append("description", getClientData.description);
-    form.append("document", getClientData.files);
-    form.append("device_token", FCMToken);
-    getClientData.img?.type && form.append("avatar", getClientData.img);
+      return {
+        lat: pos.coords.latitude,
+        lan: pos.coords.longitude,
+      };
+    };
 
-    RegisterServices.POST_RegisterData(form)
-      .then((res) => {
-        dispatch(
-          getMessages({
-            messages: res.data.message,
-            messageType: "success",
-            messageClick: true,
-          })
-        );
-        setNextLoadiing(false);
-        const dataWithToken = {
-          email: getClientData.email,
-          password: getClientData.password,
-          device_token: localStorage.getItem("FCM"),
-        };
-        LoginServices._POST_LoginData(dataWithToken).then((res) => {
-          if (res?.data?.status === 1) {
+    getCoords()
+      .then(({ lat, lan }) => {
+        form.append("lat", lat || 0);
+        form.append("lan", lan || 0);
+      })
+      .finally(() => {
+        form.append("fullname", getClientData.fullName);
+        form.append("username", getClientData.username);
+        form.append("email", getClientData.email);
+        form.append("password", getClientData.password);
+        form.append("nationality_number ", getClientData.id);
+        form.append("role_id", 2);
+
+        selectedCountry?.id && form.append("country_id", selectedCountry.id);
+        selectedCity?.id && form.append("city_id", selectedCity.id);
+        selectedState?.id && form.append("state_id", selectedState.id);
+        selectedArea?.id && form.append("area_id", selectedArea.id);
+
+        form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
+        getClientData.info?.length > 2 &&
+          form.append("info", getClientData.info);
+        form.append("description", getClientData.description);
+        form.append("document", getClientData.files);
+        form.append("device_token", FCMToken);
+        getClientData.img?.type && form.append("avatar", getClientData.img);
+
+        RegisterServices.POST_RegisterData(form)
+          .then((res) => {
             dispatch(
               getMessages({
-                messages: res?.data?.message,
+                messages: res.data.message,
                 messageType: "success",
                 messageClick: true,
               })
             );
-            localStorage.setItem("UI", res?.data?.data?.id);
-            const data = {
-              avatar: res?.data?.data?.avatar,
-              id: res?.data?.data?.id,
-              username: res?.data?.data?.username,
-              profileValidation: res?.data?.data?.profile_validation,
-              userRole: res?.data?.data?.role,
+            setNextLoadiing(false);
+            const dataWithToken = {
+              email: getClientData.email,
+              password: getClientData.password,
+              device_token: localStorage.getItem("FCM"),
             };
-            dispatch(getUserLoginData(data));
-            const userToken = res?.data?.data.token;
-            localStorage.setItem("userTK", JSON.stringify(userToken));
-            dispatch(getAuthentication(true));
-            localStorage.setItem("usID", res?.data?.data?.id);
-            localStorage.setItem("userRL", res?.data?.data?.role?.id);
-            localStorage.setItem("valid", res?.data?.data?.profile_validation);
-            dispatch(getRoleUser(true));
+            LoginServices._POST_LoginData(dataWithToken).then((res) => {
+              if (res?.data?.status === 1) {
+                dispatch(
+                  getMessages({
+                    messages: res?.data?.message,
+                    messageType: "success",
+                    messageClick: true,
+                  })
+                );
+                localStorage.setItem("UI", res?.data?.data?.id);
+                const data = {
+                  avatar: res?.data?.data?.avatar,
+                  id: res?.data?.data?.id,
+                  username: res?.data?.data?.username,
+                  profileValidation: res?.data?.data?.profile_validation,
+                  userRole: res?.data?.data?.role,
+                };
+                dispatch(getUserLoginData(data));
+                const userToken = res?.data?.data.token;
+                localStorage.setItem("userTK", JSON.stringify(userToken));
+                dispatch(getAuthentication(true));
+                localStorage.setItem("usID", res?.data?.data?.id);
+                localStorage.setItem("userRL", res?.data?.data?.role?.id);
+                localStorage.setItem(
+                  "valid",
+                  res?.data?.data?.profile_validation
+                );
+                dispatch(getRoleUser(true));
 
-            const routTimeOut = setTimeout(() => {
-              navigate(`/`);
-            }, 1000);
+                const routTimeOut = setTimeout(() => {
+                  navigate(`/`);
+                }, 1000);
 
-            return () => clearTimeout(routTimeOut);
-          }
-        });
-      })
-      .catch((err) => {
-        setNextLoadiing(false);
-        let ob = err.response?.data.message;
+                return () => clearTimeout(routTimeOut);
+              }
+            });
+          })
+          .catch((err) => {
+            setNextLoadiing(false);
+            let ob = err.response?.data.message;
 
-        toast.error("حدث خطأ ما");
+            toast.error("حدث خطأ ما");
 
-        dispatch(
-          getMessages([
-            {
-              messages: ob,
-              messageType: "error",
-              messageClick: true,
-            },
-          ])
-        );
-        window.scrollTo({
-          top: 250,
-          behavior: "smooth",
-        });
+            dispatch(
+              getMessages([
+                {
+                  messages: ob,
+                  messageType: "error",
+                  messageClick: true,
+                },
+              ])
+            );
+            window.scrollTo({
+              top: 250,
+              behavior: "smooth",
+            });
+          });
       });
   };
   const getBack = () => {

@@ -103,7 +103,18 @@ const OfferUpdateFormComponent = ({ taskId }) => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [selectedCountry, selectedCity, selectedState]);
 
@@ -256,6 +267,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
   // TODO Function Execute To Remove Upload Files ** [END] **
   // ================================================[Block END]================================================ //
 
+  const [selectedAreName, setSelectedAreName] = useState("");
   const [content, setContent] = useState("");
   const [getDescriptionLength, setGetDescriptionLength] = useState(0);
 
@@ -302,6 +314,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
     );
     offerPrice.set("city_id", selectedCity?.id || loadTaskData?.city.id);
     offerPrice.set("area_id", selectedArea?.id || loadTaskData?.area?.id);
+    selectedArea?.id === "1212" && offerPrice.set("area_name", selectedAreName);
     offerPrice.set("state_id", selectedState?.id || loadTaskData?.state?.id);
 
     //  If Case ==> The Work Type Offline Get Extra Data Like [//TODO ==> State - Address //]
@@ -555,6 +568,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
             المطلوبة؟
           </p>
           <FlancerEditTagsComponent
+            hideInSm
             tags={offerCategory}
             userProfileTags={loadTaskData?.category}
             tagDescription={`ادخل ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
@@ -694,6 +708,17 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                     </p>
                   )}
                 </Form.Group>
+
+                <Form.Control
+                  hidden={selectedArea?.id !== "1212"}
+                  name="area_name"
+                  required
+                  style={{ width: "48%" }}
+                  className="uLT-bd-f-platinum-sA inpBG inp my-3 me-3"
+                  type="text"
+                  placeholder="ادخل اسم الحي"
+                  onChange={(e) => setSelectedAreName(e.target.value)}
+                />
               </Row>
             </div>
           )}

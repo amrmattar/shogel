@@ -32,6 +32,8 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     state.profileUpdate,
     state.messages,
   ]);
+  const [selectedAreName, setSelectedAreName] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const backButton = useRef();
@@ -180,6 +182,9 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
   const [selectedState, setSelectedState] = useState({});
   const [selectedArea, setSelectedArea] = useState({});
 
+  const offLineWorkType = useRef();
+  const onLineWorkType = useRef();
+
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
@@ -188,7 +193,18 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [selectedCountry, selectedCity, selectedState]);
   useEffect(() => {
@@ -257,6 +273,11 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     media.set("city_id", selectedCity?.id || loadAdvsData?.city?.id);
     media.set("state_id", selectedState?.id || loadAdvsData?.state?.id);
     media.set("area_id", selectedArea?.id || loadAdvsData?.area?.id);
+    selectedArea?.id === "1212" && media.set("area_name", selectedAreName);
+    media.set("type_work", formData.type_work || loadAdvsData?.type_work);
+    if (formData.type_work === "offline") {
+      media.set("address", formData.address || loadAdvsData?.address);
+    }
 
     // @Param POST Method To API */
     advertisingLists
@@ -447,6 +468,82 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             noHover
           />
         </div>
+        <Form.Group
+          as={Col}
+          sm={12}
+          controlId="formGridTypeWork"
+          className="position-relative px-0 pt-3 pt-md-0 d-grid gap-2"
+        >
+          <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
+            {" "}
+            نوع الشغل
+          </Form.Label>
+          <div
+            className="d-flex justify-content-around align-items-center uLT-bd-f-platinum-sA fLT-Regular-sB uLT-f-radius-sB cLT-main-text"
+            onChange={handleChange}
+          >
+            <div className="fLT-Regular-sC  cLT-main-text text-center ">
+              <label id="showCompo" className="uLT-click">
+                <input
+                  type="radio"
+                  name="type_work"
+                  value="online"
+                  datatype="anuone"
+                  alt="true"
+                  ref={onLineWorkType}
+                  defaultChecked
+                />
+                <span> عن بعد</span>
+              </label>
+            </div>
+            <div
+              className=""
+              style={{
+                width: "1px",
+                height: "56px",
+                backgroundColor: "#E9E9E9",
+              }}
+            ></div>
+            <div className="fLT-Regular-sC  text-center ">
+              <label id="offlineWork" className="uLT-click">
+                <input
+                  type="radio"
+                  name="type_work"
+                  value="offline"
+                  datatype="anuone"
+                  ref={offLineWorkType}
+                  alt="true"
+                />
+                <span> بالحضور </span>
+              </label>
+            </div>
+          </div>
+          {errMessage?.type_work && (
+            <p
+              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+              style={{ bottom: "-27px" }}
+            >
+              {errMessage?.type_work}
+            </p>
+          )}
+        </Form.Group>
+        {formData.type_work === "offline" && (
+          <Row className="mt-4">
+            <Form.Group as={Col} md={12} className="mb-3">
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
+                العنوان بالتفصيل <span className="cLT-danger-text">*</span>{" "}
+              </Form.Label>
+              <Form.Control
+                onChange={handleChange}
+                name="address"
+                className="uLT-f-radius-sB uLT-bd-f-platinum-sA cLT-main-text"
+                type="text"
+                value={formData?.address}
+                placeholder="العنوان بالتفصيل"
+              />
+            </Form.Group>
+          </Row>
+        )}
         {/* Skills-Grid [Holder] */}
         <div className="d-grid gap-3 pb-4 h-100">
           {/* [Title] */}
@@ -623,6 +720,16 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 </p>
               )} */}
             </Form.Group>
+            <Form.Control
+              hidden={selectedArea?.id !== "1212"}
+              name="area_name"
+              required
+              style={{ width: "48%" }}
+              className="uLT-bd-f-platinum-sA inpBG inp my-3 me-3"
+              type="text"
+              placeholder="ادخل اسم الحي"
+              onChange={(e) => setSelectedAreName(e.target.value)}
+            />
           </Row>
         )}
 

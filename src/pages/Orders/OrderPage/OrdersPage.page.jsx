@@ -82,6 +82,7 @@ const treeToList = (arr) => {
 
 const OrdersPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [attendeesStatus, setAttendeesStatus] = useState("all");
 
   const param = useParams();
   const navigate = useNavigate();
@@ -215,6 +216,7 @@ const OrdersPage = () => {
       body.set("category", categ);
       body.set("price", price);
       body.set("location", location);
+      body.set("attendeesStatus", attendeesStatus);
 
       return userOfferPrice
         ._POST_AllOrderListV2(body)
@@ -227,7 +229,7 @@ const OrdersPage = () => {
     };
 
     fetchAds();
-  }, [categ, key, location, price, currentPage]);
+  }, [categ, key, location, price, currentPage, attendeesStatus]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!userOfferDetatils)
@@ -258,6 +260,8 @@ const OrdersPage = () => {
         </header>
         <div className={cls.holder + " d-block d-md-grid"}>
           <DynamicFilter
+            setAttendeesStatus={setAttendeesStatus}
+            attendeesStatus={attendeesStatus}
             isFilterOpen={isFilterOpen}
             setIsFilterOpen={setIsFilterOpen}
             mostUse={mostUse}
