@@ -39,7 +39,7 @@ const OfferRequestForm = ({
                   className="uLT-bd-f-platinum-sA uLT-f-radius-sB position-relative"
                   type="text"
                   maxLength={6}
-                  placeholder="4 ريال"
+                  placeholder="0 ريال"
                 />
                 <div
                   className="fLT-Bold-sA cLT-main-text"

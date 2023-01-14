@@ -51,7 +51,7 @@ const FLancerProfileAndSideNavPage = () => {
         <div
           className="container-fluid py-5 px-4 cLT-main-bg"
           style={{ height: "217px" }}
-        ></div>
+        />
         <div className="d-flex flex-column flex-lg-row px-0 px-sm-3 gap-3 px-lg-0 container-lg">
           <div className="LT-sidenav-media-screen">
             {/* <SideNav User Personal Data /> */}{" "}

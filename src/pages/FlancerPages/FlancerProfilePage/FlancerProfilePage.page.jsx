@@ -39,13 +39,12 @@ const FlancerProfilePage = ({ data }) => {
         <FlancerRate rate={data?.rate || 0} />
       </div>
       {/* User Reviews */}
-      <div className=" ">
-        <PageTitle title="الآراء والتعليقات" />
-        <div className="overflow-hidden ">
-          <div className="LT-user-profile-grid  overflow-auto d-flex">
-            {Array(5)
-              .fill()
-              .map((elem, ix) => {
+      {data?.comment?.length ? (
+        <div className=" ">
+          <PageTitle title="الآراء والتعليقات" />
+          <div className="overflow-hidden ">
+            <div className="LT-user-profile-grid  overflow-auto d-flex">
+              {data?.comment?.map((elem, ix) => {
                 return (
                   <div className="" key={ix}>
                     {" "}
@@ -55,9 +54,13 @@ const FlancerProfilePage = ({ data }) => {
                   </div>
                 );
               })}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
+
       {/* User Certificates */}
       {/* {data?.role?.name === "freelancer" && ( */}
       <>

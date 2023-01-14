@@ -1,5 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getMobileNumber } from "../../../core/redux/reducers/MobileOTP/MobileOTP.core";
@@ -11,6 +17,8 @@ import ButtonShare from "../../../shared/Button/Button.shared";
 import { LabelContext } from "../LabelDataContext/labelDataContext";
 import UserFeedBackShared from "../../../shared/UserFeedBack/UserFeedBack.shared";
 import cls from "./RegisterMobile.module.scss";
+import { API } from "../../../enviroment/enviroment/enviroment";
+import axios from "axios";
 
 const RegisterMobileStep = () => {
   const value = useContext(LabelContext);
@@ -18,15 +26,55 @@ const RegisterMobileStep = () => {
   const navigate = useNavigate();
   const [messages] = useSelector((state) => [state.messages]);
 
-  // TODO Function Set Maxlength To Mobile Input
+  const [hisCountry, setHisCountry] = useState(null);
+
+  // get his country
   useEffect(() => {
-    const attrTimeOut = setTimeout(() => {
-      const mobileInput = document.getElementById("mobileNumber");
-      mobileInput.focus();
-      mobileInput.setAttribute("maxLength", 14);
-    }, 400);
-    return () => clearTimeout(attrTimeOut);
+    const getHisCountry = async () => {
+      try {
+        // get his ip
+        const hisIpUri = "https://api.ipify.org/?format=json";
+        const { data: hisDataIp } = await axios(hisIpUri);
+
+        // get his country
+        const hisCountryUri = `http://api.ipstack.com/${hisDataIp?.ip}?access_key=${process.env.REACT_APP_HIS_COUNTRY_API_SECRET}`;
+        const { data: hisDataCountry } = await axios(hisCountryUri);
+
+        // set country code
+        setHisCountry(hisDataCountry?.country_code?.toLowerCase() || "sa");
+      } catch (err) {
+        setHisCountry("sa");
+      }
+    };
+
+    getHisCountry();
   }, []);
+
+  const countrys = useMemo(
+    () => [
+      "sa",
+      "ae",
+      "kw",
+      "om",
+      "qa",
+      "bh",
+      "eg",
+      "sd",
+      "iq",
+      "ma",
+      "jo",
+      "ye",
+      "tn",
+      "dj",
+      "sy",
+      "ps",
+      "lb",
+      "dz",
+      "ly",
+      "mr",
+    ],
+    []
+  );
 
   const ConvertToArabicNumbers = (num) => {
     const arabicNumbers =
@@ -55,15 +103,16 @@ const RegisterMobileStep = () => {
 
   // TODO Check Mobile Validation Before Post
   const activeMobileSend = useCallback(() => {
-    mobileForm.mobile.split(" ").join("").length <= 11
-      ? setMobileType(true)
-      : setMobileType(false);
+    console.log(mobileForm.mobile?.length);
+
+    mobileForm.mobile?.length <= 5 ? setMobileType(true) : setMobileType(false);
   }, [mobileForm, setMobileType]);
 
   useEffect(() => {
     const mobileTimeOut = setTimeout(() => {
       activeMobileSend();
     }, 200);
+
     return () => clearTimeout(mobileTimeOut);
   }, [activeMobileSend, setMobileForm]);
 
@@ -113,12 +162,14 @@ const RegisterMobileStep = () => {
   );
 
   // TODO POST Mobile Number TO Check
-  function handleEnterKey(e) {
+  const handleEnterKey = (e) => {
     e.preventDefault();
+
     if (e.key === "Enter") {
       handleMobileSubmit();
     }
-  }
+  };
+
   const [open, setOpen] = useState(true);
   const [check, setCheck] = useState(false);
 
@@ -126,6 +177,7 @@ const RegisterMobileStep = () => {
     setOpen(false);
     navigate("/");
   };
+
   return (
     <div className={cls.mobileHolder}>
       <UserFeedBackShared
@@ -155,14 +207,18 @@ const RegisterMobileStep = () => {
               </Form.Label>
               <div dir="ltr" onChange={handleChange}>
                 <ReactPhoneInput
+                  disabled={!hisCountry}
+                  autoFormat={true}
                   inputClass="fLT-Regular-sB"
                   onEnterKeyPress={(e) => handleEnterKey(e)}
-                  inputProps={{ name: "mobile", id: "mobileNumber" }}
-                  countryCodeEditable={false}
+                  inputProps={{
+                    name: "mobile",
+                    id: "mobileNumber",
+                  }}
+                  countryCodeEditable={true}
                   placeholder="0000"
-                  country={"sa"}
-                  onlyCountries={["sa"]}
-                  masks={{ sa: "........." }}
+                  country={hisCountry}
+                  onlyCountries={countrys}
                 />
               </div>
             </Form.Group>

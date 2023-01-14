@@ -22,6 +22,7 @@ import {
   arNumberConverter,
   testNumbers,
 } from "../../../../utils/arNumberConverter";
+import axios from "axios";
 
 const AdvertisingFormComponent = () => {
   const [getAllUserUpdate, messages] = useSelector((state) => [
@@ -130,11 +131,6 @@ const AdvertisingFormComponent = () => {
       return media.append(`videos[${idx}]`, video);
     });
 
-    console.log(
-      arNumberConverter(formData.price),
-      Number(arNumberConverter(formData.price))
-    );
-
     media.set("name", formData.name);
     media.set("description", content);
     Number.isFinite(Number(arNumberConverter(formData.price))) &&
@@ -226,6 +222,25 @@ const AdvertisingFormComponent = () => {
   const [selectedState, setSelectedState] = useState({});
   const [selectedArea, setSelectedArea] = useState({});
 
+  // get his country
+  useEffect(() => {
+    const getHisCountry = async () => {
+      // get his ip
+      const hisIpUri = "https://api.ipify.org/?format=json";
+      const { data: hisDataIp } = await axios(hisIpUri);
+
+      // get his country
+      const hisCountryUri = `http://api.ipstack.com/${hisDataIp?.ip}?access_key=${process.env.REACT_APP_HIS_COUNTRY_API_SECRET}`;
+      const { data: hisDataCountry } = await axios(hisCountryUri);
+
+      // set country code
+      setSelectedCountry({ name: hisDataCountry?.country_name });
+      setSelectedCity({ name: hisDataCountry?.city });
+    };
+
+    getHisCountry();
+  }, []);
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity({});
@@ -245,8 +260,8 @@ const AdvertisingFormComponent = () => {
     setSelectedArea(area);
   };
   const presetLocation = (data) => {
-    setSelectedCountry(data?.country);
-    setSelectedCity(data?.city);
+    data?.country && setSelectedCountry(data?.country);
+    data?.city && setSelectedCity(data?.city);
     setSelectedState(data?.state);
     setSelectedArea(data?.area);
   };
@@ -358,7 +373,7 @@ const AdvertisingFormComponent = () => {
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 maxLength={6}
-                placeholder="4 ريال"
+                placeholder="0 ريال"
               />
               <div>
                 {errMessage?.price && (
@@ -496,7 +511,7 @@ const AdvertisingFormComponent = () => {
               tags={userCategory}
             />
           )}
-          {!showSkills && (
+          {/* {!showSkills && (
             <p className="mbb">
               لاضافة مهارة جديدة تناسب اعلانك{" "}
               <span
@@ -507,7 +522,7 @@ const AdvertisingFormComponent = () => {
                 من هنا
               </span>
             </p>
-          )}
+          )} */}
 
           {showSkills && (
             <FlancerEditTagsComponent
@@ -531,7 +546,8 @@ const AdvertisingFormComponent = () => {
           </p>
           <div className="locHandler">
             <p className="locationArea">
-              حي العلياء , منطقة الرياض , المملكة العربية السعودية{" "}
+              {selectedCountry?.name}, {selectedCity?.name},{" "}
+              {selectedState?.name}, {selectedState?.area},
               <span
                 onClick={showLocation}
                 className="pointer cLT-support1-text"

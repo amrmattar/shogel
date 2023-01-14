@@ -412,7 +412,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 maxLength={6}
-                placeholder="4 ريال"
+                placeholder="0 ريال"
               />
               <div className="">
                 {formData.price < 0 ? (

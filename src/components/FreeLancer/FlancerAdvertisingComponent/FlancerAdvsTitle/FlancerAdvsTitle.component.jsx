@@ -28,7 +28,7 @@ const FlancerAdvsTitle = ({ data }) => {
   // }, [handleSectionOne])
   return (
     <div className="d-flex flex-column align-items-center pb-4 text-center">
-      <p className={"homeTilteGreen"}>بعض الخدمات وظائق شغل</p>
+      <p className={"homeTilteGreen"}>بعض الخدمات وظائف شغل</p>
       <p className={"homeTitleBlack"}>
         اهم الخدمات الاحترافية لتطوير وتنمية اعمالك
       </p>

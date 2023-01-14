@@ -314,7 +314,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
     );
     offerPrice.set("city_id", selectedCity?.id || loadTaskData?.city.id);
     offerPrice.set("area_id", selectedArea?.id || loadTaskData?.area?.id);
-    selectedArea?.id === "1212" && offerPrice.set("area_name", selectedAreName);
+    selectedArea?.id === "0" && offerPrice.set("area_name", selectedAreName);
     offerPrice.set("state_id", selectedState?.id || loadTaskData?.state?.id);
 
     //  If Case ==> The Work Type Offline Get Extra Data Like [//TODO ==> State - Address //]
@@ -688,7 +688,9 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                 <Form.Group as={Col} md={6} className="mb-3 position-relative">
                   {/* State [Option]  */}
                   <div
-                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                    className={`${
+                      selectedArea?.id == "0" ? "d-none" : ""
+                    } uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
                   >
                     <Select
                       value={selectedArea}
@@ -699,6 +701,31 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                       getOptionValue={(city) => city?.id}
                     />
                   </div>
+
+                  <div
+                    className={`${
+                      selectedArea?.id == "0" ? "d-flex" : "d-none"
+                    } justify-content-center align-items-center`}
+                  >
+                    <Form.Control
+                      hidden={selectedArea?.id != "0"}
+                      name="area_name"
+                      required
+                      className="uLT-bd-f-platinum-sA inpBG inp my-3"
+                      type="text"
+                      placeholder="ادخل اسم الحي"
+                      onChange={(e) => setSelectedAreName(e.target.value)}
+                    />
+
+                    <p
+                      onClick={() => setSelectedArea(null)}
+                      style={{ fontFamily: "sans-serif" }}
+                      className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                    >
+                      X
+                    </p>
+                  </div>
+
                   {errMessage?.city_id && (
                     <p
                       className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
@@ -710,7 +737,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                 </Form.Group>
 
                 <Form.Control
-                  hidden={selectedArea?.id !== "1212"}
+                  hidden={selectedArea?.id !== "0"}
                   name="area_name"
                   required
                   style={{ width: "48%" }}

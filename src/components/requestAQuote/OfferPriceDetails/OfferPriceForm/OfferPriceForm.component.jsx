@@ -20,6 +20,7 @@ import {
   arNumberConverter,
   testNumbers,
 } from "../../../../utils/arNumberConverter";
+import axios from "axios";
 
 const OfferPriceForm = () => {
   const [selectedAreName, setSelectedAreName] = useState("");
@@ -62,6 +63,25 @@ const OfferPriceForm = () => {
   const [selectedState, setSelectedState] = useState();
   const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
+
+  // get his country
+  useEffect(() => {
+    const getHisCountry = async () => {
+      // get his ip
+      const hisIpUri = "https://api.ipify.org/?format=json";
+      const { data: hisDataIp } = await axios(hisIpUri);
+
+      // get his country
+      const hisCountryUri = `http://api.ipstack.com/${hisDataIp?.ip}?access_key=${process.env.REACT_APP_HIS_COUNTRY_API_SECRET}`;
+      const { data: hisDataCountry } = await axios(hisCountryUri);
+
+      // set country code
+      setSelectedCountry({ name: hisDataCountry?.country_name });
+      setSelectedCity({ name: hisDataCountry?.city });
+    };
+
+    getHisCountry();
+  }, []);
 
   const fetchCountry = (country) => {
     setSelectedCountry(country);
@@ -211,7 +231,7 @@ const OfferPriceForm = () => {
 
     offerPrice.set("state_id", selectedState?.id);
     offerPrice.set("area_id", selectedArea?.id);
-    selectedArea?.id === "1212" && offerPrice.set("area_name", selectedAreName);
+    selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
     getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
     });
@@ -722,7 +742,9 @@ const OfferPriceForm = () => {
               <Form.Group as={Col} md={6} className="mb-3 position-relative">
                 {/* State [Option]  */}
                 <div
-                  className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                  className={`${
+                    selectedArea?.id == "0" ? "d-none" : ""
+                  } uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
                 >
                   <Select
                     value={selectedArea}
@@ -733,6 +755,31 @@ const OfferPriceForm = () => {
                     getOptionValue={(city) => city?.id}
                   />
                 </div>
+
+                <div
+                  className={`${
+                    selectedArea?.id == "0" ? "d-flex" : "d-none"
+                  } justify-content-center align-items-center`}
+                >
+                  <Form.Control
+                    hidden={selectedArea?.id != "0"}
+                    name="area_name"
+                    required
+                    className="uLT-bd-f-platinum-sA inpBG inp my-3"
+                    type="text"
+                    placeholder="ادخل اسم الحي"
+                    onChange={(e) => setSelectedAreName(e.target.value)}
+                  />
+
+                  <p
+                    onClick={() => setSelectedArea(null)}
+                    style={{ fontFamily: "sans-serif" }}
+                    className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                  >
+                    X
+                  </p>
+                </div>
+
                 {errMessage?.city_id && (
                   <p
                     className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"
@@ -742,16 +789,6 @@ const OfferPriceForm = () => {
                   </p>
                 )}
               </Form.Group>
-              <Form.Control
-                hidden={selectedArea?.id !== "1212"}
-                name="area_name"
-                required
-                style={{ width: "48%" }}
-                className="uLT-bd-f-platinum-sA inpBG inp my-3 me-3"
-                type="text"
-                placeholder="ادخل اسم الحي"
-                onChange={(e) => setSelectedAreName(e.target.value)}
-              />
             </Row>
           </div>
         )}
