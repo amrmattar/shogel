@@ -612,15 +612,14 @@ const OfferPriceForm = () => {
             )}
 
             <p className="small-font d-none d-md-block">
-              اذا كان طلبك لا يحتاج لمختصين في مجال معين ننصحك بتوجيه طلبك لمجال
+              اذا كان طلبك لا يحتاج لمهارات خاصة فبآمكانك توجية الطلب لمجال
               <span
                 onClick={() => setAnyJob(true)}
                 className="fLT-Bold-sA cLT-support1-text pointer"
               >
                 {" "}
                 اي شغل{" "}
-              </span>{" "}
-              لدينا نخبة من المشتغلين الجاهزون لمساعدتك في اي اختصاص
+              </span>
             </p>
           </div>
           {/* <div className="d-flex align-items-center justify-content-between"> */}
