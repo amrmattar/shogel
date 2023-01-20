@@ -21,6 +21,7 @@ import { homePages } from "../../core/services/HomeServices/Home.core";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ChangeFotterState } from "../../core/redux/reducers/FotterReducer.core";
+
 const Home = () => {
   const categoryList = [
     {

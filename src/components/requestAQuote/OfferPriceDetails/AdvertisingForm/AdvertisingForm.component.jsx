@@ -53,6 +53,7 @@ const AdvertisingFormComponent = () => {
       console.log(e);
     }
   }, [localStorage]);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (!userCategory) {
@@ -225,17 +226,67 @@ const AdvertisingFormComponent = () => {
   // get his country
   useEffect(() => {
     const getHisCountry = async () => {
-      // get his ip
-      const hisIpUri = "https://api.ipify.org/?format=json";
-      const { data: hisDataIp } = await axios(hisIpUri);
+      const getCoords = async () => {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
 
-      // get his country
-      const hisCountryUri = `http://api.ipstack.com/${hisDataIp?.ip}?access_key=${process.env.REACT_APP_HIS_COUNTRY_API_SECRET}`;
-      const { data: hisDataCountry } = await axios(hisCountryUri);
+        return {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        };
+      };
 
-      // set country code
-      setSelectedCountry({ name: hisDataCountry?.country_name });
-      setSelectedCity({ name: hisDataCountry?.city });
+      getCoords().then(async ({ lat, lon }) => {
+        const hisCountryUri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&language=ar&key=AIzaSyAeMiz0Z5VKOjU4TUxh-2RgZt7PnWQXxoQ`;
+
+        const { data: hisDataCountry } = await axios(hisCountryUri);
+
+        let city = "";
+        let country = "";
+
+        if (hisDataCountry?.status == "OK") {
+          if (hisDataCountry?.results[1]) {
+            //find country name
+            for (
+              var i = 0;
+              i < hisDataCountry?.results[0].address_components.length;
+              i++
+            ) {
+              for (
+                var b = 0;
+                b <
+                hisDataCountry?.results[0].address_components[i].types.length;
+                b++
+              ) {
+                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "administrative_area_level_1"
+                ) {
+                  //this is the object you are looking for
+                  city = hisDataCountry?.results[0].address_components[
+                    i
+                  ]?.short_name?.replace("محافظة ", "");
+                  break;
+                } else if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "country"
+                ) {
+                  //this is the object you are looking for
+                  country =
+                    hisDataCountry?.results[0].address_components[i]?.long_name;
+                  break;
+                }
+              }
+            }
+
+            // set country code
+            setSelectedCountry({ name: country });
+            setSelectedCity({ name: city });
+          }
+        }
+      });
     };
 
     getHisCountry();
@@ -373,7 +424,7 @@ const AdvertisingFormComponent = () => {
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 maxLength={6}
-                placeholder="0 ريال"
+                placeholder="5 ريال"
               />
               <div>
                 {errMessage?.price && (
@@ -647,7 +698,9 @@ const AdvertisingFormComponent = () => {
             <Form.Group as={Col} md={6} className="mb-3 position-relative">
               {/* State [Option]  */}
               <div
-                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                className={`${
+                  selectedArea?.id == "0" ? "d-none" : ""
+                } uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
                   value={selectedArea}
@@ -657,6 +710,30 @@ const AdvertisingFormComponent = () => {
                   getOptionLabel={(city) => city?.name}
                   getOptionValue={(city) => city?.id}
                 />
+              </div>
+
+              <div
+                className={`${
+                  selectedArea?.id == "0" ? "d-flex" : "d-none"
+                } justify-content-center align-items-center`}
+              >
+                <Form.Control
+                  hidden={selectedArea?.id != "0"}
+                  name="area_name"
+                  required
+                  className="uLT-bd-f-platinum-sA inpBG inp my-3"
+                  type="text"
+                  placeholder="ادخل اسم الحي"
+                  onChange={(e) => setSelectedAreName(e.target.value)}
+                />
+
+                <p
+                  onClick={() => setSelectedArea(null)}
+                  style={{ fontFamily: "sans-serif" }}
+                  className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                >
+                  X
+                </p>
               </div>
 
               {/* {errMessage?.city_id && (

@@ -408,7 +408,6 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                 onChange={handleChange}
                 className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
-                placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
               />
               {errMessage?.name && (
                 <p

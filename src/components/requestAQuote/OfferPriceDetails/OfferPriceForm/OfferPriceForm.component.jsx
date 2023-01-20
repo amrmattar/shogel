@@ -25,11 +25,14 @@ import axios from "axios";
 const OfferPriceForm = () => {
   const [selectedAreName, setSelectedAreName] = useState("");
 
-  const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
-    state.coreData.category,
-    state.profileUpdate,
-    state.messages,
-  ]);
+  const [user, offerCategory, getAllUserUpdate, messages] = useSelector(
+    (state) => [
+      state.authentication,
+      state.coreData.category,
+      state.profileUpdate,
+      state.messages,
+    ]
+  );
 
   const onLineWorkType = useRef();
   const offLineWorkType = useRef();
@@ -67,17 +70,67 @@ const OfferPriceForm = () => {
   // get his country
   useEffect(() => {
     const getHisCountry = async () => {
-      // get his ip
-      const hisIpUri = "https://api.ipify.org/?format=json";
-      const { data: hisDataIp } = await axios(hisIpUri);
+      const getCoords = async () => {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
 
-      // get his country
-      const hisCountryUri = `http://api.ipstack.com/${hisDataIp?.ip}?access_key=${process.env.REACT_APP_HIS_COUNTRY_API_SECRET}`;
-      const { data: hisDataCountry } = await axios(hisCountryUri);
+        return {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        };
+      };
 
-      // set country code
-      setSelectedCountry({ name: hisDataCountry?.country_name });
-      setSelectedCity({ name: hisDataCountry?.city });
+      getCoords().then(async ({ lat, lon }) => {
+        const hisCountryUri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&language=ar&key=AIzaSyAeMiz0Z5VKOjU4TUxh-2RgZt7PnWQXxoQ`;
+
+        const { data: hisDataCountry } = await axios(hisCountryUri);
+
+        let city = "";
+        let country = "";
+
+        if (hisDataCountry?.status == "OK") {
+          if (hisDataCountry?.results[1]) {
+            //find country name
+            for (
+              var i = 0;
+              i < hisDataCountry?.results[0].address_components.length;
+              i++
+            ) {
+              for (
+                var b = 0;
+                b <
+                hisDataCountry?.results[0].address_components[i].types.length;
+                b++
+              ) {
+                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "administrative_area_level_1"
+                ) {
+                  //this is the object you are looking for
+                  city = hisDataCountry?.results[0].address_components[
+                    i
+                  ]?.short_name?.replace("محافظة ", "");
+                  break;
+                } else if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "country"
+                ) {
+                  //this is the object you are looking for
+                  country =
+                    hisDataCountry?.results[0].address_components[i]?.long_name;
+                  break;
+                }
+              }
+            }
+
+            // set country code
+            setSelectedCountry({ name: country });
+            setSelectedCity({ name: city });
+          }
+        }
+      });
     };
 
     getHisCountry();
@@ -102,8 +155,8 @@ const OfferPriceForm = () => {
     setSelectedArea(area);
   };
   const presetLocation = (data) => {
-    setSelectedCountry(data?.country);
-    setSelectedCity(data?.city);
+    data?.country && setSelectedCountry(data?.country);
+    data?.city && setSelectedCity(data?.city);
     setSelectedState(data?.state);
     setSelectedArea(data?.area);
   };
@@ -199,6 +252,10 @@ const OfferPriceForm = () => {
 
   const handleCLick = async (e) => {
     e.preventDefault();
+
+    if (!user?.loggedIn) {
+      return navigate("/register");
+    }
 
     dispatch(
       getMessages({
@@ -317,7 +374,6 @@ const OfferPriceForm = () => {
                 onChange={handleChange}
                 className="inpBG uLT-bd-f-platinum-sA uLT-f-radius-sB fLT-Regular-sB"
                 type="text"
-                placeholder="مثال : احتاج معقب .. برمجة تطبيق .. ترميم ملحق .. حفار قبو"
               />
               {errMessage?.name && (
                 <p className=" mb-0 fLT-Regular-sA cLT-danger-text pt-2¬ px-2">
@@ -791,6 +847,7 @@ const OfferPriceForm = () => {
             </Row>
           </div>
         )}
+
         <div
           className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
         >

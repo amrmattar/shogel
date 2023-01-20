@@ -20,6 +20,8 @@ import cls from "./RegisterMobile.module.scss";
 import { API } from "../../../enviroment/enviroment/enviroment";
 import axios from "axios";
 
+import CountrySelectBox from "./CountrySelectBox";
+
 const RegisterMobileStep = () => {
   const value = useContext(LabelContext);
   const dispatch = useDispatch();
@@ -27,27 +29,78 @@ const RegisterMobileStep = () => {
   const [messages] = useSelector((state) => [state.messages]);
 
   const [hisCountry, setHisCountry] = useState(null);
+  const [allCountrys, setAllCountrys] = useState([]);
+
+  const [selectedCountry, setSelectedCountry] = useState(null);
+
+  const selectCountry = (country) => {
+    setSelectedCountry(country);
+  };
 
   // get his country
   useEffect(() => {
     const getHisCountry = async () => {
-      try {
-        // get his ip
-        const hisIpUri = "https://api.ipify.org/?format=json";
-        const { data: hisDataIp } = await axios(hisIpUri);
+      const getCoords = async () => {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
 
-        // get his country
-        const hisCountryUri = `http://api.ipstack.com/${hisDataIp?.ip}?access_key=${process.env.REACT_APP_HIS_COUNTRY_API_SECRET}`;
+        return {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        };
+      };
+
+      getCoords().then(async ({ lat, lon }) => {
+        const hisCountryUri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&language=ar&key=AIzaSyAeMiz0Z5VKOjU4TUxh-2RgZt7PnWQXxoQ`;
+
         const { data: hisDataCountry } = await axios(hisCountryUri);
 
-        // set country code
-        setHisCountry(hisDataCountry?.country_code?.toLowerCase() || "sa");
-      } catch (err) {
-        setHisCountry("sa");
-      }
+        let country = "sa";
+
+        if (hisDataCountry?.status == "OK") {
+          if (hisDataCountry?.results[1]) {
+            //find country name
+            for (
+              var i = 0;
+              i < hisDataCountry?.results[0].address_components.length;
+              i++
+            ) {
+              for (
+                var b = 0;
+                b <
+                hisDataCountry?.results[0].address_components[i].types.length;
+                b++
+              ) {
+                if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "country"
+                ) {
+                  //this is the object you are looking for
+                  country =
+                    hisDataCountry?.results[0].address_components[i]?.long_name;
+                  break;
+                }
+              }
+            }
+
+            // set country code
+            setHisCountry(country);
+          }
+        }
+      });
     };
 
     getHisCountry();
+  }, []);
+
+  useEffect(() => {
+    const getAllCountrys = async () => {
+      const { data: countrys } = await API.get("/coredata/nationality/list");
+      setAllCountrys(countrys?.data);
+    };
+
+    getAllCountrys();
   }, []);
 
   const countrys = useMemo(
@@ -129,9 +182,13 @@ const RegisterMobileStep = () => {
       );
       setIsLoading(true);
       // dispatch(getMobileNumber(ConvertToArabicNumbers(mobileForm?.mobile.split(" ").join(""))))
-      dispatch(getMobileNumber(mobileForm?.mobile.split(" ").join("")));
+      const mobileNumber = `${selectedCountry.code}${mobileForm?.mobile
+        .split(" ")
+        .join("")}`;
+      dispatch(getMobileNumber(mobileNumber));
+
       MobileServices._POST_MobileNumber({
-        mobile: mobileForm?.mobile.split(" ").join(""),
+        mobile: mobileNumber,
       })
         .then((res) => {
           dispatch(
@@ -205,7 +262,7 @@ const RegisterMobileStep = () => {
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 text-end text-md-center d-block">
                 رقم الجوال
               </Form.Label>
-              <div dir="ltr" onChange={handleChange}>
+              {/* <div dir="ltr" onChange={handleChange}>
                 <ReactPhoneInput
                   disabled={!hisCountry}
                   autoFormat={true}
@@ -219,6 +276,29 @@ const RegisterMobileStep = () => {
                   placeholder="0000"
                   country={hisCountry}
                   onlyCountries={countrys}
+                />
+              </div> */}
+
+              <div className="d-flex" dir="ltr">
+                <article className="me-1" style={{ width: "30%" }}>
+                  <CountrySelectBox
+                    selectedCountry={selectedCountry}
+                    selectCountry={selectCountry}
+                    allCountrys={allCountrys}
+                    hisCountry={hisCountry}
+                  />
+                </article>
+
+                <input
+                  disabled={!allCountrys?.length}
+                  onChange={handleChange}
+                  name="mobile"
+                  maxLength={25}
+                  className="border rounded-3 py-2 px-3"
+                  style={{
+                    backgroundColor: "#f8fafc",
+                    width: "70%",
+                  }}
                 />
               </div>
             </Form.Group>

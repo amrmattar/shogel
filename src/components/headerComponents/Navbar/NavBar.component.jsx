@@ -526,7 +526,7 @@ const Navbar = () => {
                     className={(navData) =>
                       navData.isActive
                         ? "fLT-Bold-sA nav-link cLT-main-text"
-                        : "cLT-main-text fLT-Regular-sC  nav-link"
+                        : "cLT-main-text fLT-Regular-sC nav-link"
                     }
                   >
                     {setting?.name}

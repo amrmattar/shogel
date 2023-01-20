@@ -153,7 +153,11 @@ const IdPage = () => {
             style={{ textAlign: "center" }}
             className=" LT-account-logo d-flex flex-column p-3"
           >
-            <p className="regiTitle"> معلومات الفرد </p>
+            {value?.accountType?.userKind !== "company" ? (
+              <p className="regiTitle">معلومات الفرد </p>
+            ) : (
+              <p className="regiTitle">معلومات الشركه </p>
+            )}
           </div>
 
           <Row className="mb-4 gap-3 two row w-100-in-phone">

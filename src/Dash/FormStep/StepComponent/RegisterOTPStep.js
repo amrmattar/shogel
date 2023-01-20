@@ -87,9 +87,11 @@ const RegisterOTPStep = (props) => {
         }, 1200);
       })
       .catch((err) => {
+        const errors = err.response?.data?.message;
+
         dispatch(
           getMessages({
-            messages: err.response.data.message.code,
+            messages: errors[Object.keys(errors)[0]],
             messageType: "error",
             messageClick: true,
           })
