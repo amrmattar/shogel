@@ -9,7 +9,7 @@ const TimeSaving = ({ data }) => {
   const times = [
     {
       iconName: deadLine,
-      name: "نثمن وقتك",
+      name: "تثمين الوقت",
       timeDescription: `كمستخدم :نوفر وقتك من خلال انجازك بآسرع الطرق
       كمشتغل :  نجعل وقت فراغك يعود عليك بثمن`,
     },
@@ -87,14 +87,15 @@ const TimeSaving = ({ data }) => {
               {/* Time Icon */}
               <picture
                 style={{ width: 120, maxWidth: "100%" }}
-                className="d-flex flex-column align-items-center gap-2"
+                className="d-flex flex-column align-items-center gap-2 mx-3"
               >
                 <img src={time.iconName} alt="" width={50} height={50} />
                 <p className="m-0 cLT-main-text fLT-Bold-sB text-nowrap">
                   {time.name}
                 </p>
               </picture>
-              <div className="LT-time-line cLT-platinum-bg uLT-f-radius-sB "></div>
+
+              <div className="LT-time-line cLT-platinum-bg uLT-f-radius-sB" />
               {/* Time Name */}
               <span
                 style={{ whiteSpace: "pre-line" }}

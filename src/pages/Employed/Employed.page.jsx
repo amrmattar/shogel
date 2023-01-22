@@ -145,7 +145,7 @@ const Employed = () => {
         <div
           className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
           style={{ width: "200px", height: "200px" }}
-        ></div>
+        />
       </div>
     );
 

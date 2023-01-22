@@ -4,7 +4,7 @@ import cls from "./FlancerCertificates.component.module.scss";
 import ImgsViewer from "./ImgsViewer";
 import { useMemo } from "react";
 
-const Slide = ({ slide, offset, clickable, setSelectedImg }) => {
+const Slide = ({ slide, offset, clickable, setSelectedImg, isImg }) => {
   const active = offset === 0 ? true : null;
 
   const openImg = () => {
@@ -22,10 +22,12 @@ const Slide = ({ slide, offset, clickable, setSelectedImg }) => {
       style={{
         "--offset": offset * 1.05 - 0.3,
         "--dir": 0,
-        backgroundImage: `url('${slide.file}')`,
+        backgroundImage: `url('${
+          isImg ? slide.file : "/MicrosoftTeams-image.png"
+        }')`,
         cursor: clickable ? "pointer" : "",
       }}
-      onClick={clickable ? openImg : () => {}}
+      onClick={isImg && clickable ? openImg : () => window.open(slide?.file)}
     />
   );
 };
@@ -76,6 +78,18 @@ function FlancerCertificatesComponent({ certificatesData, clickable }) {
     }
   }, [clickable, isOpen]);
 
+  const isExImg = (ex) => {
+    if (
+      ex?.toLowerCase() === "png" ||
+      ex?.toLowerCase() === "jpg" ||
+      ex?.toLowerCase() === "jpeg"
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <>
       {clickable && (
@@ -94,9 +108,11 @@ function FlancerCertificatesComponent({ certificatesData, clickable }) {
         <div className={cls.slides}>
           {certificatesData.map((slide, i) => {
             let offset = state - i;
+
             return (
               <Slide
-                clickable
+                isImg={isExImg(slide?.file?.split(".").at(-1))}
+                clickable={clickable}
                 setSelectedImg={selectImgHandelar}
                 slide={slide}
                 offset={offset}

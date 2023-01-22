@@ -169,14 +169,10 @@ const FreelancerMainEditAccountPage = () => {
         messageClick: true,
       })
     );
-    newfile.videos?.forEach((video, idx) => {
-      return mySkill.append(`document[${idx}]`, video);
-    });
-    newfile.images?.forEach((image, idx) => {
-      return mySkill.append(`document[${idx}]`, image);
-    });
-    newfile.document?.forEach((docx, idx) => {
-      return mySkill.append(`document[${idx}]`, docx);
+    const docs = [...newfile.videos, ...newfile.images, ...newfile.document];
+
+    docs?.forEach((doc, idx) => {
+      return mySkill.append(`document[${idx}]`, doc);
     });
 
     mySkill.append("email", getAllUserUpdate?.updateData.email);

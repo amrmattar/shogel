@@ -114,11 +114,12 @@ const FlancerEmployedListCard = ({ data, small }) => {
             <div className="col-3 LT-location-grid">
               <i className={`iLT-Listcard-location uLT-img-contain iLT-sA`}></i>
               <p
+                style={{ whiteSpace: "nowrap" }}
                 className={`mb-0 cLT-support2-text fLT-Bold-sm-sA ${
                   small ? "main-color-in-sm" : ""
                 }`}
               >
-                {data?.country?.name}, {data?.city?.name}
+                {data?.city?.name}
               </p>
             </div>
           </div>

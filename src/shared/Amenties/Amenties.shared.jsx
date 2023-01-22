@@ -49,8 +49,11 @@ const AmentiesShared = ({
                   <i
                     className={`iLT-Listcard-location uLT-img-contain iLT-sA ms-2 main-color`}
                   />
-                  <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA">
-                    {orderData?.country?.name}, {orderData?.city?.name}
+                  <p
+                    style={{ whiteSpace: "nowrap" }}
+                    className="mb-0 cLT-secondary-text fLT-Bold-sm-sA"
+                  >
+                    {orderData?.city?.name}
                   </p>
                 </div>
               </div>
@@ -93,7 +96,7 @@ const AmentiesShared = ({
                     style={{ whiteSpace: "nowrap" }}
                     className="mb-0 cLT-secondary-text fLT-Bold-sm-sA"
                   >
-                    {orderData?.country?.name}, {orderData?.city?.name}
+                    {orderData?.city?.name}
                   </p>
                 </div>
               </div>

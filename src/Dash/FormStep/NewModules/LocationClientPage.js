@@ -17,6 +17,8 @@ import { API } from "../../../enviroment/enviroment/enviroment";
 import { toast } from "react-toastify";
 
 const LocationClientPage = () => {
+  const [selectedAreName, setSelectedAreName] = useState("");
+
   const [open, setOpen] = useState(true);
   const value = useContext(LabelContext);
   const { FCMToken } = useSelector(({ userData }) => userData);
@@ -60,6 +62,9 @@ const LocationClientPage = () => {
         selectedCity?.id && form.append("city_id", selectedCity.id);
         selectedState?.id && form.append("state_id", selectedState.id);
         selectedArea?.id && form.append("area_id", selectedArea.id);
+        selectedArea?.id &&
+          selectedArea?.id == "0" &&
+          form.append("area_name", selectedAreName);
 
         form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
         getClientData.info?.length > 2 &&
@@ -190,7 +195,18 @@ const LocationClientPage = () => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [selectedCountry, selectedState, selectedCity]);
   useEffect(() => {
@@ -325,7 +341,9 @@ const LocationClientPage = () => {
               </Form.Label>
               {/* State [Option]  */}
               <div
-                className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                className={`${
+                  selectedArea?.id == "0" ? "d-none" : "d-block"
+                } uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
               >
                 <Select
                   value={selectedArea}
@@ -335,6 +353,30 @@ const LocationClientPage = () => {
                   getOptionLabel={(city) => city?.name}
                   getOptionValue={(city) => city?.id}
                 />
+              </div>
+
+              <div
+                className={`${
+                  selectedArea?.id == "0" ? "d-flex" : "d-none"
+                } justify-content-center align-items-center`}
+              >
+                <Form.Control
+                  hidden={selectedArea?.id != "0"}
+                  name="area_name"
+                  required
+                  className="uLT-bd-f-platinum-sA inpBG inp"
+                  type="text"
+                  placeholder="ادخل اسم الحي"
+                  onChange={(e) => setSelectedAreName(e.target.value)}
+                />
+
+                <p
+                  onClick={() => setSelectedArea(null)}
+                  style={{ fontFamily: "sans-serif" }}
+                  className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                >
+                  X
+                </p>
               </div>
             </Form.Group>
             {/* Country [Section] */}

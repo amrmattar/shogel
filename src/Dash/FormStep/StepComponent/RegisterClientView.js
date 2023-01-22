@@ -135,7 +135,7 @@ const RegisterClientView = () => {
                 value={getClientData.username.replace(/[^A-Za-z0-9]/gi, "")}
                 name="username"
                 onChange={value.setDataDetails("username")}
-                placeholder="الاسم"
+                placeholder="الاسم (يجب ان تكون 4 خانات علي الاقل)"
               />
               {nameError.length > 0 && (
                 <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
@@ -175,7 +175,7 @@ const RegisterClientView = () => {
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 value={getClientData.password}
                 type={showPassword ? "text" : "password"}
-                placeholder="كلمة المرور"
+                placeholder="كلمة المرور (يجب ان تكون 8 خانات علي الاقل)"
               />
               <IconButton
                 style={{ position: "absolute", bottom: "0", left: "18px" }}
@@ -188,11 +188,11 @@ const RegisterClientView = () => {
                 )}{" "}
               </IconButton>
             </Form.Group>
-            {getClientData.password.length < 8 && (
+            {/* {getClientData.password.length < 8 && (
               <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
                 {"كلمة المرور يجب ان تكون 8 خانات علي الاقل"}
               </p>
-            )}
+            )} */}
 
             <div className="w-100-in-phone p-0 d-flex align-items-center justify-content-around gap-2 mb-3">
               <div>
