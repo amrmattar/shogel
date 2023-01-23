@@ -460,7 +460,7 @@ const OrderDetailsPage = () => {
                   <PageTitle smallUnderTitle=" " title="أضف عرضك الآن" />
                   <OfferRequestForm
                     errMessage={errMessage}
-                    maxLength={100}
+                    maxLength={300}
                     handleCLick={sendOffer}
                     handleChange={getOfferDataValue}
                     offerIsRequest={offerRequest}

@@ -273,8 +273,11 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     media.set("city_id", selectedCity?.id || loadAdvsData?.city?.id);
     media.set("state_id", selectedState?.id || loadAdvsData?.state?.id);
     media.set("area_id", selectedArea?.id || loadAdvsData?.area?.id);
-    selectedArea?.id === "1212" && media.set("area_name", selectedAreName);
-    media.set("type_work", formData.type_work || loadAdvsData?.type_work);
+    selectedArea?.id === "0" && media.set("area_name", selectedAreName);
+    media.set(
+      "type_work",
+      formData.type_work || loadAdvsData?.type_work || "online"
+    );
     if (formData.type_work === "offline") {
       media.set("address", formData.address || loadAdvsData?.address);
     }
@@ -412,7 +415,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 maxLength={6}
-                placeholder="5 ريال"
+                placeholder="٠ ريال"
               />
               <div className="">
                 {formData.price < 0 ? (
@@ -721,7 +724,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
               )} */}
             </Form.Group>
             <Form.Control
-              hidden={selectedArea?.id !== "1212"}
+              hidden={selectedArea?.id !== "0"}
               name="area_name"
               required
               style={{ width: "48%" }}

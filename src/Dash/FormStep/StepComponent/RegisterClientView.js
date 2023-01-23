@@ -102,7 +102,9 @@ const RegisterClientView = () => {
           <Row className="mb-4 gap-3 two row w-100-in-phone">
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                اسم الفرد بالكامل
+                {value?.accountType?.userKind !== "company"
+                  ? "اسم الفرد بالكامل"
+                  : "اسم الشركة بالكامل"}
                 <span className="cLT-danger-text">*</span>
               </Form.Label>
 

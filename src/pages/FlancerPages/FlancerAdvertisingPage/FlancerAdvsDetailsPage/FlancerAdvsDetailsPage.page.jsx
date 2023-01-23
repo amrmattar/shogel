@@ -216,14 +216,14 @@ const FlancerAdvsDetailsPage = () => {
           dangerouslySetInnerHTML={{
             __html:
               advsDataById?.description !== "undefined"
-                ? advsDataById?.description?.length > 820 && !showDescription
-                  ? advsDataById?.description?.slice(0, 820) + " ..."
+                ? advsDataById?.description?.length > 620 && !showDescription
+                  ? advsDataById?.description?.slice(0, 620) + " ..."
                   : advsDataById?.description
                 : "لايوجد وصف للإعلان",
           }}
         />
 
-        {advsDataById?.description?.length > 820 && (
+        {advsDataById?.description?.length > 620 && (
           <span
             className="text-primary"
             style={{ cursor: "pointer" }}

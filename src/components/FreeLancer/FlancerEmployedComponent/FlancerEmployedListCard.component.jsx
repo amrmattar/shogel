@@ -34,6 +34,7 @@ const CircularProgressWithLabel = ({ parentClassName, ...props }) => {
 
 const FlancerEmployedListCard = ({ data, small }) => {
   const myPersonData = {
+    id: data.id,
     avatar: data?.avatar,
     fullname: data?.fullname,
     jobName: data?.role?.name,
@@ -85,9 +86,15 @@ const FlancerEmployedListCard = ({ data, small }) => {
         </div>
         <div className="LT-employed-description">
           {/* Card title */}
-          <p className="m-0 fLT-Regular-sB text-dark">
-            {data?.info?.length > 40
-              ? data?.info.slice(0, 40) + "..."
+          <p
+            style={{
+              whiteSpace: "pre-wrap",
+              overflowWrap: "anywhere",
+            }}
+            className="m-0 fLT-Regular-sB text-dark"
+          >
+            {data?.info?.length > 200
+              ? data?.info.slice(0, 200) + "..."
               : data?.info}
           </p>
         </div>

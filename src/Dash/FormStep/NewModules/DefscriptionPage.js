@@ -144,7 +144,7 @@ const DersciptionPage = () => {
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
                 as="textarea"
-                placeholder=" اكتب نبذة"
+                placeholder="اكتب نبذة (يجب ان تكون 10 خانات علي الاقل)"
                 value={getClientData.info}
                 onChange={value.setDataDetails("info")}
                 minLength={10}

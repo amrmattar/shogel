@@ -29,6 +29,7 @@ const AdvertisingFormComponent = () => {
     state.profileUpdate,
     state.messages,
   ]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const errMessage = messages[0]?.messages;
@@ -143,8 +144,8 @@ const AdvertisingFormComponent = () => {
     media.set("city_id", selectedCity?.id);
     media.set("state_id", selectedState?.id);
     media.set("area_id", selectedArea?.id);
-    selectedArea?.id === "1212" && media.set("area_name", selectedAreName);
-    media.set("type_work", formData.type_work);
+    selectedArea?.id === "0" && media.set("area_name", selectedAreName);
+    media.set("type_work", formData.type_work || "online");
     if (formData.type_work === "offline") {
       media.set("address", formData.address);
     }
@@ -424,7 +425,7 @@ const AdvertisingFormComponent = () => {
                 className="inpBG inpH uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
                 maxLength={6}
-                placeholder="5 ريال"
+                placeholder="٠ ريال"
               />
               <div>
                 {errMessage?.price && (
