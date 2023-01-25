@@ -181,7 +181,7 @@ const SkillsStep = () => {
   }, [inpV, skills]);
 
   return (
-    <div className={cls.main}>
+    <div className={cls.main + " pb-md-0 pb-5"}>
       <DrawerSkls
         handleRemoveChosedSkills={handleRemoveChosedSkills}
         setChosedSkills={setChosedSkills}
@@ -248,8 +248,32 @@ const SkillsStep = () => {
           </div>
         </div>
       </div>
+
       <div
-        className={`${cls.handelBtns} d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+        className={`${cls.handelBtns} d-none d-md-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+      >
+        <div className="">
+          <ButtonShare
+            type={!chosedSkills.length}
+            onClick={getNext}
+            innerText={"التـــالى"}
+            btnClasses={"cLT-secondary-bg br14"}
+            textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+          />
+        </div>
+        <div className="">
+          <ButtonShare
+            smBtn
+            onClick={getBack}
+            innerText={"رجــــوع"}
+            btnClasses={"three cLT-secondary-bg"}
+            textClasses={"py-1 px-3 px-md-5 rounded-5"}
+          />
+        </div>
+      </div>
+
+      <div
+        className={`${cls.handelBtns} d-md-none bg-light px-3 border py-2 rounded-3 d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
       >
         <div className="">
           <ButtonShare

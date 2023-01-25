@@ -199,19 +199,19 @@ const RegisterClientView = () => {
             <div className="w-100-in-phone p-0 d-flex align-items-center justify-content-around gap-2 mb-3">
               <div>
                 <ButtonShare
-                  type={!validation || !nameValid || !emailValid}
-                  innerText={"التـــالى"}
-                  btnClasses={"cLT-secondary-bg br14"}
-                  textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-                />
-              </div>
-              <div>
-                <ButtonShare
                   smBtn
                   onClick={getBack}
                   innerText={"رجــــوع"}
                   btnClasses={"three cLT-secondary-bg"}
                   textClasses={"py-1 px-3 px-md-5 rounded-5"}
+                />
+              </div>{" "}
+              <div>
+                <ButtonShare
+                  type={!validation || !nameValid || !emailValid}
+                  innerText={"التـــالى"}
+                  btnClasses={"cLT-secondary-bg br14"}
+                  textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
                 />
               </div>
             </div>

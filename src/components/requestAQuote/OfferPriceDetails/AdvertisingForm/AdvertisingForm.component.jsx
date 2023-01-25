@@ -312,10 +312,10 @@ const AdvertisingFormComponent = () => {
     setSelectedArea(area);
   };
   const presetLocation = (data) => {
-    data?.country && setSelectedCountry(data?.country);
-    data?.city && setSelectedCity(data?.city);
-    setSelectedState(data?.state);
-    setSelectedArea(data?.area);
+    // data?.country && setSelectedCountry(data?.country);
+    // data?.city && setSelectedCity(data?.city);
+    // setSelectedState(data?.state);
+    // setSelectedArea(data?.area);
   };
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
@@ -416,7 +416,8 @@ const AdvertisingFormComponent = () => {
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
                 {" "}
-                السعر
+                السعر{" "}
+                <span className="fLT-Regular-sB cLT-smoke-text">اختياري </span>
               </Form.Label>
               <Form.Control
                 value={formData?.price}

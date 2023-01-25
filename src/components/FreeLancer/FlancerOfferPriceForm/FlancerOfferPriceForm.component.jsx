@@ -22,6 +22,7 @@ import {
 } from "../../../utils/arNumberConverter";
 import LocationHandler from "../../requestAQuote/OfferPriceDetails/OfferPriceForm/LocationHandler";
 import { userProfile } from "../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
+import axios from "axios";
 
 const FlancerOfferPriceForm = ({ data }) => {
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
@@ -41,6 +42,75 @@ const FlancerOfferPriceForm = ({ data }) => {
   const [selectedArea, setSelectedArea] = useState();
   const [selectedCity, setSelectedCity] = useState();
   const [locationState, setLocationState] = useState(false);
+
+  // get his country
+  useEffect(() => {
+    const getHisCountry = async () => {
+      const getCoords = async () => {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        return {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        };
+      };
+
+      getCoords().then(async ({ lat, lon }) => {
+        const hisCountryUri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&language=ar&key=AIzaSyAeMiz0Z5VKOjU4TUxh-2RgZt7PnWQXxoQ`;
+
+        const { data: hisDataCountry } = await axios(hisCountryUri);
+
+        let city = "";
+        let country = "";
+
+        if (hisDataCountry?.status == "OK") {
+          if (hisDataCountry?.results[1]) {
+            //find country name
+            for (
+              var i = 0;
+              i < hisDataCountry?.results[0].address_components.length;
+              i++
+            ) {
+              for (
+                var b = 0;
+                b <
+                hisDataCountry?.results[0].address_components[i].types.length;
+                b++
+              ) {
+                //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+                if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "administrative_area_level_1"
+                ) {
+                  //this is the object you are looking for
+                  city = hisDataCountry?.results[0].address_components[
+                    i
+                  ]?.short_name?.replace("محافظة ", "");
+                  break;
+                } else if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "country"
+                ) {
+                  //this is the object you are looking for
+                  country =
+                    hisDataCountry?.results[0].address_components[i]?.long_name;
+                  break;
+                }
+              }
+            }
+
+            // set country code
+            setSelectedCountry({ name: country });
+            setSelectedCity({ name: city });
+          }
+        }
+      });
+    };
+
+    getHisCountry();
+  }, []);
 
   const fetchCountry = (country) => {
     setSelectedCountry(country);
@@ -62,11 +132,13 @@ const FlancerOfferPriceForm = ({ data }) => {
   };
 
   const presetLocation = (data) => {
-    setSelectedCountry(data?.country);
-    setSelectedCity(data?.city);
-    setSelectedState(data?.state);
-    setSelectedArea(data?.area);
+    // setSelectedCountry(data?.country);
+    // setSelectedCity(data?.city);
+    // setSelectedState(data?.state);
+    // setSelectedArea(data?.area);
   };
+
+  const [selectedAreName, setSelectedAreName] = useState("");
 
   const getCoreData = useMemo(async () => {
     let modal = ["country", "city", "state", "area"];
@@ -77,7 +149,18 @@ const FlancerOfferPriceForm = ({ data }) => {
       selectedCity?.id,
       selectedState?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [selectedCountry, selectedState, selectedCity]);
 
@@ -188,7 +271,7 @@ const FlancerOfferPriceForm = ({ data }) => {
     offerPrice.set("name", formData.name);
     offerPrice.set("freelancer_id", data?.id);
     offerPrice.set("description", formData?.description);
-    offerPrice.set("time", arNumberConverter(formData.time));
+    formData.time && offerPrice.set("time", arNumberConverter(formData.time));
     offerPrice.set("type_work", formData.type_work);
     offerPrice.set("country_id", selectedCountry?.id);
     offerPrice.set("city_id", selectedCity?.id);
@@ -197,6 +280,7 @@ const FlancerOfferPriceForm = ({ data }) => {
     }
     offerPrice.set("state_id", selectedState?.id);
     offerPrice.set("area_id", selectedArea?.id);
+    selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
 
     getAllUserUpdate.category.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
@@ -314,13 +398,9 @@ const FlancerOfferPriceForm = ({ data }) => {
                 onChange={handleChange}
                 className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
-                placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
               />
               {errMessage?.name && (
-                <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2"
-                  style={{ top: "90px" }}
-                >
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
                   {errMessage?.name}
                 </p>
               )}
@@ -347,10 +427,7 @@ const FlancerOfferPriceForm = ({ data }) => {
             {formData?.description?.length} / {maxCharacters}
           </div>
           {errMessage?.description && (
-            <p
-              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-              style={{ bottom: "0px" }}
-            >
+            <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
               {errMessage?.description}
             </p>
           )}
@@ -379,7 +456,7 @@ const FlancerOfferPriceForm = ({ data }) => {
               />
               {errMessage?.time && (
                 <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
+                  className="mb-0 fLT-Regular-sA cLT-danger-text  px-2"
                   style={{ bottom: "-27px" }}
                 >
                   {errMessage?.time}
@@ -436,10 +513,7 @@ const FlancerOfferPriceForm = ({ data }) => {
                 </div>
               </div>
               {errMessage?.type_work && (
-                <p
-                  className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-                  style={{ bottom: "-27px" }}
-                >
+                <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
                   {errMessage?.type_work}
                 </p>
               )}
@@ -490,10 +564,7 @@ const FlancerOfferPriceForm = ({ data }) => {
                         `}
           />
           {errMessage?.category && (
-            <p
-              className="position-absolute mb-0 fLT-Regular-sA cLT-danger-text  px-2"
-              style={{ bottom: "10px" }}
-            >
+            <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
               {errMessage?.category}
             </p>
           )}
@@ -589,7 +660,9 @@ const FlancerOfferPriceForm = ({ data }) => {
                 <Form.Group as={Col} md={6} className="mb-3 position-relative">
                   {/* State [Option]  */}
                   <div
-                    className={` uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
+                    className={`${
+                      selectedArea?.id == "0" ? "d-none" : ""
+                    } uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB LT-edit-account-input`}
                   >
                     <Select
                       value={selectedArea}
@@ -600,6 +673,31 @@ const FlancerOfferPriceForm = ({ data }) => {
                       getOptionValue={(city) => city?.id}
                     />
                   </div>
+
+                  <div
+                    className={`${
+                      selectedArea?.id == "0" ? "d-flex" : "d-none"
+                    } justify-content-center align-items-center`}
+                  >
+                    <Form.Control
+                      hidden={selectedArea?.id != "0"}
+                      name="area_name"
+                      required
+                      className="uLT-bd-f-platinum-sA inpBG inp my-3"
+                      type="text"
+                      placeholder="ادخل اسم الحي"
+                      onChange={(e) => setSelectedAreName(e.target.value)}
+                    />
+
+                    <p
+                      onClick={() => setSelectedArea(null)}
+                      style={{ fontFamily: "sans-serif" }}
+                      className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                    >
+                      X
+                    </p>
+                  </div>
+
                   {errMessage?.city_id && (
                     <p
                       className=" mb-0 fLT-Regular-sA cLT-danger-text  px-2"

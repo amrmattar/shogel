@@ -134,7 +134,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
               );
             })}
 
-            {data?.role?.name === "freelancer" && (
+            {/* {data?.role?.name === "freelancer" && (
               <NavLink
                 to={`/freelancer-offer/${data?.id}`}
                 className={"uLT-list-style"}
@@ -148,7 +148,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
                   />
                 </div>
               </NavLink>
-            )}
+            )} */}
           </div>
         </div>
       )}

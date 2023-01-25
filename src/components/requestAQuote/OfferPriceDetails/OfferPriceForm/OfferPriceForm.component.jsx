@@ -155,10 +155,10 @@ const OfferPriceForm = () => {
     setSelectedArea(area);
   };
   const presetLocation = (data) => {
-    data?.country && setSelectedCountry(data?.country);
-    data?.city && setSelectedCity(data?.city);
-    setSelectedState(data?.state);
-    setSelectedArea(data?.area);
+    // data?.country && setSelectedCountry(data?.country);
+    // data?.city && setSelectedCity(data?.city);
+    // setSelectedState(data?.state);
+    // setSelectedArea(data?.area);
   };
 
   const getCoreData = useMemo(() => {
@@ -819,7 +819,6 @@ const OfferPriceForm = () => {
                   <Form.Control
                     hidden={selectedArea?.id != "0"}
                     name="area_name"
-                    required
                     className="uLT-bd-f-platinum-sA inpBG inp my-3"
                     type="text"
                     placeholder="ادخل اسم الحي"

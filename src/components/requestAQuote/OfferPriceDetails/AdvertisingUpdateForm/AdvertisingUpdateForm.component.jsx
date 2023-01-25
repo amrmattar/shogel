@@ -401,7 +401,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
                 {" "}
-                السعر
+                <span className="fLT-Regular-sB cLT-smoke-text">اختياري </span>
               </Form.Label>
               <Form.Control
                 name="price"

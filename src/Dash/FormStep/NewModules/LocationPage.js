@@ -71,7 +71,7 @@ const IdPage = () => {
         selectedArea?.id && form.append("area_id", selectedArea.id);
         selectedArea?.id == "0" && form.append("area_name", selectedAreName);
 
-        form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
+        form.append("mobile", getMobileNumber?.mobile?.split("+")?.join(""));
         form.append("gender_id", getClientData.gender);
         getClientData.nation?.id &&
           form.append("nationality_id", getClientData.nation.id);
@@ -409,19 +409,20 @@ const IdPage = () => {
             >
               <div>
                 <ButtonShare
-                  loading={nextLoading}
-                  innerText={"تسجيل"}
-                  btnClasses={"cLT-secondary-bg br14"}
-                  textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-                />
-              </div>
-              <div>
-                <ButtonShare
                   smBtn
                   onClick={() => getBack()}
                   innerText={"رجــــوع"}
                   btnClasses={"three cLT-secondary-bg"}
                   textClasses={"py-1 px-3 px-md-5 rounded-5"}
+                />
+              </div>{" "}
+              <div>
+                <ButtonShare
+                  onClick={getNext}
+                  loading={nextLoading}
+                  innerText={"تسجيل"}
+                  btnClasses={"cLT-secondary-bg br14"}
+                  textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
                 />
               </div>
             </div>
