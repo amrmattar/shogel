@@ -60,11 +60,11 @@ const categories = [
   { id: 13, title: "علوم" },
   { id: 14, title: "شبكات" },
 ];
+
 const mostUse = [
-  { id: 1, name: "افراد" },
-  { id: 2, name: "شركات" },
-  { id: 3, name: "بالقرب مني" },
-  { id: 4, name: "الاكثر رد علي الطلبات" },
+  { id: 1, name: "افراد", key: "freelancer" },
+  { id: 2, name: "شركات", key: "compnay" },
+  { id: 3, name: "بالقرب مني", key: "near" },
 ];
 
 const treeToList = (arr) => {
@@ -125,6 +125,11 @@ const FlancerAdvsListPage = () => {
 
   // search
   const [query, setQuery] = useState("");
+  const [mostUsedKeys, setMostUsedKeys] = useState({
+    freelancer: false,
+    compnay: false,
+    near: false,
+  });
 
   // search Query
   useEffect(() => {
@@ -190,6 +195,10 @@ const FlancerAdvsListPage = () => {
       body.set("available", active);
       body.set("location", location);
 
+      body.set("freelancer", mostUsedKeys?.freelancer);
+      body.set("compnay", mostUsedKeys?.compnay);
+      body.set("near", mostUsedKeys?.near);
+
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
@@ -201,7 +210,17 @@ const FlancerAdvsListPage = () => {
     }, 1000);
 
     return () => clearTimeout(timeRef.current);
-  }, [price, location, categ, key, rate, rateCount, active, currentPage]);
+  }, [
+    price,
+    location,
+    categ,
+    key,
+    rate,
+    rateCount,
+    active,
+    currentPage,
+    mostUsedKeys,
+  ]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -252,6 +271,10 @@ const FlancerAdvsListPage = () => {
       body.set("location", location);
       body.set("attendeesStatus", attendeesStatus);
 
+      body.set("freelancer", mostUsedKeys?.freelancer);
+      body.set("compnay", mostUsedKeys?.compnay);
+      body.set("near", mostUsedKeys?.near);
+
       return advertisingLists
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
@@ -273,7 +296,23 @@ const FlancerAdvsListPage = () => {
     rateCount,
     active,
     attendeesStatus,
+    mostUsedKeys,
   ]);
+
+  useEffect(() => {
+    let mostUsed = mostUse.map((most) => {
+      return {
+        key: most.key,
+        value: mostUseId.find((id) => id === most?.id) ? true : false,
+      };
+    });
+    mostUsed = mostUsed.reduce(
+      (obj, item) => Object.assign(obj, { [item.key]: item.value }),
+      {}
+    );
+
+    setMostUsedKeys(mostUsed);
+  }, [mostUseId]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!userAdvsDetatils?.data)

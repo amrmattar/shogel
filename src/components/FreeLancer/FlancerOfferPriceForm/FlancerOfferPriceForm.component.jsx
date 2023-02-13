@@ -112,6 +112,30 @@ const FlancerOfferPriceForm = ({ data }) => {
     getHisCountry();
   }, []);
 
+  useEffect(() => {
+    if (!getAllCountryFromResponse) return;
+
+    if (!selectedCountry?.id && selectedCountry?.name) {
+      const currentCountry = getAllCountryFromResponse?.country?.find(
+        (country) => country?.name === selectedCountry?.name
+      );
+
+      if (currentCountry) {
+        setSelectedCountry(currentCountry);
+      }
+    }
+
+    if (!selectedCity?.id && selectedCity?.name) {
+      const currentCity = getAllCountryFromResponse?.city?.find(
+        (city) => city?.name === selectedCity?.name
+      );
+
+      if (currentCity) {
+        setSelectedCity(currentCity);
+      }
+    }
+  }, [getAllCountryFromResponse, selectedCountry, selectedCity]);
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity({});
@@ -273,13 +297,23 @@ const FlancerOfferPriceForm = ({ data }) => {
     offerPrice.set("description", formData?.description);
     formData.time && offerPrice.set("time", arNumberConverter(formData.time));
     offerPrice.set("type_work", formData.type_work);
-    offerPrice.set("country_id", selectedCountry?.id);
-    offerPrice.set("city_id", selectedCity?.id);
+
+    selectedCountry?.name &&
+      offerPrice.set(
+        "country_id",
+        selectedCountry?.id || selectedCountry?.name
+      );
+    selectedCity?.name &&
+      offerPrice.set("city_id", selectedCity?.id || selectedCity?.name);
+    selectedState?.id &&
+      offerPrice.set("state_id", selectedState?.id || selectedState?.name);
+    selectedArea?.id &&
+      offerPrice.set("area_id", selectedArea?.id || selectedArea?.name);
+
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
     }
-    offerPrice.set("state_id", selectedState?.id);
-    offerPrice.set("area_id", selectedArea?.id);
+
     selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
 
     getAllUserUpdate.category.forEach((cate, idx) => {
@@ -390,7 +424,8 @@ const FlancerOfferPriceForm = ({ data }) => {
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
                 {" "}
-                عنوان الطلب
+                عنوان الطلب{" "}
+                <span className="small">(يجب ان يكون اكثر من 10 حروف)</span>
               </Form.Label>
               <Form.Control
                 value={formData?.name}
@@ -712,8 +747,20 @@ const FlancerOfferPriceForm = ({ data }) => {
           )}
         </div>
         {/* [Request Button */}
-        <div className="d-flex justify-content-end  align-items-left">
-          <div className="shadow uLT-f-radius-sB">
+        <div
+          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+        >
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
+          </div>
+
+          <div className="">
             <ButtonShare
               loading={advsCheck}
               btnClasses="cLT-secondary-bg py-2 px-4 uLT-f-radius-sB"

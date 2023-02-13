@@ -64,7 +64,7 @@ const Upload = ({
           </div>
         )}
         <input
-          accept=".xlsx,.xls,.excel,.doc,.csv,,.word,.gif,.pdf, image/*,video/mp4,video/x-m4v,video/*"
+          accept=".xlsx,.xls,.excel,.doc,.docx,.csv,,.word,.gif,.pdf, image/*,video/mp4,video/x-m4v,video/*"
           value=""
           style={{ visibility: "hidden", opacity: 0, width: "0px" }}
           ref={inputRef}
@@ -82,10 +82,16 @@ const Upload = ({
                 id="responseUploadData"
                 className="uLT-click"
                 key={idx}
-                onClick={(e) => handleDelete(oldFile?.id, oldFile?.name, idx)}
+                onClick={(e) =>
+                  handleDelete(
+                    oldFile?.id,
+                    oldFile?.name || (oldFile?.file).slice(58),
+                    idx
+                  )
+                }
               >
                 <Progress
-                  name={(oldFile?.file).slice(62)}
+                  name={(oldFile?.file).slice(58)}
                   icon={(oldFile?.file).split(".")[3]?.toUpperCase().trim()}
                 />
               </div>
@@ -137,7 +143,7 @@ const Upload = ({
                   Sdelet?.(e, file?.name, idx) ||
                     handleDelete?.(e, file?.name, idx);
                 }}
-                name={file.name || file?.file}
+                name={file.name || file?.file.slice(58)}
                 icon={
                   file.icon || file?.file?.split(".")[3]?.toUpperCase().trim()
                 }

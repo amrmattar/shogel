@@ -6,6 +6,7 @@ import AsideFreelancerPage from "../AsideFreelancerPage/AsideFreelancerPage.page
 import FlancerProfilePage from "../FlancerPages/FlancerProfilePage/FlancerProfilePage.page";
 import SideNavFlancerProfilePages from "../sideNavPage/SideNavFlancerProfile/SideNavFlancerProfile.pages";
 import "./FLancerProfileAndSideNav.page.scss";
+
 const FLancerProfileAndSideNavPage = () => {
   const navigate = useNavigate();
   const param = useParams();
@@ -64,6 +65,7 @@ const FLancerProfileAndSideNavPage = () => {
               selector={<SideNavFlancerProfilePages data={isResult} />}
             />
           </div>
+
           {/* <User Profile Page By Param ID /> */}
           <FlancerProfilePage data={isResult} />
         </div>

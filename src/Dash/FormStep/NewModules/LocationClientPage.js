@@ -129,8 +129,15 @@ const LocationClientPage = () => {
           .catch((err) => {
             setNextLoadiing(false);
             let ob = err.response?.data.message;
+            if (ob) {
+              for (const key in ob) {
+                let ele = ob[key];
 
-            toast.error("حدث خطأ ما");
+                toast.error(ele[0]);
+              }
+            } else {
+              toast.error(err?.message || err?.msg || "حدث خطأ ما");
+            }
 
             dispatch(
               getMessages([

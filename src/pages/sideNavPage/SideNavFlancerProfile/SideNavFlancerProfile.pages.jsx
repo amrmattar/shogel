@@ -122,7 +122,7 @@ const SideNavFlancerProfilePages = ({ data }) => {
       {vistorUser && !isProfileOwner && (
         <div className="d-grid gap-3 uLT-bd-b-platinum-sA pb-4">
           <p className="mb-0 fLT-Bold-sA text-nowrap"> التواصل </p>
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center justify-content-center gap-3">
             {communicated.map((communicate, ix) => {
               return (
                 <div key={ix} onClick={() => handleClick(communicate.id, data)}>

@@ -108,7 +108,8 @@ const FlancerMyEditAccountPage = ({
           userProfileLocation={userLocation ? userLocation : false}
         />
       </>
-      {userRole !== "2" && (
+
+      {personalData?.role?.id != "2" && (
         <>
           {/* About Me [Section] */}
           <>

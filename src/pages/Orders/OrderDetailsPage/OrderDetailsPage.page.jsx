@@ -179,14 +179,16 @@ const OrderDetailsPage = () => {
 
   // helper
   const sendEmail = () => {
-    navigate("/chat", {
-      state: {
-        id: offerPriceTaskData.user.id,
-        avatar: offerPriceTaskData.user.avatar,
-        name: offerPriceTaskData.user.username,
-        role: offerPriceTaskData.user.role?.name,
-      },
-    });
+    if (offerPriceTaskData?.user?.id !== userPermission?.id) {
+      navigate("/chat", {
+        state: {
+          id: offerPriceTaskData.user.id,
+          avatar: offerPriceTaskData.user.avatar,
+          name: offerPriceTaskData.user.username,
+          role: offerPriceTaskData.user.role?.name,
+        },
+      });
+    }
   };
 
   const copyPhoneNumber = (num) => {
@@ -460,7 +462,7 @@ const OrderDetailsPage = () => {
                   <PageTitle smallUnderTitle=" " title="أضف عرضك الآن" />
                   <OfferRequestForm
                     errMessage={errMessage}
-                    maxLength={300}
+                    maxLength={1000}
                     handleCLick={sendOffer}
                     handleChange={getOfferDataValue}
                     offerIsRequest={offerRequest}

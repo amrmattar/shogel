@@ -272,11 +272,21 @@ const RegisterClientOptionDetails = () => {
       .catch((err) => {
         setMessages(err.response.data.message);
         setLoading(false);
-        toast.error("حدث خطأ ما");
+
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
         dispatch(
           getMessages([
             {
-              messages: err.response.data.message,
+              messages: ob,
               messageType: "error",
               messageClick: true,
             },

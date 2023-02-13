@@ -4,7 +4,7 @@ import FlancerNotificationComponent from "../../../../components/FreeLancer/fLan
 import { Skeleton } from "@mui/material";
 import { API } from "../../../../enviroment/enviroment/enviroment";
 
-const FlancerMyNotificationPage = () => {
+const FlancerMyNotificationPage = ({ setIsNotification }) => {
   const [notification, setNotification] = useState({
     isLoading: false,
     data: [],
@@ -15,10 +15,12 @@ const FlancerMyNotificationPage = () => {
       const { data } = await API.get("/setting/notification/list");
 
       setNotification({ data: data?.data, isLoading: true });
+      localStorage.setItem("notification_isShowen", true);
+      setIsNotification(false);
     };
 
     fetchNotif();
-  }, []);
+  }, [setIsNotification]);
 
   return (
     <div className="pb-5 mt-5 mb-4">

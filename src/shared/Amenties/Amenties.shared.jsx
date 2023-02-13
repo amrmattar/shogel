@@ -21,6 +21,7 @@ const AmentiesShared = ({
   currency,
   maxWidth,
   phoneView,
+  address,
 }) => {
   return (
     <div style={maxWidth ? { maxWidth: "calc(100% / 4)" } : {}}>
@@ -162,41 +163,50 @@ const AmentiesShared = ({
 
       {/* Price Icons With Location */}
       {iconWithLocation === "priceIconWithLocation" ? (
-        <div
-          className={`card-body gap-3 d-flex justify-content-between ${
-            phoneView ? "align-items-start" : "align-items-center"
-          } ${phoneView ? "flex-column-reverse" : ""} p-0 w-100 flex-wrap`}
-        >
-          {/* Amenties Holder */}
-          <div className="d-flex gap-3 flex-wrap  align-items-center">
-            <div className="d-flex justify-content-center aling-items-center">
-              <i
-                className={`iLT-Listcard-location uLT-img-contain iLT-sA ms-2`}
-              />
-              <p className="mb-0 cLT-support2-text fLT-Bold-sm-sA main-color-in-sm">
-                {locationName}
-              </p>
+        <>
+          <div
+            className={`card-body gap-3 d-flex justify-content-between ${
+              phoneView ? "align-items-start" : "align-items-center"
+            } ${phoneView ? "flex-column-reverse" : ""} p-0 w-100 flex-wrap`}
+          >
+            {/* Amenties Holder */}
+            <div className="d-flex gap-3 flex-wrap  align-items-center">
+              <div className="d-flex justify-content-center aling-items-center">
+                <i
+                  className={`iLT-Listcard-location uLT-img-contain iLT-sA ms-2`}
+                />
+                <p className="mb-0 cLT-support2-text fLT-Bold-sm-sA main-color-in-sm">
+                  {locationName}
+                </p>
+              </div>
+            </div>
+            {/* Amenties Icon */}
+            <div className="d-flex gap-3 flex-wrap justify-content-start align-items-center">
+              <div className="d-flex justify-content-center align-items-center">
+                <i
+                  className={` iLT-Advs-ksa-currency uLT-img-contain iLT-sA ms-2`}
+                />
+                <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA">
+                  {" "}
+                  <span> {price} </span> {currency}{" "}
+                </p>
+              </div>
+              <div className="d-flex justify-content-center align-items-center">
+                <i
+                  className={`iLT-Advs-calendar uLT-img-contain iLT-sA ms-2`}
+                />
+                <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA text-nowrap">
+                  قبل {time}{" "}
+                </p>
+              </div>
             </div>
           </div>
-          {/* Amenties Icon */}
-          <div className="d-flex gap-3 flex-wrap justify-content-start align-items-center">
-            <div className="d-flex justify-content-center align-items-center">
-              <i
-                className={` iLT-Advs-ksa-currency uLT-img-contain iLT-sA ms-2`}
-              />
-              <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA">
-                {" "}
-                <span> {price} </span> {currency}{" "}
-              </p>
+          {address && (
+            <div className="mb-0 cLT-support2-text fLT-Bold-sm-sA main-color-in-sm">
+              <p>العنوان بالتفصيل: {address}</p>
             </div>
-            <div className="d-flex justify-content-center align-items-center">
-              <i className={`iLT-Advs-calendar uLT-img-contain iLT-sA ms-2`} />
-              <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA text-nowrap">
-                قبل {time}{" "}
-              </p>
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       ) : (
         false
       )}

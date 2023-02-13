@@ -150,7 +150,7 @@ const IdPage = () => {
                 toast.error(ele[0]);
               }
             } else {
-              toast.error("حدث خطأ ما");
+              toast.error(err?.message || err?.msg || "حدث خطأ ما");
             }
             dispatch(
               getMessages([

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { Link, useLocation } from "react-router-dom";
 import "./Footer.layout.scss";
 import React, { useEffect, useState } from "react";
@@ -30,8 +31,8 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    // console.log(socialMedia);
-    socialMedia?.forEach(function (el) {
+    console.log(socialMedia);
+    socialMedia?.forEach((el) => {
       switch (el?.id) {
         case 15:
           return setResault((resault) => ({ ...resault, facebook: el?.value }));
@@ -43,9 +44,9 @@ const Footer = () => {
           return setResault((resault) => ({ ...resault, ios: el?.value }));
         case 19:
           return setResault((resault) => ({ ...resault, android: el?.value }));
-        case 57:
+        case 21:
           return setResault((resault) => ({ ...resault, insta: el?.value }));
-        case 58:
+        case 22:
           return setResault((resault) => ({ ...resault, twitter: el?.value }));
         default:
           return false;

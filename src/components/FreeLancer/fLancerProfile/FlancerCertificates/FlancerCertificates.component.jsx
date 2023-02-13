@@ -1,10 +1,34 @@
-import React, { useEffect, useState } from "react";
-import cls from "./FlancerCertificates.component.module.scss";
+import React, { useEffect, useState, useMemo } from "react";
+import Modal from "@mui/material/Modal";
+import ButtonShare from "../../../../shared/Button/Button.shared";
 
 import ImgsViewer from "./ImgsViewer";
-import { useMemo } from "react";
 
-const Slide = ({ slide, offset, clickable, setSelectedImg, isImg }) => {
+import { Box } from "@mui/system";
+import cls from "./FlancerCertificates.component.module.scss";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 700,
+  height: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const Slide = ({
+  slide,
+  offset,
+  clickable,
+  setSelectedImg,
+  isImg,
+  isVideo,
+  handleOpenModal,
+}) => {
   const active = offset === 0 ? true : null;
 
   const openImg = () => {
@@ -23,16 +47,26 @@ const Slide = ({ slide, offset, clickable, setSelectedImg, isImg }) => {
         "--offset": offset * 1.05 - 0.3,
         "--dir": 0,
         backgroundImage: `url('${
-          isImg ? slide.file : "/MicrosoftTeams-image.png"
+          isImg
+            ? slide.file
+            : isVideo
+            ? "/social/video.svg"
+            : `/social/img-ex-${slide.file.split(".").at(-1)}.svg`
         }')`,
         cursor: clickable ? "pointer" : "",
       }}
-      onClick={isImg && clickable ? openImg : () => window.open(slide?.file)}
+      onClick={
+        isImg && clickable
+          ? openImg
+          : isVideo && clickable
+          ? () => handleOpenModal(slide.file)
+          : () => window.open(slide?.file)
+      }
     />
   );
 };
 
-function FlancerCertificatesComponent({ certificatesData, clickable }) {
+const FlancerCertificatesComponent = ({ certificatesData, clickable }) => {
   const [state, setState] = useState(0);
   const [selectedImg, setSelectedImg] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -90,6 +124,31 @@ function FlancerCertificatesComponent({ certificatesData, clickable }) {
     return false;
   };
 
+  const isExVideo = (ex) => {
+    if (
+      ex?.toLowerCase() === "webm" ||
+      ex?.toLowerCase() === "wmv" ||
+      ex?.toLowerCase() === "mp4"
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const [selectedVid, setSelectedVid] = useState("");
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
+  const handleOpenModal = (videoSrc) => {
+    setIsVideoModalOpen(true);
+    setSelectedVid(videoSrc);
+  };
+
+  const handleCloseModal = () => {
+    setIsVideoModalOpen(false);
+    setSelectedVid("");
+  };
+
   return (
     <>
       {clickable && (
@@ -111,7 +170,9 @@ function FlancerCertificatesComponent({ certificatesData, clickable }) {
 
             return (
               <Slide
+                handleOpenModal={handleOpenModal}
                 isImg={isExImg(slide?.file?.split(".").at(-1))}
+                isVideo={isExVideo(slide?.file?.split(".").at(-1))}
                 clickable={clickable}
                 setSelectedImg={selectImgHandelar}
                 slide={slide}
@@ -136,9 +197,38 @@ function FlancerCertificatesComponent({ certificatesData, clickable }) {
           ‹
         </button>
       </div>
+
+      <Modal
+        open={isVideoModalOpen}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          className="border rounded-3 text-center flex-column d-flex justify-content-center align-items-center"
+          sx={{ ...style, background: "#fff" }}
+        >
+          <video
+            style={{ width: "fit-content" }}
+            width={800}
+            height={600}
+            src={selectedVid}
+            controls
+          />
+
+          <div className="mt-3">
+            <ButtonShare
+              onClick={handleCloseModal}
+              innerText={"اغلاق"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+        </Box>
+      </Modal>
     </>
   );
-}
+};
 
 // const FlancerCertificatesComponent = ({ certificatesData }) => {
 //   const [targetIndx, setTargetIndx] = useState(1);

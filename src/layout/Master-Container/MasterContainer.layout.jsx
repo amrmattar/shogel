@@ -16,7 +16,7 @@ import FreelancerMainEditAccountPage from "../../pages/FreelancerMainEditAccount
 import ClientOfferPricePage from "../../pages/OfferPrice/ClientOfferPrice/ClientOfferPrice.page";
 import FlancerAdvertisingOfferPage from "../../pages/OfferPrice/FlancerAdvertisingOffer/FlancerAdvertisingOffer.pages";
 
-const MasterContainer = () => {
+const MasterContainer = ({ setIsNotification }) => {
   const userID = useSelector((state) => state.userData.id);
 
   return (
@@ -58,7 +58,11 @@ const MasterContainer = () => {
 
                   <Route
                     path={`my-notification/:id`}
-                    element={<FlancerMyNotificationPage />}
+                    element={
+                      <FlancerMyNotificationPage
+                        setIsNotification={setIsNotification}
+                      />
+                    }
                   />
                   <Route
                     path={`my-favorite/${userID}/page=:num`}

@@ -1,4 +1,5 @@
 import "./Button.shared.scss";
+
 const ButtonShare = ({
   ID,
   innerText,
@@ -13,6 +14,7 @@ const ButtonShare = ({
   attrName,
   nohover,
   smBtn,
+  iconSize,
 }) => {
   return (
     <button
@@ -30,10 +32,13 @@ const ButtonShare = ({
       name={attrName}
     >
       {iconName && (
-        <i className={`d-flex ${iconName} gap-2 p-2  uLT-img-contain`}></i>
+        <i
+          style={{ width: iconSize, height: iconSize }}
+          className={`d-flex ${iconName} gap-2 p-2  uLT-img-contain`}
+        ></i>
       )}
       <div className="d-flex align-items-center gap-2 justify-content-center gap-3">
-        {loading && <div className="spinner"></div>}
+        {loading && <div className="spinner" />}
         <p
           className={`m-0 ${smBtn ? "darken_sm_btn" : ""} ${textClasses}`}
           style={style}

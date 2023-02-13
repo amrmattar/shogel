@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { userProfile } from "../../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import "./flancerNavigator.component.scss";
 
 const FreelancerNavigators = (userID) => {
@@ -148,11 +149,21 @@ const ClientNavigators = (userID) => {
 
 const FlancerNavigatorComponent = () => {
   const userID = useSelector((state) => state.userData.id);
-  const [userRole] = useSelector((state) => [state.userRole]);
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    if (userRole != null) return;
+
+    userProfile._GET_ProfileData(userID).then((res) => {
+      if (res?.data?.data?.role?.id) setUserRole(res?.data?.data?.role?.id);
+    });
+  }, [userRole, userID]);
 
   const HandleAccountView = useCallback(() => {
-    switch (userRole?.userRole) {
-      case "2":
+    if (!userRole) return <>Loading...</>;
+
+    switch (userRole) {
+      case 2:
         return ClientNavigators(userID).map((navigator, ix) => {
           return (
             <div className="d-flex align-items-center gap-3 " key={ix}>
@@ -179,7 +190,7 @@ const FlancerNavigatorComponent = () => {
             </div>
           );
         });
-      case "3":
+      case 3:
         return FreelancerNavigators(userID)?.map((navigator, ix) => {
           return (
             <div className="d-flex align-items-center gap-3 " key={ix}>
@@ -206,7 +217,7 @@ const FlancerNavigatorComponent = () => {
             </div>
           );
         });
-      case "4":
+      case 4:
         return FreelancerNavigators(userID)?.map((navigator, ix) => {
           return (
             <div className="d-flex align-items-center gap-3 " key={ix}>
@@ -233,11 +244,10 @@ const FlancerNavigatorComponent = () => {
             </div>
           );
         });
-
       default:
         break;
     }
-  }, [userRole?.userRole, userID]);
+  }, [userRole, userID]);
 
   useEffect(() => {
     let cancel = false;
@@ -246,7 +256,7 @@ const FlancerNavigatorComponent = () => {
     return () => {
       cancel = true;
     };
-  }, [HandleAccountView, userRole?.userRole]);
+  }, [HandleAccountView, userRole]);
 
   return (
     <div className="d-flex flex-lg-column gap-3 LT-navigator-holder ">

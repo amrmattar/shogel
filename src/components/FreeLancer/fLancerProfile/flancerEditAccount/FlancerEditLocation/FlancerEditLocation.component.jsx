@@ -6,7 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 // JSON File Used
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getcitiesID,
   getCountryID,
@@ -17,45 +17,71 @@ import { RegisterServices } from "../../../../../core/services/AuthServices/Meth
 
 const FlancerEditLocationComponent = ({ userProfileLocation }) => {
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
+
+  const dispatch = useDispatch();
+  const locationIDs = useSelector(({ locationID }) => locationID);
+
+  const fetchCountry = (country) => {
+    setSelectedCountry(country);
+    setSelectedCity({});
+    setSelectedState({});
+    setSelectedArea({});
+    dispatch(getCountryID(country?.id));
+  };
+  const fetchCities = (city) => {
+    setSelectedCity(city);
+    setSelectedState({});
+    setSelectedArea({});
+    dispatch(getcitiesID(city?.id));
+  };
+  const fetchState = (state) => {
+    setSelectedState(state);
+    setSelectedArea({});
+    dispatch(getStateID(state?.id));
+  };
+  const fetchArea = (area) => {
+    setSelectedArea(area);
+    dispatch(getAreaID(area?.id));
+  };
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedCountry, setSelectedCountry] = useState({});
+  const [selectedCity, setSelectedCity] = useState({});
+  const [selectedState, setSelectedState] = useState({});
+  const [selectedArea, setSelectedArea] = useState({});
+
+  useEffect(() => {
+    if (userProfileLocation?.country && isLoading) {
+      setSelectedCountry(userProfileLocation?.country || {});
+      setSelectedCity(userProfileLocation?.city || {});
+      setSelectedState(userProfileLocation?.state || {});
+      setSelectedArea(userProfileLocation?.area || {});
+      setIsLoading(false);
+    }
+  }, [userProfileLocation, isLoading]);
+
   const getCoreData = useMemo(() => {
     let modal = ["country", "city", "state", "area"];
     return RegisterServices.GET_RegisterData(
       modal,
-      userProfileLocation?.country?.id,
-      userProfileLocation?.city?.id
+      locationIDs?.countriesID || userProfileLocation?.country?.id,
+      locationIDs?.citiesID || userProfileLocation?.city?.id,
+      locationIDs?.stateID || userProfileLocation?.state?.id
     ).then((res) => {
       setGetAllCountryFromResponse(res.data.data);
     });
-  }, [userProfileLocation?.country?.id, userProfileLocation?.city?.id]);
+  }, [
+    userProfileLocation?.country?.id,
+    userProfileLocation?.city?.id,
+    userProfileLocation?.state?.id,
+    locationIDs?.countriesID,
+    locationIDs?.citiesID,
+    locationIDs?.stateID,
+  ]);
+
   useEffect(() => {
     return getCoreData;
   }, [getCoreData]);
-
-  const dispatch = useDispatch();
-  //TODO Get Location Input Value [Country-City-State]
-  const [selectedState, setSelectedState] = useState();
-
-  const [countryName, setCountryName] = useState();
-  const [cityName, setCityName] = useState();
-  const [stateName, setStateName] = useState();
-  const [areaName, setAreaName] = useState();
-
-  const fetchCountry = (country) => {
-    setCountryName(country.name);
-    dispatch(getCountryID(country?.id));
-  };
-  const fetchCities = (city) => {
-    setCityName(city.name);
-    dispatch(getcitiesID(city?.id));
-  };
-  const fetchState = (state) => {
-    setStateName(state.name);
-    dispatch(getStateID(state?.id));
-  };
-  const fetchArea = (area) => {
-    setAreaName(area.name);
-    dispatch(getAreaID(area?.id));
-  };
 
   const refe = useRef();
   // Country Select
@@ -64,60 +90,64 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
     return (
       <Select
         placeholder="البلد"
+        value={selectedCountry}
+        onChange={fetchCountry}
         ref={refe}
         options={isProps.isProps.location}
-        defaultInputValue={
-          countryName
-            ? countryName
-            : isProps.isProps.value
-            ? isProps.isProps.value
-            : ""
-        }
-        onChange={fetchCountry}
+        // defaultInputValue={
+        //   countryName
+        //     ? countryName
+        //     : isProps.isProps.value
+        //     ? isProps.isProps.value
+        //     : ""
+        // }
         getOptionLabel={(country) => country?.name}
         getOptionValue={(country) => country?.id}
       />
     );
   }
+
   // City Select
-  CitySelect = React.forwardRef(CitySelect);
-  function CitySelect(isProps = {}, ref) {
-    return (
-      <Select
-        placeholder="المنطقة"
-        ref={refe}
-        options={isProps.isProps.location}
-        defaultInputValue={
-          cityName
-            ? cityName
-            : isProps.isProps.value
-            ? isProps.isProps.value
-            : ""
-        }
-        onChange={fetchCities}
-        getOptionLabel={(city) => city?.name}
-        getOptionValue={(city) => city?.id}
-      />
-    );
-  }
-  // State Select
   StateSelect = React.forwardRef(StateSelect);
   function StateSelect(isProps = {}, ref) {
     return (
       <Select
-        placeholder="المدينة"
+        placeholder="المنطقه"
         ref={refe}
         options={isProps.isProps.location}
-        defaultInputValue={
-          stateName
-            ? stateName
-            : isProps.isProps.value
-            ? isProps.isProps.value
-            : ""
-        }
+        value={selectedState}
+        // defaultInputValue={
+        //   stateName
+        //     ? stateName
+        //     : isProps.isProps.value
+        //     ? isProps.isProps.value
+        //     : ""
+        // }
         onChange={fetchState}
         getOptionLabel={(state) => state?.name}
         getOptionValue={(state) => state?.id}
+      />
+    );
+  }
+  // State Select
+  CitySelect = React.forwardRef(CitySelect);
+  function CitySelect(isProps = {}, ref) {
+    return (
+      <Select
+        placeholder="المدينه"
+        ref={refe}
+        options={isProps.isProps.location}
+        // defaultInputValue={
+        //   cityName
+        //     ? cityName
+        //     : isProps.isProps.value
+        //     ? isProps.isProps.value
+        //     : ""
+        // }
+        value={selectedCity}
+        onChange={fetchCities}
+        getOptionLabel={(city) => city?.name}
+        getOptionValue={(city) => city?.id}
       />
     );
   }
@@ -129,16 +159,17 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
         placeholder="الحى"
         ref={refe}
         options={isProps.isProps.location}
-        defaultInputValue={
-          areaName
-            ? areaName
-            : isProps.isProps.value === null
-            ? ""
-            : isProps.isProps.value
-        }
+        // defaultInputValue={
+        //   areaName
+        //     ? areaName
+        //     : isProps.isProps.value === null
+        //     ? ""
+        //     : isProps.isProps.value
+        // }
+        value={selectedArea}
         onChange={fetchArea}
-        getOptionLabel={(state) => state?.name}
-        getOptionValue={(state) => state?.id}
+        getOptionLabel={(area) => area?.name}
+        getOptionValue={(area) => area?.id}
       />
     );
   }
@@ -194,6 +225,7 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
             />
           </div>
         </Form.Group>
+
         {/* Area [Section] */}
         <Form.Group as={Col} md={6} className="'mb-3 mb-md-0">
           {/* Area [Option]  */}

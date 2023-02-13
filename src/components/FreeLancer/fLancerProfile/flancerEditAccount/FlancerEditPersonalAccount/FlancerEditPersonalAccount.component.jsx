@@ -271,6 +271,9 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
             </Form.Label>
             <div dir="ltr">
               <Form.Control
+                style={{
+                  fontFamily: "sans-serif !important",
+                }}
                 readOnly
                 name="mobile"
                 className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"

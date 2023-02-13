@@ -26,7 +26,6 @@ const trendingOptions = [
 const FilterPhoneView = ({
   isFilterOpen,
   setIsFilterOpen,
-  mostUse,
   categories,
   isEmployee,
   isAdvert,
@@ -41,9 +40,6 @@ const FilterPhoneView = ({
   rate,
   activesId,
   resetCateg,
-  resetMost,
-  setMostUseId,
-  mostUseId,
   checkedSkls,
   searchRes,
 }) => {

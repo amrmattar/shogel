@@ -7,8 +7,9 @@ import MasterContainer from "./Master-Container/MasterContainer.layout";
 import SideNav from "./SideNav/SideNav.layout";
 import PageHeader from "../shared/PageHeader/PageHeader.shared";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const ViewLayout = () => {
+const ViewLayout = ({ isNotification, setIsNotification }) => {
   const location = useLocation();
   const show = useSelector((state) => state.Fotter.visible);
   const { id } = useParams();
@@ -26,7 +27,10 @@ const ViewLayout = () => {
           {/* Nav Gradian-Linear [Line] */}
           <div className="cLT-Gradian-Linear-Main LT-nav-line "></div>
           {/* Navbar  & Searchbar  [Holder] */}
-          <HeaderHolder />
+          <HeaderHolder
+            isNotification={isNotification}
+            setIsNotification={setIsNotification}
+          />
         </header>
       ) : (
         <></>
@@ -47,7 +51,7 @@ const ViewLayout = () => {
         } ${location.pathname !== "/" ? "pt-4" : ""}`}
       >
         <SideNav />
-        <MasterContainer />
+        <MasterContainer setIsNotification={setIsNotification} />
       </main>
       {/* Footer  [Holder] */}
       {show &&

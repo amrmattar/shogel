@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./AsideFreelancerPage.Pages.scss";
 import { updateProfile } from "../../core/services/userProfile/UpdateProfile/UpdateProfile.core";
@@ -11,6 +11,22 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 import CompletionChart from "../../components/FreeLancer/FlancerEmployedComponent/CompletionChart";
 import axios from "axios";
 import { API } from "../../enviroment/enviroment/enviroment";
+import ButtonShare from "../../shared/Button/Button.shared";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/system";
+import { toast } from "react-toastify";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const AsideFreelancerPage = ({
   selector,
@@ -142,9 +158,20 @@ const AsideFreelancerPage = ({
           .catch((err) => {
             console.log(err);
             setChangeStatusLoading(false);
+
+            let ob = err.response?.data.message;
+            if (ob) {
+              for (const key in ob) {
+                let ele = ob[key];
+
+                toast.error(ele[0]);
+              }
+            } else {
+              toast.error(err?.message || err?.msg || "حدث خطأ ما");
+            }
             dispatch(
               getMessages({
-                messages: "حدث خطأ غير متوقع",
+                messages: ob || err?.message || err?.msg || "حدث خطأ غير متوقع",
                 messageType: "error",
                 messageClick: true,
               })
@@ -154,9 +181,20 @@ const AsideFreelancerPage = ({
       .catch((err) => {
         console.log(err);
         setChangeStatusLoading(false);
+
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
         dispatch(
           getMessages({
-            messages: "حدث خطأ غير متوقع",
+            messages: ob || err?.message || err?.msg || "حدث خطأ غير متوقع",
             messageType: "error",
             messageClick: true,
           })
@@ -171,6 +209,59 @@ const AsideFreelancerPage = ({
   //  console.log(userProfileData, "waae");
   //  console.log(userData, "wde");
   //  console.log(isUserData, "qawe");
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleOpenModal = () => setModalIsOpen(true);
+  const handleCloseModal = () => setModalIsOpen(false);
+
+  const upToFreelancer = () => {
+    dispatch(
+      getMessages({
+        messages: "جاري تحديث وظيفتك",
+        messageType: "warning",
+        messageClick: true,
+      })
+    );
+
+    // const formData = new FormData();
+    // formData.append('token', userProfileData.name);
+
+    API.post("/user/convert/account")
+      .then(() => {
+        dispatch(
+          getMessages({
+            messages: "تم تحديث وظيفتك بنجاح",
+            messageType: "success",
+            messageClick: true,
+          })
+        );
+        handleCloseModal();
+        window.location.reload(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleCloseModal();
+
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
+
+        dispatch(
+          getMessages({
+            messages: ob || err?.message || err?.msg || "حدث خطأ غير متوقع",
+            messageType: "error",
+            messageClick: true,
+          })
+        );
+      });
+  };
 
   return (
     <>
@@ -224,7 +315,10 @@ const AsideFreelancerPage = ({
                       backgroundColor: "#fff",
                     }}
                   />
-                  <label htmlFor="attachment" className="position-absolute">
+                  <label
+                    htmlFor="attachment_attatt"
+                    className="position-absolute"
+                  >
                     <i
                       className="uLT-click iLT-account-upload-img uLT-img-contain LT-upload-img uLT-f-radius"
                       style={{ width: "42px", height: "42px", left: "0px" }}
@@ -234,7 +328,7 @@ const AsideFreelancerPage = ({
                       type="file"
                       name="file[]"
                       accept=".pdf,.png,.jpg,.doc"
-                      id="attachment"
+                      id="attachment_attatt"
                       style={{
                         visibility: "hidden",
                         position: "absolute",
@@ -258,7 +352,13 @@ const AsideFreelancerPage = ({
                 ? userProfileData?.fullname
                 : userProfileData?.username}{" "}
             </p>
-            <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i>
+            <img
+              width={20}
+              height={20}
+              src={userProfileData?.nationality?.logo}
+              alt=""
+            />
+            {/* <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i> */}
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <p className="m-0 ps-3 card-text cLT-support2-text">
@@ -283,7 +383,12 @@ const AsideFreelancerPage = ({
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <BsTelephoneFill />
-            <p className="m-0 ps-3 card-text cLT-support2-text">
+            <p
+              style={{
+                fontFamily: "sans-serif !important",
+              }}
+              className="m-0 ps-3 card-text cLT-support2-text"
+            >
               {userProfileData?.mobile}{" "}
             </p>
           </div>
@@ -359,11 +464,71 @@ const AsideFreelancerPage = ({
             </div>
           )}
 
+          {isUserData?.role?.id == 2 && (
+            <>
+              <div className="shadow  uLT-f-radius-sB my-2 w-100 text-center">
+                {" "}
+                <ButtonShare
+                  btnClasses="cLT-secondary-bg py-2 px-4 w-100 d-flex text-center justify-content-center align-items-center gap-2 uLT-f-radius-sB"
+                  textClasses={`fLT-Regular-sB px-1 cLT-white-text text-center`}
+                  innerText="اصبح مشتغل"
+                  iconSize={25}
+                  iconName={"iLT-work-case-freelancer-btn"}
+                  onClick={handleOpenModal}
+                />{" "}
+              </div>
+            </>
+          )}
+
           <CompletionChart value={isUserData?.complete_profile} />
         </div>
         {/* Side Navigator Selector Component */}
         <div className="w-100">{selector}</div>
       </div>
+
+      <Modal
+        open={modalIsOpen}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="border rounded-3" sx={{ ...style, background: "#fff" }}>
+          <div className="icon d-flex justify-content-center align-items-center">
+            <i
+              style={{ width: 70, height: 70 }}
+              className={`d-flex iLT-work-case-freelancer-btn gap-2 p-2 uLT-img-contain`}
+            />
+          </div>
+          <h2 className="fs-5 text-center mt-3 border-0">
+            تغيير الحساب الي مشتغل
+          </h2>
+
+          <p className="small text-center mb-4">
+            سيتم تغيير حسابك الي مشتغل بدلا من مستخدم برجاء الضغط علي موافق
+            للتغير
+          </p>
+
+          <div className={`mb-3`}>
+            <div className="w-100 mb-3">
+              <ButtonShare
+                onClick={upToFreelancer}
+                innerText={"موافق"}
+                btnClasses={"cLT-secondary-bg br14"}
+                textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+              />
+            </div>
+
+            <div className="w-100">
+              <ButtonShare
+                onClick={handleCloseModal}
+                innerText={"الغاء"}
+                btnClasses={"cLT-secondary-bg br14"}
+                textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+              />
+            </div>
+          </div>
+        </Box>
+      </Modal>
     </>
   );
 };

@@ -162,8 +162,17 @@ const FlancerAdvsDetailsPage = () => {
       .then((res) => {
         toast.success("تم ارسال البلاغ");
       })
-      .catch((e) => {
-        toast.error("حدث خطأ ما");
+      .catch((err) => {
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
       });
   };
 
@@ -279,12 +288,10 @@ const FlancerAdvsDetailsPage = () => {
                   {advsDataById?.user?.fullname}
                 </p>
                 <img
-                  src={
-                    advsDataById?.nationality?.logo
-                      ? advsDataById?.nationality?.logo
-                      : defautFlag
-                  }
+                  src={advsDataById?.user?.nationality?.logo || defautFlag}
                   alt=""
+                  width="40"
+                  height="20"
                   className={" iLT-sC "}
                 />
               </div>
@@ -308,7 +315,7 @@ const FlancerAdvsDetailsPage = () => {
                     </p>
                     <i
                       className={` iLT-Rate-star uLT-img-contain LT-rate-icon-size me-sm-2`}
-                    ></i>
+                    />
                   </div>
                 </div>
               </div>
@@ -323,6 +330,7 @@ const FlancerAdvsDetailsPage = () => {
           {/* Card Amenties */}
           <div className="d-none d-md-block LT-advsDetails-amenties">
             <AmentiesShared
+              address={advsDataById?.address}
               iconWithLocation={"priceIconWithLocation"}
               locationName={`${advsDataById?.user?.country?.name} , ${advsDataById?.user?.city?.name}`}
               price={advsDataById?.price}

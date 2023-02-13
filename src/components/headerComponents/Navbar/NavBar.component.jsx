@@ -28,7 +28,7 @@ import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core
 import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 import { Form } from "react-bootstrap";
 
-const Navbar = () => {
+const Navbar = ({ isNotification, setIsNotification }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [loginCheck, setLoginCheck] = useState(false);
 
@@ -226,6 +226,24 @@ const Navbar = () => {
       });
   };
 
+  // notication listener
+  useEffect(() => {
+    const getIsNotification = () => {
+      const isNotfication = !JSON.parse(
+        localStorage.getItem("notification_isShowen")
+      );
+
+      setIsNotification(isNotfication);
+    };
+
+    getIsNotification();
+    window.addEventListener("storage", () => getIsNotification());
+
+    return () => {
+      return window.removeEventListener("storage", getIsNotification);
+    };
+  }, [setIsNotification]);
+
   return (
     <AppBar
       position="static"
@@ -386,10 +404,12 @@ const Navbar = () => {
                       className="bg-hover-light ms-3 btn bg-light border d-flex justify-content-center align-items-center border-2 rounded-4"
                     >
                       <IconButton className="position-relative">
-                        {/* <span
-                          className="bg-warning rounded-circle position-absolute top-0 end-0 me-2 mt-2"
-                          style={{ width: 8, height: 8 }}
-                        /> */}
+                        {isNotification && (
+                          <span
+                            className="bg-warning rounded-circle position-absolute top-0 end-0 me-2 mt-2"
+                            style={{ width: 8, height: 8 }}
+                          />
+                        )}
                         <img width={20} src="/icons/Notification.svg" alt="" />
                       </IconButton>
                     </div>

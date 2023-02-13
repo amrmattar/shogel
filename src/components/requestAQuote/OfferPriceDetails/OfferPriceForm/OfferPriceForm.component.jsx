@@ -136,6 +136,30 @@ const OfferPriceForm = () => {
     getHisCountry();
   }, []);
 
+  useEffect(() => {
+    if (!getAllCountryFromResponse) return;
+
+    if (!selectedCountry?.id && selectedCountry?.name) {
+      const currentCountry = getAllCountryFromResponse?.country?.find(
+        (country) => country?.name?.includes(selectedCountry?.name)
+      );
+
+      if (currentCountry) {
+        setSelectedCountry(currentCountry);
+      }
+    }
+
+    if (!selectedCity?.id && selectedCity?.name) {
+      const currentCity = getAllCountryFromResponse?.city?.find((city) =>
+        city?.name?.includes(selectedCity?.name)
+      );
+
+      if (currentCity) {
+        setSelectedCity(currentCity);
+      }
+    }
+  }, [getAllCountryFromResponse, selectedCountry, selectedCity]);
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity({});
@@ -279,15 +303,15 @@ const OfferPriceForm = () => {
     offerPrice.set("name", formData.name);
     offerPrice.set("description", content);
     offerPrice.set("type_work", formData.type_work);
-    offerPrice.set("country_id", selectedCountry?.id);
-    offerPrice.set("city_id", selectedCity?.id);
+    offerPrice.set("country_id", selectedCountry?.id || 0);
+    offerPrice.set("city_id", selectedCity?.id || 0);
     offerPrice.set("time", arNumberConverter(formData.time || 0));
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
     }
 
-    offerPrice.set("state_id", selectedState?.id);
-    offerPrice.set("area_id", selectedArea?.id);
+    offerPrice.set("state_id", selectedState?.id || selectedState?.name);
+    offerPrice.set("area_id", selectedArea?.id || selectedArea?.name);
     selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
     getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
@@ -314,11 +338,21 @@ const OfferPriceForm = () => {
       })
       .catch((err) => {
         setAdvsCheck(false);
-        toast.error("حدث خطأ ما");
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
+
         dispatch(
           getMessages([
             {
-              messages: err.response?.data.message,
+              messages: ob,
               messageType: "error",
               messageClick: true,
             },
@@ -334,7 +368,6 @@ const OfferPriceForm = () => {
   useEffect(() => {
     if (
       getAllUserUpdate.category?.length > 0 &&
-      selectedArea?.id &&
       !(formData.type_work === "offline" && !formData.address)
     ) {
       setDisable(false);
@@ -344,6 +377,7 @@ const OfferPriceForm = () => {
   }, [getAllUserUpdate, selectedArea, formData.type_work, formData.address]);
 
   const [anyJob, setAnyJob] = useState(false);
+
   return (
     <>
       <UserFeedBackShared
@@ -366,6 +400,7 @@ const OfferPriceForm = () => {
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
                 {" "}
                 عنوان الطلب<span className="cLT-danger-text">*</span>{" "}
+                <span className="small">(يجب ان يكون اكثر من 10 حروف)</span>
               </Form.Label>
               <Form.Control
                 required
@@ -852,21 +887,22 @@ const OfferPriceForm = () => {
         >
           <div className="">
             <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
+          </div>
+
+          <div className="">
+            <ButtonShare
               type={disable}
               onClick={(e) => handleCLick(e)}
               innerText={"إرسال"}
               loading={advsCheck}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
-          <div className="">
-            <ButtonShare
-              smBtn
-              onClick={() => navigate("/")}
-              innerText={"رجوع"}
-              btnClasses={"three cLT-secondary-bg"}
-              textClasses={"py-1 px-3 px-md-5 rounded-5"}
             />
           </div>
         </div>

@@ -238,14 +238,14 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
   // TODO Main Function Collect All Data Value And Post To API [START]
   const handleCLick = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    dispatch(
-      getMessages({
-        messages: "جارى إرسال التحديث",
-        messageType: "warning",
-        messageClick: true,
-      })
-    );
+    // setLoading(true);
+    // dispatch(
+    //   getMessages({
+    //     messages: "جارى إرسال التحديث",
+    //     messageType: "warning",
+    //     messageClick: true,
+    //   })
+    // );
 
     // @Param Block Of Files Get All And Initial Before Post */
     file.images?.map((image, idx) => {
@@ -257,8 +257,9 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     media.set("name", formData.name ? formData.name : loadAdvsData.name);
     media.set(
       "description",
-      content?.value ? content?.value : loadAdvsData?.description
+      content?.value || content || loadAdvsData?.description
     );
+
     media.set(
       "price",
       formData.price
@@ -269,17 +270,37 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
       media.append(`category[${idx}]`, newCate.id);
     });
 
-    media.set("country_id", selectedCountry?.id || loadAdvsData?.country?.id);
-    media.set("city_id", selectedCity?.id || loadAdvsData?.city?.id);
-    media.set("state_id", selectedState?.id || loadAdvsData?.state?.id);
-    media.set("area_id", selectedArea?.id || loadAdvsData?.area?.id);
-    selectedArea?.id === "0" && media.set("area_name", selectedAreName);
     media.set(
       "type_work",
       formData.type_work || loadAdvsData?.type_work || "online"
     );
-    if (formData.type_work === "offline") {
+    formData.address &&
       media.set("address", formData.address || loadAdvsData?.address);
+    selectedCountry?.name &&
+      media.set(
+        "country_id",
+        selectedCountry?.id ||
+          selectedCountry?.name ||
+          loadAdvsData?.country?.id
+      );
+    selectedCity?.name &&
+      media.set(
+        "city_id",
+        selectedCity?.id || selectedCity?.name | 0 | loadAdvsData?.city?.id
+      );
+    selectedState?.name &&
+      media.set(
+        "state_id",
+        selectedState?.id || selectedState?.name || loadAdvsData?.state?.id
+      );
+    selectedArea?.name &&
+      media.set(
+        "area_id",
+        selectedArea?.id || selectedArea?.name || loadAdvsData?.area?.id
+      );
+
+    if (formData.type_work === "offline") {
+      selectedArea?.id === "0" && media.set("area_name", selectedAreName);
     }
 
     // @Param POST Method To API */
@@ -300,12 +321,21 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
         return () => clearTimeout(resTimeOut);
       })
       .catch((err) => {
-        toast.error("حدث خطأ ما");
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
 
         dispatch(
           getMessages([
             {
-              messages: err.response?.data.message,
+              messages: ob,
               messageType: "error",
               messageClick: true,
             },
@@ -319,13 +349,14 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
   // ================================================[Block END]================================================ //
   const handleDelete = (e, fileNewName, i) => {
     if (
-      e.nativeEvent.path[4].id === "responseUploadData" ||
-      e.nativeEvent.path[5].id === "responseUploadData"
+      e.nativeEvent?.path?.[4]?.id === "responseUploadData" ||
+      e.nativeEvent?.path?.[5]?.id === "responseUploadData"
     ) {
       deleteBasicData._Delete_Data(i).then((res) => {
         return res;
       });
     }
+
     const newfileImage = file.images.filter(
       (element) => element.name !== fileNewName
     );
@@ -350,6 +381,12 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
     navigate(-1);
   };
 
+  //
+  const [docs, setDocs] = useState();
+  useEffect(() => {
+    setNames(loadAdvsData?.document);
+  }, [loadAdvsData?.document]);
+
   return (
     <>
       <UserFeedBackShared
@@ -370,7 +407,8 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
               className="position-relative px-0 d-grid gap-2"
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
-                عنوان الاعلان
+                عنوان الاعلان{" "}
+                <span className="small">(يجب ان يكون اكثر من 10 حروف)</span>
               </Form.Label>
               <Form.Control
                 defaultValue={
@@ -464,7 +502,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             inputRef={inputRef}
             isDrop={fileHandler}
             targetClick={filePicker}
-            isHaveData={loadAdvsData?.document}
+            isHaveData={docs}
             fileArr={filenames}
             handleDelete={handleDelete}
             uploadDescription={`اسحب وافلت أي الصور او مستندات قد تكون مفيدة في شرح موجزك هنا (الحد الاقصي لحجم الملف:25 مبجا بايت)`}
@@ -603,7 +641,10 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
           </p>
           <div className="locHandler">
             <p className="locationArea">
-              حي العلياء , منطقة الرياض , المملكة العربية السعودية{" "}
+              {loadAdvsData?.country?.name || selectedCountry?.name},{" "}
+              {loadAdvsData?.city?.name || selectedCity?.name},{" "}
+              {loadAdvsData?.state?.name || selectedState?.name},{" "}
+              {loadAdvsData?.area?.name || selectedArea?.name}
               <span
                 onClick={showLocation}
                 className="pointer cLT-support1-text"
@@ -756,21 +797,21 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
           >
             <div className="">
               <ButtonShare
+                smBtn
+                onClick={() => navigate("/")}
+                innerText={"رجوع"}
+                btnClasses={"three cLT-secondary-bg"}
+                textClasses={"py-1 px-3 px-md-5 rounded-5"}
+              />
+            </div>
+            <div className="">
+              <ButtonShare
                 loading={isLoading}
                 ID={"send"}
                 onClick={(e) => handleCLick(e)}
                 innerText={"إرسال"}
                 btnClasses={"cLT-secondary-bg br14"}
                 textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-              />
-            </div>
-            <div className="">
-              <ButtonShare
-                smBtn
-                onClick={() => navigate("/")}
-                innerText={"رجوع"}
-                btnClasses={"three cLT-secondary-bg"}
-                textClasses={"py-1 px-3 px-md-5 rounded-5"}
               />
             </div>
           </div>

@@ -15,12 +15,14 @@ import "./App.scss";
 import { addUserToken } from "./core/redux/reducers/UserLoginData/UserLoginData.core";
 import { onMessageListener, fetchToken } from "./firebase";
 import { useState } from "react";
+import { API } from "./enviroment/enviroment/enviroment";
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   const userData = useSelector(({ userData }) => userData);
 
   const [notification, setNotification] = useState({});
+  const [isNotification, setIsNotification] = useState(false);
 
   const addToken = (token) => {
     if (!userData.FCMToken) {
@@ -68,10 +70,38 @@ function App() {
     return getCoreData;
   }, [getCoreData]);
 
+  // notication listener
+  useEffect(() => {
+    const notification_isShowen = localStorage.getItem("notification_isShowen");
+    const notification_count = localStorage.getItem("notification_count");
+    const hour_of_mil_sec = 1000 * 60 * 60;
+
+    if (!notification_isShowen == null || !notification_count == null) {
+      localStorage.setItem("notification_count", 0);
+      localStorage.setItem("notification_isShowen", true);
+    }
+
+    const getNotification = async () => {
+      const { data } = await API.get("/setting/notification/list");
+
+      if (+data?.data?.length > +notification_count) {
+        localStorage.setItem("notification_isShowen", false);
+        localStorage.setItem("notification_count", data?.data?.length || 0);
+        setIsNotification(true);
+      }
+    };
+
+    getNotification();
+    setInterval(() => getNotification(), hour_of_mil_sec);
+  }, []);
+
   return (
     <Router>
       <div className="" style={{ minHeight: "100vh" }}>
-        <ViewLayout />
+        <ViewLayout
+          isNotification={isNotification}
+          setIsNotification={setIsNotification}
+        />
         <NotificationToast
           notification={notification}
           setNotification={setNotification}
@@ -80,6 +110,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default React.memo(App);

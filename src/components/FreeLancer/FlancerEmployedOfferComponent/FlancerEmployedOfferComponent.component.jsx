@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core";
 import { cancelList } from "../../../core/services/CancelationServices/CancelationServices.core";
 import CancelationShared from "../../../shared/Modal/Modal/Cancelation.shared";
+
 const FlancerEmployedOfferComponent = ({
   data,
   isMyTask,
@@ -24,6 +25,8 @@ const FlancerEmployedOfferComponent = ({
   isComment,
   setLoading,
 }) => {
+  const [isShort, setIsShort] = useState(true);
+
   const dispatch = useDispatch();
   const myPersonData = {
     avatar: data?.user?.avatar,
@@ -330,9 +333,12 @@ const FlancerEmployedOfferComponent = ({
                   <p className="m-0 card-text cLT-support2-text ">
                     {data?.user?.rate?.rate}
                   </p>
-                  <i
-                    className={` iLT-Rate-star uLT-img-contain LT-rate-icon-size me-sm-2`}
-                  ></i>
+                  <img
+                    width={20}
+                    height={20}
+                    src={myPersonData?.myFlag}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -498,7 +504,39 @@ const FlancerEmployedOfferComponent = ({
             style={{ wordBreak: "break-word" }}
             className="m-0 fLT-Regular-sB cLT-smoke-text"
           >
-            {data?.description ? data?.description : "لا يوجد وصف للعرض"}
+            {data?.description ? (
+              data?.description?.length >= 600 && isShort ? (
+                <>
+                  {data?.description.slice(0, 600)}{" "}
+                  <p
+                    style={{
+                      width: "fit-content",
+                    }}
+                    onClick={() => setIsShort(false)}
+                    className="text-primary noHover no-hover m-0 cu-pointer"
+                  >
+                    عرض المزيد
+                  </p>
+                </>
+              ) : data?.description?.length >= 600 && !isShort ? (
+                <>
+                  {data?.description}
+                  <p
+                    style={{
+                      width: "fit-content",
+                    }}
+                    onClick={() => setIsShort(true)}
+                    className="text-primary noHover no-hover m-0 cu-pointer"
+                  >
+                    عرض اقل
+                  </p>
+                </>
+              ) : (
+                data?.description
+              )
+            ) : (
+              "لا يوجد وصف للعرض"
+            )}
           </p>
         </div>
         {/* Card Divied */}

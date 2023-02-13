@@ -1,10 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PageHeader = () => {
-    return (
-        <div className='cLT-main-bg w-100' style={{ height: '217px' }}>
-        </div>
-    )
-}
+  return <div className="cLT-main-bg w-100" style={{ height: "217px" }}></div>;
+};
 
-export default PageHeader
+export default PageHeader;

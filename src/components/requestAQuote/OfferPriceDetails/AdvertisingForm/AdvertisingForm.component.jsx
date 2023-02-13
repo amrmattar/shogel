@@ -83,7 +83,7 @@ const AdvertisingFormComponent = () => {
   };
 
   const inputRef = useRef();
-  const [file, setFiles] = useState({ images: [], videos: [] });
+  const [file, setFiles] = useState({ images: [], videos: [], file: [] });
   const [filenames, setNames] = useState([]);
   const fileHandler = (files) => {
     const extention = files;
@@ -92,6 +92,8 @@ const AdvertisingFormComponent = () => {
         file.videos.push(allFile);
       } else if (allFile.type.match("image/")) {
         file.images.push(allFile);
+      } else {
+        file.file.push(allFile);
       }
     }
     const extension = files[0].name.split(".")[1]?.toLowerCase();
@@ -132,6 +134,9 @@ const AdvertisingFormComponent = () => {
     file.videos?.map((video, idx) => {
       return media.append(`videos[${idx}]`, video);
     });
+    file.file?.map((file, idx) => {
+      return media.append(`file[${idx}]`, file);
+    });
 
     media.set("name", formData.name);
     media.set("description", content);
@@ -140,14 +145,19 @@ const AdvertisingFormComponent = () => {
     getAllUserUpdate.category.forEach((cate, idx) => {
       media.append(`category[${idx}]`, cate);
     });
-    media.set("country_id", selectedCountry?.id);
-    media.set("city_id", selectedCity?.id);
-    media.set("state_id", selectedState?.id);
-    media.set("area_id", selectedArea?.id);
-    selectedArea?.id === "0" && media.set("area_name", selectedAreName);
     media.set("type_work", formData.type_work || "online");
+    formData.address && media.set("address", formData.address);
+    selectedCountry?.name &&
+      media.set("country_id", selectedCountry?.id || selectedCountry?.name);
+    selectedCity?.name &&
+      media.set("city_id", selectedCity?.id || selectedCity?.name);
+    selectedState?.name &&
+      media.set("state_id", selectedState?.id || selectedState?.name);
+    selectedArea?.name &&
+      media.set("area_id", selectedArea?.id || selectedArea?.name);
+
     if (formData.type_work === "offline") {
-      media.set("address", formData.address);
+      selectedArea?.id === "0" && media.set("area_name", selectedAreName);
     }
 
     advertisingLists
@@ -174,23 +184,25 @@ const AdvertisingFormComponent = () => {
       .catch((err) => {
         setAdvsCheck(false);
 
-        // let ob = err.response?.data.message;
-        // if (ob) {
-        //   for (const key in ob) {
-        //     let ele = ob[key];
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
 
-        //     toast.error(ele[0]);
-        //   }
-        // } else {
-        toast.error(
-          err?.response?.data.message || err?.message || "حدث خطأ ما"
-        );
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
 
         dispatch(
           getMessages([
             {
               messages:
-                err.response?.data.message || err?.message || "حدث خطأ ما",
+                ob ||
+                err.response?.data.message ||
+                err?.message ||
+                "حدث خطأ ما",
               messageType: "error",
               messageClick: true,
             },
@@ -293,6 +305,30 @@ const AdvertisingFormComponent = () => {
     getHisCountry();
   }, []);
 
+  useEffect(() => {
+    if (!getAllCountryFromResponse) return;
+
+    if (!selectedCountry?.id && selectedCountry?.name) {
+      const currentCountry = getAllCountryFromResponse?.country?.find(
+        (country) => country?.name?.includes(selectedCountry?.name)
+      );
+
+      if (currentCountry) {
+        setSelectedCountry(currentCountry);
+      }
+    }
+
+    if (!selectedCity?.id && selectedCity?.name) {
+      const currentCity = getAllCountryFromResponse?.city?.find((city) =>
+        city?.name?.includes(selectedCity?.name)
+      );
+
+      if (currentCity) {
+        setSelectedCity(currentCity);
+      }
+    }
+  }, [getAllCountryFromResponse, selectedCountry, selectedCity]);
+
   const fetchCountry = (country) => {
     setSelectedCountry(country);
     setSelectedCity({});
@@ -348,7 +384,6 @@ const AdvertisingFormComponent = () => {
   useEffect(() => {
     if (
       getAllUserUpdate.category?.length > 0 &&
-      selectedArea?.id &&
       !(formData.type_work === "offline" && !formData.address)
     ) {
       setDisable(false);
@@ -392,6 +427,7 @@ const AdvertisingFormComponent = () => {
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
                 {" "}
                 عنوان الاعلان<span className="cLT-danger-text">*</span>{" "}
+                <span className="small">(يجب ان يكون اكثر من 10 حروف)</span>
               </Form.Label>
               <Form.Control
                 value={formData?.name}
@@ -504,7 +540,6 @@ const AdvertisingFormComponent = () => {
               </label>
             </div>
             <div
-              className=""
               style={{
                 width: "1px",
                 height: "56px",
@@ -552,12 +587,13 @@ const AdvertisingFormComponent = () => {
           </Row>
         )}
         {/* Skills-Grid [Holder] */}
-        <div className="d-grid  position-relative">
+        <div className="d-grid position-relative mb-4">
           {/* [Title] */}
-          <p className="m-0  mt-3 mt-4 mb-md-3 fLT-Bold-sA small text-muted">
+          <p className="m-0 mt-3 mt-4 mb-md-3 fLT-Bold-sA small text-muted">
             اختر <span className="cLT-support1-text"> المهارات</span> المناسبة
             لاعلانك<span className="cLT-danger-text">*</span>{" "}
           </p>
+
           {!showSkills && (
             <FlancerEditTagsComponent
               categoryClass={"pb-0"}
@@ -592,7 +628,8 @@ const AdvertisingFormComponent = () => {
             )}
           </div>
         </div>
-        <div className="  position-relative">
+
+        <div className="position-relative">
           {/* [Title] */}
           <p className="m-0 mt-2 fLT-Bold-sA cLT-main-text">
             <span className="cLT-support1-text"> الموقع</span>
@@ -749,7 +786,7 @@ const AdvertisingFormComponent = () => {
             </Form.Group>
 
             <Form.Control
-              hidden={selectedArea?.id !== "1212"}
+              hidden={selectedArea?.id !== "0"}
               name="area_name"
               required
               style={{ width: "48%" }}
@@ -782,22 +819,23 @@ const AdvertisingFormComponent = () => {
         <div
           className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
         >
-          <div className="">
-            <ButtonShare
-              type={disabled}
-              onClick={(e) => handleCLick(e)}
-              innerText={"إرسال"}
-              btnClasses={"cLT-secondary-bg br14"}
-              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
-          <div className="">
+          <div>
             <ButtonShare
               smBtn
               onClick={() => navigate("/")}
               innerText={"رجوع"}
               btnClasses={"three cLT-secondary-bg"}
               textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
+          </div>
+
+          <div>
+            <ButtonShare
+              type={disabled}
+              onClick={(e) => handleCLick(e)}
+              innerText={"إرسال"}
+              btnClasses={"cLT-secondary-bg br14"}
+              textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
             />
           </div>
         </div>

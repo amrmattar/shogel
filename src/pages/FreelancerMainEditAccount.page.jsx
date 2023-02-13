@@ -21,9 +21,10 @@ const FreelancerMainEditAccountPage = () => {
     site,
     currentSkls,
     coreData,
+    locationID,
   ] = useSelector((state) => {
     return [
-      state.userData.id,
+      state.userData?.id,
       state.profileUpdate,
       state.languageSkills.fAllSkills,
       state.userFullData,
@@ -32,9 +33,9 @@ const FreelancerMainEditAccountPage = () => {
       state.socailMedia,
       state?.certificateSkills?.fCertificate,
       state.coreData,
+      state?.locationID,
     ];
   });
-
   const dispatch = useDispatch();
 
   const [updateLoading, setUpdateLoading] = useState(false);
@@ -42,6 +43,13 @@ const FreelancerMainEditAccountPage = () => {
 
   const [socialData, setSocialData] = useState([]);
   const [socialLoading, setSocialLoading] = useState([]);
+
+  const [filenames, setNames] = useState([]);
+  const [newfile, setFiles] = useState({
+    images: [],
+    videos: [],
+    document: [],
+  });
 
   const handleSocial = async () => {
     const social = new FormData();
@@ -54,8 +62,13 @@ const FreelancerMainEditAccountPage = () => {
       })
     );
     socialData.forEach(({ social_id, idx, value }) => {
+      if (isNaN(social_id) || isNaN(idx)) return;
+
       social.append(`social[${idx}][social_id]`, social_id);
-      social.append(`social[${idx}][value]`, value || socialLoading?.value);
+      social.append(
+        `social[${idx}][value]`,
+        value || socialLoading?.value || ""
+      );
     });
 
     updateProfile
@@ -81,46 +94,6 @@ const FreelancerMainEditAccountPage = () => {
         return err.response;
       });
   };
-
-  useEffect(() => {
-    if (userID !== 0) {
-      return userProfile._GET_ProfileData(userID).then((res) => {
-        dispatch(getUserDataReducer(res.data.data));
-      });
-    }
-  }, [dispatch, userID, updateSocail]);
-
-  useEffect(() => {
-    if (socialLoading.length) return;
-
-    userData?.social?.forEach((el) => {
-      const currentSite = coreData?.social.find(
-        (site) => site.name === el.title
-      );
-      setSocialLoading((prev) => [
-        ...prev,
-        {
-          ...el,
-          social_id: currentSite.id,
-          idx: currentSite.id - 1,
-        },
-      ]);
-    });
-  }, [userData?.social, coreData?.social, socialLoading]);
-
-  useEffect(() => {
-    if (!socialLoading.length) return;
-    setSocialData(socialLoading);
-  }, [socialLoading]);
-
-  const [newfile, setFiles] = useState({
-    images: [],
-    videos: [],
-    document: [],
-  });
-
-  const [filenames, setNames] = useState([]);
-
   const fileHandler = (files) => {
     const extention = files;
     for (let allFile of extention) {
@@ -146,7 +119,6 @@ const FreelancerMainEditAccountPage = () => {
       alert("file type not supported");
     }
   };
-
   const deleteFiles = (e, file, indx) => {
     let imgs = newfile.images.filter((ele) => ele.name != file);
     let docs = newfile.document.filter((ele) => ele.name != file);
@@ -155,7 +127,6 @@ const FreelancerMainEditAccountPage = () => {
 
     setFiles({ images: imgs, videos: vids, document: docs });
   };
-
   const postUpdate = async () => {
     if (updateLoading) return;
 
@@ -196,14 +167,27 @@ const FreelancerMainEditAccountPage = () => {
       );
     getAllUserUpdate?.updateData?.description !== undefined &&
       mySkill.append("description", getAllUserUpdate?.updateData.description);
-    getAllUserUpdate?.updateData?.countriesID !== undefined &&
-      mySkill.append("country_id", getAllUserUpdate?.updateData.countriesID);
-    getAllUserUpdate?.updateData?.citiesID !== undefined &&
-      mySkill.append("city_id", getAllUserUpdate?.updateData.citiesID);
-    getAllUserUpdate?.updateData?.stateID !== undefined &&
-      mySkill.append("state_id", getAllUserUpdate?.updateData.stateID);
-    getAllUserUpdate?.updateData?.areaID !== undefined &&
-      mySkill.append("area_id", getAllUserUpdate?.updateData.areaID);
+
+    (getAllUserUpdate?.updateData?.countriesID || locationID?.countriesID) &&
+      mySkill.append(
+        "country_id",
+        getAllUserUpdate?.updateData.countriesID || locationID?.countriesID
+      );
+    (getAllUserUpdate?.updateData?.citiesID || locationID?.citiesID) &&
+      mySkill.append(
+        "city_id",
+        getAllUserUpdate?.updateData?.citiesID || locationID?.citiesID
+      );
+    (getAllUserUpdate?.updateData?.stateID || locationID?.stateID) &&
+      mySkill.append(
+        "state_id",
+        getAllUserUpdate?.updateData?.stateID || locationID?.stateID
+      );
+    (getAllUserUpdate?.updateData?.areaID || locationID?.areaID) &&
+      mySkill.append(
+        "area_id",
+        getAllUserUpdate?.updateData.areaID || locationID?.areaID
+      );
 
     categorySkills?.forEach((cate, idx) => {
       mySkill.append(`category[${idx}]`, cate);
@@ -217,7 +201,9 @@ const FreelancerMainEditAccountPage = () => {
     const sklsResult = compainSkls.filter((skill, idx, self) => {
       const isDuplicate =
         idx ===
-        self.findIndex((skl) => skl.id === skill.id && skl.type === skill.type);
+        self?.findIndex(
+          (skl) => skl?.id === skill?.id && skl.type === skill.type
+        );
 
       return isDuplicate;
     });
@@ -264,6 +250,37 @@ const FreelancerMainEditAccountPage = () => {
       });
     localStorage.setItem("valid", 1);
   };
+
+  useEffect(() => {
+    if (userID !== 0) {
+      return userProfile._GET_ProfileData(userID).then((res) => {
+        dispatch(getUserDataReducer(res.data.data));
+      });
+    }
+  }, [dispatch, userID, updateSocail]);
+
+  useEffect(() => {
+    if (socialLoading.length) return;
+
+    userData?.social?.forEach((el) => {
+      const currentSite = coreData?.social?.find(
+        (site) => site.name === el.title
+      );
+      setSocialLoading((prev) => [
+        ...prev,
+        {
+          ...el,
+          social_id: currentSite?.id,
+          idx: currentSite?.id - 1,
+        },
+      ]);
+    });
+  }, [userData?.social, coreData?.social, socialLoading]);
+
+  useEffect(() => {
+    if (!socialLoading.length) return;
+    setSocialData(socialLoading);
+  }, [socialLoading]);
 
   return (
     <div>

@@ -49,10 +49,9 @@ const categories = [
 ];
 
 const mostUse = [
-  { id: 1, name: "افراد" },
-  { id: 2, name: "شركات" },
-  { id: 3, name: "بالقرب مني" },
-  { id: 4, name: "الاكثر رد علي الطلبات" },
+  { id: 1, name: "افراد", key: "freelancer" },
+  { id: 2, name: "شركات", key: "compnay" },
+  { id: 3, name: "بالقرب مني", key: "near" },
 ];
 
 const treeToList = (arr) => {
@@ -102,6 +101,11 @@ const OrdersPage = () => {
   const [location, setLocation] = useState("");
   const [query, setQuery] = useState("");
   const [searchRes, setSearchRes] = useState("");
+  const [mostUsedKeys, setMostUsedKeys] = useState({
+    freelancer: false,
+    compnay: false,
+    near: false,
+  });
 
   const categHandler = (id, state) => {
     setCateg((prev) => {
@@ -218,6 +222,10 @@ const OrdersPage = () => {
       body.set("location", location);
       body.set("attendeesStatus", attendeesStatus);
 
+      body.set("freelancer", mostUsedKeys?.freelancer);
+      body.set("compnay", mostUsedKeys?.compnay);
+      body.set("near", mostUsedKeys?.near);
+
       return userOfferPrice
         ._POST_AllOrderListV2(body)
         .then((res) => {
@@ -229,7 +237,22 @@ const OrdersPage = () => {
     };
 
     fetchAds();
-  }, [categ, key, location, price, currentPage, attendeesStatus]);
+  }, [categ, key, location, price, currentPage, attendeesStatus, mostUsedKeys]);
+
+  useEffect(() => {
+    let mostUsed = mostUse.map((most) => {
+      return {
+        key: most.key,
+        value: mostUseId.find((id) => id === most?.id) ? true : false,
+      };
+    });
+    mostUsed = mostUsed.reduce(
+      (obj, item) => Object.assign(obj, { [item.key]: item.value }),
+      {}
+    );
+
+    setMostUsedKeys(mostUsed);
+  }, [mostUseId]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!userOfferDetatils)

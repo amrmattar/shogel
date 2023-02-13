@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
+import { ChangeFotterState } from "../../../core/redux/reducers/FotterReducer.core";
+
 import AdvertisingFormComponent from "../../../components/requestAQuote/OfferPriceDetails/AdvertisingForm/AdvertisingForm.component";
 import AdvertisingUpdateFormComponent from "../../../components/requestAQuote/OfferPriceDetails/AdvertisingUpdateForm/AdvertisingUpdateForm.component";
 import OfferPriceTitle from "../../../components/requestAQuote/OfferPriceDetails/OfferPriceTitle/OfferPriceTitle.component";
-import { ChangeFotterState } from "../../../core/redux/reducers/FotterReducer.core";
+
 import cls from "./FlancerAdvertisingOffer.pages.module.scss";
 
 const FlancerAdvertisingOfferPage = () => {

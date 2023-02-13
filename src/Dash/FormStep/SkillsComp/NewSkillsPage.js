@@ -277,20 +277,20 @@ const SkillsStep = () => {
       >
         <div className="">
           <ButtonShare
-            type={!chosedSkills.length}
-            onClick={getNext}
-            innerText={"التـــالى"}
-            btnClasses={"cLT-secondary-bg br14"}
-            textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-          />
-        </div>
-        <div className="">
-          <ButtonShare
             smBtn
             onClick={getBack}
             innerText={"رجــــوع"}
             btnClasses={"three cLT-secondary-bg"}
             textClasses={"py-1 px-3 px-md-5 rounded-5"}
+          />
+        </div>
+        <div className="">
+          <ButtonShare
+            type={!chosedSkills.length}
+            onClick={getNext}
+            innerText={"التـــالى"}
+            btnClasses={"cLT-secondary-bg br14"}
+            textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
           />
         </div>
       </div>

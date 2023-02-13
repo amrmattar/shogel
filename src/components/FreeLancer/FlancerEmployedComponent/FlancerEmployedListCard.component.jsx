@@ -1,5 +1,8 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import AmentiesShared from "../../../shared/Amenties/Amenties.shared";
+import ButtonShare from "../../../shared/Button/Button.shared";
+import CircularStatic from "../../../shared/ProgressBar/ProgressBar.shared";
 import { arNumberConverter } from "../../../utils/arNumberConverter";
 import FlancerPersonalInformationComponent from "../fLancerProfile/FlancerPersonalInformation/FlancerPersonalInformation.component";
 import CompletionChart from "./CompletionChart";
@@ -32,7 +35,7 @@ const CircularProgressWithLabel = ({ parentClassName, ...props }) => {
   );
 };
 
-const FlancerEmployedListCard = ({ data, small }) => {
+const FlancerEmployedListCard = ({ data, small, to }) => {
   const myPersonData = {
     id: data.id,
     avatar: data?.avatar,
@@ -43,6 +46,7 @@ const FlancerEmployedListCard = ({ data, small }) => {
     profileComplition: data?.complete_profile,
     info: data?.info,
     description: data?.description,
+    to: to,
   };
 
   return (
@@ -66,23 +70,33 @@ const FlancerEmployedListCard = ({ data, small }) => {
             }
           />
         </div>
-        <div className="d-flex justify-content-end align-items-start p-0">
+        <div
+          style={{ width: "fit-content", marginRight: "auto" }}
+          className="d-flex justify-content-end align-items-center p-0"
+        >
           {/* List Card Rate */}
-          <div className="info-child">
-            <div className="d-flex justify-content-between w-100 align-items-start">
-              {/* User Info [Holder] */}
-
-              <CompletionChart
-                className="d-none d-md-flex"
-                value={myPersonData.profileComplition}
-              />
-
-              <CircularProgressWithLabel
-                parentClassName="d-md-none"
-                value={arNumberConverter(myPersonData.profileComplition || 0)}
-              />
-            </div>
+          <div>
+            <CircularStatic
+              num={arNumberConverter(myPersonData.profileComplition || 0)}
+            />
           </div>
+
+          {myPersonData?.jobName === "freelancer" && (
+            <NavLink
+              style={{ zIndex: 999 }}
+              to={`/freelancer-offer/${myPersonData?.id}`}
+              className={"uLT-list-style me-3 text-decoration-none"}
+            >
+              <div style={{ zIndex: 999 }} className="shadow uLT-f-radius-sB">
+                <ButtonShare
+                  btnClasses="cLT-secondary-bg py-2 cu-pointer px-4  d-flex align-items-center gap-2 uLT-f-radius-sB"
+                  textClasses={`fLT-Regular-sB px-1 cLT-white-text `}
+                  innerText="شغلني"
+                  iconName={"iLT-work-case-white"}
+                />
+              </div>
+            </NavLink>
+          )}
         </div>
         <div className="LT-employed-description">
           {/* Card title */}

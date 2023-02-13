@@ -184,7 +184,7 @@ const DynamicFilter = ({
             )}
           </div>
         )}
-        {mostUse[0] && (
+        {mostUse?.[0] && (
           <div>
             <header
               className={` d-flex border-top border-dark pt-2 justify-content-between align-items-center mb-2`}
@@ -202,17 +202,22 @@ const DynamicFilter = ({
               )}
             </header>
 
-            {mostUse.map((ele, idx) => (
+            {mostUse?.map((ele, idx) => (
               <CategoryHandler
                 isChecked={mostUseId?.includes(ele.id)}
-                changeState={(id) => setMostUseId?.((prev) => [...prev, id])}
+                changeState={(id, check) =>
+                  setMostUseId?.((prev) => {
+                    if (check) return [...prev, id];
+
+                    return [...prev.filter((ele) => ele != id)];
+                  })
+                }
                 key={idx}
                 ele={ele}
               />
             ))}
           </div>
         )}
-
         {!isEmployee && (
           <article className="online-offline">
             <div>

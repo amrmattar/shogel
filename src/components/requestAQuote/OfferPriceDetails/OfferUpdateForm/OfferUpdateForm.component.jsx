@@ -395,8 +395,8 @@ const OfferUpdateFormComponent = ({ taskId }) => {
               className="position-relative px-0 d-grid gap-2"
             >
               <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
-                {" "}
-                عنوان الطلب
+                عنوان الطلب{" "}
+                <span className="small">(يجب ان يكون اكثر من 10 حروف)</span>
               </Form.Label>
               <Form.Control
                 defaultValue={
@@ -755,21 +755,21 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         >
           <div className="">
             <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
+            />
+          </div>
+          <div className="">
+            <ButtonShare
               ID={"send"}
               loading={TaskCheck}
               onClick={(e) => handleCLick(e)}
               innerText={"إرسال"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
-            />
-          </div>
-          <div className="">
-            <ButtonShare
-              smBtn
-              onClick={() => navigate("/")}
-              innerText={"رجوع"}
-              btnClasses={"three cLT-secondary-bg"}
-              textClasses={"py-1 px-3 px-md-5 rounded-5"}
             />
           </div>
         </div>

@@ -156,8 +156,6 @@ const RegisterMobileStep = () => {
 
   // TODO Check Mobile Validation Before Post
   const activeMobileSend = useCallback(() => {
-    console.log(mobileForm.mobile?.length);
-
     mobileForm.mobile?.length <= 5 ? setMobileType(true) : setMobileType(false);
   }, [mobileForm, setMobileType]);
 

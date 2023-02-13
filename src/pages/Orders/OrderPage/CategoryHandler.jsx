@@ -17,7 +17,7 @@ const CategoryHandler = ({ ele, changeState, isSub, isChecked }) => {
       <Checkbox
         onClick={() => {
           setChecked(!checked);
-          changeState(ele.id);
+          changeState(ele.id, !checked);
         }}
         checked={checked}
         defaultChecked

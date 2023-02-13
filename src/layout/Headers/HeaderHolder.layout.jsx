@@ -8,7 +8,7 @@ import { useMediaQuery } from "react-responsive";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
-const HeaderHolder = () => {
+const HeaderHolder = ({ isNotification, setIsNotification }) => {
   const location = useLocation();
   const mediaMD = useMediaQuery({ query: `(max-width: 992px)` });
   const checkLogin = useSelector((state) => state.authentication.loggedIn);
@@ -17,7 +17,10 @@ const HeaderHolder = () => {
     <div className="container-fluid container-md bg-white padd mxFull px-md-0 px-3">
       {/* Navbar Selector */}
       <div className=" px-0 ">
-        <Navbar />
+        <Navbar
+          isNotification={isNotification}
+          setIsNotification={setIsNotification}
+        />
       </div>
       {location.pathname !== "/register" && (
         <>
@@ -38,7 +41,7 @@ const HeaderHolder = () => {
               )}
               {/* Button  */}
               <div className="LT-searchBar-button w-100">
-                <NavLink to="/offer-price">
+                <NavLink to="/offer-price" className={`text-decoration-none`}>
                   <div className="shadow uLT-f-radius-sB">
                     <ButtonShare
                       btnClasses="cLT-secondary-bg p-1 h40 uLT-f-radius-sB d-none d-md-block"

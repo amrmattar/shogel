@@ -10,7 +10,7 @@ const TimeSaving = ({ data }) => {
     {
       iconName: deadLine,
       name: "تثمين الوقت",
-      timeDescription: `كمستخدم :نوفر وقتك من خلال انجازك بآسرع الطرق
+      timeDescription: `كمستخدم :ننجز اشغالك بأسرع الطرق
       كمشتغل :  نجعل وقت فراغك يعود عليك بثمن`,
     },
     {

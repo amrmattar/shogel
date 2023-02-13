@@ -12,11 +12,11 @@ import { IconButton } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 
 const mostUse = [
-  { id: 1, name: "افراد" },
-  { id: 2, name: "شركات" },
-  { id: 3, name: "بالقرب مني" },
-  { id: 4, name: "الاكثر رد علي الطلبات" },
+  { id: 1, name: "افراد", key: "freelancer" },
+  { id: 2, name: "شركات", key: "compnay" },
+  { id: 3, name: "بالقرب مني", key: "near" },
 ];
+
 const Employed = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -27,6 +27,16 @@ const Employed = () => {
   // Todo Block Of Get All Advertising Form
   const [currentPage, setCurrentPage] = useState(null);
   const [flancersList, setFlancersList] = useState();
+  const [mostUseId, setMostUseId] = useState([]);
+  const [mostUsedKeys, setMostUsedKeys] = useState({
+    freelancer: false,
+    compnay: false,
+    near: false,
+  });
+
+  const resetCateg = () => {
+    setCateg([]);
+  };
 
   const [pagination, setPagination] = useState();
   const handleAdvsPagination = useMemo(() => {
@@ -75,11 +85,12 @@ const Employed = () => {
     fetchCategories();
   }, []);
 
-  const resetCateg = () => {
-    setCateg([]);
-  };
   ////////////////////////////////////////
   const timeRef = useRef(0);
+
+  const resetMost = () => {
+    setMostUseId([]);
+  };
 
   useEffect(() => {
     clearTimeout(timeRef.current);
@@ -95,6 +106,11 @@ const Employed = () => {
       body.set("rate", rate == 0 ? null : rate);
       body.set("available", active);
       body.set("location", location);
+
+      body.set("freelancer", mostUsedKeys?.freelancer);
+      body.set("compnay", mostUsedKeys?.compnay);
+      body.set("near", mostUsedKeys?.near);
+
       freelancersListProfile
         ._POST_FreelancersListProfileV2(body)
         .then((res) => {
@@ -106,7 +122,7 @@ const Employed = () => {
         });
     }, 1000);
     return () => clearTimeout(timeRef.current);
-  }, [rate, active, location, categ, key]);
+  }, [rate, active, location, categ, key, mostUsedKeys]);
 
   useEffect(() => {
     const fetchAds = async () => {
@@ -121,6 +137,11 @@ const Employed = () => {
       body.set("rate", rate == 0 ? null : rate);
       body.set("available", active);
       body.set("location", location);
+
+      body.set("freelancer", mostUsedKeys?.freelancer);
+      body.set("compnay", mostUsedKeys?.compnay);
+      body.set("near", mostUsedKeys?.near);
+
       freelancersListProfile
         ._POST_FreelancersListProfileV2(body)
         .then((res) => {
@@ -133,7 +154,22 @@ const Employed = () => {
     };
 
     fetchAds();
-  }, [currentPage, rate, active, location, categ, key]);
+  }, [currentPage, rate, active, location, categ, key, mostUsedKeys]);
+
+  useEffect(() => {
+    let mostUsed = mostUse.map((most) => {
+      return {
+        key: most.key,
+        value: mostUseId.find((id) => id === most?.id) ? true : false,
+      };
+    });
+    mostUsed = mostUsed.reduce(
+      (obj, item) => Object.assign(obj, { [item.key]: item.value }),
+      {}
+    );
+
+    setMostUsedKeys(mostUsed);
+  }, [mostUseId]);
 
   // Condition For Show Loading Style Untill Data Return From API
   if (!flancersList?.data)
@@ -165,9 +201,9 @@ const Employed = () => {
 
         <div className={cls.holder + " d-block d-md-grid"}>
           <DynamicFilter
+            isEmployee
             isFilterOpen={isFilterOpen}
             setIsFilterOpen={setIsFilterOpen}
-            isEmployee={true}
             setCategory={categHandler}
             setActive={setActive}
             setRate={setRate}
@@ -177,18 +213,20 @@ const Employed = () => {
             mostUse={mostUse}
             categories={categories}
             activesId={categ}
+            resetMost={resetMost}
+            setMostUseId={setMostUseId}
+            mostUseId={mostUseId}
           />
           {flancersList?.data.length !== 0 ? (
             <div className="cLT-white-bg p-3 ">
               {flancersList?.data?.map((list, idx) => {
                 return (
-                  <NavLink
-                    className="uLT-list-style"
-                    to={`/employed/freelancer-profile/${list?.id}`}
+                  <FlancerEmployedListCard
                     key={idx}
-                  >
-                    <FlancerEmployedListCard small data={list} />
-                  </NavLink>
+                    to={`/employed/freelancer-profile/${list?.id}`}
+                    small
+                    data={list}
+                  />
                 );
               })}
             </div>

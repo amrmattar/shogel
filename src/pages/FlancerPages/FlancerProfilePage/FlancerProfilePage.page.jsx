@@ -8,6 +8,7 @@ import FlancerCommentAndReviews from "../../../components/FreeLancer/fLancerProf
 import FlancerRate from "../../../components/FreeLancer/fLancerProfile/FlancerRate/FlancerRate.component";
 import { advertisingLists } from "../../../core/services/AdvertisingOfferServices/AdvertisingOfferServices.core";
 import PageTitle from "../../../shared/PageTitle/PageTitle.shared";
+import { arNumberConverter } from "../../../utils/arNumberConverter";
 import "./FlancerProfilePage.page.scss";
 const FlancerProfilePage = ({ data }) => {
   const param = useParams();
@@ -36,7 +37,10 @@ const FlancerProfilePage = ({ data }) => {
       {/* User Rating */}
       <div className="">
         <PageTitle title="التقيمات" />
-        <FlancerRate rate={data?.rate || 0} />
+        <FlancerRate
+          rate={data?.rate || 0}
+          count={arNumberConverter(data.rate?.count || 0)}
+        />
       </div>
       {/* User Reviews */}
       {data?.comment?.length ? (
@@ -49,6 +53,7 @@ const FlancerProfilePage = ({ data }) => {
                   <div className="" key={ix}>
                     {" "}
                     <FlancerCommentAndReviews
+                      elem={elem}
                       reviews={data?.rate?.rate || 0}
                     />{" "}
                   </div>
@@ -60,7 +65,6 @@ const FlancerProfilePage = ({ data }) => {
       ) : (
         <></>
       )}
-
       {/* User Certificates */}
       {/* {data?.role?.name === "freelancer" && ( */}
       <>
@@ -98,13 +102,13 @@ const FlancerProfilePage = ({ data }) => {
                 {myAdvs?.map((advs, idx) => {
                   return (
                     <NavLink
+                      className="uLT-list-style"
+                      to={`/advertising/advertise-details/${advs.id}`}
+                      key={idx}
                       style={{
                         padding: "0 5px",
                         border: "#E9E9E9 solid 1px",
                       }}
-                      className="uLT-list-style"
-                      to={`/advertising/advertise-details/${advs.id}`}
-                      key={idx}
                     >
                       <FlancerAdvsGridCards data={advs} />
                     </NavLink>
