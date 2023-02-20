@@ -26,11 +26,13 @@ const NotificationToast = ({ notification, setNotification }) => {
   // Notification & user data
   const [notificationData, setNotificationData] = useState({});
   const [user] = useSelector((state) => [state.userFullData]);
+  const [userLoading, setUserLoading] = useState(false);
   const { FCMToken } = useSelector(({ userData }) => userData);
 
   // message lisinter
   useEffect(() => {
-    if (!Object.keys(user).length) return;
+    if (!Object.keys(user).length || userLoading) return;
+    setUserLoading(true);
 
     const q = query(
       collection(firestore, "messages"),
@@ -67,8 +69,8 @@ const NotificationToast = ({ notification, setNotification }) => {
     );
 
     // clean up
-    return () => unsubscribe();
-  }, [user]);
+    // return () => unsubscribe();
+  }, [user, userLoading]);
 
   // default notification lisinter
   useEffect(() => {

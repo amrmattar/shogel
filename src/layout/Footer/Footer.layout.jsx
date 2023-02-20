@@ -31,7 +31,6 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    console.log(socialMedia);
     socialMedia?.forEach((el) => {
       switch (el?.id) {
         case 15:

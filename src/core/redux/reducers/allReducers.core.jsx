@@ -18,6 +18,7 @@ import CoreDataReducer from "./CoreDataReducer/CoreDataReducer";
 import UserDataReducerCore from "./UserDataReducer/UserDataReducer.core";
 import RegisterCategoryReducer from "./RegisterReducer/RegisterCategory.core";
 import searchReducer from "./Search/Search.core";
+import convertToFreeLancerMode from "./convertToFreeLancerMode";
 
 export const allReducers = combineReducers({
   register: RegisterReducerCore,
@@ -38,4 +39,5 @@ export const allReducers = combineReducers({
   registerCategory: RegisterCategoryReducer,
   Fotter: FotterReducer,
   search: searchReducer,
+  convertToFreeLancerMode: convertToFreeLancerMode,
 });

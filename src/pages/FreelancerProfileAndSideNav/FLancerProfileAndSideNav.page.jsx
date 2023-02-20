@@ -15,7 +15,7 @@ const FLancerProfileAndSideNavPage = () => {
   const [isResult, setResult] = useState({});
 
   useEffect(() => {
-    if (Object.keys(isResult).length) return;
+    if (Object.keys(isResult).length && isResult?.id == param?.id) return;
 
     userProfile
       ._GET_ProfileData(param.id)

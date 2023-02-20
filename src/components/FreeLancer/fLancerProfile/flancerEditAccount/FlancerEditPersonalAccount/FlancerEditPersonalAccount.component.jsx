@@ -18,7 +18,12 @@ import {
   arNumberConverter,
 } from "../../../../../utils/arNumberConverter";
 
-const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
+const FlancerEditPersonalAccountComponent = ({
+  data,
+  userProfileData,
+  convertToFreeLancerMode,
+}) => {
+  console.log();
   const [userRole] = useSelector((state) => [state.userRole.userRole]);
   const userIsData = useMemo(() => {
     if (userProfileData) {
@@ -307,7 +312,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
         </div>
       </Row>
       {/* Third Row */}
-      {userRole !== "2" && (
+      {(userProfileData?.role?.id != "2" || convertToFreeLancerMode) && (
         <>
           <Row className="d-flex align-items-center">
             {/* National ID */}
@@ -332,27 +337,25 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
               />
             </Form.Group>
             {/* Job Title */}
-            {userRole !== "2" && (
-              <Form.Group
-                as={Col}
-                sm={12}
-                md={6}
-                controlId="formGridUserName"
-                className="px-0"
-              >
-                <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
-                  الوصف المختصر
-                </Form.Label>
-                <Form.Control
-                  name="description"
-                  className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
-                  type="text"
-                  placeholder="مطور ويب | خبير صيانه"
-                  onChange={(e) => descHandler(e)}
-                  defaultValue={userIsData?.description || ""}
-                />
-              </Form.Group>
-            )}
+            <Form.Group
+              as={Col}
+              sm={12}
+              md={6}
+              controlId="formGridUserName"
+              className="px-0"
+            >
+              <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
+                الوصف المختصر
+              </Form.Label>
+              <Form.Control
+                name="description"
+                className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
+                type="text"
+                placeholder="مطور ويب | خبير صيانه"
+                onChange={(e) => descHandler(e)}
+                defaultValue={userIsData?.description || ""}
+              />
+            </Form.Group>
           </Row>
           <Row>
             {/* Gender */}
@@ -409,7 +412,7 @@ const FlancerEditPersonalAccountComponent = ({ data, userProfileData }) => {
         </>
       )}
       {/* Four Row [Gender & Nationality] */}
-      {userRole == "2" && (
+      {userProfileData?.role?.id == "2" && !convertToFreeLancerMode && (
         <Row className="flex align-items-center">
           {/* National ID */}
           <Form.Group

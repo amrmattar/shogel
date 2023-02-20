@@ -43,7 +43,6 @@ const App = () => {
     });
 
   const [locationID] = useSelector((state) => [state.locationID]);
-
   const getCoreData = useMemo(() => {
     let modal = [
       "country",

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import defautFlag from "../../../../assets/icons/Advs-flag.svg";
 import ButtonShare from "../../../../shared/Button/Button.shared";
+
 const FlancerPersonalInformationComponent = ({
   statusIcon,
   myData,
@@ -51,11 +51,7 @@ const FlancerPersonalInformationComponent = ({
                       {myData?.fullname || myData?.name}
                     </p>
                     <img
-                      src={
-                        myData?.nationality?.logo
-                          ? myData?.nationality?.logo
-                          : defautFlag
-                      }
+                      src={myData?.nationality?.logo}
                       alt=""
                       className={`${
                         location.pathname === "/"
@@ -64,20 +60,13 @@ const FlancerPersonalInformationComponent = ({
                     {/* <i className={` iLT-Advs-flag uLT-img-contain iLT-sC`}></i> */}
                   </div>
                   <p
-                    style={
-                      nowrap
-                        ? {
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            width: "70%",
-                          }
-                        : nowraps
-                        ? {
-                            whiteSpace: "nowrap",
-                          }
-                        : {}
-                    }
+                    style={{
+                      overflow: "hidden",
+                      height: "3rem",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      width: 100,
+                    }}
                     className="m-0 cLT-support2-text  fLT-Regular-sB"
                   >
                     {myData?.description == "null"
@@ -129,11 +118,7 @@ const FlancerPersonalInformationComponent = ({
                     {myData?.fullname || myData?.name}
                   </p>
                   <img
-                    src={
-                      myData?.nationality?.logo
-                        ? myData?.nationality?.logo
-                        : defautFlag
-                    }
+                    src={myData?.nationality?.logo}
                     alt=""
                     className={`${location.pathname === "/"} ? iLT-sB : iLT-sC`}
                   />
@@ -156,7 +141,9 @@ const FlancerPersonalInformationComponent = ({
                   }
                   className="m-0 cLT-support2-text fLT-Regular-sB"
                 >
-                  {myData?.description}
+                  {myData?.description == "null"
+                    ? "لا يوجد وصف مختصر"
+                    : myData?.description}
                 </p>
               </div>
             </div>

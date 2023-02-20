@@ -21,9 +21,7 @@ export const fetchToken = (setFCMToken) => {
 
   return getToken(messaging, { vapidKey })
     .then((currentToken) => {
-      if (currentToken) {
-        return setFCMToken(currentToken);
-      }
+      if (currentToken) return setFCMToken(currentToken);
 
       setFCMToken("");
       console.log("'Token' not found");

@@ -751,17 +751,8 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         </article>
 
         <div
-          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+          className={`d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse`}
         >
-          <div className="">
-            <ButtonShare
-              smBtn
-              onClick={() => navigate("/")}
-              innerText={"رجوع"}
-              btnClasses={"three cLT-secondary-bg"}
-              textClasses={"py-1 px-3 px-md-5 rounded-5"}
-            />
-          </div>
           <div className="">
             <ButtonShare
               ID={"send"}
@@ -770,6 +761,16 @@ const OfferUpdateFormComponent = ({ taskId }) => {
               innerText={"إرسال"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
             />
           </div>
         </div>

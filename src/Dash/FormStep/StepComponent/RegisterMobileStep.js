@@ -179,14 +179,15 @@ const RegisterMobileStep = () => {
         })
       );
       setIsLoading(true);
-      // dispatch(getMobileNumber(ConvertToArabicNumbers(mobileForm?.mobile.split(" ").join(""))))
-      const mobileNumber = `${selectedCountry.code}${mobileForm?.mobile
-        .split(" ")
-        .join("")}`;
-      dispatch(getMobileNumber(mobileNumber));
+
+      const mobileNumber = mobileForm?.mobile;
+      const country_code = selectedCountry?.code;
+      console.log(country_code);
+      dispatch(getMobileNumber(`${country_code}${mobileNumber}`));
 
       MobileServices._POST_MobileNumber({
         mobile: mobileNumber,
+        country_code,
       })
         .then((res) => {
           dispatch(
@@ -213,7 +214,7 @@ const RegisterMobileStep = () => {
           setIsLoading(false);
         });
     },
-    [dispatch, mobileForm, messages]
+    [dispatch, mobileForm, messages, selectedCountry?.code]
   );
 
   // TODO POST Mobile Number TO Check

@@ -104,6 +104,7 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
             style={{
               whiteSpace: "pre-wrap",
               overflowWrap: "anywhere",
+              width: "80%",
             }}
             className="m-0 fLT-Regular-sB text-dark"
           >

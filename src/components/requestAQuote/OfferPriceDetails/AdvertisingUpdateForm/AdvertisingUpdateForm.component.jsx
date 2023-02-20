@@ -270,38 +270,24 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
       media.append(`category[${idx}]`, newCate.id);
     });
 
-    media.set(
-      "type_work",
-      formData.type_work || loadAdvsData?.type_work || "online"
-    );
+    // media.set(
+    //   "type_work",
+    //   formData.type_work || loadAdvsData?.type_work || "online"
+    // );
     formData.address &&
       media.set("address", formData.address || loadAdvsData?.address);
-    selectedCountry?.name &&
-      media.set(
-        "country_id",
-        selectedCountry?.id ||
-          selectedCountry?.name ||
-          loadAdvsData?.country?.id
-      );
-    selectedCity?.name &&
-      media.set(
-        "city_id",
-        selectedCity?.id || selectedCity?.name | 0 | loadAdvsData?.city?.id
-      );
-    selectedState?.name &&
-      media.set(
-        "state_id",
-        selectedState?.id || selectedState?.name || loadAdvsData?.state?.id
-      );
-    selectedArea?.name &&
-      media.set(
-        "area_id",
-        selectedArea?.id || selectedArea?.name || loadAdvsData?.area?.id
-      );
+    selectedCountry?.id &&
+      media.set("country_id", selectedCountry?.id || loadAdvsData?.country?.id);
+    selectedCity?.id &&
+      media.set("city_id", selectedCity?.id || 0 || loadAdvsData?.city?.id);
+    selectedState?.id &&
+      media.set("state_id", selectedState?.id || loadAdvsData?.state?.id);
+    selectedArea?.id &&
+      media.set("area_id", selectedArea?.id || loadAdvsData?.area?.id);
+    selectedArea?.id === "0" && media.set("area_name", selectedAreName);
 
-    if (formData.type_work === "offline") {
-      selectedArea?.id === "0" && media.set("area_name", selectedAreName);
-    }
+    // if (formData.type_work === "offline") {
+    // }
 
     // @Param POST Method To API */
     advertisingLists
@@ -509,7 +495,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
             noHover
           />
         </div>
-        <Form.Group
+        {/* <Form.Group
           as={Col}
           sm={12}
           controlId="formGridTypeWork"
@@ -584,7 +570,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
               />
             </Form.Group>
           </Row>
-        )}
+        )} */}
         {/* Skills-Grid [Holder] */}
         <div className="d-grid gap-3 pb-4 h-100">
           {/* [Title] */}
@@ -793,17 +779,8 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
           {/* [Request Button */}
 
           <div
-            className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+            className={`d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse`}
           >
-            <div className="">
-              <ButtonShare
-                smBtn
-                onClick={() => navigate("/")}
-                innerText={"رجوع"}
-                btnClasses={"three cLT-secondary-bg"}
-                textClasses={"py-1 px-3 px-md-5 rounded-5"}
-              />
-            </div>
             <div className="">
               <ButtonShare
                 loading={isLoading}
@@ -812,6 +789,16 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
                 innerText={"إرسال"}
                 btnClasses={"cLT-secondary-bg br14"}
                 textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+              />
+            </div>
+
+            <div className="">
+              <ButtonShare
+                smBtn
+                onClick={() => navigate("/")}
+                innerText={"رجوع"}
+                btnClasses={"three cLT-secondary-bg"}
+                textClasses={"py-1 px-3 px-md-5 rounded-5"}
               />
             </div>
           </div>

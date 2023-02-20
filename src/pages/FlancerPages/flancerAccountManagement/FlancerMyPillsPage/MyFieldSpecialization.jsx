@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 
 import OrderListCardComponent from "../../../../components/OrdersComponent/OrderListCard/OrderListCard.component";
@@ -11,6 +12,11 @@ const MyFieldSpecialization = ({ offerStatus, setPagination }) => {
 
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [vistorUser, getSearchKey] = useSelector((state) => [
+    state.authentication.loggedIn,
+    state.search,
+  ]);
 
   useEffect(() => {
     userOfferPrice
@@ -42,25 +48,28 @@ const MyFieldSpecialization = ({ offerStatus, setPagination }) => {
         <>
           {list?.length ? (
             <>
-              {list?.map((data, idx) => {
+              {list?.map((offer, ix) => {
                 return (
                   <NavLink
                     className="card px-3 pt-3 mb-3 uLT-f-radius-sB uLT-list-style"
-                    to={`/orders/order-details/${data?.id}`}
-                    key={idx}
+                    to={`/orders/order-details/${offer.id}`}
+                    key={ix}
                   >
                     <OrderListCardComponent
-                      key={idx}
-                      orderTitle={data?.name}
-                      orderStatus={data?.status?.name}
-                      orderDescription={data?.description}
+                      roll={vistorUser}
+                      offer={offer}
+                      isOrder
                       amentiesSelector={
                         <AmentiesShared
-                          orderData={data}
+                          orderData={offer}
                           amentiesWithIcon="orderAmenties"
                         />
                       }
-                    />
+                      orderDescription={offer?.description}
+                      orderTitle={offer?.name}
+                      orderStyle={"uLT-bd-b-platinum-sA"}
+                      orderStatus={offer?.status?.name}
+                    />{" "}
                   </NavLink>
                 );
               })}

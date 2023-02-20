@@ -303,15 +303,16 @@ const OfferPriceForm = () => {
     offerPrice.set("name", formData.name);
     offerPrice.set("description", content);
     offerPrice.set("type_work", formData.type_work);
-    offerPrice.set("country_id", selectedCountry?.id || 0);
-    offerPrice.set("city_id", selectedCity?.id || 0);
+    selectedCountry?.id &&
+      offerPrice.set("country_id", selectedCountry?.id || 0);
+    selectedCity?.id && offerPrice.set("city_id", selectedCity?.id || 0);
     offerPrice.set("time", arNumberConverter(formData.time || 0));
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
     }
 
-    offerPrice.set("state_id", selectedState?.id || selectedState?.name);
-    offerPrice.set("area_id", selectedArea?.id || selectedArea?.name);
+    selectedState?.id && offerPrice.set("state_id", selectedState?.id);
+    selectedArea?.id && offerPrice.set("area_id", selectedArea?.id);
     selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
     getAllUserUpdate.category?.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
@@ -537,6 +538,7 @@ const OfferPriceForm = () => {
               <Form.Group as={Col} md={12} className="mb-3">
                 <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
                   العنوان بالتفصيل <span className="cLT-danger-text">*</span>{" "}
+                  <span className="small">(يجب ادخال المنطقه ايضا)</span>
                 </Form.Label>
                 <Form.Control
                   onChange={handleChange}
@@ -883,18 +885,8 @@ const OfferPriceForm = () => {
         )}
 
         <div
-          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+          className={`d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse`}
         >
-          <div className="">
-            <ButtonShare
-              smBtn
-              onClick={() => navigate("/")}
-              innerText={"رجوع"}
-              btnClasses={"three cLT-secondary-bg"}
-              textClasses={"py-1 px-3 px-md-5 rounded-5"}
-            />
-          </div>
-
           <div className="">
             <ButtonShare
               type={disable}
@@ -903,6 +895,16 @@ const OfferPriceForm = () => {
               loading={advsCheck}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
             />
           </div>
         </div>

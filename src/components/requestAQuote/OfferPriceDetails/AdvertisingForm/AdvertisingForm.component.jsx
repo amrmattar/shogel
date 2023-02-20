@@ -145,20 +145,16 @@ const AdvertisingFormComponent = () => {
     getAllUserUpdate.category.forEach((cate, idx) => {
       media.append(`category[${idx}]`, cate);
     });
-    media.set("type_work", formData.type_work || "online");
+    // media.set("type_work", formData.type_work || "online");
     formData.address && media.set("address", formData.address);
-    selectedCountry?.name &&
-      media.set("country_id", selectedCountry?.id || selectedCountry?.name);
-    selectedCity?.name &&
-      media.set("city_id", selectedCity?.id || selectedCity?.name);
-    selectedState?.name &&
-      media.set("state_id", selectedState?.id || selectedState?.name);
-    selectedArea?.name &&
-      media.set("area_id", selectedArea?.id || selectedArea?.name);
+    selectedCountry?.id && media.set("country_id", selectedCountry?.id);
+    selectedCity?.id && media.set("city_id", selectedCity?.id);
+    selectedState?.id && media.set("state_id", selectedState?.id);
+    selectedArea?.id && media.set("area_id", selectedArea?.id);
+    selectedArea?.id === "0" && media.set("area_name", selectedAreName);
 
-    if (formData.type_work === "offline") {
-      selectedArea?.id === "0" && media.set("area_name", selectedAreName);
-    }
+    // if (formData.type_work === "offline") {
+    // }
 
     advertisingLists
       ._POST_AdvertisingOffer(media)
@@ -382,15 +378,12 @@ const AdvertisingFormComponent = () => {
   const advsMaxCharacters = 5000;
 
   useEffect(() => {
-    if (
-      getAllUserUpdate.category?.length > 0 &&
-      !(formData.type_work === "offline" && !formData.address)
-    ) {
+    if (getAllUserUpdate.category?.length > 0) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-  }, [getAllUserUpdate, selectedArea, formData.type_work, formData.address]);
+  }, [getAllUserUpdate]);
   const [showSkills, setShowSkills] = useState(false);
   const [allSkills, setAllSkills] = useState(false);
   const fetchAllSkills = async () => {
@@ -511,7 +504,7 @@ const AdvertisingFormComponent = () => {
             noHover
           />
         </div>
-        <Form.Group
+        {/* <Form.Group
           as={Col}
           sm={12}
           controlId="formGridTypeWork"
@@ -585,7 +578,7 @@ const AdvertisingFormComponent = () => {
               />
             </Form.Group>
           </Row>
-        )}
+        )} */}
         {/* Skills-Grid [Holder] */}
         <div className="d-grid position-relative mb-4">
           {/* [Title] */}
@@ -817,18 +810,8 @@ const AdvertisingFormComponent = () => {
         </div> */}
 
         <div
-          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+          className={`d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse`}
         >
-          <div>
-            <ButtonShare
-              smBtn
-              onClick={() => navigate("/")}
-              innerText={"رجوع"}
-              btnClasses={"three cLT-secondary-bg"}
-              textClasses={"py-1 px-3 px-md-5 rounded-5"}
-            />
-          </div>
-
           <div>
             <ButtonShare
               type={disabled}
@@ -836,6 +819,16 @@ const AdvertisingFormComponent = () => {
               innerText={"إرسال"}
               btnClasses={"cLT-secondary-bg br14"}
               textClasses={"py-1 px-5 cLT-white-text fLT-Regular-sB"}
+            />
+          </div>
+
+          <div>
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
             />
           </div>
         </div>

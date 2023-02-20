@@ -77,11 +77,16 @@ const Navbar = ({ isNotification, setIsNotification }) => {
   const settings = [
     {
       id: 1,
+      name: "عرض الملف الشخصي",
+      routeTo: `/employed/freelancer-profile/${activeUserId}`,
+    },
+    {
+      id: 2,
       name: "إدارة حسابي",
       routeTo: `account_management/my-edit-account/${activeUserId}`,
     },
     {
-      id: 2,
+      id: 3,
       name: "تسجيل خروج",
       routeTo: "/",
     },

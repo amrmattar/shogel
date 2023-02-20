@@ -89,7 +89,7 @@ const FlancerAdvsListCardComponent = ({ data, roll }) => {
                   time={data?.created_at_value}
                   currency={data?.currency?.name}
                   price={data?.price}
-                  locationName={`${data?.user?.country?.name}, ${data?.user?.city?.name}`}
+                  locationName={`${data?.country?.name}, ${data?.city?.name}`}
                 />
               )}
             </div>
@@ -102,7 +102,7 @@ const FlancerAdvsListCardComponent = ({ data, roll }) => {
                   time={data?.created_at_value}
                   currency={data?.currency?.name}
                   price={data?.price}
-                  locationName={`${data?.user?.country?.name}, ${data?.user?.city?.name}`}
+                  locationName={`${data?.country?.name}, ${data?.city?.name}`}
                 />
               )}
             </div>

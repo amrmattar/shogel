@@ -36,14 +36,13 @@ const OrderDetailsFilterComponent = ({ detailsData }) => {
           <p
             style={{
               width: "100%",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
             }}
-            className="m-0 me-2 text-start cLT-support2-text fLT-Regular-sB text-nowrap"
+            className="m-0 me-2 text-start cLT-support2-text fLT-Regular-sB"
           >
             {detailsData?.address}
           </p>
         </div>
+
         <div className="d-flex align-items-center justify-content-between gap-2">
           <p className="m-0 cLT-support2-text fLT-Regular-sB text-nowrap">
             تاريخ النشر

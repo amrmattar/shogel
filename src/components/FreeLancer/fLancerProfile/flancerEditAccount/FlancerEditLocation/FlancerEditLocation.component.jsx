@@ -15,7 +15,11 @@ import {
 } from "../../../../../core/redux/reducers/RegisterReducer/RegisterLocationID.core";
 import { RegisterServices } from "../../../../../core/services/AuthServices/Method_RegisterData/Method_RegisterData.core";
 
-const FlancerEditLocationComponent = ({ userProfileLocation }) => {
+const FlancerEditLocationComponent = ({
+  userProfileLocation,
+  setSelectedAreName,
+  selectedAreName,
+}) => {
   const [getAllCountryFromResponse, setGetAllCountryFromResponse] = useState();
 
   const dispatch = useDispatch();
@@ -68,7 +72,18 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
       locationIDs?.citiesID || userProfileLocation?.city?.id,
       locationIDs?.stateID || userProfileLocation?.state?.id
     ).then((res) => {
-      setGetAllCountryFromResponse(res.data.data);
+      const other = {
+        id: "0",
+        name: "اخري",
+        country: {},
+        city: {},
+        state: {},
+      };
+
+      setGetAllCountryFromResponse({
+        ...res.data.data,
+        area: [...res.data.data?.area, other],
+      });
     });
   }, [
     userProfileLocation?.country?.id,
@@ -230,7 +245,9 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
         <Form.Group as={Col} md={6} className="'mb-3 mb-md-0">
           {/* Area [Option]  */}
           <div
-            className={`uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
+            className={`${
+              selectedArea?.id == "0" ? "d-none" : ""
+            } uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB `}
           >
             <AreaSelect
               isProps={{
@@ -239,6 +256,29 @@ const FlancerEditLocationComponent = ({ userProfileLocation }) => {
               }}
               ref={refe}
             />
+          </div>
+
+          <div
+            className={`${
+              selectedArea?.id == "0" ? "d-flex" : "d-none"
+            } justify-content-center align-items-center`}
+          >
+            <Form.Control
+              hidden={selectedArea?.id != "0"}
+              name="area_name"
+              className="uLT-bd-f-platinum-sA uLT-f-radius-sB cLT-main-text fLT-Regular-sB"
+              type="text"
+              placeholder="ادخل اسم الحي"
+              onChange={(e) => setSelectedAreName(e.target.value)}
+            />
+
+            <p
+              onClick={() => setSelectedArea(null)}
+              style={{ fontFamily: "sans-serif" }}
+              className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+            >
+              X
+            </p>
           </div>
         </Form.Group>
       </Row>

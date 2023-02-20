@@ -48,10 +48,21 @@ const ViewLayout = ({ isNotification, setIsNotification }) => {
           location.pathname.includes("/account_management")
             ? "d-flex gap-3 flex-column flex-lg-row px-3 container-lg px-lg-0"
             : ""
-        } ${location.pathname !== "/" ? "pt-4" : ""}`}
+        }`}
       >
-        <SideNav />
-        <MasterContainer setIsNotification={setIsNotification} />
+        {location.pathname?.includes("advertising") ||
+        location.pathname?.includes("orders") ||
+        location.pathname?.includes("employed") ? (
+          <div className="container-fluid container-md mxFull px-md-0 px-3">
+            <SideNav />
+            <MasterContainer setIsNotification={setIsNotification} />
+          </div>
+        ) : (
+          <>
+            <SideNav />
+            <MasterContainer setIsNotification={setIsNotification} />
+          </>
+        )}
       </main>
       {/* Footer  [Holder] */}
       {show &&

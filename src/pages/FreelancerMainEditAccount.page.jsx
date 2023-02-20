@@ -10,6 +10,8 @@ import { getMessages } from "../core/redux/reducers/Messages/Messages.core";
 import { toast } from "react-toastify";
 
 const FreelancerMainEditAccountPage = () => {
+  const [selectedAreName, setSelectedAreName] = useState("");
+
   const mySkill = new FormData();
   const [
     userID,
@@ -22,6 +24,7 @@ const FreelancerMainEditAccountPage = () => {
     currentSkls,
     coreData,
     locationID,
+    { convertToFreeLancerMode },
   ] = useSelector((state) => {
     return [
       state.userData?.id,
@@ -34,6 +37,7 @@ const FreelancerMainEditAccountPage = () => {
       state?.certificateSkills?.fCertificate,
       state.coreData,
       state?.locationID,
+      state?.convertToFreeLancerMode,
     ];
   });
   const dispatch = useDispatch();
@@ -54,13 +58,6 @@ const FreelancerMainEditAccountPage = () => {
   const handleSocial = async () => {
     const social = new FormData();
 
-    dispatch(
-      getMessages({
-        messages: "جارى التحديث",
-        messageType: "info",
-        messageClick: true,
-      })
-    );
     socialData.forEach(({ social_id, idx, value }) => {
       if (isNaN(social_id) || isNaN(idx)) return;
 
@@ -74,23 +71,9 @@ const FreelancerMainEditAccountPage = () => {
     updateProfile
       ._POST_UpdateProfile(userID, social)
       .then((res) => {
-        dispatch(
-          getMessages({
-            messages: res?.data?.message,
-            messageType: "success",
-            messageClick: true,
-          })
-        );
         setUpdateSocail(false);
       })
       .catch((err) => {
-        dispatch(
-          getMessages({
-            messages: err?.response?.data?.message,
-            messageType: "error",
-            messageClick: true,
-          })
-        );
         return err.response;
       });
   };
@@ -129,6 +112,31 @@ const FreelancerMainEditAccountPage = () => {
   };
   const postUpdate = async () => {
     if (updateLoading) return;
+    // check description
+    if (
+      !getAllUserUpdate?.updateData.description &&
+      !getAllUserUpdate?.discription &&
+      convertToFreeLancerMode
+    ) {
+      return dispatch(
+        getMessages({
+          messages: "نبذه عني حقل مطلوب",
+          messageType: "error",
+          messageClick: true,
+        })
+      );
+    }
+
+    // check categorySkills
+    if (!categorySkills?.length && convertToFreeLancerMode) {
+      return dispatch(
+        getMessages({
+          messages: "يرجي ادخال مجالات الاختصاص",
+          messageType: "error",
+          messageClick: true,
+        })
+      );
+    }
 
     setUpdateLoading(true);
     await handleSocial();
@@ -140,11 +148,20 @@ const FreelancerMainEditAccountPage = () => {
         messageClick: true,
       })
     );
+
     const docs = [...newfile.videos, ...newfile.images, ...newfile.document];
 
     docs?.forEach((doc, idx) => {
       return mySkill.append(`document[${idx}]`, doc);
     });
+
+    mySkill.append("role_convert", convertToFreeLancerMode);
+    getAllUserUpdate?.updateData?.description !== undefined &&
+      mySkill.append(
+        "description",
+        getAllUserUpdate?.updateData.description ||
+          getAllUserUpdate?.discription
+      );
 
     mySkill.append("email", getAllUserUpdate?.updateData.email);
     getAllUserUpdate?.discription &&
@@ -165,8 +182,6 @@ const FreelancerMainEditAccountPage = () => {
         "nationality_number",
         getAllUserUpdate?.updateData.nationality_number
       );
-    getAllUserUpdate?.updateData?.description !== undefined &&
-      mySkill.append("description", getAllUserUpdate?.updateData.description);
 
     (getAllUserUpdate?.updateData?.countriesID || locationID?.countriesID) &&
       mySkill.append(
@@ -183,11 +198,14 @@ const FreelancerMainEditAccountPage = () => {
         "state_id",
         getAllUserUpdate?.updateData?.stateID || locationID?.stateID
       );
-    (getAllUserUpdate?.updateData?.areaID || locationID?.areaID) &&
+    (getAllUserUpdate?.updateData?.areaID !== null ||
+      locationID?.areaID !== null) &&
       mySkill.append(
         "area_id",
         getAllUserUpdate?.updateData.areaID || locationID?.areaID
       );
+    (getAllUserUpdate?.updateData?.areaID || locationID?.areaID) == "0" &&
+      mySkill.set("area_name", selectedAreName);
 
     categorySkills?.forEach((cate, idx) => {
       mySkill.append(`category[${idx}]`, cate);
@@ -230,22 +248,17 @@ const FreelancerMainEditAccountPage = () => {
       })
       .catch((err) => {
         const errorMsg =
-          typeof err?.message === "string"
-            ? err?.message
-            : err?.response?.data?.message ||
-              "خطأ غير معروف يرجي المحاوله لاحقا";
+          err?.response?.data?.message[
+            Object.keys(err?.response?.data?.message)?.[0]
+          ]?.[0] || "خطأ غير معروف يرجي المحاوله لاحقا";
 
-        toast.error(errorMsg);
         dispatch(
-          getMessages([
-            {
-              messages: errorMsg,
-              messageType: "error",
-              messageClick: true,
-            },
-          ])
+          getMessages({
+            messages: errorMsg,
+            messageType: "error",
+            messageClick: true,
+          })
         );
-
         setUpdateLoading(false);
       });
     localStorage.setItem("valid", 1);
@@ -291,6 +304,8 @@ const FreelancerMainEditAccountPage = () => {
       />
 
       <FlancerMyEditAccountPage
+        selectedAreName={selectedAreName}
+        setSelectedAreName={setSelectedAreName}
         setCheck={setUpdateSocail}
         fileUploads={filenames}
         onClick={fileHandler}

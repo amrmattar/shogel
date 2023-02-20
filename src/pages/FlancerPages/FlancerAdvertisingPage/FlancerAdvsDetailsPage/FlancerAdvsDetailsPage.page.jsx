@@ -7,7 +7,6 @@ import AmentiesShared from "../../../../shared/Amenties/Amenties.shared";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { advertisingLists } from "../../../../core/services/AdvertisingOfferServices/AdvertisingOfferServices.core";
-import defautFlag from "../../../../assets/icons/Advs-flag.svg";
 import Toast from "react-bootstrap/Toast";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { AdvertisingFav } from "../../../../core/services/Favourite/AdvertisingFavourite/AdvertisingFavourite.core";
@@ -288,7 +287,7 @@ const FlancerAdvsDetailsPage = () => {
                   {advsDataById?.user?.fullname}
                 </p>
                 <img
-                  src={advsDataById?.user?.nationality?.logo || defautFlag}
+                  src={advsDataById?.user?.nationality?.logo}
                   alt=""
                   width="40"
                   height="20"

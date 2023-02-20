@@ -17,6 +17,7 @@ import Upload from "../../../../shared/Upload/Upload.shared";
 
 import { setAllCertificate } from "../../../../core/redux/reducers/CertificateSkillsReducer.core";
 import { setAllLanguage } from "../../../../core/redux/reducers/LanguageSkillsReducer.core";
+import { setConvertToFreeLancerMode } from "../../../../core/redux/reducers/convertToFreeLancerMode";
 
 const FlancerMyEditAccountPage = ({
   handleClick,
@@ -28,16 +29,26 @@ const FlancerMyEditAccountPage = ({
   Sdelet,
   setSocialData,
   socialLoading,
+  setSelectedAreName,
+  selectedAreName,
 }) => {
   const dispatch = useDispatch();
   const [isSklsAdded, setIsSklsAdded] = useState(false);
   const [isLangsAdded, setIsLangsAdded] = useState(false);
 
   //TODO Data from Reducers
-  const [coreData, userRole, messages] = useSelector((state) => [
+  const [
+    coreData,
+    userRole,
+    messages,
+    { convertToFreeLancerMode },
+    activeUserId,
+  ] = useSelector((state) => [
     state.coreData,
     state.userRole.userRole,
     state.messages,
+    state.convertToFreeLancerMode,
+    state.userData.id,
   ]);
 
   useEffect(() => {
@@ -87,15 +98,44 @@ const FlancerMyEditAccountPage = ({
     dispatch,
   ]);
 
+  const onToFreelancerChange = (e) => {
+    if (e.target.checked) {
+      dispatch(setConvertToFreeLancerMode(true));
+    } else {
+      dispatch(setConvertToFreeLancerMode(false));
+    }
+  };
+
   return (
     <div className="d-flex flex-column gap-4 px-0">
       <>
         {/* Personal Account [Title] */}
         <PageTitle title={"معلوماتك الشخصية"} />
+        {personalData?.role?.id == 2 && personalData?.id === activeUserId && (
+          <div className="check-box d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-center align-items-center">
+              <i
+                style={{ width: 50, height: 50 }}
+                className={`d-flex iLT-work-case-freelancer-btn gap-2 p-2  uLT-img-contain`}
+              />
+              <h2 className="fs-4 border-0 m-0 me-2 pb-0">اصبح مشتغل</h2>
+            </div>
+            <input
+              onChange={onToFreelancerChange}
+              style={{ width: 20, height: 20, accentColor: "#4b93b9" }}
+              type="checkbox"
+              name="be-freelancer"
+              id="be-freelancer"
+              className="mb-3"
+            />
+          </div>
+        )}
+
         {/* Personal Account [Component] */}
         <FlancerEditPersonalAccountComponent
           data={coreData}
           userProfileData={personalData}
+          convertToFreeLancerMode={convertToFreeLancerMode}
         />
       </>
       <>
@@ -103,13 +143,15 @@ const FlancerMyEditAccountPage = ({
         <PageTitle title={" موقعك"} />
         {/* My Location [Component] */}
         <FlancerEditLocationComponent
+          setSelectedAreName={setSelectedAreName}
+          selectedAreName={selectedAreName}
           screenCol="6"
           claases={"mb-3"}
           userProfileLocation={userLocation ? userLocation : false}
         />
       </>
 
-      {personalData?.role?.id != "2" && (
+      {(personalData?.role?.id != "2" || convertToFreeLancerMode) && (
         <>
           {/* About Me [Section] */}
           <>

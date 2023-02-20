@@ -298,23 +298,15 @@ const FlancerOfferPriceForm = ({ data }) => {
     formData.time && offerPrice.set("time", arNumberConverter(formData.time));
     offerPrice.set("type_work", formData.type_work);
 
-    selectedCountry?.name &&
-      offerPrice.set(
-        "country_id",
-        selectedCountry?.id || selectedCountry?.name
-      );
-    selectedCity?.name &&
-      offerPrice.set("city_id", selectedCity?.id || selectedCity?.name);
-    selectedState?.id &&
-      offerPrice.set("state_id", selectedState?.id || selectedState?.name);
-    selectedArea?.id &&
-      offerPrice.set("area_id", selectedArea?.id || selectedArea?.name);
+    selectedCountry?.id && offerPrice.set("country_id", selectedCountry?.id);
+    selectedCity?.id && offerPrice.set("city_id", selectedCity?.id);
+    selectedState?.id && offerPrice.set("state_id", selectedState?.id);
+    selectedArea?.id && offerPrice.set("area_id", selectedArea?.id);
+    selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
 
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
     }
-
-    selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);
 
     getAllUserUpdate.category.forEach((cate, idx) => {
       offerPrice.append(`category[${idx}]`, cate);
@@ -748,18 +740,8 @@ const FlancerOfferPriceForm = ({ data }) => {
         </div>
         {/* [Request Button */}
         <div
-          className={` d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse flex-md-row`}
+          className={`d-flex align-items-center justify-content-around gap-2 mb-3 flex-row-reverse`}
         >
-          <div className="">
-            <ButtonShare
-              smBtn
-              onClick={() => navigate("/")}
-              innerText={"رجوع"}
-              btnClasses={"three cLT-secondary-bg"}
-              textClasses={"py-1 px-3 px-md-5 rounded-5"}
-            />
-          </div>
-
           <div className="">
             <ButtonShare
               loading={advsCheck}
@@ -767,6 +749,16 @@ const FlancerOfferPriceForm = ({ data }) => {
               textClasses="px-4 cLT-white-text fLT-Regular-sC"
               innerText=" إرسال"
               disable={disable}
+            />
+          </div>
+
+          <div className="">
+            <ButtonShare
+              smBtn
+              onClick={() => navigate("/")}
+              innerText={"رجوع"}
+              btnClasses={"three cLT-secondary-bg"}
+              textClasses={"py-1 px-3 px-md-5 rounded-5"}
             />
           </div>
         </div>

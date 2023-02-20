@@ -143,46 +143,50 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    if (messages?.[0]) {
-      let arr = messages.filter(
-        (ele) =>
-          (ele.senderId == user.id && ele.recevierId == otherSideData.id) ||
-          (ele.senderId == otherSideData.id && ele.recevierId == user.id)
-      );
-      let arr3 = [...messages];
-      let arr2 = arr3.filter(
-        (ele) => ele.senderId == user.id || ele.recevierId == user.id
-      );
-      let sortingarr = [];
-      let Mainsortingarr = [];
+    if (!messages?.length) return;
 
-      for (let i = 0; i < arr2.length; i++) {
-        const ele = arr2[i];
-        let indx = sortingarr.findIndex(
-          (el) =>
-            (ele.senderId == el.senderId && ele.recevierId == el.recevierId) ||
-            (ele.senderId == el.recevierId && ele.recevierId == el.senderId)
-        );
-        if (!sortingarr[0] || indx >= 0) {
-          sortingarr.push(ele);
-          arr2.splice(i, 1);
-          i--;
-        }
-        if (i == arr2.length - 1) {
-          Mainsortingarr.push(sortingarr);
-          sortingarr = [];
-          i = -1;
-        }
+    // const myMessagesFromAllMessages = messages.filter(
+    //   (msg) =>
+    //     (msg.senderId == user.id && msg.recevierId == otherSideData.id) ||
+    //     (msg.senderId == otherSideData.id && msg.recevierId == user.id)
+    // );
+
+    let arr = messages.filter(
+      (ele) =>
+        (ele.senderId == user.id && ele.recevierId == otherSideData.id) ||
+        (ele.senderId == otherSideData.id && ele.recevierId == user.id)
+    );
+    let arr3 = [...messages];
+    let arr2 = arr3.filter(
+      (ele) => ele.senderId == user.id || ele.recevierId == user.id
+    );
+    let sortingarr = [];
+    let Mainsortingarr = [];
+
+    for (let i = 0; i < arr2.length; i++) {
+      const ele = arr2[i];
+      let indx = sortingarr.findIndex(
+        (el) =>
+          (ele.senderId == el.senderId && ele.recevierId == el.recevierId) ||
+          (ele.senderId == el.recevierId && ele.recevierId == el.senderId)
+      );
+      if (!sortingarr[0] || indx >= 0) {
+        sortingarr.push(ele);
+        arr2.splice(i, 1);
+        i--;
       }
-
-      setSortedMessages(arr);
-
-      Mainsortingarr.sort((a, b) => {
-        return new Date(b?.at(-1)?.createdAt) - new Date(a?.at(-1)?.createdAt);
-      });
-
-      setHistoryMessages(Mainsortingarr);
+      if (i == arr2.length - 1) {
+        Mainsortingarr.push(sortingarr);
+        sortingarr = [];
+        i = -1;
+      }
     }
+
+    setSortedMessages(arr);
+    Mainsortingarr.sort((a, b) => {
+      return new Date(b?.at(-1)?.createdAt) - new Date(a?.at(-1)?.createdAt);
+    });
+    setHistoryMessages(Mainsortingarr);
   }, [messages, user, otherSideData]);
 
   return (
@@ -316,8 +320,14 @@ const ChatRoom = ({
       <div className={cls.messageHolder}>
         {messages &&
           messages.map((msg, idx) => (
-            <ChatMessage user={user} key={idx} message={msg} />
+            <ChatMessage
+              otherSidAvatar={otherSideData?.avatar}
+              user={user}
+              key={idx}
+              message={msg}
+            />
           ))}
+
         <span ref={dummy} />
       </div>
 
@@ -354,9 +364,6 @@ const ChatRoom = ({
 };
 
 const ChatMessage = (props) => {
-  const param = useLocation();
-  const otherSideId = param.state?.id;
-  const otherSidAvatar = param.state?.avatar;
   const [user] = useSelector((state) => [state.userFullData]);
 
   const { text, senderId, file, type, createdAt } = props.message;
@@ -374,7 +381,7 @@ const ChatMessage = (props) => {
       >
         <img
           alt="userImg"
-          src={senderId === otherSideId ? otherSidAvatar : user.avatar}
+          src={senderId === user?.id ? user.avatar : props?.otherSidAvatar}
           style={{
             width: "40px",
             height: "40px",

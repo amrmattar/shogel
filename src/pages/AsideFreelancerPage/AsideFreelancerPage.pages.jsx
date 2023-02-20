@@ -16,6 +16,8 @@ import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import { toast } from "react-toastify";
 
+import { setConvertToFreeLancerMode } from "../../core/redux/reducers/convertToFreeLancerMode";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -41,10 +43,12 @@ const AsideFreelancerPage = ({
   const dispatch = useDispatch();
   const location = useLocation();
   // Get Full User Data By Redux
-  const [userData, messages] = useSelector((state) => [
+  const [userData, activeUserId, messages] = useSelector((state) => [
     state.userFullData,
+    state.userData.id,
     state.messages,
   ]);
+
   // Get User Edit Profile Data By ID
   const [userProfileData, setEditProfileData] = useState();
   const [changeStatusLoading, setChangeStatusLoading] = useState(false);
@@ -211,56 +215,60 @@ const AsideFreelancerPage = ({
   //  console.log(isUserData, "qawe");
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const handleOpenModal = () => setModalIsOpen(true);
   const handleCloseModal = () => setModalIsOpen(false);
 
   const upToFreelancer = () => {
-    dispatch(
-      getMessages({
-        messages: "جاري تحديث وظيفتك",
-        messageType: "warning",
-        messageClick: true,
-      })
-    );
+    dispatch(setConvertToFreeLancerMode(true));
+    handleCloseModal();
+
+    // dispatch(
+    //   getMessages({
+    //     messages: "جاري تحديث وظيفتك",
+    //     messageType: "warning",
+    //     messageClick: true,
+    //   })
+    // );
 
     // const formData = new FormData();
     // formData.append('token', userProfileData.name);
 
-    API.post("/user/convert/account")
-      .then(() => {
-        dispatch(
-          getMessages({
-            messages: "تم تحديث وظيفتك بنجاح",
-            messageType: "success",
-            messageClick: true,
-          })
-        );
-        handleCloseModal();
-        window.location.reload(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        handleCloseModal();
+    // API.post("/user/convert/account")
+    //   .then(() => {
+    //     dispatch(
+    //       getMessages({
+    //         messages: "تم تحديث وظيفتك بنجاح",
+    //         messageType: "success",
+    //         messageClick: true,
+    //       })
+    //     );
+    //     handleCloseModal();
+    //     window.location.reload(true);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     handleCloseModal();
 
-        let ob = err.response?.data.message;
-        if (ob) {
-          for (const key in ob) {
-            let ele = ob[key];
+    //     let ob = err.response?.data.message;
+    //     if (ob) {
+    //       for (const key in ob) {
+    //         let ele = ob[key];
 
-            toast.error(ele[0]);
-          }
-        } else {
-          toast.error(err?.message || err?.msg || "حدث خطأ ما");
-        }
+    //         toast.error(ele[0]);
+    //       }
+    //     } else {
+    //       toast.error(err?.message || err?.msg || "حدث خطأ ما");
+    //     }
 
-        dispatch(
-          getMessages({
-            messages: ob || err?.message || err?.msg || "حدث خطأ غير متوقع",
-            messageType: "error",
-            messageClick: true,
-          })
-        );
-      });
+    //     dispatch(
+    //       getMessages({
+    //         messages: ob || err?.message || err?.msg || "حدث خطأ غير متوقع",
+    //         messageType: "error",
+    //         messageClick: true,
+    //       })
+    //     );
+    //   });
   };
 
   return (
@@ -464,7 +472,7 @@ const AsideFreelancerPage = ({
             </div>
           )}
 
-          {isUserData?.role?.id == 2 && (
+          {/* {isUserData?.role?.id == 2 && isUserData?.id === activeUserId && (
             <>
               <div className="shadow  uLT-f-radius-sB my-2 w-100 text-center">
                 {" "}
@@ -478,7 +486,7 @@ const AsideFreelancerPage = ({
                 />{" "}
               </div>
             </>
-          )}
+          )} */}
 
           <CompletionChart value={isUserData?.complete_profile} />
         </div>

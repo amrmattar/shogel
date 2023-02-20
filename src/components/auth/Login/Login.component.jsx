@@ -75,7 +75,7 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
             type={showPassword ? "text" : "password"}
             placeholder="كلمة المرور"
           />
-          {hideIcon && (
+          {/* {hideIcon && (
             <IconButton
               style={{ position: "absolute", bottom: "8px", left: "18px" }}
               onClick={() => setShowPassword(!showPassword)}
@@ -86,7 +86,7 @@ const LoginComponent = ({ loginCheck, forgetPassword }) => {
                 <VisibilityOutlinedIcon />
               )}{" "}
             </IconButton>
-          )}
+          )} */}
         </Form.Group>
       </Row>
 
