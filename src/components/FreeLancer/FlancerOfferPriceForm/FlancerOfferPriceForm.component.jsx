@@ -706,29 +706,31 @@ const FlancerOfferPriceForm = ({ data }) => {
                     />
                   </div>
 
-                  <div
-                    className={`${
-                      selectedArea?.id == "0" ? "d-flex" : "d-none"
-                    } justify-content-center align-items-center`}
-                  >
-                    <Form.Control
-                      hidden={selectedArea?.id != "0"}
-                      name="area_name"
-                      required
-                      className="uLT-bd-f-platinum-sA inpBG inp my-3"
-                      type="text"
-                      placeholder="ادخل اسم الحي"
-                      onChange={(e) => setSelectedAreName(e.target.value)}
-                    />
-
-                    <p
-                      onClick={() => setSelectedArea(null)}
-                      style={{ fontFamily: "sans-serif" }}
-                      className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                  {selectedArea?.id == "0" && (
+                    <div
+                      className={`${
+                        selectedArea?.id == "0" ? "d-flex" : "d-none"
+                      } justify-content-center align-items-center`}
                     >
-                      X
-                    </p>
-                  </div>
+                      <Form.Control
+                        hidden={selectedArea?.id != "0"}
+                        name="area_name"
+                        required
+                        className="uLT-bd-f-platinum-sA inpBG inp my-3"
+                        type="text"
+                        placeholder="ادخل اسم الحي"
+                        onChange={(e) => setSelectedAreName(e.target.value)}
+                      />
+
+                      <p
+                        onClick={() => setSelectedArea(null)}
+                        style={{ fontFamily: "sans-serif" }}
+                        className="m-0 mx-2 cu-pointer text-danger fs-5 fw-bold"
+                      >
+                        X
+                      </p>
+                    </div>
+                  )}
 
                   {errMessage?.city_id && (
                     <p
