@@ -66,7 +66,9 @@ const LocationClientPage = () => {
           selectedArea?.id == "0" &&
           form.append("area_name", selectedAreName);
 
-        form.append("mobile", getMobileNumber?.mobile.split("+").join(""));
+        form.append("mobile", getMobileNumber?.mobile?.mobile);
+        form.append("country_code", getMobileNumber?.mobile?.country_code);
+
         getClientData.info?.length > 2 &&
           form.append("info", getClientData.info);
         form.append("description", getClientData.description);

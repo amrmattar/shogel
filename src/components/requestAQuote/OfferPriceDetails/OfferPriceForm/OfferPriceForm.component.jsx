@@ -150,9 +150,10 @@ const OfferPriceForm = () => {
     }
 
     if (!selectedCity?.id && selectedCity?.name) {
-      const currentCity = getAllCountryFromResponse?.city?.find((city) =>
-        city?.name?.includes(selectedCity?.name)
-      );
+      const currentCity = getAllCountryFromResponse?.city?.find((city) => {
+        const cleanedStr = selectedCity?.name?.replace(/[\u200D\u202C]/g, "");
+        return city?.name?.includes(cleanedStr);
+      });
 
       if (currentCity) {
         setSelectedCity(currentCity);
@@ -218,14 +219,6 @@ const OfferPriceForm = () => {
     type_work: "online",
     address: "",
   });
-  const handleChange = (e) => {
-    const { name, value } = e?.target;
-
-    // only time number
-    if (name === "time" && value && testNumbers(value)) return;
-
-    setFormData((formData) => ({ ...formData, [name]: value }));
-  };
 
   const inputRef = useRef();
   const backButton = useRef();
@@ -266,10 +259,19 @@ const OfferPriceForm = () => {
     setFiles({ images: newfileImage, videos: newfileVideo });
     setNames((prev) => filenames.filter((each, idx) => idx !== i));
   };
-
   const filePicker = (e) => {
     inputRef.current.click();
     offerPrice.append("images", e.target?.files);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e?.target;
+    setLocationState(!locationState);
+
+    // only time number
+    if (name === "time" && value && testNumbers(value)) return;
+
+    setFormData((formData) => ({ ...formData, [name]: value }));
   };
 
   const [advsCheck, setAdvsCheck] = useState(false);
@@ -303,13 +305,16 @@ const OfferPriceForm = () => {
     offerPrice.set("name", formData.name);
     offerPrice.set("description", content);
     offerPrice.set("type_work", formData.type_work);
-    selectedCountry?.id &&
-      offerPrice.set("country_id", selectedCountry?.id || 0);
-    selectedCity?.id && offerPrice.set("city_id", selectedCity?.id || 0);
     offerPrice.set("time", arNumberConverter(formData.time || 0));
     if (formData.type_work === "offline") {
       offerPrice.set("address", formData.address);
     }
+
+    offerPrice.set("country_id", selectedCountry?.id || 0);
+    offerPrice.set("city_id", selectedCity?.id || 0);
+    !selectedCountry?.id &&
+      offerPrice.set("country_name", selectedCountry?.name);
+    !selectedCity?.id && offerPrice.set("city_name", selectedCity?.name);
 
     selectedState?.id && offerPrice.set("state_id", selectedState?.id);
     selectedArea?.id && offerPrice.set("area_id", selectedArea?.id);

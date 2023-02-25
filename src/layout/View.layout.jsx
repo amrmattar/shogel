@@ -50,7 +50,7 @@ const ViewLayout = ({ isNotification, setIsNotification }) => {
             : ""
         }`}
       >
-        {location.pathname?.includes("advertising") ||
+        {location.pathname?.includes("advertising/page=") ||
         location.pathname?.includes("orders") ||
         location.pathname?.includes("employed") ? (
           <div className="container-fluid container-md mxFull px-md-0 px-3">

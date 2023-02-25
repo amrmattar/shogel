@@ -25,7 +25,8 @@ const RegisterOTPStep = (props) => {
   const navigate = useNavigate();
 
   const mobileNumber = {
-    mobile: getMobileNumber?.mobile?.split("+").join(""),
+    mobile: getMobileNumber?.mobile?.mobile,
+    country_code: getMobileNumber?.mobile?.country_code,
   };
 
   const [code, setCode] = useState("");
@@ -70,7 +71,7 @@ const RegisterOTPStep = (props) => {
     );
     const data = {
       code: code,
-      mobile: getMobileNumber?.mobile?.split("+").join(""),
+      ...mobileNumber,
     };
     MobileServices._POST_MobileOTP(data)
       .then((res) => {

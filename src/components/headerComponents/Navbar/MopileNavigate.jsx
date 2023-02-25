@@ -11,6 +11,9 @@ import ButtonShare from "../../../shared/Button/Button.shared";
 const MopileNavigate = ({ isOpen, setIsOpen, pages, userID }) => {
   return (
     <article
+      style={{
+        overflow: "scroll",
+      }}
       className={`${style.mopile_navigate} ${isOpen ? style.active : ""}`}
     >
       <div className="container py-3">
@@ -94,7 +97,8 @@ const MopileNavigate = ({ isOpen, setIsOpen, pages, userID }) => {
           <div
             className="btns d-flex flex-column justify-content-end align-items-center"
             style={{
-              height: "calc(100vh - 390px - 10rem)",
+              marginTop: 100,
+              marginBottom: 10,
             }}
           >
             <div className="LT-searchBar-button w-100">

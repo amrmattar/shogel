@@ -85,7 +85,9 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
             <NavLink
               style={{ zIndex: 999 }}
               to={`/freelancer-offer/${myPersonData?.id}`}
-              className={"uLT-list-style me-3 text-decoration-none"}
+              className={
+                "uLT-list-style me-3 text-decoration-none d-md-block d-none"
+              }
             >
               <div style={{ zIndex: 999 }} className="shadow uLT-f-radius-sB">
                 <ButtonShare
@@ -115,6 +117,7 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
         </div>
         {/* Card Divied */}
         {/* Card Amenties */}
+
         <div className="LT-employed-amenties">
           <div className="row card-body amentiesWithLocation p-0 w-100">
             {/* Amenties Holder */}
@@ -132,7 +135,6 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
                 );
               })}
             </div>
-
             <div className="col-3 LT-location-grid">
               <i className={`iLT-Listcard-location uLT-img-contain iLT-sA`}></i>
               <p
@@ -144,6 +146,28 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
                 {data?.city?.name}
               </p>
             </div>
+
+            {myPersonData?.jobName === "freelancer" && (
+              <NavLink
+                style={{ zIndex: 999 }}
+                to={`/freelancer-offer/${myPersonData?.id}`}
+                className={
+                  "uLT-list-style me-3 text-decoration-none d-md-none text-center"
+                }
+              >
+                <div
+                  style={{ zIndex: 999 }}
+                  className="shadow uLT-f-radius-sB text-center"
+                >
+                  <ButtonShare
+                    btnClasses="cLT-secondary-bg py-2 cu-pointer px-4 d-flex align-items-center justify-content-center gap-2 uLT-f-radius-sB"
+                    textClasses={`fLT-Regular-sB px-1 cLT-white-text`}
+                    innerText="شغلني"
+                    iconName={"iLT-work-case-white"}
+                  />
+                </div>
+              </NavLink>
+            )}
           </div>
         </div>
       </div>

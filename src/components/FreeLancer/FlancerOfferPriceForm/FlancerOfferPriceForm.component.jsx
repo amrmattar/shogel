@@ -126,9 +126,10 @@ const FlancerOfferPriceForm = ({ data }) => {
     }
 
     if (!selectedCity?.id && selectedCity?.name) {
-      const currentCity = getAllCountryFromResponse?.city?.find(
-        (city) => city?.name === selectedCity?.name
-      );
+      const currentCity = getAllCountryFromResponse?.city?.find((city) => {
+        const cleanedStr = selectedCity?.name?.replace(/[\u200D\u202C]/g, "");
+        return city?.name?.includes(cleanedStr);
+      });
 
       if (currentCity) {
         setSelectedCity(currentCity);
@@ -298,8 +299,12 @@ const FlancerOfferPriceForm = ({ data }) => {
     formData.time && offerPrice.set("time", arNumberConverter(formData.time));
     offerPrice.set("type_work", formData.type_work);
 
-    selectedCountry?.id && offerPrice.set("country_id", selectedCountry?.id);
-    selectedCity?.id && offerPrice.set("city_id", selectedCity?.id);
+    offerPrice.set("country_id", selectedCountry?.id || 0);
+    offerPrice.set("city_id", selectedCity?.id || 0);
+    !selectedCountry?.id &&
+      offerPrice.set("country_name", selectedCountry?.name);
+    !selectedCity?.id && offerPrice.set("city_name", selectedCity?.name);
+
     selectedState?.id && offerPrice.set("state_id", selectedState?.id);
     selectedArea?.id && offerPrice.set("area_id", selectedArea?.id);
     selectedArea?.id == "0" && offerPrice.set("area_name", selectedAreName);

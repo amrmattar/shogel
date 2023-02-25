@@ -51,7 +51,8 @@ const CheckOTPComponent = ({ nextFn }) => {
     dispatch(getOTPValue(code));
     const data = {
       code: code,
-      mobile: getMobile.mobile,
+      mobile: getMobile.mobile?.mobile,
+      country_code: getMobile.mobile?.country_code,
     };
     setIsloading(true);
     checkOTPValidation

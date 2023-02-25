@@ -139,10 +139,10 @@ const CheckMobileComponent = ({ nextFn }) => {
 
       const country_code = selectedCountry?.code;
       const mobileNumber = splitNumber;
-      dispatch(getMobileNumber(`${country_code}${mobileNumber}`));
+      dispatch(getMobileNumber({ mobile: mobileNumber, country_code }));
 
       checkMobileValidation
-        ._POST_CheckMobileValid({ mobile: splitNumber, country_code })
+        ._POST_CheckMobileValid({ mobile: mobileNumber, country_code })
         .then((res) => {
           setMobileLoading(false);
           dispatch(

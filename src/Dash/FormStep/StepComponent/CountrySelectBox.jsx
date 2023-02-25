@@ -125,9 +125,7 @@ const CountrySelectBox = ({
               src={option?.logo}
               alt=""
             />
-            <span>
-              {option?.name} - {option?.code}
-            </span>
+            <span>{option?.name}</span>
           </MenuItem>
         ))}
       </Menu>

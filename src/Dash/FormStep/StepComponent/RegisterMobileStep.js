@@ -182,8 +182,12 @@ const RegisterMobileStep = () => {
 
       const mobileNumber = mobileForm?.mobile;
       const country_code = selectedCountry?.code;
-      console.log(country_code);
-      dispatch(getMobileNumber(`${country_code}${mobileNumber}`));
+      dispatch(
+        getMobileNumber({
+          mobile: mobileNumber,
+          country_code,
+        })
+      );
 
       MobileServices._POST_MobileNumber({
         mobile: mobileNumber,

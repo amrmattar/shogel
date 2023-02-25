@@ -147,8 +147,12 @@ const AdvertisingFormComponent = () => {
     });
     // media.set("type_work", formData.type_work || "online");
     formData.address && media.set("address", formData.address);
-    selectedCountry?.id && media.set("country_id", selectedCountry?.id);
-    selectedCity?.id && media.set("city_id", selectedCity?.id);
+
+    media.set("country_id", selectedCountry?.id || 0);
+    media.set("city_id", selectedCity?.id || 0);
+    !selectedCountry?.id && media.set("country_name", selectedCountry?.name);
+    !selectedCity?.id && media.set("city_name", selectedCity?.name);
+
     selectedState?.id && media.set("state_id", selectedState?.id);
     selectedArea?.id && media.set("area_id", selectedArea?.id);
     selectedArea?.id === "0" && media.set("area_name", selectedAreName);
@@ -315,9 +319,10 @@ const AdvertisingFormComponent = () => {
     }
 
     if (!selectedCity?.id && selectedCity?.name) {
-      const currentCity = getAllCountryFromResponse?.city?.find((city) =>
-        city?.name?.includes(selectedCity?.name)
-      );
+      const currentCity = getAllCountryFromResponse?.city?.find((city) => {
+        const cleanedStr = selectedCity?.name?.replace(/[\u200D\u202C]/g, "");
+        return city?.name?.includes(cleanedStr);
+      });
 
       if (currentCity) {
         setSelectedCity(currentCity);

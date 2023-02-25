@@ -71,7 +71,8 @@ const IdPage = () => {
         selectedArea?.id && form.append("area_id", selectedArea.id);
         selectedArea?.id == "0" && form.append("area_name", selectedAreName);
 
-        form.append("mobile", getMobileNumber?.mobile?.split("+")?.join(""));
+        form.append("mobile", getMobileNumber?.mobile?.mobile);
+        form.append("country_code", getMobileNumber?.mobile?.country_code);
         form.append("gender_id", getClientData.gender);
         getClientData.nation?.id &&
           form.append("nationality_id", getClientData.nation.id);
