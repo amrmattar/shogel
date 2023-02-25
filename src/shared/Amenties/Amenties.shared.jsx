@@ -24,7 +24,7 @@ const AmentiesShared = ({
   address,
 }) => {
   return (
-    <div style={maxWidth ? { maxWidth: "calc(100% / 4)" } : {}}>
+    <div>
       {/* Amenties With Icon */}
       {amentiesWithIcon === "orderAmenties" ? (
         <div className="LT-orderAmenties d-block d-md-grid">
@@ -112,9 +112,9 @@ const AmentiesShared = ({
       {amentiesWithLocation === "amentiesWithLocation" ? (
         <div className="cLT-platinum-bg uLT-f-radius-sB">
           <p
-            style={{ maxWidth: "100px" }}
             title={amentiesWithLocationData}
-            className="one-line-specifc mb-0 px-3 px-lg-2 px-xl-3 py-1 cLT-support2-text"
+            style={{ whiteSpace: "nowrap" }}
+            className="mb-0 px-3 px-lg-2 px-xl-3 py-1 cLT-support2-text"
           >
             {amentiesWithLocationData}
           </p>

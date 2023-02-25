@@ -51,7 +51,7 @@ const FlancerPersonalInformationComponent = ({
                       {myData?.fullname || myData?.name}
                     </p>
                     <img
-                      src={myData?.nationality?.logo}
+                      src={myData?.myFlag}
                       alt=""
                       className={`${
                         location.pathname === "/"
@@ -118,7 +118,7 @@ const FlancerPersonalInformationComponent = ({
                     {myData?.fullname || myData?.name}
                   </p>
                   <img
-                    src={myData?.nationality?.logo}
+                    src={myData?.myFlag}
                     alt=""
                     className={`${location.pathname === "/"} ? iLT-sB : iLT-sC`}
                   />

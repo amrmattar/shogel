@@ -98,7 +98,7 @@ const MopileNavigate = ({ isOpen, setIsOpen, pages, userID }) => {
             className="btns d-flex flex-column justify-content-end align-items-center"
             style={{
               marginTop: 100,
-              marginBottom: 10,
+              marginBottom: 80,
             }}
           >
             <div className="LT-searchBar-button w-100">

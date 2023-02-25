@@ -121,8 +121,9 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
         <div className="LT-employed-amenties">
           <div className="row card-body amentiesWithLocation p-0 w-100">
             {/* Amenties Holder */}
-            <div className="col-9 LT-amenties-grid">
-              {data?.category?.slice(0, 4)?.map((category) => {
+            {console.log(data?.category)}
+            <div className="col-9 LT-amenties-grid flex-wrap">
+              {data?.category?.slice(0, 3)?.map((category) => {
                 return (
                   <>
                     <AmentiesShared
