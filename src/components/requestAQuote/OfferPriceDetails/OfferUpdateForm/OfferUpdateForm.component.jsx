@@ -177,6 +177,14 @@ const OfferUpdateFormComponent = ({ taskId }) => {
   const handleChange = (e) => {
     const { name, value } = e?.target;
 
+    if (name == "type_work" && value == "offline") {
+      setLocationState(true);
+    }
+
+    if (name == "type_work" && value == "online") {
+      setLocationState(false);
+    }
+
     // only time number
     if (name === "time" && value && testNumbers(value)) return;
 
@@ -308,14 +316,18 @@ const OfferUpdateFormComponent = ({ taskId }) => {
       "type_work",
       formData.type_work ? formData.type_work : loadTaskData?.type_work
     );
-    offerPrice.set(
-      "country_id",
-      selectedCountry?.id || loadTaskData?.country.id
-    );
-    offerPrice.set("city_id", selectedCity?.id || loadTaskData?.city.id);
-    offerPrice.set("area_id", selectedArea?.id || loadTaskData?.area?.id);
+    (selectedCountry?.id || loadTaskData?.country.id) &&
+      offerPrice.set(
+        "country_id",
+        selectedCountry?.id || loadTaskData?.country.id
+      );
+    (selectedCity?.id || loadTaskData?.city.id) &&
+      offerPrice.set("city_id", selectedCity?.id || loadTaskData?.city.id);
+    (selectedArea?.id || loadTaskData?.area?.id) &&
+      offerPrice.set("area_id", selectedArea?.id || loadTaskData?.area?.id);
     selectedArea?.id === "0" && offerPrice.set("area_name", selectedAreName);
-    offerPrice.set("state_id", selectedState?.id || loadTaskData?.state?.id);
+    (selectedState?.id || loadTaskData?.state?.id) &&
+      offerPrice.set("state_id", selectedState?.id || loadTaskData?.state?.id);
 
     //  If Case ==> The Work Type Offline Get Extra Data Like [//TODO ==> State - Address //]
     if (formData.type_work === "offline") {

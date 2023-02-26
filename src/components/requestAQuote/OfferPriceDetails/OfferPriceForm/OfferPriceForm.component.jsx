@@ -266,7 +266,14 @@ const OfferPriceForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e?.target;
-    setLocationState(!locationState);
+
+    if (name == "type_work" && value == "offline") {
+      setLocationState(true);
+    }
+
+    if (name == "type_work" && value == "online") {
+      setLocationState(false);
+    }
 
     // only time number
     if (name === "time" && value && testNumbers(value)) return;

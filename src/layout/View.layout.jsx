@@ -54,6 +54,21 @@ const ViewLayout = ({ isNotification, setIsNotification }) => {
         location.pathname?.includes("orders") ||
         location.pathname?.includes("employed") ? (
           <div className="container-fluid container-md mxFull px-md-0 px-3">
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb my-4">
+                <li className="breadcrumb-item">
+                  {location.pathname.includes("orders/page=")
+                    ? "طلبات"
+                    : location.pathname.includes("employed/page=")
+                    ? "المشتغلين"
+                    : location.pathname.includes("advertising/page=")
+                    ? "الاعلانات"
+                    : ""}
+                </li>
+                <li className="breadcrumb-item"></li>
+              </ol>
+            </nav>
+
             <SideNav />
             <MasterContainer setIsNotification={setIsNotification} />
           </div>
