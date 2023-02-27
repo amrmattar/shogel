@@ -112,23 +112,30 @@ const FlancerMyEditAccountPage = ({
         {/* Personal Account [Title] */}
         <PageTitle title={"معلوماتك الشخصية"} />
         {personalData?.role?.id == 2 && personalData?.id === activeUserId && (
-          <div className="check-box d-flex justify-content-between align-items-center">
-            <div className="d-flex justify-content-center align-items-center">
-              <i
-                style={{ width: 50, height: 50 }}
-                className={`d-flex iLT-work-case-freelancer-btn gap-2 p-2  uLT-img-contain`}
+          <>
+            <div className="check-box d-flex justify-content-between align-items-center">
+              <div className="d-flex justify-content-center align-items-center">
+                <i
+                  style={{ width: 50, height: 50 }}
+                  className={`d-flex iLT-work-case-freelancer-btn gap-2 p-2  uLT-img-contain`}
+                />
+                <h2 className="fs-4 border-0 m-0 me-2 pb-0">اصبح مشتغل</h2>
+              </div>
+
+              <input
+                onChange={onToFreelancerChange}
+                style={{ width: 20, height: 20, accentColor: "#4b93b9" }}
+                type="checkbox"
+                name="be-freelancer"
+                id="be-freelancer"
+                className="mb-3"
               />
-              <h2 className="fs-4 border-0 m-0 me-2 pb-0">اصبح مشتغل</h2>
             </div>
-            <input
-              onChange={onToFreelancerChange}
-              style={{ width: 20, height: 20, accentColor: "#4b93b9" }}
-              type="checkbox"
-              name="be-freelancer"
-              id="be-freelancer"
-              className="mb-3"
-            />
-          </div>
+
+            <span className="text-muted small">
+              لتحويل حسابك علي منصه شغل برجاء التاكد من اختيار المجالات
+            </span>
+          </>
         )}
 
         {/* Personal Account [Component] */}
