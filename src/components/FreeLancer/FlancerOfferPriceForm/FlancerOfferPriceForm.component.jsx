@@ -23,6 +23,7 @@ import {
 import LocationHandler from "../../requestAQuote/OfferPriceDetails/OfferPriceForm/LocationHandler";
 import { userProfile } from "../../../core/services/userProfile/FreelancerProfile/FreelancerProfile.core";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const FlancerOfferPriceForm = ({ data }) => {
   const [offerCategory, getAllUserUpdate, messages] = useSelector((state) => [
@@ -221,6 +222,14 @@ const FlancerOfferPriceForm = ({ data }) => {
   const handleChange = (e) => {
     const { name, value } = e?.target;
 
+    if (name == "type_work" && value == "offline") {
+      setLocationState(true);
+    }
+
+    if (name == "type_work" && value == "online") {
+      setLocationState(false);
+    }
+
     // only time number
     if (name === "time" && value && testNumbers(value)) return;
 
@@ -337,10 +346,21 @@ const FlancerOfferPriceForm = ({ data }) => {
       })
       .catch((err) => {
         setAdvsCheck(false);
+        let ob = err.response?.data.message;
+        if (ob) {
+          for (const key in ob) {
+            let ele = ob[key];
+
+            toast.error(ele[0]);
+          }
+        } else {
+          toast.error(err?.message || err?.msg || "حدث خطأ ما");
+        }
+
         dispatch(
           getMessages([
             {
-              messages: err.response.data.message,
+              messages: ob,
               messageType: "error",
               messageClick: true,
             },

@@ -126,7 +126,11 @@ const RegisterClientView = () => {
             </Form.Group>
             <Form.Group>
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3 ">
-                اسم المستخدم<span className="cLT-danger-text">*</span>
+                اسم المستخدم
+                <span className="cLT-danger-text">*</span>
+                <span className="small text-muted me-1">
+                  (يجب ان تكون 4 خانات علي الاقل)
+                </span>
               </Form.Label>
               <Form.Control
                 autoComplete="off"
@@ -137,7 +141,7 @@ const RegisterClientView = () => {
                 value={getClientData.username.replace(/[^A-Za-z0-9]/gi, "")}
                 name="username"
                 onChange={value.setDataDetails("username")}
-                placeholder="الاسم (يجب ان تكون 4 خانات علي الاقل)"
+                placeholder="الاسم"
               />
               {nameError.length > 0 && (
                 <p className="mb-0 fLT-Regular-sA cLT-danger-text pt-2 px-2">
@@ -168,6 +172,9 @@ const RegisterClientView = () => {
               <Form.Label className="fLT-Regular-sB cLT-support2-text mb-3">
                 كلمة المرور
                 <span className="cLT-danger-text">*</span>
+                <span className="small text-muted me-1">
+                  (يجب ان تكون 8 خانات علي الاقل)
+                </span>
               </Form.Label>
               <Form.Control
                 autoComplete="off"
@@ -177,7 +184,7 @@ const RegisterClientView = () => {
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 value={getClientData.password}
                 type={showPassword ? "text" : "password"}
-                placeholder="كلمة المرور (يجب ان تكون 8 خانات علي الاقل)"
+                placeholder="كلمة المرور"
               />
               <IconButton
                 style={{ position: "absolute", bottom: "0", left: "18px" }}
