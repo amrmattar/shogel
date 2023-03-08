@@ -436,7 +436,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
         <div className="LT-details-request position-relative">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
-            اكتب تفاصيل الطلب
+            اكتب تفاصيل عرض السعر
           </Form.Label>
           <TextEditorShared
             setDescription={setContent}

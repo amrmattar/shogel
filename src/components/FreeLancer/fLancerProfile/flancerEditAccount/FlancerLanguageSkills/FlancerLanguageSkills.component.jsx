@@ -114,10 +114,10 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
           </div>
         )}
         {/* Certificate Show Input Value  [Section] */}
-        <div className="d-flex align-items-center gap-3 px-0 pb-2 overflow-auto">
+        <div className="d-flex flex-wrap align-items-center gap-3 px-0 pb-2 overflow-auto">
           {lanSkillsData?.fLanguage?.map(
             ({ skill, id, level_id, level }, idx) => {
-              return (
+              return skill !== "___empty___" ? (
                 <div
                   className="d-flex align-items-center gap-3 uLT-f-radius "
                   key={id}
@@ -151,6 +151,8 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
                     ></i>
                   </div>
                 </div>
+              ) : (
+                ""
               );
             }
           )}

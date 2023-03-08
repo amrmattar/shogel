@@ -179,8 +179,8 @@ const SideNavFlancerProfilePages = ({ data }) => {
           <p className="mb-0 fLT-Bold-sA text-nowrap">الشهادات والدورات </p>
           {data?.skill?.length !== 0 ? (
             <Fragment>
-              {data?.skill?.map((skill, ix) => {
-                return (
+              {data?.skill?.map((skill, ix) =>
+                skill.skill !== "___empty___" ? (
                   <div key={ix} className="d-flex justify-content-between">
                     <FlancerCoursesComponent innerText={skill.skill} />
                     <PerformanceShared
@@ -188,8 +188,10 @@ const SideNavFlancerProfilePages = ({ data }) => {
                       status={true}
                     />
                   </div>
-                );
-              })}
+                ) : (
+                  ""
+                )
+              )}
             </Fragment>
           ) : (
             <p className="mb-0 fLT-Bold-sA cLT-gray-text">
@@ -247,14 +249,15 @@ const SideNavFlancerProfilePages = ({ data }) => {
       <div className="uLT-bd-b-platinum-sA pb-4">
         <p className="fLT-Bold-sA text-nowrap">مواقع شغلي الاخري </p>
         <div className="d-flex align-items-center flex-wrap gap-3">
-          {data?.social?.map((document, ix) => {
-            return (
+          {data?.social
+            ?.filter((social) => social?.value != "__empty__")
+            ?.map((document, ix) => (
               <div key={ix}>
                 <SocialCom item={document} />
               </div>
-            );
-          })}
-          {!data?.social?.[0] && (
+            ))}
+          {!data?.social?.filter((social) => social?.value != "__empty__")
+            ?.length && (
             <p className="mb-0 fLT-Bold-sA cLT-gray-text">
               لا يوجد مواقع شغل اخري
             </p>

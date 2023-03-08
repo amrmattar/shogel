@@ -476,7 +476,7 @@ const AdvertisingFormComponent = () => {
         <div className=" mt-2 LT-details-request position-relative">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text ">
             {" "}
-            اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
+            اكتب تفاصيل الاعلان<span className="cLT-danger-text">*</span>{" "}
           </Form.Label>
           <TextEditorShared
             setDescription={setContent}
@@ -782,17 +782,6 @@ const AdvertisingFormComponent = () => {
                 </p>
               )} */}
             </Form.Group>
-
-            <Form.Control
-              hidden={selectedArea?.id !== "0"}
-              name="area_name"
-              required
-              style={{ width: "48%" }}
-              className="uLT-bd-f-platinum-sA inpBG inp my-3 me-3"
-              type="text"
-              placeholder="ادخل اسم الحي"
-              onChange={(e) => setSelectedAreName(e.target.value)}
-            />
           </Row>
         )}
 

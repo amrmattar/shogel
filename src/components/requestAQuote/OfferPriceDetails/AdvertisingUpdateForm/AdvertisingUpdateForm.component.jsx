@@ -462,7 +462,7 @@ const AdvertisingUpdateFormComponent = ({ advsId }) => {
         <div className="LT-details-request position-relative">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
-            اكتب تفاصيل الطلب
+            اكتب تفاصيل الاعلان
           </Form.Label>
           <TextEditorShared
             setDescription={setContent}

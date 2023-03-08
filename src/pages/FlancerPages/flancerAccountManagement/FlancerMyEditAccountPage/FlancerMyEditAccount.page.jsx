@@ -182,9 +182,6 @@ const FlancerMyEditAccountPage = ({
             type={"Register"}
             tags={coreData?.category}
             userProfileTags={personalData?.category}
-            tagDescription={
-              "هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها."
-            }
           />
 
           {/* Certificates [Section] */}

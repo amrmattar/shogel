@@ -20,6 +20,7 @@ const DynamicFilter = ({
   categories,
   isEmployee,
   isAdvert,
+  isOrders,
   setCategory,
   setPrice,
   setLocation,
@@ -41,6 +42,27 @@ const DynamicFilter = ({
   attendeesStatus,
 }) => {
   const [searchRes, setSearchRes] = useState([]);
+
+  const choseSkillWithChildrenHandler = (id) => {
+    const get_all_children_ids = (nodes, target_id) => {
+      let children_ids = [];
+      for (let node of nodes) {
+        if (node.id === target_id) {
+          for (let child of node.children) {
+            children_ids.push(child.id);
+            children_ids.push(...get_all_children_ids(nodes, child.id));
+          }
+          break;
+        } else {
+          children_ids.push(...get_all_children_ids(node.children, target_id));
+        }
+      }
+      return children_ids;
+    };
+
+    const getAllChildrenOfId = get_all_children_ids(categories, id);
+    setCategory([...getAllChildrenOfId, id]);
+  };
 
   useEffect(() => {
     if (query) {
@@ -88,7 +110,7 @@ const DynamicFilter = ({
                 <SkillTree
                   customTree
                   checkedSkls={activesId}
-                  addChosedSkils={setCategory}
+                  addChosedSkils={choseSkillWithChildrenHandler}
                   skills={query ? searchRes : categories}
                 />
               ) : (
@@ -218,7 +240,7 @@ const DynamicFilter = ({
             ))}
           </div>
         )}
-        {!isEmployee && (
+        {isOrders && (
           <article className="online-offline">
             <div>
               <header
@@ -259,7 +281,7 @@ const DynamicFilter = ({
         categories={categories}
         isEmployee={isEmployee}
         isAdvert={isAdvert}
-        setCategory={setCategory}
+        setCategory={choseSkillWithChildrenHandler}
         setPrice={setPrice}
         setLocation={setLocation}
         setRate={setRate}

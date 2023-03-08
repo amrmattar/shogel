@@ -77,7 +77,7 @@ const Navbar = ({ isNotification, setIsNotification }) => {
   const settings = [
     {
       id: 1,
-      name: "عرض الملف الشخصي",
+      name: "عرض السيرة الذكية",
       routeTo: `/employed/freelancer-profile/${activeUserId}`,
     },
     {

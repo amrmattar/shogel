@@ -312,7 +312,7 @@ const RegisterMobileStep = () => {
           </Row>
 
           <div className="label d-flex align-items-center">
-            <label className={cls.label}>
+            <label className={cls.label + " ms-1"}>
               <input
                 id="acceptTerms"
                 checked={check}
@@ -322,7 +322,7 @@ const RegisterMobileStep = () => {
                 onChange={() => setCheck(!check)}
                 style={{ width: "24px", height: "24px" }}
               />
-              <p className="mb-0  LT-agree-condition cLT-support2-text termsText">
+              <p className="mb-0 LT-agree-condition cLT-support2-text termsText">
                 اوافق علي
               </p>
             </label>
@@ -331,6 +331,15 @@ const RegisterMobileStep = () => {
               <span>الشروط والاحكام</span>
             </Link>
           </div>
+
+          <span
+            style={{ marginTop: -15 }}
+            className="text-muted text-end small"
+          >
+            بالموافقة تخضع هذه الشروط والأحكام و تكون مضبوطة ومفسرة وفقا
+            للقوانين المملكة العربية السعودية ، وأي تحاكم يجب أن يكون للمحاكم
+            الواقعة في المملكة العربية السعودية.
+          </span>
 
           <div className="three" dir="">
             <ButtonShare

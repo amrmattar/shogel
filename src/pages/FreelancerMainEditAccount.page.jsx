@@ -58,15 +58,22 @@ const FreelancerMainEditAccountPage = () => {
   const handleSocial = async () => {
     const social = new FormData();
 
-    socialData.forEach(({ social_id, idx, value }) => {
-      if (isNaN(social_id) || isNaN(idx)) return;
+    socialData
+      ?.filter((social) => social?.value != "__empty__")
+      .forEach(({ social_id, id, value }, idx, array) => {
+        if (isNaN(social_id || id)) return;
 
-      social.append(`social[${idx}][social_id]`, social_id);
-      social.append(
-        `social[${idx}][value]`,
-        value || socialLoading?.value || ""
-      );
-    });
+        social.append(`social[${idx}][social_id]`, social_id || id);
+        social.append(
+          `social[${idx}][value]`,
+          value || socialLoading?.value || "__empty__"
+        );
+      });
+
+    if (!socialData?.filter((social) => social?.value != "__empty__")?.length) {
+      social.append(`social[${1}][social_id]`, 1);
+      social.append(`social[${1}][value]`, "__empty__");
+    }
 
     updateProfile
       ._POST_UpdateProfile(userID, social)
@@ -232,6 +239,12 @@ const FreelancerMainEditAccountPage = () => {
       mySkill.append(`skill[${idx}][level_id]`, skill.level_id);
     });
 
+    if (!sklsResult?.length) {
+      mySkill.append(`skill[${0}][skill]`, "___empty___");
+      mySkill.append(`skill[${0}][type]`, "skill");
+      mySkill.append(`skill[${0}][level_id]`, 1);
+    }
+
     updateProfile
       ._POST_UpdateProfile(userID, mySkill)
       .then((res) => {
@@ -243,8 +256,10 @@ const FreelancerMainEditAccountPage = () => {
           })
         );
 
-        setUpdateLoading(false);
-        window.location.reload(false);
+        setTimeout(() => {
+          setUpdateLoading(false);
+          window.location.reload(false);
+        }, 2000);
       })
       .catch((err) => {
         const errorMsg =

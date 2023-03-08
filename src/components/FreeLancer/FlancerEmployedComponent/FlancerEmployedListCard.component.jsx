@@ -81,7 +81,8 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
             />
           </div>
 
-          {myPersonData?.jobName === "freelancer" && (
+          {(myPersonData?.jobName === "freelancer" ||
+            myPersonData?.jobName === "company") && (
             <NavLink
               style={{ zIndex: 999 }}
               to={`/freelancer-offer/${myPersonData?.id}`}

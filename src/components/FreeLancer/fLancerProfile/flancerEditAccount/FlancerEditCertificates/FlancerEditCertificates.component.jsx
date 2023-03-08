@@ -113,10 +113,10 @@ const FlancerEditCertificatesComponent = () => {
           </div>
         )}
         {/* Certificate Show Input Value  [Section] */}
-        <div className="d-flex align-items-center gap-3 px-0 pb-2 overflow-auto">
+        <div className="d-flex flex-wrap align-items-center gap-3 px-0 pb-2 overflow-auto">
           {certificateData?.fCertificate?.map(
             ({ skill, id, level_id, level }, idx) => {
-              return (
+              return skill !== "___empty___" ? (
                 <div
                   className={`d-flex align-items-center gap-3 uLT-f-radius`}
                   key={id}
@@ -149,6 +149,8 @@ const FlancerEditCertificatesComponent = () => {
                     ></i>
                   </div>
                 </div>
+              ) : (
+                ""
               );
             }
           )}

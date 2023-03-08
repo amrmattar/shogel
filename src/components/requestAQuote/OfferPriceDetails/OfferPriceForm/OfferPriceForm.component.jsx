@@ -435,7 +435,7 @@ const OfferPriceForm = () => {
         <div className=" position-relative mt-2 mb-2">
           <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
             {" "}
-            اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
+            اكتب تفاصيل عرض السعر<span className="cLT-danger-text">*</span>{" "}
           </Form.Label>
           <TextEditorShared
             data={recivedData?.description}

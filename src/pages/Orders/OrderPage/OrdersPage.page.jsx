@@ -107,12 +107,17 @@ const OrdersPage = () => {
     near: false,
   });
 
-  const categHandler = (id, state) => {
+  const categHandler = (arrayOfIds) => {
     setCateg((prev) => {
-      const newData = prev.find((ele) => ele == id)
-        ? prev.filter((ele) => ele !== id)
-        : [...prev, id];
-
+      let newData = [...prev];
+      arrayOfIds.forEach((id) => {
+        const idx = newData.indexOf(id);
+        if (idx > -1) {
+          newData.splice(idx, 1);
+        } else {
+          newData.push(id);
+        }
+      });
       return newData;
     });
   };
@@ -220,7 +225,7 @@ const OrdersPage = () => {
       body.set("category", categ);
       body.set("price", price);
       body.set("location", location);
-      body.set("attendeesStatus", attendeesStatus);
+      body.set("type_work", attendeesStatus);
 
       body.set("freelancer", mostUsedKeys?.freelancer);
       body.set("compnay", mostUsedKeys?.compnay);
@@ -283,6 +288,7 @@ const OrdersPage = () => {
         </header>
         <div className={cls.holder + " d-block d-md-grid"}>
           <DynamicFilter
+            isOrders
             setAttendeesStatus={setAttendeesStatus}
             attendeesStatus={attendeesStatus}
             isFilterOpen={isFilterOpen}

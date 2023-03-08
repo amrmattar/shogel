@@ -28,7 +28,7 @@ const Upload = ({
       <p className="m-0 py-2 mb-0"> {title || "الصور والملفات"}</p>
       <FileDrop onTargetClick={(f) => targetClick(f)} onDrop={(f) => isDrop(f)}>
         {changeStylrToAnotherComponnet !== "taskComponent" ? (
-          <div className="inpBG inpH2 d-flex flex-column flex-sm-row py-4 py-sm-0 justify-content-between px-3 align-items-center uLT-f-radius-sB uLT-bd-f-platinum-sA">
+          <div className="inpBG inpH2 d-flex flex-column flex-sm-row py-md-4 py-sm-0 justify-content-md-between justify-content-center px-3 align-items-center uLT-f-radius-sB uLT-bd-f-platinum-sA">
             <p className="m-0 d-none d-md-block px-0 uLT-r-radius-sA fLT-Regular-sB cLT-main-text border-0">
               {uploadDescription}
             </p>

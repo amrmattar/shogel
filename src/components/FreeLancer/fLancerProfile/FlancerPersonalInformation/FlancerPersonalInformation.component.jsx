@@ -31,7 +31,7 @@ const FlancerPersonalInformationComponent = ({
                 </div>
 
                 <div className="d-flex flex-column justify-content-start">
-                  <div className="d-flex gap-2 gap-md-3 justify-content-between">
+                  <div className="d-flex gap-2 gap-md-3 justify-content-start">
                     <p
                       style={
                         nowrap
@@ -51,7 +51,11 @@ const FlancerPersonalInformationComponent = ({
                       {myData?.fullname || myData?.name}
                     </p>
                     <img
-                      src={myData?.myFlag}
+                      src={
+                        myData?.myFlag ||
+                        myData?.nationality?.logo ||
+                        "https://uat.shogol.sa/Admin/public/images/nationality/1/سعودي.png"
+                      }
                       alt=""
                       className={`${
                         location.pathname === "/"
@@ -65,9 +69,9 @@ const FlancerPersonalInformationComponent = ({
                       height: "3rem",
                       whiteSpace: "nowrap",
                       textOverflow: "ellipsis",
-                      width: 100,
+                      width: 200,
                     }}
-                    className="m-0 cLT-support2-text  fLT-Regular-sB"
+                    className="m-0 cLT-support2-text fLT-Regular-sB"
                   >
                     {myData?.description == "null"
                       ? "لا يوجد وصف مختصر"
@@ -99,7 +103,7 @@ const FlancerPersonalInformationComponent = ({
               </div>
 
               <div className="d-flex flex-column justify-content-start">
-                <div className="d-flex gap-2 gap-md-3 justify-content-between">
+                <div className="d-flex gap-2 gap-md-3 justify-content-start">
                   <p
                     style={
                       nowrap
@@ -118,7 +122,11 @@ const FlancerPersonalInformationComponent = ({
                     {myData?.fullname || myData?.name}
                   </p>
                   <img
-                    src={myData?.myFlag}
+                    src={
+                      myData?.myFlag ||
+                      myData?.nationality?.logo ||
+                      "https://uat.shogol.sa/Admin/public/images/nationality/1/سعودي.png"
+                    }
                     alt=""
                     className={`${location.pathname === "/"} ? iLT-sB : iLT-sC`}
                   />

@@ -62,15 +62,21 @@ const Employed = () => {
     });
   };
   ///////////////////
-  const categHandler = (id, state) => {
+  const categHandler = (arrayOfIds) => {
     setCateg((prev) => {
-      const newData = prev.find((ele) => ele == id)
-        ? prev.filter((ele) => ele !== id)
-        : [...prev, id];
-
+      let newData = [...prev];
+      arrayOfIds.forEach((id) => {
+        const idx = newData.indexOf(id);
+        if (idx > -1) {
+          newData.splice(idx, 1);
+        } else {
+          newData.push(id);
+        }
+      });
       return newData;
     });
   };
+
   const [active, setActive] = useState(null);
   const [rate, setRate] = useState(0);
   const [categ, setCateg] = useState([]);

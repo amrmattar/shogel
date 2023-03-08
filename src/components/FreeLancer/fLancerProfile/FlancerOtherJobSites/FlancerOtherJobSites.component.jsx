@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import UserFeedBackShared from "../../../../shared/UserFeedBack/UserFeedBack.shared";
 
 import { useSelector } from "react-redux";
@@ -8,18 +8,6 @@ import { Form, Row } from "react-bootstrap";
 // import { getSocialMedia } from "../../../../core/redux/reducers/SocialMediaReducer.core";
 
 import "./FlancerOtherJobSites.component.scss";
-
-const socialLinks = {
-  facebook: "https://www.facebook.com/...",
-  حراج: "https://haraj.com.sa/...",
-  مستقل: "https://mostaql.com/...",
-  بحر: "https://bahr.910ths.sa/...",
-  "فرى لانسر": "https://www.freelancer.com/...",
-  "اب ورك": "https://www.upwork.com/...",
-  انستجرام: "https://mostaql.com/...",
-  تويتر: "https://www.instagram.com/...",
-  اخرى: "https://sitename.com/...",
-};
 
 const FlancerOtherJobSitesComponent = ({
   socialSite,
@@ -47,6 +35,17 @@ const FlancerOtherJobSitesComponent = ({
       return [...prev, newData];
     });
   };
+
+  useEffect(() => {
+    const data = socialSite?.map((site) => ({
+      social_id: site?.id,
+      value:
+        socialLoading.find((social) => social.title === site.name)?.value ||
+        "__empty__",
+    }));
+
+    setSocialData(data);
+  }, [setSocialData, socialSite, socialLoading]);
 
   return (
     <div>
@@ -80,7 +79,10 @@ const FlancerOtherJobSitesComponent = ({
               defaultValue={
                 socialLoading.find((social) => social.title === site.name)
                   ? socialLoading.find((social) => social.title === site.name)
-                      .value
+                      .value === "__empty__"
+                    ? ""
+                    : socialLoading.find((social) => social.title === site.name)
+                        .value
                   : ""
               }
               onChange={(e) =>
@@ -92,7 +94,7 @@ const FlancerOtherJobSitesComponent = ({
               }
               className="uLT-bd-f-platinum-sA  uLT-f-radius-sB"
               dir="ltr"
-              placeholder={socialLinks[site.name] || "الرابط"}
+              placeholder={site.name}
             />
           </div>
         </Row>
