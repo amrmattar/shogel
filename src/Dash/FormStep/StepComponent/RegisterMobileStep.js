@@ -149,7 +149,15 @@ const RegisterMobileStep = () => {
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setMobileForm((mobileForm) => ({ ...mobileForm, [name]: value }));
+
+      if (!value) {
+        setMobileForm((mobileForm) => ({ ...mobileForm, [name]: value }));
+      }
+
+      const regex = /^[0-9\b]+$/;
+      if (regex.test(value)) {
+        setMobileForm((mobileForm) => ({ ...mobileForm, [name]: value }));
+      }
     },
     [setMobileForm]
   );
@@ -231,7 +239,7 @@ const RegisterMobileStep = () => {
   };
 
   const [open, setOpen] = useState(true);
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
@@ -295,6 +303,7 @@ const RegisterMobileStep = () => {
                 <input
                   disabled={!allCountrys?.length}
                   onChange={handleChange}
+                  value={mobileForm?.mobile}
                   name="mobile"
                   maxLength={25}
                   className="border rounded-3 py-2 px-3"
@@ -310,36 +319,6 @@ const RegisterMobileStep = () => {
               برجاء إدخال رقم الجوال لإرسال رمز التأكيد
             </p>
           </Row>
-
-          <div className="label d-flex align-items-center">
-            <label className={cls.label + " ms-1"}>
-              <input
-                id="acceptTerms"
-                checked={check}
-                type="checkbox"
-                className="green-check"
-                name="radio-button"
-                onChange={() => setCheck(!check)}
-                style={{ width: "24px", height: "24px" }}
-              />
-              <p className="mb-0 LT-agree-condition cLT-support2-text termsText">
-                اوافق علي
-              </p>
-            </label>
-
-            <Link className="text-decoration-none" to="/policies">
-              <span>الشروط والاحكام</span>
-            </Link>
-          </div>
-
-          <span
-            style={{ marginTop: -15 }}
-            className="text-muted text-end small"
-          >
-            بالموافقة تخضع هذه الشروط والأحكام و تكون مضبوطة ومفسرة وفقا
-            للقوانين المملكة العربية السعودية ، وأي تحاكم يجب أن يكون للمحاكم
-            الواقعة في المملكة العربية السعودية.
-          </span>
 
           <div className="three" dir="">
             <ButtonShare

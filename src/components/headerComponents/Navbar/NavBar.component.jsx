@@ -28,7 +28,7 @@ import { getMessages } from "../../../core/redux/reducers/Messages/Messages.core
 import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core";
 import { Form } from "react-bootstrap";
 
-const Navbar = ({ isNotification, setIsNotification }) => {
+const Navbar = ({ isNotification, setIsNotification, notificayionNums }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [loginCheck, setLoginCheck] = useState(false);
 
@@ -411,9 +411,21 @@ const Navbar = ({ isNotification, setIsNotification }) => {
                       <IconButton className="position-relative">
                         {isNotification && (
                           <span
-                            className="bg-warning rounded-circle position-absolute top-0 end-0 me-2 mt-2"
-                            style={{ width: 8, height: 8 }}
-                          />
+                            className="bg-warning rounded-circle position-absolute me-2 mt-2 small"
+                            style={{
+                              width: 15,
+                              height: 15,
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              fontSize: ".3rem",
+                              color: "#fff",
+                              top: "-5px",
+                              right: "-3px",
+                            }}
+                          >
+                            {notificayionNums > 9 ? "9" : notificayionNums}
+                          </span>
                         )}
                         <img width={20} src="/icons/Notification.svg" alt="" />
                       </IconButton>

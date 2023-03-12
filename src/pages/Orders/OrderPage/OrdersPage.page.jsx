@@ -301,6 +301,7 @@ const OrdersPage = () => {
             setCategory={categHandler}
             setPrice={setPrice}
             setLocation={setLocation}
+            location={location}
             setQuery={setQuery}
             resetCateg={resetCateg}
             resetMost={resetMost}

@@ -7,6 +7,7 @@ const ButtonShare = ({
   btnClasses,
   loading,
   type,
+  btnType,
   onClick,
   iconName,
   style,
@@ -19,6 +20,7 @@ const ButtonShare = ({
   return (
     <button
       id={ID}
+      type={btnType}
       onClick={onClick}
       onFocus={onFocus}
       className={`btn w-100 ${btnClasses} ${

@@ -608,13 +608,7 @@ const FlancerOfferPriceForm = ({ data }) => {
             ما هي المهارات <span className="cLT-support1-text">و المجالات</span>{" "}
             المطلوبة؟
           </p>
-          <FlancerEditTagsComponent
-            tags={data?.category}
-            tagDescription={`
-                        ادخل  ما يصل الي 5 مهارات تصف مشروعك علي افضل وجة
-                        سيستخدم المشتغلين هذه المهارات للعثوار علي المشاريع التي يهتمون بها و يختبرونها اكثر
-                        `}
-          />
+          <FlancerEditTagsComponent tags={data?.category} />
           {errMessage?.category && (
             <p className="mb-0 fLT-Regular-sA cLT-danger-text  px-2">
               {errMessage?.category}

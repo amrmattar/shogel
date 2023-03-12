@@ -126,7 +126,15 @@ const CheckMobileComponent = ({ nextFn }) => {
   const handleChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setMobileForm((mobileForm) => ({ ...mobileForm, [name]: value }));
+
+      if (!value) {
+        setMobileForm((mobileForm) => ({ ...mobileForm, [name]: value }));
+      }
+
+      const regex = /^[0-9\b]+$/;
+      if (regex.test(value)) {
+        setMobileForm((mobileForm) => ({ ...mobileForm, [name]: value }));
+      }
     },
     [setMobileForm]
   );
@@ -193,6 +201,7 @@ const CheckMobileComponent = ({ nextFn }) => {
               <input
                 disabled={!allCountrys?.length}
                 onChange={handleChange}
+                value={mobileForm.mobile}
                 name="mobile"
                 maxLength={25}
                 className="border rounded-3 py-2 px-3"

@@ -22,7 +22,8 @@ const App = () => {
   const userData = useSelector(({ userData }) => userData);
 
   const [notification, setNotification] = useState({});
-  const [isNotification, setIsNotification] = useState(false);
+  const [isNotification, setIsNotification] = useState(true);
+  const [notificayionNums, setNotificayionNums] = useState(0);
 
   const addToken = (token) => {
     if (!userData.FCMToken) {
@@ -87,6 +88,7 @@ const App = () => {
         localStorage.setItem("notification_isShowen", false);
         localStorage.setItem("notification_count", data?.data?.length || 0);
         setIsNotification(true);
+        setNotificayionNums(+data?.data?.length - +notification_count);
       }
     };
 
@@ -100,6 +102,7 @@ const App = () => {
         <ViewLayout
           isNotification={isNotification}
           setIsNotification={setIsNotification}
+          notificayionNums={notificayionNums}
         />
         <NotificationToast
           notification={notification}

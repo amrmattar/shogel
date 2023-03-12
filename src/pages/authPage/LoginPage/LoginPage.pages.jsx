@@ -3,7 +3,7 @@ import { Button, Dialog } from "@mui/material";
 import LoginComponent from "../../../components/auth/Login/Login.component";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserFeedBackShared from "../../../shared/UserFeedBack/UserFeedBack.shared";
 import { getAuthentication } from "../../../core/redux/reducers/Authentication/AuthenticationReducer.core";
 import { LoginServices } from "../../../core/services/AuthServices/Method_LoginData/Method_LoginData.core";
@@ -20,12 +20,16 @@ const LoginPage = ({
   setMobileOpen,
   forgetPass,
 }) => {
+  const location = useLocation();
+  const routeTo = location.state?.routeTo;
+
   const [stateLoginData, messages] = useSelector((state) => [
     state.login,
     state.messages,
   ]);
   const [loginCheck, setLoginCheck] = useState(false);
   let navigate = useNavigate();
+
   const switchSignup = () => {
     setMobileOpen(true);
     setSignupOpen(false);
@@ -36,6 +40,7 @@ const LoginPage = ({
     setSignupOpen(false);
   };
   const dispatch = useDispatch();
+
   const formSubmit = async (e) => {
     e.preventDefault();
     setLoginCheck(true);
@@ -73,7 +78,7 @@ const LoginPage = ({
           dispatch(getRoleUser(true));
           if (res?.data?.data?.role.id == 3 || res?.data?.data?.role?.id == 4) {
             const routTimeOut = setTimeout(() => {
-              navigate(`/account_management/my-edit-account/${data?.id}`);
+              navigate(routeTo);
               setLoginOpen(false);
             }, 800);
 
@@ -133,7 +138,7 @@ const LoginPage = ({
         open={open ? open : false}
         onClose={handleClose}
       >
-        <Form onSubmit={(e) => formSubmit(e)}>
+        <Form onSubmit={formSubmit}>
           <LoginComponent
             loginCheck={loginCheck}
             forgetPassword={() => setLoginOpen(false)}

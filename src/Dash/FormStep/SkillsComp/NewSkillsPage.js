@@ -94,26 +94,71 @@ const SkillsStep = () => {
   };
 
   const addChosedSkils = (id) => {
-    setSkills((prev) => {
-      const listOfSkls = treeToList(prev);
-      const targetSkl = listOfSkls.find((skl) => skl.id === id);
-      const activeStatus = !targetSkl.active;
-      listOfSkls.find((skl) => skl.id === id).active = activeStatus;
-
-      // set or unset from chosed skills
-      setChosedSkills((chosedSkills) => {
-        if (activeStatus) {
-          chosedSkills.push(targetSkl);
-          return [...chosedSkills];
+    const get_all_children_ids = (nodes, target_id) => {
+      let children_ids = [];
+      for (let node of nodes) {
+        if (node.id === target_id) {
+          for (let child of node.children) {
+            children_ids.push(child.id);
+            children_ids.push(...get_all_children_ids(nodes, child.id));
+          }
+          break;
+        } else {
+          children_ids.push(...get_all_children_ids(node.children, target_id));
         }
+      }
+      return children_ids;
+    };
 
-        chosedSkills = chosedSkills.filter((skl) => skl.id !== targetSkl.id);
+    const getAllChildrenOfId = get_all_children_ids(skills, id);
+    let allSelected = [...getAllChildrenOfId, id]?.map((sklId) => {
+      const currentChosedSkl = chosedSkills?.find((skl) => skl?.id === sklId);
+      const currentSkl = treeToList(skills)?.find((skl) => skl?.id === sklId);
 
-        return [...chosedSkills];
+      if (currentChosedSkl) {
+        return { ...currentChosedSkl, active: false };
+      } else if (currentSkl) {
+        return { ...currentSkl, active: true };
+      }
+    });
+    allSelected = allSelected?.filter((skl) => skl);
+
+    setChosedSkills((prev) => {
+      const prevList = treeToList(prev);
+      const merge = [...allSelected, ...prevList];
+
+      const uniqueData = [];
+      merge.forEach((obj) => {
+        const uniq = merge?.find((skl) => skl?.id === obj?.id);
+
+        if (!uniqueData?.find((skl) => skl?.id === obj?.id)) {
+          uniqueData.push(uniq);
+        }
       });
 
-      return listToTree(listOfSkls);
+      return uniqueData?.filter((skl) => skl?.active);
     });
+    //
+    // setSkills((prev) => {
+    //   const listOfSkls = treeToList(prev);
+    //   const targetSkl = listOfSkls.find((skl) => skl.id === id);
+    //   const activeStatus = !targetSkl.active;
+    //   listOfSkls.find((skl) => skl.id === id).active = activeStatus;
+
+    //   // set or unset from chosed skills
+    //   setChosedSkills((chosedSkills) => {
+    //     if (activeStatus) {
+    //       chosedSkills.push(targetSkl);
+    //       return [...chosedSkills];
+    //     }
+
+    //     chosedSkills = chosedSkills.filter((skl) => skl.id !== targetSkl.id);
+
+    //     return [...chosedSkills];
+    //   });
+
+    //   return listToTree(listOfSkls);
+    // });
   };
 
   const openSklsPopup = () => {

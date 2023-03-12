@@ -93,7 +93,9 @@ const CountrySelectBox = ({
               cursor: "default",
             }}
           >
-            {selectedCountry?.name || "جاري التحميل"}
+            {selectedCountry?.code
+              ? `+${selectedCountry?.code}`
+              : "جاري التحميل"}
           </span>
 
           <span>
@@ -125,7 +127,7 @@ const CountrySelectBox = ({
               src={option?.logo}
               alt=""
             />
-            <span>{option?.name}</span>
+            <span>{option?.code}+</span>
           </MenuItem>
         ))}
       </Menu>

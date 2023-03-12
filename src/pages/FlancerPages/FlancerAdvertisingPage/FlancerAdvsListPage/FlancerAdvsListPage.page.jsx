@@ -369,6 +369,7 @@ const FlancerAdvsListPage = () => {
             setActive={setActive}
             setRate={setRate}
             setLocation={setLocation}
+            location={location}
             setRateCount={setRateCount}
             resetMost={resetMost}
             setMostUseId={setMostUseId}

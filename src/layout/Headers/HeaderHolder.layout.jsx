@@ -8,7 +8,11 @@ import { useMediaQuery } from "react-responsive";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
-const HeaderHolder = ({ isNotification, setIsNotification }) => {
+const HeaderHolder = ({
+  isNotification,
+  setIsNotification,
+  notificayionNums,
+}) => {
   const location = useLocation();
   const mediaMD = useMediaQuery({ query: `(max-width: 992px)` });
   const checkLogin = useSelector((state) => state.authentication.loggedIn);
@@ -18,6 +22,7 @@ const HeaderHolder = ({ isNotification, setIsNotification }) => {
       {/* Navbar Selector */}
       <div className=" px-0 ">
         <Navbar
+          notificayionNums={notificayionNums}
           isNotification={isNotification}
           setIsNotification={setIsNotification}
         />

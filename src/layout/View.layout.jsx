@@ -9,7 +9,11 @@ import PageHeader from "../shared/PageHeader/PageHeader.shared";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-const ViewLayout = ({ isNotification, setIsNotification }) => {
+const ViewLayout = ({
+  isNotification,
+  setIsNotification,
+  notificayionNums,
+}) => {
   const location = useLocation();
   const show = useSelector((state) => state.Fotter.visible);
   const { id } = useParams();
@@ -28,6 +32,7 @@ const ViewLayout = ({ isNotification, setIsNotification }) => {
           <div className="cLT-Gradian-Linear-Main LT-nav-line "></div>
           {/* Navbar  & Searchbar  [Holder] */}
           <HeaderHolder
+            notificayionNums={notificayionNums}
             isNotification={isNotification}
             setIsNotification={setIsNotification}
           />

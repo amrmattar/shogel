@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import AmentiesShared from "../../../shared/Amenties/Amenties.shared";
 import ButtonShare from "../../../shared/Button/Button.shared";
 import CircularStatic from "../../../shared/ProgressBar/ProgressBar.shared";
@@ -36,6 +37,11 @@ const CircularProgressWithLabel = ({ parentClassName, ...props }) => {
 };
 
 const FlancerEmployedListCard = ({ data, small, to }) => {
+  const navigate = useNavigate();
+  const loggedIn = useSelector(
+    ({ authentication }) => authentication?.loggedIn
+  );
+
   const myPersonData = {
     id: data.id,
     avatar: data?.avatar,
@@ -47,6 +53,14 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
     info: data?.info,
     description: data?.description,
     to: to,
+  };
+
+  const handelShglnyBtn = (route) => {
+    if (loggedIn) {
+      navigate(route);
+    } else {
+      navigate(`/login`, { state: { routeTo: route } });
+    }
   };
 
   return (
@@ -83,22 +97,24 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
 
           {(myPersonData?.jobName === "freelancer" ||
             myPersonData?.jobName === "company") && (
-            <NavLink
+            <div
               style={{ zIndex: 999 }}
-              to={`/freelancer-offer/${myPersonData?.id}`}
               className={
                 "uLT-list-style me-3 text-decoration-none d-md-block d-none"
               }
             >
               <div style={{ zIndex: 999 }} className="shadow uLT-f-radius-sB">
                 <ButtonShare
+                  onClick={() =>
+                    handelShglnyBtn(`/freelancer-offer/${myPersonData?.id}`)
+                  }
                   btnClasses="cLT-secondary-bg py-2 cu-pointer px-4  d-flex align-items-center gap-2 uLT-f-radius-sB"
                   textClasses={`fLT-Regular-sB px-1 cLT-white-text `}
                   innerText="شغلني"
                   iconName={"iLT-work-case-white"}
                 />
               </div>
-            </NavLink>
+            </div>
           )}
         </div>
         <div className="LT-employed-description">
@@ -111,9 +127,13 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
             }}
             className="m-0 fLT-Regular-sB text-dark"
           >
-            {data?.info?.length > 200
-              ? data?.info.slice(0, 200) + "..."
-              : data?.info}
+            {myPersonData?.info?.length > 150 ? (
+              <span style={{ whiteSpace: "normal" }}>
+                {myPersonData?.info.slice(0, 150) + "..."}
+              </span>
+            ) : (
+              myPersonData?.info
+            )}
           </p>
         </div>
         {/* Card Divied */}

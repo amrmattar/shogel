@@ -217,6 +217,7 @@ const Employed = () => {
             resetCateg={resetCateg}
             rate={rate}
             setLocation={setLocation}
+            location={location}
             mostUse={mostUse}
             categories={categories}
             activesId={categ}

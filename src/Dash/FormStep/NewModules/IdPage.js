@@ -232,7 +232,11 @@ const IdPage = () => {
                 required
                 className="uLT-bd-f-platinum-sA inpBG inp"
                 type="text"
-                placeholder="ادخل رقم الهوية "
+                placeholder={
+                  value?.accountType?.userKind !== "company"
+                    ? "ادخل رقم الهوية"
+                    : "ادخل رقم السجل التجاري"
+                }
                 onChange={value.setDataDetails("id")}
                 value={getClientData.id}
               />

@@ -8,6 +8,7 @@ import StarIcon from "@mui/icons-material/Star";
 import SkillTree from "../../../Dash/FormStep/SkillsComp/SkillTree";
 import { useEffect, useState } from "react";
 import FilterPhoneView from "./FilterPhoneView";
+import axios from "axios";
 
 const attendees = [
   { key: "offline", name: "بالحضور" },
@@ -24,6 +25,7 @@ const DynamicFilter = ({
   setCategory,
   setPrice,
   setLocation,
+  location,
   setRate,
   setActive,
   setRateCount,
@@ -42,6 +44,7 @@ const DynamicFilter = ({
   attendeesStatus,
 }) => {
   const [searchRes, setSearchRes] = useState([]);
+  const [hisCountry, setHisCountry] = useState();
 
   const choseSkillWithChildrenHandler = (id) => {
     const get_all_children_ids = (nodes, target_id) => {
@@ -74,6 +77,70 @@ const DynamicFilter = ({
       setSearchRes([]);
     }
   }, [query, categories]);
+
+  // get his country
+  useEffect(() => {
+    const getHisCountry = async () => {
+      const getCoords = async () => {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+
+        return {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        };
+      };
+
+      getCoords().then(async ({ lat, lon }) => {
+        const hisCountryUri = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&language=ar&key=AIzaSyAeMiz0Z5VKOjU4TUxh-2RgZt7PnWQXxoQ`;
+
+        const { data: hisDataCountry } = await axios(hisCountryUri);
+
+        let country = "sa";
+
+        if (hisDataCountry?.status == "OK") {
+          if (hisDataCountry?.results[1]) {
+            //find country name
+            for (
+              var i = 0;
+              i < hisDataCountry?.results[0].address_components.length;
+              i++
+            ) {
+              for (
+                var b = 0;
+                b <
+                hisDataCountry?.results[0].address_components[i].types.length;
+                b++
+              ) {
+                if (
+                  hisDataCountry?.results[0].address_components[i].types[b] ==
+                  "country"
+                ) {
+                  //this is the object you are looking for
+                  country =
+                    hisDataCountry?.results[0].address_components[i]?.long_name;
+                  break;
+                }
+              }
+            }
+
+            // set country code
+            setHisCountry(country);
+          }
+        }
+      });
+    };
+
+    getHisCountry();
+  }, []);
+
+  // set country to filter
+  useEffect(() => {
+    if (!hisCountry) return;
+
+    setLocation(hisCountry || "");
+  }, [setLocation, hisCountry]);
 
   return (
     <>
@@ -136,6 +203,7 @@ const DynamicFilter = ({
 
             <input
               onChange={(e) => setLocation(e.target.value)}
+              value={location}
               className={cls.inp}
               placeholder="ابحث هنا"
               type="text"
