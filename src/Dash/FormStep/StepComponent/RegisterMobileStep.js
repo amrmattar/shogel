@@ -320,6 +320,18 @@ const RegisterMobileStep = () => {
             </p>
           </Row>
 
+          <div className="label d-flex align-items-center">
+            <label className={cls.label + " m-0 ms-1"}>
+              <p className="m-0 LT-agree-condition cLT-support2-text termsText">
+                اوافق علي
+              </p>
+            </label>
+
+            <Link className="text-decoration-none" to="/policies">
+              <span>الشروط والاحكام</span>
+            </Link>
+          </div>
+
           <div className="three" dir="">
             <ButtonShare
               onClick={handleMobileSubmit}
