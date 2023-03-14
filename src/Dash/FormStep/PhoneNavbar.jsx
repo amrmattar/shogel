@@ -18,7 +18,7 @@ const PhoneNavbar = ({ steps, activeStep }) => {
         }}
       >
         <Typography variant="h6" noWrap component="div">
-          {/* Main Logo [Shoghl] */}
+          {/* Main Logo [Shogol] */}
           <NavLink
             style={{ height: 35 }}
             to="/"

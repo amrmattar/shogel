@@ -270,7 +270,7 @@ const Navbar = ({ isNotification, setIsNotification, notificayionNums }) => {
               height: "40px",
             }}
           >
-            {/* Main Logo [Shoghl] */}
+            {/* Main Logo [Shogol] */}
             <NavLink
               to="/"
               className="imLT-main-logo  uLT-img-position-contain col mx-0 px-0"

@@ -321,14 +321,14 @@ const RegisterMobileStep = () => {
           </Row>
 
           <div className="label d-flex align-items-center">
-            <label className={cls.label + " m-0 ms-1"}>
+            <label className={cls.label + " m-0 ms-1 small"}>
               <p className="m-0 LT-agree-condition cLT-support2-text termsText">
-                اوافق علي
+                بالضغط علي ارسال فأنا اوافق علي
               </p>
             </label>
 
             <Link className="text-decoration-none" to="/policies">
-              <span>الشروط والاحكام</span>
+              <span className="small">الشروط والاحكام</span>
             </Link>
           </div>
 

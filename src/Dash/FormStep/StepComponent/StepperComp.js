@@ -26,7 +26,7 @@ const StepperComp = ({ activeStep, steps, hideInSm }) => {
             height: "47px",
           }}
         >
-          {/* Main Logo [Shoghl] */}
+          {/* Main Logo [Shogol] */}
           <NavLink
             to="/"
             className="imLT-main-logo  uLT-img-position-contain col"
