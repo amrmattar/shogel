@@ -93,6 +93,7 @@ const treeToList = (arr) => {
 };
 
 const FlancerAdvsListPage = () => {
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [attendeesStatus, setAttendeesStatus] = useState("all");
 
@@ -208,6 +209,10 @@ const FlancerAdvsListPage = () => {
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
           setUserAdvsDetatils(res.data);
+
+          if (location) {
+            setIsFirstRender(false);
+          }
         })
         .catch((err) => {
           return err.response;
@@ -284,6 +289,10 @@ const FlancerAdvsListPage = () => {
         ._POST_AllAdvsOfferV2(body)
         .then((res) => {
           setUserAdvsDetatils(res.data);
+
+          if (location) {
+            setIsFirstRender(false);
+          }
         })
         .catch((err) => {
           return err.response;
@@ -336,7 +345,6 @@ const FlancerAdvsListPage = () => {
   return (
     <>
       {/* Advertising List [Holder] */}
-
       <div className={cls.container}>
         <div className="d-flex"></div>
         <header className="d-flex justify-content-between align-items-center d-md-none container mb-3">
@@ -374,7 +382,7 @@ const FlancerAdvsListPage = () => {
             resetMost={resetMost}
             setMostUseId={setMostUseId}
           />
-          {userAdvsDetatils?.data?.length !== 0 ? (
+          {userAdvsDetatils?.data?.length && !isFirstRender ? (
             <div className="cLT-white-bg p-3 ">
               {userAdvsDetatils?.data?.map((advs, ix) => {
                 return (

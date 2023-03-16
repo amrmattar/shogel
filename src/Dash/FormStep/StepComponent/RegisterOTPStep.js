@@ -92,7 +92,9 @@ const RegisterOTPStep = (props) => {
 
         dispatch(
           getMessages({
-            messages: errors[Object.keys(errors)[0]],
+            messages: Array.isArray(errors)
+              ? errors[Object.keys(errors)[0]]
+              : errors,
             messageType: "error",
             messageClick: true,
           })

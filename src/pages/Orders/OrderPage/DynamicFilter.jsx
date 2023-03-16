@@ -137,9 +137,7 @@ const DynamicFilter = ({
 
   // set country to filter
   useEffect(() => {
-    if (!hisCountry) return;
-
-    setLocation(hisCountry || "");
+    setLocation(hisCountry || "المملكه العربية السعودية");
   }, [setLocation, hisCountry]);
 
   return (

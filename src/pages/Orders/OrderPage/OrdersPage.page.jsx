@@ -80,6 +80,8 @@ const treeToList = (arr) => {
 };
 
 const OrdersPage = () => {
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [attendeesStatus, setAttendeesStatus] = useState("all");
 
@@ -149,6 +151,10 @@ const OrdersPage = () => {
         ._POST_AllOrderListV2(body)
         .then((res) => {
           setUserOfferDetatils(res.data.data);
+
+          if (location) {
+            setIsFirstRender(false);
+          }
         })
         .catch((err) => {
           return err.response;
@@ -235,6 +241,10 @@ const OrdersPage = () => {
         ._POST_AllOrderListV2(body)
         .then((res) => {
           setUserOfferDetatils(res.data.data);
+
+          if (location) {
+            setIsFirstRender(false);
+          }
         })
         .catch((err) => {
           return err.response;
@@ -308,7 +318,7 @@ const OrdersPage = () => {
             setMostUseId={setMostUseId}
           />
 
-          {userOfferDetatils.length !== 0 ? (
+          {userOfferDetatils.length !== 0 && !isFirstRender ? (
             <div className="cLT-white-bg p-3 ">
               {userOfferDetatils?.map((offer, ix) => {
                 return (

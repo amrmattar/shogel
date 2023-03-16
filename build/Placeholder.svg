@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="574" height="356" viewBox="0 0 574 356">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_977" data-name="Rectangle 977" width="40" height="40" transform="translate(121 1105)" fill="#fafafa" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Group_20356" data-name="Group 20356" transform="translate(-466 -1259)">
+    <g id="Group_20357" data-name="Group 20357">
+      <rect id="Web-Design-Trends-2017-1" width="574" height="356" rx="10" transform="translate(466 1259)" fill="#37383b" opacity="0.45"/>
+      <g id="Mask_Group_47" data-name="Mask Group 47" transform="translate(612 312)" clip-path="url(#clip-path)">
+        <path id="play-alt" d="M31.667,40H8.333A8.343,8.343,0,0,1,0,31.667V8.333A8.343,8.343,0,0,1,8.333,0H31.667A8.343,8.343,0,0,1,40,8.333V31.667A8.343,8.343,0,0,1,31.667,40ZM8.333,3.333a5,5,0,0,0-5,5V31.667a5,5,0,0,0,5,5H31.667a5,5,0,0,0,5-5V8.333a5,5,0,0,0-5-5ZM15.57,28.342a3.947,3.947,0,0,1-1.977-.538,3.855,3.855,0,0,1-1.94-3.368v-8.87a3.9,3.9,0,0,1,5.833-3.382l8.8,4.392a3.893,3.893,0,0,1,.082,6.807l-8.96,4.478a3.667,3.667,0,0,1-1.835.482Zm-.042-13.333a.523.523,0,0,0-.262.07.545.545,0,0,0-.28.487v8.87a.562.562,0,0,0,.833.488l8.96-4.48a.523.523,0,0,0,.2-.443.542.542,0,0,0-.282-.487l-8.79-4.392a.77.77,0,0,0-.38-.113Z" transform="translate(121 1105)" fill="#fafafa"/>
+      </g>
+    </g>
+  </g>
+</svg>

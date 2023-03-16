@@ -19,6 +19,7 @@ const mostUse = [
 ];
 
 const Employed = () => {
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const param = useParams();
@@ -123,6 +124,10 @@ const Employed = () => {
         .then((res) => {
           key?.searchKey && setFlancersList(res.data);
           setFlancersList(res.data);
+
+          if (location) {
+            setIsFirstRender(false);
+          }
         })
         .catch((err) => {
           return err.response;
@@ -154,6 +159,10 @@ const Employed = () => {
         .then((res) => {
           key?.searchKey && setFlancersList(res.data);
           setFlancersList(res.data);
+
+          if (location) {
+            setIsFirstRender(false);
+          }
         })
         .catch((err) => {
           return err.response;
@@ -225,7 +234,7 @@ const Employed = () => {
             setMostUseId={setMostUseId}
             mostUseId={mostUseId}
           />
-          {flancersList?.data.length !== 0 ? (
+          {flancersList?.data.length !== 0 && !isFirstRender ? (
             <div className="cLT-white-bg p-3 ">
               {flancersList?.data?.map((list, idx) => {
                 return (
