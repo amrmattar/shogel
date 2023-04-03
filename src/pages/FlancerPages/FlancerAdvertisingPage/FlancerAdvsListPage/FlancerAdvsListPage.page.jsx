@@ -25,6 +25,7 @@ import { API } from "../../../../enviroment/enviroment/enviroment";
 import { IconButton } from "@mui/material";
 
 import TuneIcon from "@mui/icons-material/Tune";
+import FlancerAdvsGridCards from "../../../../components/FreeLancer/FlancerAdvertisingComponent/FlancerAdvsGridCard/FlancerAdvsGridCard.component";
 
 const categories = [
   {
@@ -93,6 +94,8 @@ const treeToList = (arr) => {
 };
 
 const FlancerAdvsListPage = () => {
+  const [loading, setLoading] = useState(true);
+
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [attendeesStatus, setAttendeesStatus] = useState("all");
@@ -156,17 +159,16 @@ const FlancerAdvsListPage = () => {
   const [categ, setCateg] = useState([]);
   const [rateCount, setRateCount] = useState([]);
   const [location, setLocation] = useState("");
-
   const [mostUseId, setMostUseId] = useState([]);
+
+  const timeRef = useRef(0);
 
   const resetCateg = () => {
     setCateg([]);
   };
-
   const resetMost = () => {
     setMostUseId([]);
   };
-
   const categHandler = (arrayOfIds) => {
     setCateg((prev) => {
       let newData = [...prev];
@@ -181,9 +183,6 @@ const FlancerAdvsListPage = () => {
       return newData;
     });
   };
-
-  const timeRef = useRef(0);
-
   const listOfUsersAdvs = useMemo(() => {
     clearTimeout(timeRef.current);
     timeRef.current = setTimeout(() => {
@@ -212,6 +211,7 @@ const FlancerAdvsListPage = () => {
 
           if (location) {
             setIsFirstRender(false);
+            setLoading(false);
           }
         })
         .catch((err) => {
@@ -264,54 +264,57 @@ const FlancerAdvsListPage = () => {
     return () => clearTimeout(timeout);
   }, [userAdvsDetatils?.data, listOfUsersAdvs]);
 
-  useEffect(() => {
-    const fetchAds = async () => {
-      const body = new FormData();
-      body.set("perPage", 10);
-      body.set("page", currentPage || 1);
-      body.set("pagination", true);
-      body.set("search", true);
-      body.set("name", key);
+  // useEffect(() => {
+  //   if (!location) return;
+  //   console.log(location);
 
-      body.set("category", categ);
-      body.set("price", price);
-      body.set("rate_count", rateCount);
-      body.set("rate", rate);
-      body.set("available", active);
-      body.set("location", location);
-      body.set("attendeesStatus", attendeesStatus);
+  //   const fetchAds = async () => {
+  //     const body = new FormData();
+  //     body.set("perPage", 10);
+  //     body.set("page", currentPage || 1);
+  //     body.set("pagination", true);
+  //     body.set("search", true);
+  //     body.set("name", key);
 
-      body.set("freelancer", mostUsedKeys?.freelancer);
-      body.set("compnay", mostUsedKeys?.compnay);
-      body.set("near", mostUsedKeys?.near);
+  //     body.set("category", categ);
+  //     body.set("price", price);
+  //     body.set("rate_count", rateCount);
+  //     body.set("rate", rate);
+  //     body.set("available", active);
+  //     body.set("location", location);
+  //     body.set("attendeesStatus", attendeesStatus);
 
-      return advertisingLists
-        ._POST_AllAdvsOfferV2(body)
-        .then((res) => {
-          setUserAdvsDetatils(res.data);
+  //     body.set("freelancer", mostUsedKeys?.freelancer);
+  //     body.set("compnay", mostUsedKeys?.compnay);
+  //     body.set("near", mostUsedKeys?.near);
 
-          if (location) {
-            setIsFirstRender(false);
-          }
-        })
-        .catch((err) => {
-          return err.response;
-        });
-    };
+  //     return advertisingLists
+  //       ._POST_AllAdvsOfferV2(body)
+  //       .then((res) => {
+  //         setUserAdvsDetatils(res.data);
 
-    fetchAds();
-  }, [
-    currentPage,
-    price,
-    location,
-    categ,
-    key,
-    rate,
-    rateCount,
-    active,
-    attendeesStatus,
-    mostUsedKeys,
-  ]);
+  //         if (location) {
+  //           setIsFirstRender(false);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         return err.response;
+  //       });
+  //   };
+
+  //   fetchAds();
+  // }, [
+  //   currentPage,
+  //   price,
+  //   location,
+  //   categ,
+  //   key,
+  //   rate,
+  //   rateCount,
+  //   active,
+  //   attendeesStatus,
+  //   mostUsedKeys,
+  // ]);
 
   useEffect(() => {
     let mostUsed = mostUse.map((most) => {
@@ -332,20 +335,21 @@ const FlancerAdvsListPage = () => {
   if (!userAdvsDetatils?.data)
     return (
       <div
-        className="d-flex justify-content-center align-items-center w-100 "
-        style={{ height: "100vh" }}
+        style={{ height: "60vh" }}
+        className="position-relative d-flex justify-content-center align-items-center w-100 py-4"
       >
+        <div className="LT-logo-border-forwards-loading"></div>
         <div
-          className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-          style={{ width: "200px", height: "200px" }}
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
         ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     );
 
   return (
     <>
-      {/* Advertising List [Holder] */}
-      <div className={cls.container}>
+      <div className={cls.container + ` ${loading ? "d-none" : ""}`}>
         <div className="d-flex"></div>
         <header className="d-flex justify-content-between align-items-center d-md-none container mb-3">
           <p className="m-0">جميع الاعلانات</p>
@@ -386,19 +390,39 @@ const FlancerAdvsListPage = () => {
             <div className="cLT-white-bg p-3 ">
               {userAdvsDetatils?.data?.map((advs, ix) => {
                 return (
-                  <NavLink
-                    className="uLT-list-style"
-                    to={`/advertising/advertise-details/${advs.id}`}
-                    key={ix}
-                  >
-                    {" "}
-                    <FlancerAdvsListCardComponent
-                      data={advs}
-                      roll={vistorUser}
-                    />{" "}
-                  </NavLink>
+                  <>
+                    <NavLink
+                      className="uLT-list-style d-block d-md-none"
+                      to={`/advertising/advertise-details/${advs.id}`}
+                      key={ix}
+                    >
+                      {" "}
+                      <FlancerAdvsGridCards data={advs} roll={true} />{" "}
+                    </NavLink>
+
+                    <NavLink
+                      className="uLT-list-style d-none d-md-block"
+                      to={`/advertising/advertise-details/${advs.id}`}
+                      key={ix}
+                    >
+                      {" "}
+                      <FlancerAdvsListCardComponent
+                        data={advs}
+                        roll={true}
+                      />{" "}
+                    </NavLink>
+                  </>
                 );
               })}
+            </div>
+          ) : loading ? (
+            <div className="position-relative d-flex justify-content-center align-items-center w-100 h-100 py-4">
+              <div className="LT-logo-border-forwards-loading"></div>
+              <div
+                className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+                style={{ width: "120px", height: "120px" }}
+              ></div>
+              <div className="LT-logo-border-backwards-loading"></div>
             </div>
           ) : (
             <div
@@ -429,6 +453,20 @@ const FlancerAdvsListPage = () => {
             />
           </Stack>
         </div>
+      </div>
+
+      <div
+        style={{ height: "60vh" }}
+        className={`${
+          !loading ? "d-none" : ""
+        } position-relative d-flex justify-content-center align-items-center w-100 py-4`}
+      >
+        <div className="LT-logo-border-forwards-loading"></div>
+        <div
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
+        ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     </>
   );

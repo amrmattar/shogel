@@ -19,6 +19,8 @@ import CircularProgress, {
 } from "@mui/material/CircularProgress";
 import { Box, Typography } from "@mui/material";
 
+import useScreen from "../../../../utils/useScreen";
+
 const CircularProgressWithLabel = ({
   className = "",
   isParentClass,
@@ -63,6 +65,8 @@ const sliceText = (txt, length) => {
 };
 
 const FlancerAdvsDetailsPage = () => {
+  const screenSize = useScreen();
+
   const navigate = useNavigate();
   const [vistorUser, messages] = useSelector((state) => [
     state.authentication.loggedIn,
@@ -133,9 +137,7 @@ const FlancerAdvsDetailsPage = () => {
 
   const startChat = () => {
     window.open(
-      `https://api.whatsapp.com/send/?phone=${
-        advsDataById?.user?.mobile
-      }&text=${"https://shogol.sa/"}`
+      `https://api.whatsapp.com/send/?phone=${`+${advsDataById?.user?.country_code}${advsDataById?.user?.mobile}`}&text=${"https://shogol.sa/"}`
     );
   };
 
@@ -418,14 +420,30 @@ const FlancerAdvsDetailsPage = () => {
               className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
             >
               <i className={`iLT-flancer-email uLT-img-contain iLT-sC`}></i>
-              <p>الدردشه</p>
+              <p
+                className={`text-muted ${
+                  screenSize.with <= 770 ? "d-none" : ""
+                }`}
+              >
+                الدردشه
+              </p>
             </div>
             <div
-              onClick={() => copyPhoneNumber(advsDataById?.user?.mobile)}
+              onClick={() =>
+                copyPhoneNumber(
+                  `+${advsDataById?.user?.country_code}${advsDataById?.user?.mobile}`
+                )
+              }
               className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
             >
               <i className={`iLT-flancer-mobile uLT-img-contain iLT-sC`}></i>
-              <p>اتصال</p>
+              <p
+                className={`text-muted ${
+                  screenSize.with <= 770 ? "d-none" : ""
+                }`}
+              >
+                اتصال
+              </p>
             </div>
             <Toast
               onClose={() => setCopyMobile(false)}
@@ -440,7 +458,13 @@ const FlancerAdvsDetailsPage = () => {
               className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
             >
               <i className={`iLT-flancer-whatsApp uLT-img-contain iLT-sC`}></i>
-              <p>واتساب</p>
+              <p
+                className={`text-muted ${
+                  screenSize.with <= 770 ? "d-none" : ""
+                }`}
+              >
+                واتساب
+              </p>
             </div>
 
             <div
@@ -454,7 +478,13 @@ const FlancerAdvsDetailsPage = () => {
                     : "iLT-flancer-heart"
                 } uLT-img-contain iLT-sC`}
               ></i>
-              <p>مفضله</p>
+              <p
+                className={`text-muted ${
+                  screenSize.with <= 770 ? "d-none" : ""
+                }`}
+              >
+                مفضله
+              </p>
             </div>
             <CopyToClipboard text={`${window.location.href}`}>
               <div
@@ -462,7 +492,13 @@ const FlancerAdvsDetailsPage = () => {
                 className="uLT-advs-contact uLT-click hova  d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
               >
                 <i className={`iLT-flancer-share uLT-img-contain iLT-sC`}></i>
-                <p>مشاركة</p>
+                <p
+                  className={`text-muted ${
+                    screenSize.with <= 770 ? "d-none" : ""
+                  }`}
+                >
+                  مشاركة
+                </p>
               </div>
             </CopyToClipboard>
             <Toast
@@ -481,7 +517,14 @@ const FlancerAdvsDetailsPage = () => {
               <i
                 className={`   iLT-flancer-report uLT-img-contain iLT-sC `}
               ></i>
-              <p> ارسال بلاغ </p>
+              <p
+                className={`text-muted ${
+                  screenSize.with <= 770 ? "d-none" : ""
+                }`}
+              >
+                {" "}
+                ارسال بلاغ{" "}
+              </p>
             </div>
           </div>
         </div>

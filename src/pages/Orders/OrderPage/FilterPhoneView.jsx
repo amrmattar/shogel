@@ -26,6 +26,7 @@ const trendingOptions = [
 const FilterPhoneView = ({
   isFilterOpen,
   setIsFilterOpen,
+  location,
   categories,
   isEmployee,
   isAdvert,
@@ -54,6 +55,11 @@ const FilterPhoneView = ({
       />
 
       <div
+        style={{
+          overflowY: "auto",
+          overflowX: "hidden",
+          maxHeight: "90vh",
+        }}
         className={`${cls.phone_view} ${
           isFilterOpen ? cls.active : ""
         } d-md-none bg-white rounded-3 border`}
@@ -139,6 +145,7 @@ const FilterPhoneView = ({
 
                   <input
                     onChange={(e) => setLocation(e.target.value)}
+                    value={location}
                     className={cls.inp}
                     placeholder="ابحث هنا"
                     type="text"

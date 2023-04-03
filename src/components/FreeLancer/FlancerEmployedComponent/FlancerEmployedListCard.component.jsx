@@ -89,7 +89,7 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
           className="d-flex justify-content-end align-items-center p-0"
         >
           {/* List Card Rate */}
-          <div>
+          <div className="d-none d-md-block">
             <CircularStatic
               num={arNumberConverter(myPersonData.profileComplition || 0)}
             />

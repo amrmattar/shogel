@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Divider = ({ spaceSize }) => {
-    return (
-        <div className={`${spaceSize}`}>
+  return <div className={`${spaceSize}`}></div>;
+};
 
-        </div>
-    )
-}
-
-export default React.memo(Divider)
+export default React.memo(Divider);

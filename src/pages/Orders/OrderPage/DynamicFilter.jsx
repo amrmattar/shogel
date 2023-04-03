@@ -350,6 +350,7 @@ const DynamicFilter = ({
         setCategory={choseSkillWithChildrenHandler}
         setPrice={setPrice}
         setLocation={setLocation}
+        location={location}
         setRate={setRate}
         setActive={setActive}
         setRateCount={setRateCount}

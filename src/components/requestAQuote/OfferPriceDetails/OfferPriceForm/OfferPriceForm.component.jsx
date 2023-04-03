@@ -436,9 +436,7 @@ const OfferPriceForm = () => {
           <div className=" position-relative mt-2 mb-2">
             <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
               {" "}
-              اكتب تفاصيل عرض السعر<span className="cLT-danger-text">
-                *
-              </span>{" "}
+              اكتب تفاصيل الطلب<span className="cLT-danger-text">*</span>{" "}
             </Form.Label>
             <TextEditorShared
               data={recivedData?.description}
@@ -477,7 +475,7 @@ const OfferPriceForm = () => {
                   value={formData?.time || ""}
                   className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
                   type="text"
-                  placeholder="30 يوم"
+                  placeholder="24 ساعة"
                 />
                 {errMessage?.time && (
                   <p
@@ -555,7 +553,6 @@ const OfferPriceForm = () => {
                 <Form.Group as={Col} md={12} className="mb-3">
                   <Form.Label className="fLT-Regular-sB cLT-support2-text mb-2">
                     العنوان بالتفصيل <span className="cLT-danger-text">*</span>{" "}
-                    <span className="small">(يجب ادخال المنطقه ايضا)</span>
                   </Form.Label>
                   <Form.Control
                     onChange={handleChange}
@@ -563,7 +560,7 @@ const OfferPriceForm = () => {
                     className="uLT-f-radius-sB uLT-bd-f-platinum-sA cLT-main-text"
                     type="text"
                     value={formData?.address}
-                    placeholder="العنوان بالتفصيل"
+                    placeholder="(المدينة-الشارع-رقم المبنى-معلم بارز)"
                   />
                 </Form.Group>
               </Row>

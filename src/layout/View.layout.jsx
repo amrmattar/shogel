@@ -61,7 +61,7 @@ const ViewLayout = ({
           <div className="container-fluid container-md mxFull px-md-0 px-3">
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb my-4">
-                <li className="breadcrumb-item">
+                <li className="breadcrumb-item text-muted">
                   {location.pathname.includes("orders/page=")
                     ? "طلبات"
                     : location.pathname.includes("employed/page=")

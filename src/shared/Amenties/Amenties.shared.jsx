@@ -29,7 +29,7 @@ const AmentiesShared = ({
       {amentiesWithIcon === "orderAmenties" ? (
         <div className="LT-orderAmenties d-block d-md-grid">
           {/* Amenties Holder */}
-          <div className="d-flex LT-orderCount gap-3 flex-wrap w-100 justify-content-start align-items-center">
+          <div className="d-none d-md-flex LT-orderCount gap-3 flex-wrap w-100 justify-content-start align-items-center">
             {orderData?.category
               ?.slice(0, 3)
               ?.map((amentiesOfCategory, idx) => {
@@ -43,8 +43,8 @@ const AmentiesShared = ({
               })}
           </div>
           {/* Amenties Icon */}
-          <div className={`row w-100 mt-4 mt-md-0`}>
-            <div className="col-5 col-md-6 d-none d-md-block">
+          <div className={`row w-100 mt-md-0 align-items-center`}>
+            <div className="col-sm-5 col-md-6 d-none d-md-block">
               <div className="d-flex gap-3 align-items-center">
                 <div className="d-flex justify-content-center aling-items-center">
                   <i
@@ -60,7 +60,23 @@ const AmentiesShared = ({
               </div>
             </div>
 
-            <div className="col-5 mt-2 d-md-none mb-3 ms-1">
+            <div className="col-sm-5 col-md-6 d-md-none">
+              <div className="d-flex gap-3 align-items-center">
+                <div className="d-flex justify-content-center aling-items-center">
+                  <i
+                    className={`iLT-Listcard-location uLT-img-contain iLT-sA ms-2 main-color`}
+                  />
+                  <p
+                    style={{ whiteSpace: "nowrap" }}
+                    className="mb-0 cLT-secondary-text fLT-Bold-sm-sA"
+                  >
+                    {orderData?.city?.name}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-sm-5 mt-2 d-md-none mb-sm-3 ms-1">
               <div className="d-flex  gap-3 align-items-center">
                 <div className="d-flex justify-content-center aling-items-center">
                   <i
@@ -76,28 +92,12 @@ const AmentiesShared = ({
               </div>
             </div>
 
-            <div className="col-5 mt-2 d-md-none">
+            <div className="col-sm-5 mt-2 d-md-none">
               <div className="d-flex  gap-3 align-items-center">
                 <div className="d-flex justify-content-center aling-items-center">
                   <AiOutlineFileDone className="ms-2 main-color" />
                   <p className="mb-0 cLT-secondary-text fLT-Bold-sm-sA">
                     {Number(arNumberConverter(orderData?.offerCount || 0))} عروض
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-5 col-md-6 d-md-none">
-              <div className="d-flex gap-3 align-items-center">
-                <div className="d-flex justify-content-center aling-items-center">
-                  <i
-                    className={`iLT-Listcard-location uLT-img-contain iLT-sA ms-2 main-color`}
-                  />
-                  <p
-                    style={{ whiteSpace: "nowrap" }}
-                    className="mb-0 cLT-secondary-text fLT-Bold-sm-sA"
-                  >
-                    {orderData?.city?.name}
                   </p>
                 </div>
               </div>

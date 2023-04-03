@@ -19,6 +19,8 @@ const mostUse = [
 ];
 
 const Employed = () => {
+  const [loading, setLoading] = useState(true);
+
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -127,6 +129,7 @@ const Employed = () => {
 
           if (location) {
             setIsFirstRender(false);
+            setLoading(false);
           }
         })
         .catch((err) => {
@@ -136,41 +139,41 @@ const Employed = () => {
     return () => clearTimeout(timeRef.current);
   }, [rate, active, location, categ, key, mostUsedKeys]);
 
-  useEffect(() => {
-    const fetchAds = async () => {
-      const body = new FormData();
-      body.set("perPage", 10);
-      body.set("pagination", true);
-      body.set("page", param?.num || 1);
-      body.set("search", true);
-      body.set("fullname", key);
+  // useEffect(() => {
+  //   const fetchAds = async () => {
+  //     const body = new FormData();
+  //     body.set("perPage", 10);
+  //     body.set("pagination", true);
+  //     body.set("page", param?.num || 1);
+  //     body.set("search", true);
+  //     body.set("fullname", key);
 
-      body.set("category", categ);
-      body.set("rate", rate == 0 ? null : rate);
-      body.set("available", active);
-      body.set("location", location);
+  //     body.set("category", categ);
+  //     body.set("rate", rate == 0 ? null : rate);
+  //     body.set("available", active);
+  //     body.set("location", location);
 
-      body.set("freelancer", mostUsedKeys?.freelancer);
-      body.set("compnay", mostUsedKeys?.compnay);
-      body.set("near", mostUsedKeys?.near);
+  //     body.set("freelancer", mostUsedKeys?.freelancer);
+  //     body.set("compnay", mostUsedKeys?.compnay);
+  //     body.set("near", mostUsedKeys?.near);
 
-      freelancersListProfile
-        ._POST_FreelancersListProfileV2(body)
-        .then((res) => {
-          key?.searchKey && setFlancersList(res.data);
-          setFlancersList(res.data);
+  //     freelancersListProfile
+  //       ._POST_FreelancersListProfileV2(body)
+  //       .then((res) => {
+  //         key?.searchKey && setFlancersList(res.data);
+  //         setFlancersList(res.data);
 
-          if (location) {
-            setIsFirstRender(false);
-          }
-        })
-        .catch((err) => {
-          return err.response;
-        });
-    };
+  //         if (location) {
+  //           setIsFirstRender(false);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         return err.response;
+  //       });
+  //   };
 
-    fetchAds();
-  }, [currentPage, rate, active, location, categ, key, mostUsedKeys]);
+  //   fetchAds();
+  // }, [currentPage, rate, active, location, categ, key, mostUsedKeys]);
 
   useEffect(() => {
     let mostUsed = mostUse.map((most) => {
@@ -191,19 +194,21 @@ const Employed = () => {
   if (!flancersList?.data)
     return (
       <div
-        className="d-flex justify-content-center align-items-center w-100 "
-        style={{ height: "100vh" }}
+        style={{ height: "60vh" }}
+        className="position-relative d-flex justify-content-center align-items-center w-100 py-4"
       >
+        <div className="LT-logo-border-forwards-loading"></div>
         <div
-          className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-          style={{ width: "200px", height: "200px" }}
-        />
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
+        ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     );
 
   return (
     <>
-      <div className={cls.container}>
+      <div className={cls.container + ` ${loading ? "d-none" : ""}`}>
         <div className="d-flex"></div>
         <header className="d-flex justify-content-between align-items-center d-md-none container mb-3">
           <p className="m-0">جميع المشتغلين</p>
@@ -247,6 +252,15 @@ const Employed = () => {
                 );
               })}
             </div>
+          ) : loading ? (
+            <div className="position-relative d-flex justify-content-center align-items-center w-100 h-100 py-4">
+              <div className="LT-logo-border-forwards-loading"></div>
+              <div
+                className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+                style={{ width: "120px", height: "120px" }}
+              ></div>
+              <div className="LT-logo-border-backwards-loading"></div>
+            </div>
           ) : (
             <div
               className="d-flex flex-column justify-content-center align-items-center w-100"
@@ -275,6 +289,20 @@ const Employed = () => {
             />
           </Stack>
         </div>
+      </div>
+
+      <div
+        style={{ height: "60vh" }}
+        className={`${
+          !loading ? "d-none" : ""
+        } position-relative d-flex justify-content-center align-items-center w-100 py-4`}
+      >
+        <div className="LT-logo-border-forwards-loading"></div>
+        <div
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
+        ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     </>
   );

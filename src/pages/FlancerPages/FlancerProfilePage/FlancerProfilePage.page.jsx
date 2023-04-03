@@ -110,7 +110,7 @@ const FlancerProfilePage = ({ data }) => {
                         border: "#E9E9E9 solid 1px",
                       }}
                     >
-                      <FlancerAdvsGridCards data={advs} />
+                      <FlancerAdvsGridCards samllCard data={advs} />
                     </NavLink>
                   );
                 })}

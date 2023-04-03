@@ -30,7 +30,7 @@ const OfferPriceInfo = ({ data }) => {
   const handleClick = () => {
     const formData = {
       title: taskFormData.title,
-      description: content?.value,
+      description: content,
     };
     localStorage.setItem("TD", JSON.stringify(formData));
   };
@@ -129,7 +129,7 @@ const OfferPriceInfo = ({ data }) => {
               name={"title"}
               onChange={handleChange}
               className="form-control uLT-f-radius-sB"
-              placeholder="علي سبيل المثال , ببناء موقع علي شبكة الانترنت"
+              placeholder=""
             />
           </div>
           {/* Offer Price TextArea */}

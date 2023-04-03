@@ -29,6 +29,7 @@ import { getRoleUser } from "../../../core/redux/reducers/Role/RoleReducer.core"
 import { Form } from "react-bootstrap";
 
 const Navbar = ({ isNotification, setIsNotification, notificayionNums }) => {
+  const [currentTarget, setCurrentTarget] = useState("");
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [loginCheck, setLoginCheck] = useState(false);
 
@@ -63,14 +64,17 @@ const Navbar = ({ isNotification, setIsNotification, notificayionNums }) => {
     {
       name: "الاعلانات",
       route: `advertising/page=${1}`,
+      placeholder: "اعلانات المشتغلين",
     },
     {
       name: "الطلبات",
       route: `orders/page=${1}`,
+      placeholder: "طلبات المستخدمين",
     },
     {
       name: "المشتغلين",
       route: `employed/page=${1}`,
+      placeholder: "السيره الذكيه للمشتغلين",
     },
   ];
 
@@ -367,6 +371,11 @@ const Navbar = ({ isNotification, setIsNotification, notificayionNums }) => {
           >
             {pages.map((page, ix) => (
               <NavLink
+                onMouseEnter={() => setCurrentTarget(page.name)}
+                onMouseLeave={() => setCurrentTarget("")}
+                style={{
+                  position: "relative",
+                }}
                 key={ix}
                 onClick={handleCloseNavMenu}
                 className={(navData) =>
@@ -376,7 +385,25 @@ const Navbar = ({ isNotification, setIsNotification, notificayionNums }) => {
                 }
                 to={page.route}
               >
-                {page.name}
+                <span>{page.name}</span>
+
+                {page.placeholder && currentTarget === page.name && (
+                  <span
+                    style={{
+                      whiteSpace: "nowrap",
+                      display: "block",
+                      position: "absolute",
+                      top: "170%",
+                      background: "#fff",
+                      padding: "3px 7px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                    }}
+                    class="border rounded-3 text-muted"
+                  >
+                    {page?.placeholder}
+                  </span>
+                )}
               </NavLink>
             ))}
           </Box>

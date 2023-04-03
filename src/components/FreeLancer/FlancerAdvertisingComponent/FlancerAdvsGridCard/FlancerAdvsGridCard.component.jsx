@@ -2,7 +2,8 @@ import "./FlancerAdvsGridCard.component.scss";
 import AdvsImage from "../../../../assets/images/Advs-image.webp";
 import FlancerPersonalInformationComponent from "../../fLancerProfile/FlancerPersonalInformation/FlancerPersonalInformation.component";
 import { useLocation } from "react-router-dom";
-const FlancerAdvsGridCards = ({ data }) => {
+
+const FlancerAdvsGridCards = ({ data, samllCard }) => {
   const location = useLocation();
   return (
     <>

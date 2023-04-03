@@ -413,7 +413,7 @@ const FlancerOfferPriceForm = ({ data }) => {
           />
           {/* List Card Rate */}
           <div className="d-flex justify-content-center align-items-start ">
-            <div className="ms-3">
+            <div className="ms-3 d-none d-md-block">
               <CircularStatic
                 num={parseInt(
                   data?.performance ? +arNumberConverter(data?.performance) : 0
@@ -504,7 +504,7 @@ const FlancerOfferPriceForm = ({ data }) => {
                 onChange={handleChange}
                 className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
                 type="text"
-                placeholder="30 يوم"
+                placeholder="24 ساعه"
               />
               {errMessage?.time && (
                 <p

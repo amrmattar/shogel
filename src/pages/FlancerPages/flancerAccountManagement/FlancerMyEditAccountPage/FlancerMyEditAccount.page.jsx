@@ -37,18 +37,9 @@ const FlancerMyEditAccountPage = ({
   const [isLangsAdded, setIsLangsAdded] = useState(false);
 
   //TODO Data from Reducers
-  const [
-    coreData,
-    userRole,
-    messages,
-    { convertToFreeLancerMode },
-    activeUserId,
-  ] = useSelector((state) => [
+  const [coreData, { convertToFreeLancerMode }] = useSelector((state) => [
     state.coreData,
-    state.userRole.userRole,
-    state.messages,
     state.convertToFreeLancerMode,
-    state.userData.id,
   ]);
 
   useEffect(() => {
@@ -98,45 +89,11 @@ const FlancerMyEditAccountPage = ({
     dispatch,
   ]);
 
-  const onToFreelancerChange = (e) => {
-    if (e.target.checked) {
-      dispatch(setConvertToFreeLancerMode(true));
-    } else {
-      dispatch(setConvertToFreeLancerMode(false));
-    }
-  };
-
   return (
     <div className="d-flex flex-column gap-4 px-0">
       <>
         {/* Personal Account [Title] */}
         <PageTitle title={"معلوماتك الشخصية"} />
-        {personalData?.role?.id == 2 && personalData?.id === activeUserId && (
-          <>
-            <div className="check-box d-flex justify-content-between align-items-center">
-              <div className="d-flex justify-content-center align-items-center">
-                <i
-                  style={{ width: 50, height: 50 }}
-                  className={`d-flex iLT-work-case-freelancer-btn gap-2 p-2  uLT-img-contain`}
-                />
-                <h2 className="fs-4 border-0 m-0 me-2 pb-0">اصبح مشتغل</h2>
-              </div>
-
-              <input
-                onChange={onToFreelancerChange}
-                style={{ width: 20, height: 20, accentColor: "#4b93b9" }}
-                type="checkbox"
-                name="be-freelancer"
-                id="be-freelancer"
-                className="mb-3"
-              />
-            </div>
-
-            <span className="text-muted small">
-              لتحويل حسابك علي منصه شغل برجاء التاكد من اختيار المجالات
-            </span>
-          </>
-        )}
 
         {/* Personal Account [Component] */}
         <FlancerEditPersonalAccountComponent
@@ -187,7 +144,7 @@ const FlancerMyEditAccountPage = ({
           {/* Certificates [Section] */}
           <>
             {/* Certificates [Title] */}
-            <PageTitle title={"الشهادات والدورات"} />
+            <PageTitle title={"الشهادات والدورات والمهارات"} />
             {/* Certificates [Component] */}
             <FlancerEditCertificatesComponent data={personalData?.skill} />
           </>

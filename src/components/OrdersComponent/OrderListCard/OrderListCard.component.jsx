@@ -55,12 +55,14 @@ const OrderListCardComponent = ({
         </div>
         {allText ? (
           <div
+            style={{ wordBreak: "normal" }}
             className={`${cls.description} text-muted small mb-3 allowed-wrap`}
             dangerouslySetInnerHTML={{ __html: orderDescription }}
           />
         ) : (
           <div
-            className={`${cls.description} ${cls.description_cut} text-muted small allowed-wrap`}
+            style={{ wordBreak: "normal" }}
+            className={`${cls.description} ${cls.description_cut_2line} text-muted small allowed-wrap`}
             dangerouslySetInnerHTML={{ __html: orderDescription }}
           />
         )}

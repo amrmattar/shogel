@@ -80,6 +80,7 @@ const treeToList = (arr) => {
 };
 
 const OrdersPage = () => {
+  const [loading, setLoading] = useState(true);
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -123,11 +124,9 @@ const OrdersPage = () => {
       return newData;
     });
   };
-
   const resetCateg = () => {
     setCateg([]);
   };
-
   const resetMost = () => {
     setMostUseId([]);
   };
@@ -136,6 +135,7 @@ const OrdersPage = () => {
 
   const listOfUsersOrder = useMemo(() => {
     clearTimeout(timeRef.current);
+
     timeRef.current = setTimeout(() => {
       const body = new FormData();
       body.set("perPage", 10);
@@ -154,6 +154,7 @@ const OrdersPage = () => {
 
           if (location) {
             setIsFirstRender(false);
+            setLoading(false);
           }
         })
         .catch((err) => {
@@ -219,40 +220,40 @@ const OrdersPage = () => {
     });
   }, [query, categories]);
 
-  useEffect(() => {
-    const fetchAds = async () => {
-      const body = new FormData();
-      body.set("perPage", 10);
-      body.set("pagination", true);
-      body.set("page", currentPage || 1);
-      body.set("search", true);
-      body.set("name", key);
+  // useEffect(() => {
+  //   const fetchAds = async () => {
+  //     const body = new FormData();
+  //     body.set("perPage", 10);
+  //     body.set("pagination", true);
+  //     body.set("page", currentPage || 1);
+  //     body.set("search", true);
+  //     body.set("name", key);
 
-      body.set("category", categ);
-      body.set("price", price);
-      body.set("location", location);
-      body.set("type_work", attendeesStatus);
+  //     body.set("category", categ);
+  //     body.set("price", price);
+  //     body.set("location", location);
+  //     body.set("type_work", attendeesStatus);
 
-      body.set("freelancer", mostUsedKeys?.freelancer);
-      body.set("compnay", mostUsedKeys?.compnay);
-      body.set("near", mostUsedKeys?.near);
+  //     body.set("freelancer", mostUsedKeys?.freelancer);
+  //     body.set("compnay", mostUsedKeys?.compnay);
+  //     body.set("near", mostUsedKeys?.near);
 
-      return userOfferPrice
-        ._POST_AllOrderListV2(body)
-        .then((res) => {
-          setUserOfferDetatils(res.data.data);
+  //     return userOfferPrice
+  //       ._POST_AllOrderListV2(body)
+  //       .then((res) => {
+  //         setUserOfferDetatils(res.data.data);
 
-          if (location) {
-            setIsFirstRender(false);
-          }
-        })
-        .catch((err) => {
-          return err.response;
-        });
-    };
+  //         if (location) {
+  //           setIsFirstRender(false);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         return err.response;
+  //       });
+  //   };
 
-    fetchAds();
-  }, [categ, key, location, price, currentPage, attendeesStatus, mostUsedKeys]);
+  //   fetchAds();
+  // }, [categ, key, location, price, currentPage, attendeesStatus, mostUsedKeys]);
 
   useEffect(() => {
     let mostUsed = mostUse.map((most) => {
@@ -273,19 +274,21 @@ const OrdersPage = () => {
   if (!userOfferDetatils)
     return (
       <div
-        className="d-flex justify-content-center align-items-center w-100 "
-        style={{ height: "100vh" }}
+        style={{ height: "60vh" }}
+        className="position-relative d-flex justify-content-center align-items-center w-100 py-4"
       >
+        <div className="LT-logo-border-forwards-loading"></div>
         <div
-          className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-          style={{ width: "200px", height: "200px" }}
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
         ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     );
 
   return (
     <>
-      <div className={cls.container}>
+      <div className={cls.container + ` ${loading ? "d-none" : ""}`}>
         <div className="d-flex"></div>
         <header className="d-flex justify-content-between align-items-center d-md-none container mb-3">
           <p className="m-0">جميع الطلبات</p>
@@ -341,10 +344,22 @@ const OrdersPage = () => {
                       orderTitle={offer?.name}
                       orderStyle={"uLT-bd-b-platinum-sA"}
                       orderStatus={offer?.status?.name}
-                    />{" "}
+                    />
                   </NavLink>
                 );
               })}
+            </div>
+          ) : loading ? (
+            <div
+              style={{ height: "50vh" }}
+              className="position-relative d-flex justify-content-center align-items-center w-100 h-100 py-4"
+            >
+              <div className="LT-logo-border-forwards-loading"></div>
+              <div
+                className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+                style={{ width: "120px", height: "120px" }}
+              ></div>
+              <div className="LT-logo-border-backwards-loading"></div>
             </div>
           ) : (
             <div
@@ -376,6 +391,20 @@ const OrdersPage = () => {
             />
           </Stack>
         </div>
+      </div>
+
+      <div
+        style={{ height: "60vh" }}
+        className={`${
+          !loading ? "d-none" : ""
+        } position-relative d-flex justify-content-center align-items-center w-100 py-4`}
+      >
+        <div className="LT-logo-border-forwards-loading"></div>
+        <div
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
+        ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     </>
   );

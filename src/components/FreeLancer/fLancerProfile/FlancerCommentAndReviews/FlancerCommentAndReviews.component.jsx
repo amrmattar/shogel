@@ -9,7 +9,7 @@ const FlancerCommentAndReviews = ({ reviews, elem }) => {
       {/* Review Card [Holder] */}
       <div className="uLT-bd-f-platinum-sA uLT-f-radius-sB p-4 mb-4 LT-review-card">
         {/* Card [Title] */}
-        <p className="mb-0 fLT-Bold-sm-sA pb-2">{elem.comment}</p>
+        <p className="mb-0 fLT-Bold-sm-sA pb-2">{elem?.done_by?.fullname}</p>
         <div className="d-flex justify-content-start aling-items-center">
           <div style={{ display: "flex" }}>
             <Rating

@@ -354,7 +354,7 @@ const FlancerEmployedOfferComponent = ({
                   ></i>
                   <p className="mb-0 cLT-support2-text fLT-Regular-sB">
                     {" "}
-                    قيمة اعلان{" "}
+                    قيمة العرض{" "}
                   </p>
                 </div>
                 {checkEdit === true ? (
@@ -404,7 +404,7 @@ const FlancerEmployedOfferComponent = ({
                 )}
               </div>
             </div>
-            {data?.status?.id == 10 && (
+            {data?.status?.id == 8 && (
               <div className=" d-flex justify-content-center justify-content-md-end align-items-center cLT-support-text ">
                 <p className="fLT-Regular-sD m-0  uLT-f-radius-sB uLT-bd-f-gray-sA px-4 py-2">
                   تم الرفــــــض
@@ -420,7 +420,7 @@ const FlancerEmployedOfferComponent = ({
             ) : (
               <>
                 {isMyTask &&
-                  data?.status?.id !== 10 &&
+                  data?.status?.id !== 8 &&
                   data?.status?.id !== 4 && (
                     <div className="LT-Button-style d-flex justify-content-center align-items-center gap-2 ">
                       <ButtonShare

@@ -67,7 +67,10 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
   return (
     <>
       {/* Certificate [Title] */}
-      <div className="fLT-Regular-sB cLT-support2-text mb-3">اللغة </div>
+      <div className="fLT-Regular-sB cLT-support2-text mb-3">
+        ننصح بأضافة اللغه الام ولغه اخري تجيدها ثم حدد مستوي الكفائه واضغط علي
+        اضافة{" "}
+      </div>
       <Row className="mb-3 d-flex align-items-center gap-4  m-0">
         {/* Certificate Input  [Section] */}
         <Form.Group as={Col} md={5} className="px-0">
@@ -166,7 +169,7 @@ const FlancerLanguageSkillsComponent = ({ langRequired, langRef }) => {
             <p className="mb-0 fLT-Bold-sC cLT-secondary-text">+</p>
             <ButtonShare
               nohover
-              innerText="اضف مهارة"
+              innerText="اضف لغة"
               textClasses="fLT-Regular-sD cLT-secondary-text px-0 py-0"
               btnClasses="px-0"
             />

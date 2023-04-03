@@ -436,8 +436,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
           {/* Description Request [Section] */}
           <div className="LT-details-request position-relative">
             <Form.Label className="form-label fLT-Bold-sA cLT-main-text m-0">
-              {" "}
-              اكتب تفاصيل عرض السعر
+              اكتب تفاصيل الطلب
             </Form.Label>
             <TextEditorShared
               setDescription={setContent}
@@ -481,7 +480,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                   onChange={handleChange}
                   className="uLT-bd-f-platinum-sA uLT-f-radius-sB"
                   type="text"
-                  placeholder="30 يوم"
+                  placeholder="24 ساعة"
                 />
                 {errMessage?.time && (
                   <p
@@ -571,7 +570,7 @@ const OfferUpdateFormComponent = ({ taskId }) => {
                       ? formData?.address
                       : loadTaskData?.address
                   }
-                  placeholder="العنوان بالتفصيل"
+                  placeholder="(المدينة-الشارع-رقم المبنى-معلم بارز)"
                 />
               </Form.Group>
             </Row>

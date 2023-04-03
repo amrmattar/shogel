@@ -89,7 +89,7 @@ const SideOrderDetailsPage = ({ data, isUser, offerRefresh }) => {
             <p className="fLT-Bold-sA text-nowrap">صاحب الطلب</p>
             <FlancerPersonalInformationComponent
               myData={data?.user}
-              statusIcon={<div className="uLT-status-online"></div>}
+              statusIcon={<div className="uLT-status-online" />}
             />
           </div>
         );

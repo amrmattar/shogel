@@ -198,9 +198,7 @@ const OrderDetailsPage = () => {
 
   const startChat = () => {
     window.open(
-      `https://api.whatsapp.com/send/?phone=${
-        offerPriceTaskData?.user?.mobile
-      }&text=${"https://shogol.sa/"}`
+      `https://api.whatsapp.com/send/?phone=${`+${offerPriceTaskData?.user?.country_code}${offerPriceTaskData?.user?.mobile}`}&text=${"https://shogol.sa/"}`
     );
   };
 
@@ -265,14 +263,13 @@ const OrderDetailsPage = () => {
   // Condition For Show Loading Style Untill Data Return From API
   if (!offerPriceTaskData) {
     return (
-      <div
-        className="d-flex justify-content-center align-items-center w-100 "
-        style={{ height: "100vh" }}
-      >
+      <div className="position-relative d-flex justify-content-center align-items-center w-100 h-100 py-4">
+        <div className="LT-logo-border-forwards-loading"></div>
         <div
-          className="imLT-main-logo uLT-img-contain uLT-f-radius-sB img-fluid uLT-f-radius-sB"
-          style={{ width: "200px", height: "200px" }}
-        />
+          className="iLT-shogol-logo App-logo-animation uLT-img-contain uLT-f-radius-sB img-fluid~ uLT-f-radius-sB"
+          style={{ width: "120px", height: "120px" }}
+        ></div>
+        <div className="LT-logo-border-backwards-loading"></div>
       </div>
     );
   }
@@ -303,16 +300,18 @@ const OrderDetailsPage = () => {
                 className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
               >
                 <i className={`iLT-flancer-email uLT-img-contain iLT-sC`} />
-                <p>الدردشه</p>
+                {/* <p className="text-muted">الدردشه</p> */}
               </div>
               <div
                 onClick={() =>
-                  copyPhoneNumber(offerPriceTaskData?.user?.mobile)
+                  copyPhoneNumber(
+                    `+${offerPriceTaskData?.user?.country_code}${offerPriceTaskData?.user?.mobile}`
+                  )
                 }
                 className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
               >
                 <i className={`iLT-flancer-mobile uLT-img-contain iLT-sC`}></i>
-                <p>اتصال</p>
+                {/* <p className="text-muted">اتصال</p> */}
               </div>
               <Toast
                 onClose={() => setCopyMobile(false)}
@@ -329,7 +328,7 @@ const OrderDetailsPage = () => {
                 <i
                   className={`iLT-flancer-whatsApp uLT-img-contain iLT-sC`}
                 ></i>
-                <p>واتساب</p>
+                {/* <p className="text-muted">واتساب</p> */}
               </div>
               <CopyToClipboard text={`${window.location.href}`}>
                 <div
@@ -337,7 +336,7 @@ const OrderDetailsPage = () => {
                   className="uLT-advs-contact uLT-click hova  d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
                 >
                   <i className={`iLT-flancer-share uLT-img-contain iLT-sC`}></i>
-                  <p>مشاركة</p>
+                  {/* <p className="text-muted">مشاركة</p> */}
                 </div>
               </CopyToClipboard>
               <Toast
@@ -541,16 +540,18 @@ const OrderDetailsPage = () => {
                 className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
               >
                 <i className={`iLT-flancer-email uLT-img-contain iLT-sC`} />
-                <p>الدردشه</p>
+                <p className="text-muted">الدردشه</p>
               </div>
               <div
                 onClick={() =>
-                  copyPhoneNumber(offerPriceTaskData?.user?.mobile)
+                  copyPhoneNumber(
+                    `+${offerPriceTaskData?.user?.country_code}${offerPriceTaskData?.user?.mobile}`
+                  )
                 }
                 className="uLT-advs-contact hova uLT-click d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
               >
                 <i className={`iLT-flancer-mobile uLT-img-contain iLT-sC`}></i>
-                <p>اتصال</p>
+                <p className="text-muted">اتصال</p>
               </div>
               <Toast
                 onClose={() => setCopyMobile(false)}
@@ -567,7 +568,7 @@ const OrderDetailsPage = () => {
                 <i
                   className={`iLT-flancer-whatsApp uLT-img-contain iLT-sC`}
                 ></i>
-                <p>واتساب</p>
+                <p className="text-muted">واتساب</p>
               </div>
               <CopyToClipboard text={`${window.location.href}`}>
                 <div
@@ -575,7 +576,7 @@ const OrderDetailsPage = () => {
                   className="uLT-advs-contact uLT-click hova  d-flex justify-content-center align-items-center uLT-bd-f-secondary-sA uLT-f-radius-sB p-2"
                 >
                   <i className={`iLT-flancer-share uLT-img-contain iLT-sC`}></i>
-                  <p>مشاركة</p>
+                  <p className="text-muted">مشاركة</p>
                 </div>
               </CopyToClipboard>
               <Toast

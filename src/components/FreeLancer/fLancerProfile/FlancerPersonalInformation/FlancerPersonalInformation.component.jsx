@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import ButtonShare from "../../../../shared/Button/Button.shared";
 
 const FlancerPersonalInformationComponent = ({
@@ -12,7 +12,11 @@ const FlancerPersonalInformationComponent = ({
   const location = useLocation();
 
   return (
-    <div className="d-flex">
+    <Link
+      to={`/employed/freelancer-profile/${myData?.id}`}
+      className="d-flex text-decoration-none text-dark"
+      style={{ cursor: "pointer", width: "fit-content" }}
+    >
       <div className="d-flex">
         {myData?.to ? (
           <NavLink className={`text-decoration-none`} to={myData.to}>
@@ -164,7 +168,7 @@ const FlancerPersonalInformationComponent = ({
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 

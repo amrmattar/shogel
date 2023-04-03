@@ -63,7 +63,10 @@ const FlancerEditCertificatesComponent = () => {
   return (
     <>
       {/* Certificate [Title] */}
-      <div className="fLT-Regular-sB cLT-support2-text mb-3">المهارة </div>
+      <div className="fLT-Regular-sB cLT-support2-text mb-3">
+        اكتب اسم الشهادة او الدوره او المهاره التي لديك ثم حدد مستوي الكفائه
+        واضغط علي اضافة{" "}
+      </div>
       <Row className="mb-3 d-flex align-items-center gap-4  m-0">
         {/* Certificate Input  [Section] */}
         <Form.Group as={Col} md={5} className="px-0">

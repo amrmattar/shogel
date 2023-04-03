@@ -271,6 +271,14 @@ const AsideFreelancerPage = ({
     //   });
   };
 
+  const onToFreelancerChange = (e) => {
+    if (e.target.checked) {
+      dispatch(setConvertToFreeLancerMode(true));
+    } else {
+      dispatch(setConvertToFreeLancerMode(false));
+    }
+  };
+
   return (
     <>
       <UserFeedBackShared
@@ -492,6 +500,35 @@ const AsideFreelancerPage = ({
         </div>
         {/* Side Navigator Selector Component */}
         <div className="w-100">{selector}</div>
+
+        {userData?.role?.id == 2 &&
+          userData?.id === activeUserId &&
+          location.pathname.includes(`account_management/my-edit-account/`) && (
+            <div style={{ width: "85%" }}>
+              <div className="check-box d-flex justify-content-between align-items-center mt-2">
+                <div className="d-flex justify-content-center align-items-center">
+                  <i
+                    style={{ width: 50, height: 50 }}
+                    className={`d-flex iLT-work-case-freelancer-btn gap-2 p-2  uLT-img-contain`}
+                  />
+                </div>
+
+                <input
+                  onChange={onToFreelancerChange}
+                  style={{ width: 20, height: 20, accentColor: "#4b93b9" }}
+                  type="checkbox"
+                  name="be-freelancer"
+                  id="be-freelancer"
+                />
+              </div>
+
+              <p className="mb-2 mt-3 fw-bold">قم بترقية حسابك ل مشتغل</p>
+
+              <span className="text-muted small">
+                واستفد من كامل خدمات المنصه.
+              </span>
+            </div>
+          )}
       </div>
 
       <Modal
