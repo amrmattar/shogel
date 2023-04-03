@@ -98,7 +98,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="" style={{ minHeight: "100vh" }}>
+      <div className="" style={{ minHeight: "100vh", overflowX: "hidden" }}>
         <ViewLayout
           isNotification={isNotification}
           setIsNotification={setIsNotification}

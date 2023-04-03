@@ -2,6 +2,7 @@ import "./FlancerCommentAndReviews.component.scss";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { arNumberConverter } from "../../../../utils/arNumberConverter";
+import { Link } from "react-router-dom";
 
 const FlancerCommentAndReviews = ({ reviews, elem }) => {
   return (
@@ -9,8 +10,14 @@ const FlancerCommentAndReviews = ({ reviews, elem }) => {
       {/* Review Card [Holder] */}
       <div className="uLT-bd-f-platinum-sA uLT-f-radius-sB p-4 mb-4 LT-review-card">
         {/* Card [Title] */}
-        <p className="mb-0 fLT-Bold-sm-sA pb-2">{elem?.done_by?.fullname}</p>
-        <div className="d-flex justify-content-start aling-items-center">
+        <Link
+          className="text-dark text-decoration-none"
+          style={{ width: "fit-content" }}
+          to={`/employed/freelancer-profile/${elem?.done_by?.id}`}
+        >
+          <span className="fLT-Bold-sm-sA pb-2">{elem?.done_by?.fullname}</span>
+        </Link>
+        <div className="d-flex justify-content-start aling-items-center mt-3">
           <div style={{ display: "flex" }}>
             <Rating
               dir="ltr"

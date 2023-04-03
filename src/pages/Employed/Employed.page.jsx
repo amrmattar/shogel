@@ -175,6 +175,8 @@ const Employed = () => {
   //   fetchAds();
   // }, [currentPage, rate, active, location, categ, key, mostUsedKeys]);
 
+  console.log(flancersList);
+
   useEffect(() => {
     let mostUsed = mostUse.map((most) => {
       return {

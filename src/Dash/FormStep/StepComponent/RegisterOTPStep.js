@@ -132,12 +132,13 @@ const RegisterOTPStep = (props) => {
         <form className="LT-RegisterOTP-holder gap-3 ">
           <div className="LT-otp-input">
             <OtpInput
-              shouldAutoFocus={true}
+              shouldAutoFocus
+              isInputNum
               key={"otp"}
+              placeholder={"____"}
               numInputs={4}
               value={code}
               onChange={handleChange}
-              placeholder={"____"}
             />
           </div>
           <div className="LT-reSend-code d-flex align-items-center justify-content-start gap-3 three">

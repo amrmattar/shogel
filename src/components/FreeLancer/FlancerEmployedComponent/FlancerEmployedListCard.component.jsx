@@ -68,7 +68,7 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
       <div className="LT-employed-listCard-grid uLT-bd-f-platinum-sA uLT-f-radius-sB ">
         {/*  FreeLancer [Icon - Circel] */}
         <div
-          className="LT-employed-icon "
+          className="LT-employed-icon"
           style={{ width: "42px", height: "42px" }}
         >
           <FlancerPersonalInformationComponent
@@ -142,7 +142,6 @@ const FlancerEmployedListCard = ({ data, small, to }) => {
         <div className="LT-employed-amenties">
           <div className="row card-body amentiesWithLocation p-0 w-100">
             {/* Amenties Holder */}
-            {console.log(data?.category)}
             <div className="col-9 LT-amenties-grid flex-wrap">
               {data?.category?.slice(0, 3)?.map((category) => {
                 return (
