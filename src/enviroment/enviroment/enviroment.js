@@ -13,7 +13,7 @@ export const API = axios.create({
   headers: {
     Authorization: tk.replaceAll('"', ""),
   },
-  baseURL: `https://shogol.sa/Admin/api/`,
+  // baseURL: `https://shogol.sa/Admin/api/`,
   // baseURL: `https://test.shogol.sa/Admin/api/`,
-  // baseURL: `https://uat.shogol.sa/Admin/api/`,
+  baseURL: `https://uat.shogol.sa/Admin/api/`,
 });
